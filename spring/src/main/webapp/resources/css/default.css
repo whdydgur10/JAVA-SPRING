@@ -1,0 +1,30 @@
+@charset "utf-8";
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+a{
+    color: black;
+}
+a:hover{
+    text-decoration: underline;
+}
+body{
+    min-width: 1190px;
+    line-height: 16px;
+    font-size: 12px;
+    color: #202020;
+}
+/* 전체 최소 사이즈 */
+.container{
+    width: 1190px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 30px;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+}
+/* 단위기준 가로 기준점 잡기 */

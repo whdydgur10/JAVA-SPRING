@@ -1,0 +1,59 @@
+@charset 'utf-8';
+.bg-44265f, .close-banner-whale:after, .set-homepage:after, .link-happybean:hover, .menu-filter::after, .set-menu::before
+,.close-box-menu-filter::before, .box-menu-filter-right::before, .reset-checklist::before, .box-news-title::after
+,.box-newstand-title::before, .box-newstand-title::after, .set-press-two-change, .set-press-two set, .sub-press-list-name::after
+,.make-id::before, .find::before, .rate-down::before, .text-dgree-min::before, .set-theme::before{
+    background-image: url(https://s.pstatic.net/static/www/img/uit/2020/sp_main.44265f.png);
+    background-repeat: no-repeat;
+    background-size: 471px 442px;
+}
+/* 배경이미지 클래스 */
+.timesquare-content2::before{
+    background-image: url(https://s.pstatic.net/static/www/img/uit/2020/sp_weather_time.284fc7.png);
+    background-repeat: no-repeat;
+    background-size: 199px 165px;
+}
+.page-prev-btn::before ,.page-next-btn::before{
+    background-image: url(https://s.pstatic.net/static/www/img/uit/2020/sp_shop.2ab465.png);
+    background-repeat: no-repeat;
+    background-size: 44px 38px;
+}
+.login-footer::after, .theme-type-title::after, .box-shopping-head::after, .box-shoppingmall-name::after{
+    clear: both;
+    content: '';
+    display: block;
+}
+.display-none{
+    display: none !important;
+}
+/* !important 우선순위 무시 무조건 적용 */
+.display-block{
+    display: block;
+}
+.display-inline-block{
+    display: inline-block;
+}
+.display-table{
+    display: table;
+}
+.auto-icon-change{
+    background-position: -361px -308px;
+}
+.checkbox-icon-change{ 
+    background-position: -22px -404px;
+}
+.font-weight-bold{
+    font-weight: bold;
+}
+.font-weight-defualt{
+    font-weight: 0;
+}
+.set-press-one-change{
+    background-position: -96px -427px;
+}
+.set-press-two-change{
+    background-position: -458px -62px;
+}
+.letter-spacing{
+    letter-spacing: -.2px;
+}

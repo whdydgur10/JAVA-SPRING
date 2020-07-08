@@ -1,0 +1,80 @@
+@charset 'utf-8';
+.box-whale{
+    height: 49px;
+    width: 100%;
+    background-color: rgb(0, 203, 184);
+}
+/* whale광고 기준사이즈 잡기 */
+.link-whale{
+    display: block;
+    width: 100%;
+    height: 49px;
+}
+.icon-whale{
+    display: block;
+    margin-top: 9px;
+    width: 110px;
+    height: 30px;
+    background-image: url(https://s.pstatic.net/static/www/img/uit/2020/sp_main.44265f.png);
+    background-repeat: no-repeat;
+    background-size: 471px 442px;
+    background-position: -276px -225px;
+    float: left;
+}
+.img-banner-whale{
+    display: block;
+    float: left;
+    margin-left: 120px;
+    
+}
+.text-banner-whale{
+    float: left;
+    left: 400px;
+    font-size: 13px;
+    color: white;
+    line-height: 49px;
+    margin-left: 8px;
+    height: 49px;
+    letter-spacing: -0.25px;
+    position: absolute;
+}
+.text-banner-whale>strong{
+    text-decoration: underline;
+}
+.down-banner-whale{
+    font-size: 11px;
+    width: 68px;
+    height: 28px;
+    display: inline-block;
+    background-color: rgb(255, 241, 192);
+    color: rgb(0, 203, 184);
+    border: none;
+    margin-left: 20px;
+    border-radius: 2px;
+    letter-spacing: -1px;
+    line-height: 28px;
+}
+.close-banner-whale{
+    height: 49px;
+    font-size: 11px;
+    color: white;
+    background-color: transparent;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    top: 0;
+    right: 0;
+    position: absolute;
+    font-family: -apple-system,BlinkMacSystemFont,'Malgun Gothic','맑은 고딕',helvetica,'Apple SD Gothic Neo',sans-serif;
+}
+.close-banner-whale:after{
+    width: 23px;
+    height: 23px;
+    display: inline-block;
+    background-position: -429px -116px;
+    content: '';
+    margin: -5px 0 0 4px;
+    vertical-align: top;
+    
+}
+/* after쓰는 방법 */

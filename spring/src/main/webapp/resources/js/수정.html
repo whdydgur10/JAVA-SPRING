@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/jquery.js"></script>
+    <style>
+        .bg-44265f{
+            background-image: url(https://s.pstatic.net/static/www/img/uit/2020/sp_main.44265f.png);
+    background-repeat: no-repeat;
+    background-size: 471px 442px;
+        }
+.box-container-main{
+    height: 2809px;
+    padding: 20px 30px;
+}
+.box-left-main{
+    width: 750px;
+    height: 100%;
+    box-sizing: border-box;
+    float: left;
+}
+.box-news{
+    margin-top: 12px;
+    width: 750px;
+}
+.box-news a:hover{
+    text-decoration: none;
+}
+.box-news-auto{
+    background-color: rgb(247, 249, 250);
+    border: 1px solid rgb(222, 226, 229);
+    padding: 12px 15px 11px 15px;
+    font-size: 13px;
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+}
+.box-news-title, .box-newstand-title{
+    font-weight: 700;
+}
+.box-news-title{
+    letter-spacing: -0.2px;
+    float: left;
+    margin-top: 2px;
+}
+.contents{
+    width: 310px;
+    margin-top: 2px;
+    height: 30px;
+    margin-left: 70px;
+    overflow: hidden;
+    white-space: nowrap;
+    /* 글이 2줄이상이 되어야하는 경우 한줄로 유지할 때 */
+    text-overflow: ellipsis;
+    /* 글이 짤린 경우 나타내는 표시 */
+}
+.box-news-content:hover{
+    text-decoration: underline !important;
+}
+.box-news-title::after, .box-newstand-title::after{
+    display: inline-block;
+    width: 6px;
+    height: 10px;
+    margin: 5px 0 0 6px;
+    content: '';
+    vertical-align: top;
+    background-position: -417px -90px;
+}
+.box-news-type{
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-weight: 700;
+}
+.navernews{
+    color: #3565c9;
+}
+.navernews::after, .sub-press::after{
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    margin-left: 8px;
+    content: '';
+    vertical-align: 3px;
+    border-radius: 50%;
+    background-color: #c8ccd1;
+}
+.box-newstand{
+    font-size: 14px;
+    padding: 22px 0 16px;
+}
+.box-newstand-title::before{
+    display: inline-block;
+    width: 27px;
+    height: 24px;
+    margin: -6px 1px 0 0;
+    content: '';
+    vertical-align: top;
+    background-position: -293px -357px;
+}
+.set-press{
+    float: right;
+    padding: 4px 0;
+}
+.set-press a{
+    margin: 0 8px;
+}
+.set-press-one{
+    display: inline-block;
+    width: 14px;
+    height: 13px;
+    vertical-align: top;
+    opacity: 0.7;
+    background-position: -77px -427px;
+}
+.set-press-one.set{
+    opacity: 1;
+    background-position: -96px -427px;
+}
+.set-press-one:hover{
+    opacity: 1;
+}
+.set-press-two{
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    vertical-align: top;
+    opacity: 0.7;
+    background-position: -458px -62px;
+}
+.set-press-two.set{
+    opacity: 1;
+    background-position: -458px -44px;
+}
+.set-press-two:hover{
+    opacity: 1;
+}
+.set-press-three{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin: -1px 0 1px;
+    vertical-align: top;
+    opacity: 0.7;
+    background-position: 0 -427px;
+}
+.set-press-three:hover{
+    opacity: 1;
+}
+.box-sub-press{
+    display: none;
+    /* display: inline-block; */
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #dae1e6;
+    border-bottom: 1px solid #dae1e6;
+}
+.box-sub-press-no{
+    padding: 69px 0 60px;
+}
+.box-sub-press-no-body{
+    font-size: 14px;
+    margin-top: 11px;
+}
+.box-sub-press-no-footer{
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #3565c9;
+    color: white;
+    height: 40px;
+    padding: 0 14px;
+    line-height: 40px;
+}
+.box-sub-press-yes{
+    display: none;
+    height: 260px;
+}
+.box-sub-press-yes-left{
+    float: left;
+    width: 163px;
+    height: 100%;
+    border-width: 0 1px;
+    border-style: solid;
+    border-color: #dae1e6;
+    background-color: #f7f9fa;
+}
+.sub-press-list{
+    background-color: #4063bd;
+    height: 34px;
+    margin: 15px 14px 16px;
+    padding: 0 14px 0 18px;
+    border-radius: 17px;
+    position: relative;
+    text-align: left;
+}
+.sub-press-list-name{
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 34px;
+    font-size: 13px;
+}
+.sub-press-list-name::after{
+    position: absolute;
+    top: 13px;
+    right: 14px;
+    display: inline-block;
+    width: 6px;
+    height: 8px;
+    content: '';
+    vertical-align: top;
+    background-position: -417px -161px;
+}
+.sub-press-list-name:hover{
+    text-decoration: underline !important;
+}
+.box-sub-press-yes-right{
+    padding: 17px 24px;
+}
+.box-all-press{
+    border-left: 1px solid #dae1e6;
+    border-top: 1px solid #dae1e6;
+    width: 100%;
+    height: 260px;
+    position: relative;
+}
+.pre-side, .next-side{
+    position: absolute;
+    z-index: 10;
+    top: 109px;
+}
+.pre-side{
+    left: -27px;
+}
+.next-side{
+    right: -27px;
+}
+.icon-pre-side{
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    vertical-align: top;
+    background-position: 0 -308px;
+}
+.icon-next-side{
+    display: inline-block;
+    width: 44px;
+    height: 44px;
+    vertical-align: top;
+    background-position: -49px -308px;
+}
+.pre-side:hover .icon-pre-side{
+    background-position: -227px -161px;
+}
+.next-side:hover .icon-next-side{
+    background-position: -98px -308px;
+}
+.box-press{
+    height: 100%;
+    overflow: hidden;
+}
+.box-press-name{
+    display: block;
+    padding: 23px 0 22px;
+    width: 16.66%;
+    height: 65px;
+    box-sizing: border-box;
+    text-align: center;
+    border-right: 1px solid #dae1e6;
+    border-bottom: 1px solid #dae1e6;
+    float: left;
+    position: relative;
+    font-size: 0;
+}
+.press img{
+    height: 20px;
+}
+.box-choice-press{
+    position: absolute;
+    background-color: #f7f9fa;
+    overflow: hidden;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 19px 0 18px;
+}
+.box-choice-press a{
+    background-color: white;
+    border: 1px solid #dae1e6;
+    vertical-align: top;
+    display: inline-block;
+    padding: 5px 8px 5px;
+    color: #505050;
+}
+.uncheck-press{
+    display: none;
+}
+.box-uncheck-press{
+    position: absolute;
+    left: -1px;
+    top: 55px;
+    width: 220px;
+    z-index: 50;
+    border: 1px solid #dae1e6;
+    background-color: white;
+    text-align: center;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12);
+}
+.btn-close-uncheck{
+    position: absolute;
+    right: 1px;
+    top: 0;
+    cursor: pointer;
+}
+.icon-close-uncheck{
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    margin: 13px;
+    vertical-align: top;
+    background-position: -458px -376px;
+}
+.box-uncheck-press p{
+    padding: 21px 40px 17px;
+    line-height: 20px;
+}
+.uncheck-yes, .uncheck-no{
+    width: 110px;
+    display: block;
+    padding: 13px 0 11px;
+    border-top: 1px solid #e4e8eb;
+    box-sizing: border-box;
+    background-color: #f7f9fa;
+    float: left;
+}
+.uncheck-no{
+    border-left: 1px solid #e4e8eb;
+}
+.check-press:hover, .uncheck-press:hover, .go-press:hover{
+    border-color: #bec8d8;
+}
+
+    </style>
+</head>
+<body>
+    <div class="box-left-main">
+                <div class="box-news">
+                    
+                    <div class="box-newstand">
+                        <a href="https://newsstand.naver.com/" target="_black" class="box-newstand-title">뉴스스탠드</a>
+                        <a href="#" class="sub-press">구독한 언론사</a>
+                        <a href="#" class="all-press">전체언론사</a>
+                        <div class="set-press">
+                            <a href="#" class="btn-set"><i class="set-press-one bg-44265f"></i></a>
+                            <a href="#" class="btn-set"><i class="set-press-two bg-44265f set"></i></a>
+                            <a href="#" class="btn-set not"><i class="set-press-three bg-44265f"></i></a>
+                        </div>
+                    </div>
+                    <div class="box-sub-press">
+                        <div class="box-sub-press-no">
+                            <strong class="box-sub-press-no-head">구독한 언론사가 없습니다.</strong>
+                            <p class="box-sub-press-no-body">언론사 구독 설정에서 관심있는 언론사를 구독하시면<br>
+                                언론사가 직접 편집한 뉴스들을 네이버 홈에서 바로 보실 수 있습니다.</p>
+                            <a href="#" class="box-sub-press-no-footer">언론사 구독 설정하기</a>
+                        </div>
+                        <!-- <div class="box-sub-press-yes">
+                            <div class="box-sub-press-yes-left">
+                                <div class="sub-press-list"><a href="#" class="sub-press-list-name">조선일보</a></div>
+                            </div>
+                            <div class="box-sub-press-yes-right">
+
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="box-all-press">
+                        <a href="#" class="pre-side"><i class="icon-pre-side bg-44265f"></i></a>
+                        <a href="#" class="next-side"><i class="icon-next-side bg-44265f"></i></a>
+                        <div class="box-press">
+                            <div class="press">
+                                <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/038.png" alt="한국일보">한국일보</a>
+                                    <div class="box-choice-press">
+                                        <a href="#" class="check-press">구독</a>
+                                        <a href="#" class="uncheck-press">해지</a>
+                                        <a href="https://newsstand.naver.com/?list=&pcode=038" target="_blank" class="go-press">기사보기</a>
+                                    </div>
+                                    <div class="box-uncheck-press">
+                                        <div class="btn-close-uncheck">
+                                            <i class="icon-close-uncheck bg-44265f"></i>
+                                        </div>
+                                        <p><strong class="uncheck-press-name"></strong><strong>을(를)</strong><br>
+                                        구독해지 하시겠습니까?</p>
+                                        <a href="#" class="uncheck-yes">확인</a>
+                                        <a href="#" class="uncheck-no">취소</a>
+                                    </div>
+                                </div>
+                                <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/009.png" alt="매일경제">매일경제</a>
+                                    <div class="box-choice-press">
+                                        <a href="#" class="check-press">구독</a>
+                                        <a href="#" class="uncheck-press">해지</a>
+                                        <a href="https://newsstand.naver.com/?list=ct1&pcode=009" target="_blank" class="go-press">기사보기</a>
+                                    </div>
+                                </div>
+                                <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/021.png" alt="문화일보">문화일보</a>
+                                    <div class="box-choice-press">
+                                        <a href="#" class="check-press">구독</a>
+                                        <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=021" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/023.png" alt="조선일보">조선일보</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=023" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/047.png" alt="오마이뉴스">오마이뉴스</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=047" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/904.png" alt="JTBC">JTBC</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=904" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/002.png" alt="프레시안">프레시안</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=002" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/092.png" alt="지디넷코리아">지디넷코리아</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/056.png" alt="KBS">KBS</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/073.png" alt="스포츠서울">스포츠서울</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/368.png" alt="데일리안">데일리안</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/016.png" alt="헤럴드경제">헤럴드경제</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=016" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/139.png" alt="스포탈코리아">스포탈코리아</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=139" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/015.png" alt="한국경제">한국경제</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/020.png" alt="동아일보">동아일보</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=020" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/968.png" alt="한국금융신문">한국금융신문</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/802.png" alt="스포츠Q">스포츠Q</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/979.png" alt="약사공론">약사공론</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/923.png" alt="인민망">인민망</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/384.png" alt="한국대학신문">한국대학신문</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=384" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/340.png" alt="OBS">OBS</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/915.png" alt="르몽드 디폴르마티크">르몽드 디폴르마티크</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/356.png" alt="게임메카">게임메카</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/094.png" alt="월간산">월간산</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=094" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="press">
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/422.png" alt="연합뉴스TV">연합뉴스TV</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/308.png" alt="시사인">시사인</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/003.png" alt="뉴시스">뉴시스</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/032.png" alt="경향신문">경향신문</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/up/2020/0610/nsd151458769.png" alt="OSEN">OSEN</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/312.png" alt="텐아시아">텐아시아</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/362.png" alt="자동차생활">자동차생활</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/807.png" alt="인사이트코리아">인사이트코리아</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/040.png" alt="코리아타임스"">코리아타임스</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/981.png" alt="TBS교통방송">TBS교통방송</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/902.png" alt="TV조선">TV조선</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/944.png" alt="나우뉴스">나우뉴스</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/977.png" alt="헬로디디"">헬로디디</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/028.png" alt="한겨레">한겨레</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=948" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/440.png" alt="티브이데일리">티브이데일리</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/327.png" alt="뉴데일리">뉴데일리</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/006.png" alt="미디어오늘">미디어오늘</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/376.png" alt="지지통신">지지통신</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/214.png" alt="MBC">MBC</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=&pcode=214" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/030.png" alt="전자신문">전자신문</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/014.png" alt="파이낸셜뉴스">파이낸셜뉴스</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/052.png" alt="YTN">YTN</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/117.png" alt="마이데일리">마이데일리</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/314.png" alt="스포츠동아">스포츠동아</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=016" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="press">
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/005.png" alt="국민일보">국민일보</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/293.png" alt="블로터">블로터</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=016" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/982.png" alt="이코노미조선">이코노미조선</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/355.png" alt="사이언스타일즈">사이언스타일즈</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/075.png" alt="맥스무비">맥스무비</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/911.png" alt="농민신문">농민신문</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/076.png" alt="스포츠조선">스포츠조선</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/921.png" alt="아주경제">아주경제</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/990.png" alt="주간조선">주간조선</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/346.png" alt="헬스조선">헬스조선</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=346" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/988.png" alt="이웃집과학자">이웃집과학자</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/965.png" alt="전기신문">전기신문</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=965" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/939.png" alt="브릿지경제">브릿지경제</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/396.png" alt="스포츠월드">스포츠월드</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/143.png" alt="쿠키뉴스">쿠키뉴스</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/815.png" alt="법률방송뉴스">법률방송뉴스</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=815" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/925.png" alt="일요신문">일요신문</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/144.png" alt="스포츠경향">스포츠경향</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/993.png" alt="허프포스트코리아">허프포스트코리아</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/932.png" alt="CEO스코어데일리">CEO스코어데일리</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/972.png" alt="PD저널">PD저널</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/277.png" alt="아시아경제">아시아경제</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=016" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/108.png" alt="스타뉴스">스타뉴스"</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/941.png" alt="초이스경제">초이스경제</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="press">
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/816.png" alt="시사오늘">시사오늘</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/416.png" alt="SBS연예스포츠">SBS연예스포츠</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/122.png" alt="법률신문">법률신문</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/934.png" alt="아리랑TV">아리랑TV</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/243.png" alt="이코노미스트">이코노미스트</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/814.png" alt="미주한국일보">미주한국일보</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=814" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/938.png" alt="그린포스트코리아">그린포스트코리아</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/989.png" alt="TBC">TBC</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/120.png" alt="EBN">EBN</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/903.png" alt="채널에이">채널에이</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/241.png" alt="월간스포츠">월간스포츠</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/404.png" alt="enews24">enews24</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/960.png" alt="건설경제신문">건설경제신문</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="https://newsstand.naver.com/?list=ct1&pcode=960" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/539.png" alt="위키트리">위키트리</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/042.png" alt="데일리한국">데일리한국</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/951.png" alt="포브스코리아">포브스코리아</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/140.png" alt="씨네21">씨네21</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/811.png" alt="한국농어촌방송">한국농어촌방송</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/991.png" alt="데일리NK">데일리NK</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/906.png" alt="KNN">KNN</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/922.png" alt="이투데이">이투데이</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/810.png" alt="신아일보">신아일보</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/311.png" alt="엑스포츠뉴스">엑스포츠뉴스</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            <div class="box-press-name"><a href="#" class="press-name"><img src="https://s.pstatic.net/static/newsstand/2020/logo/light/0604/966.png" alt="정신의학신문">정신의학신문</a>
+                                <div class="box-choice-press">
+                                    <a href="#" class="check-press">구독</a>
+                                    <a href="#" class="uncheck-press">해지</a>
+                                    <a href="" target="_blank" class="go-press">기사보기</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+</body>
+</html>

@@ -1,0 +1,208 @@
+@charset 'utf-8';
+.box-container-search{
+    height: 161px;
+}
+/* 검색부분 기준사이즈 잡기 */
+.logo{
+    width: 222px;
+    height: 52px;
+    background-position: 0 -161px;
+    display: inline-block;
+    margin-top: 47px;
+    font-size: 12.5px;
+    margin-left: -9px;
+}
+.box-search{
+    width: 582px;
+    height: 52px;
+    position: absolute;
+    left: 268px;
+    top: 33%;
+    border: 2px solid rgb(25, 206, 96);
+    line-height: 52px;
+}
+.text-search{
+    font-size: 18px;
+    width: 470px;
+    height: 50px;
+    font-weight: 700;
+    margin: 1px;
+    padding: 13px;
+    box-sizing: border-box;
+    line-height: 24px;
+    border: none;
+    float: left;
+    outline: none;
+}
+.v-keyboard{
+    width: 36px;
+    height: 56px;
+    right: 84px;
+    position: absolute;
+}
+.v-keyboard-icon{
+    width: 20px;
+    height: 12px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -8px 0 0 -10px;
+    background-position: -400px -276px;
+}
+.v-keyboard-icon-msg{
+    display: none;
+    position: absolute;
+    top: 38px;
+    left: -16px;
+    width: 68px;
+    height: 37px;
+    background-position: -161px -115px;
+}
+.v-keyboard:hover .v-keyboard-icon-msg{
+    display: block;
+}
+/* .v-keyboard를 호버하면 .v-keyboard-icon-msg에서 바꾸기*/
+.v-keyboard:hover .v-keyboard-icon{
+    background-position: -64px -404px;
+}
+.auto-search{
+    width: 22px;
+    height: 56px;
+    position: absolute;
+    right: 64px;
+    display: block;
+}
+.auto-search-icon{
+    display: block;
+    width: 10px;
+    height: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -6px 0 0 -5px;
+    background-position: -429px -394px;
+}
+.box-search-btn{
+    width: 56px;
+    height: 52px;
+    background-color: rgb(25, 206, 96);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: inline-block;
+    border: none;
+}
+.box-search-icon{
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background-position: -429px -172px;
+}
+.box-auto-search{
+    position: absolute;
+    z-index: 5;
+    width: 586px;
+    top: 52px;
+    border: 1px solid #bec8d8;
+    box-sizing: border-box;
+    left: -2px;
+    color: #666;
+    background-color: white;
+}
+.box-auto-search-text{
+    padding: 17px 15px 15px;
+    line-height: 23px;
+}
+.box-auto-search-menu{
+    height: 33px;
+    background-color: #f9fafc;
+    border: 1px solid #ebeef3;
+    font-size: 11px;
+    padding: 8px 0;
+    line-height: 1.3em;
+    position: relative;
+    box-sizing: border-box;
+}
+.help{
+    margin-left: 18px;
+    color: black;
+}
+.report{
+    color: rgb(25, 206, 96);
+}
+.auto-bar{
+    color: rgb(223, 232, 235);
+    margin: 0 3px;
+    cursor: default;
+}
+.box-auto-search-off{
+    border: none;
+    font-size: 11px;
+    background-color: transparent;
+    float: right;
+    margin-right: 10px;
+    cursor: pointer;
+    outline: none;
+}
+.help:hover, .report:hover, .box-auto-search-off:hover{
+    text-decoration: underline;
+}
+.box-auto-search-on{
+    display: none;
+    background-color: rgb(246, 251, 247);
+    border: 1px solid rgb(25, 206, 96);
+    position: absolute;
+    line-height: 20px;
+    right: 14px;
+    top: -23px;
+}
+.box-auto-search-on img{
+    vertical-align: -1px;
+}
+.box-service{
+    position: absolute;
+    top: 12px;
+    right: 27px;
+}
+.set-homepage{
+    color: #404040;
+    font-size: 11px;
+}
+.set-homepage:after{
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    background-position: -391px -225px;
+    content: '';
+    vertical-align: top;
+}
+.set-homepage:hover{
+    text-decoration: underline;
+}
+.service-bar{
+    color: rgb(223, 232, 235);
+}
+.link-jrnaver{
+    display: inline-block;
+    width: 60px;
+    height: 10px;
+    margin: 6px 3px 3px 3px;
+    vertical-align: top;
+    background-position: -348px -260px;
+}
+.link-jrnaver:hover{
+    background-position: -214px -308px
+}
+.link-happybean{
+    display: inline-block;
+    width: 34px;
+    height: 11px;
+    margin: 6px 3px 3px 3px;
+    vertical-align: top;
+    background-position: -253px -323px;
+}
+.link-happybean:hover{
+    background-position: -214px -323px;
+}

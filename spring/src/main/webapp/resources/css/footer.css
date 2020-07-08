@@ -1,0 +1,7 @@
+@charset 'utf-8';
+
+.footer{
+    height: 521px;
+    background-color: rgb(123, 170, 218);
+    border-top: 1px solid rgb(222, 226, 229);
+}
