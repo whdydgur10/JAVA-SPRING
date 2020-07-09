@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+a{
+	color: white;
+}
+div>a{
+	float: left;
+}
+div>p{
+	float: right;
+}

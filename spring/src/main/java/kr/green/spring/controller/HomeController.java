@@ -57,10 +57,11 @@ public class HomeController {
 		mv.addObject("title", "테스트");
 		logger.info("전송된 아이디 : " + id + " 전송된 비밀번호 : " + pw);
 		String userPw = userService.getPw(id);
-		logger.info("조회된 비밀번호 : " + userPw);
+		if(userPw != null) {
+			logger.info("조회된 비밀번호 : " + userPw);
+		}
 		int cntUser = userService.getCnt();
 		logger.info("조회된 회원수 : " + cntUser);
-		
 		return mv;
 	}
 
