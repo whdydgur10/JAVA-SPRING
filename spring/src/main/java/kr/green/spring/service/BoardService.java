@@ -12,8 +12,14 @@ public interface BoardService {
 
 	void increaseViews(Integer num);
 
-	void registerBoard(BoardVo board);
+	void registerBoard(BoardVo board, int boardCnt);
 
 	int getBoardCnt();
+
+	void updateBoard(BoardVo board);
+
+	void deleteBoard(Integer num);
+
+	void deupBoard(Integer num);
 
 }

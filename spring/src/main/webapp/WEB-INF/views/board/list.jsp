@@ -10,7 +10,9 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/list.css">
 </head>
 <body>
-	<h2>게시판</h2>         
+	<h2>게시판</h2>
+	<p>현재게시글 ${boardCnt}</p> 
+	<a href="<%=request.getContextPath() %>/board/register"><button>글쓰기</button></a>
   <table class="table table-dark table-striped">
     <thead>
       <tr>
@@ -34,8 +36,6 @@
     </tbody>
   </table>
   <div>
-  	<a href="<%=request.getContextPath() %>/board/register"><button>글쓰기</button></a>
-  	<p>현재게시글 ${boardCnt}</p>
   </div>
 </body>
 </html>

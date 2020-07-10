@@ -4,21 +4,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/detail.css">
 </head>
 <body>
 	<div class="container detail">
-		<form action="<%=request.getContextPath() %>/board/register" method="POST">
+		<form action="<%=request.getContextPath() %>/board/modify" method="POST">
 			<div class="detailHead">
 				<div class="detailNum">
 					<p class="textNum">게시글번호</p>
 					<p class="dataNum">${board.num}</p>
+					<input type="hidden" name="num" value="${board.num}">
 				</div>
 				<div class="detailTitle">
 					<p class="textTitle">제목</p>
-					<p class="dataTitle">${board.title}</p>	
+					<input type="text" class="setDataTitle" name="title" value="${board.title}">	
 				</div>
 				<div class="detailViews">
 					<p class="textViews">조회수</p>
@@ -35,11 +36,10 @@
 			</div>
 			<div class="detailBody">
 				<div class="textContent">내용</div>
-				<div class="dataContent">${board.content}</div>
+				<textarea class="setDataContent" name="content">${board.content}</textarea>
 			</div>
+			<a href="<%=request.getContextPath() %>/board/modify?num=${board.num}"><button>등록</button></a>
 		</form>
-		<a href="<%=request.getContextPath() %>/board/modify?num=${board.num}"><button>수정</button></a>
-		<a href="<%=request.getContextPath() %>/board/delete?num=${board.num}"><button>삭제</button></a>
 	</div>
 </body>
 </html>
