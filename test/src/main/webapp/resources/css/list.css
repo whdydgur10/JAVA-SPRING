@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+a{
+	color: white;
+}
+div>h2{
+	float: left;
+}
+div>a{
+	float: right;
+	margin-right: 10px;
+}
+div>p{
+	float: right;
+	margin: 0;
+	line-height: 30px;
+}
+.container.body{
+	padding: 20px;
+}

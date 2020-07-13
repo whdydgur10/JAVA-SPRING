@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.spring.test.dao.BoardDao">
+  <select id="getBoardList" resultType="kr.spring.test.vo.BoardVo">
+    select * from board where isDel = 'N' order by num desc limit 0, 10
+  </select>
+  <select id="getBoard" resultType="kr.spring.test.vo.BoardVo">
+  	select * from board where num = #{num}
+  </select>
+  <update id="updateViews">
+  	update board set views = views+1 where num = #{num}
+  </update>
+</mapper>
