@@ -6,7 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글작성</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/global.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/register.css">
+<script src="<%=request.getContextPath()%>/resources/js/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/naver.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/register.js"></script>
 </head>
 <body>
 	<form action="<%=request.getContextPath() %>/board/register" method="POST">
@@ -24,5 +28,18 @@
 		</div>
 		<button type="submit">등록</button>
 	</form>
+	<script>
+		$(function(){
+			$('form').submit(function(){
+				if($('.dataTitle').val() == ''){
+					alert('제목을 입력하세요.');
+					return false;
+				}else if($('.dataWriter').val() == ''){
+					alert('작성자를 입력하세요.');
+					return false;
+				}
+			})
+		})
+	</script>
 </body>
 </html>

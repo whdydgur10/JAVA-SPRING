@@ -6,6 +6,10 @@ a{
 div>h2{
 	float: left;
 }
+.boardSearch{
+	margin-left: 10px;
+	float: left;
+}
 div>a{
 	float: right;
 	margin-right: 10px;

@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <script src="<%=request.getContextPath()%>/resources/js/jquery.js"></script>
+    <script src="<%=request.getContextPath()%>/resources/js/naver.js"></script>
 <div style="height: 800px">
 	<h1>
 		Hello world!  
@@ -16,8 +18,8 @@
 		</div>
 		<button>로그인</button>
 	</form>
-	<input type="hidden" value=${isLogin} id="isLogin">
-	<input type="hidden" value=${id} id="id">
+	<input type="hidden" value="${isLogin}" id="isLogin">
+	<input type="hidden" value="${id}" id="id">
 	<script type="text/javascript">
 		$(function(){
 			$('button').click(function(){

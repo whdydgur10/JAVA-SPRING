@@ -14,6 +14,7 @@ public class BoardVo {
 		private char isDel;
 		private int views;
 		private Date delDate;
+		private char modify;
 		public int getNum() {
 			return num;
 		}
@@ -72,11 +73,17 @@ public class BoardVo {
 		public void setDelDate(Date delDate) {
 			this.delDate = delDate;
 		}
+		public char getModify() {
+			return modify;
+		}
+		public void setModify(char modify) {
+			this.modify = modify;
+		}
 		@Override
 		public String toString() {
 			return "BoardVo [게시글번호=" + num + ", 작성자=" + writer + ", 제목=" + title + ", 내용=" + content
 					+ ", 작성일=" + registerDate + ", 조회수=" + views + ", 삭제여부=" + isDel + ", 삭제기한="
-					+ delDate + "]";
+					+ delDate + "수정" + modify + "]";
 		}
 		
 }

@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+.container{
+	padding: 10px 0;
+}
 .container.body{
 	min-height: 800px;
 }

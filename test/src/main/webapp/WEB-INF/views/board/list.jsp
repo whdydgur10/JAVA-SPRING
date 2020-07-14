@@ -11,6 +11,16 @@
 </head>
 <body>
 	<h2>게시판</h2>
+	<div class="boardSearch">
+		<select name="type" id="type">
+            <option value="" selected>선택</option> 
+            <option value="title">제목</option> 
+            <option value="writer">작성자</option>  
+            <option value="content">내용</option>
+        </select>
+    	<input type="text">
+    <button>검색</button>
+	</div>
 	<p>현재게시글 ${boardCnt}</p> 
 	<a href="<%=request.getContextPath() %>/board/register"><button>글쓰기</button></a>
   <table class="table table-dark table-striped">
@@ -25,10 +35,10 @@
     </thead>
     <tbody>
 	    <c:if test="${list.size() != 0}">
-	    	<c:forEach var="board" items="${list}"> 
+	    	<c:forEach var="board" items="${list}">
 		      	<tr>
 		        	<td>${board.num}</td>
-		        	<td><a href="<%=request.getContextPath()%>/board/detail?num=${board.num}">${board.title}</a></td>
+		        	<td><a href="<%=request.getContextPath()%>/board/detail?num=${board.num}">${board.title}<c:if test="${board.modify == 'Y'.charAt(0)}">(수정)</c:if></a></td>
 		        	<td>${board.writer}</td>
 		        	<td>${board.registerDate}</td>
 		        	<td>${board.views}</td>

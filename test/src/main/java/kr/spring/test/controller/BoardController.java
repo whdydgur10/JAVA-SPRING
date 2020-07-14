@@ -24,6 +24,8 @@ public class BoardController {
 	    mv.setViewName("/board/list");
 	    ArrayList<BoardVo> list = boardService.getBoardList();
 	    mv.addObject("list",list);
+	    int boardCnt = boardService.cntBoard();
+	    mv.addObject("boardCnt",boardCnt);
 //	    boardService를 통해 받아온 list를 "list"라는 이름을 가지고 /board/list 서버로 보내준다음 서버에서 받은 이름 ${list}으로 값을 나타낸다.
 	    return mv;
 	}
@@ -32,13 +34,47 @@ public class BoardController {
 	public ModelAndView boardDetailGet(ModelAndView mv, Integer num) {
 	    mv.setViewName("/board/detail");
 	    BoardVo board = boardService.getBoard(num);
-	    if(board == null) {
-	    	System.out.println("ss");
-	    }
 	    mv.addObject("board",board);
 	    boardService.updateViews(num);
 	    board.setViews(board.getViews()+1);
-	    System.out.println(board);
+	    return mv;
+	}
+	
+	@RequestMapping(value = "/board/register", method = RequestMethod.GET)
+	public ModelAndView boardRegisterGet(ModelAndView mv) {
+	    mv.setViewName("/board/register");
+	    return mv;
+	}
+	
+	@RequestMapping(value = "/board/register", method = RequestMethod.POST)
+	public ModelAndView boardRegisterPOST(ModelAndView mv, BoardVo board) {
+	    int boardCnt = boardService.cntBoard()+1;
+	    if(!(board.getTitle().equals("")) && !(board.getWriter().equals(""))) {
+	    	boardService.insertBoard(board, boardCnt);
+	    	mv.setViewName("redirect:/board/list");
+	    }
+	    return mv;
+	}
+	
+	@RequestMapping(value = "/board/modify", method = RequestMethod.GET)
+	public ModelAndView boardModifyGet(ModelAndView mv, Integer num) {
+	    mv.setViewName("/board/modify");
+	    BoardVo board = boardService.getBoard(num);
+	    mv.addObject("board",board);
+	    return mv;
+	}
+	
+	@RequestMapping(value = "/board/modify", method = RequestMethod.POST)
+	public ModelAndView boardModifyPost(ModelAndView mv,BoardVo board) {
+	    boardService.updateBoard(board);
+	    mv.setViewName("redirect:/board/list");
+	    return mv;
+	}
+	
+	@RequestMapping(value = "/board/delete", method = RequestMethod.GET)
+	public ModelAndView boardDeleteGet(ModelAndView mv,Integer num) {
+		mv.setViewName("redirect:/board/list");
+	    boardService.deleteBoard(num);
 	    return mv;
 	}
 }
