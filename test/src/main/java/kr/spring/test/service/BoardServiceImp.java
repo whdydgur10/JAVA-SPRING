@@ -58,7 +58,12 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public void deleteBoard(Integer num) {
-		boardDao.deleteBoard(num);
+		BoardVo board = boardDao.getBoard(num);
+		if(board == null)
+			return;
+		board.setIsDel('Y');
+		board.setDelDate(new Date());
+		boardDao.updateBoard(board);
 	}
 	
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.spring.pagenation.Criteria;
+import kr.green.spring.pagenation.PageMaker;
 import kr.green.spring.service.BoardService;
 import kr.green.spring.vo.BoardVo;
 
@@ -20,14 +22,17 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
-	public ModelAndView boardListGet(ModelAndView mv) {
+	public ModelAndView boardListGet(ModelAndView mv, Criteria cri) {
 		logger.info("URI : /board/list");
 	    mv.setViewName("/board/list");
+	    PageMaker pm = boardService.getPageMaker(cri);
 	    ArrayList<BoardVo> list;
-	    list = boardService.getBoardList();
+	    list = boardService.getBoardList(cri);
 	    int boardCnt = boardService.getBoardCnt();
 	    mv.addObject("boardCnt", boardCnt);
 	    mv.addObject("list", list);
+	    mv.addObject("pm",pm);
+	    System.out.println(pm);
 	    return mv;
 	}
 	@RequestMapping(value = "/board/detail", method = RequestMethod.GET)
@@ -56,9 +61,7 @@ public class BoardController {
 	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVo board) {
 		logger.info("URI : /board/register:POST");
 	    mv.setViewName("redirect:/board/list");
-	    int boardCnt = boardService.getBoardCnt();
-//	    mv.addObject("boardCnt", boardCnt);
-	    boardService.registerBoard(board, boardCnt);
+	    boardService.registerBoard(board);
 		return mv;
 	}
 	@RequestMapping(value = "/board/modify", method = RequestMethod.GET)

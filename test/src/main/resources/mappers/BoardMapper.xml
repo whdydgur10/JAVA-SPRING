@@ -21,7 +21,4 @@
   <update id="updateBoard">
   	update board set title = #{board.title}, content = #{board.content}, isDel = #{board.isDel}, modify = #{board.modify}, delDate = #{board.delDate} where num = #{board.num}
   </update>
-  <update id="deleteBoard">
-  	update board set isDel = 'Y' where num = #{num}
-  </update>
 </mapper>

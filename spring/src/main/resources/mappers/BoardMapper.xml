@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.spring.dao.BoardDao">
   <select id="getBoardList" resultType="kr.green.spring.vo.BoardVo">
-    select * from board where isDel = 'N'
+    select * from board where isDel = 'N' order by num desc limit #{cri.pageStart}, #{cri.perPageNum}
   </select>
   <select id="getBoard" resultType="kr.green.spring.vo.BoardVo">
     select * from board where num = #{num}
@@ -13,10 +13,10 @@
   	update board set views = views+1 where num = #{num}
   </update>
   <insert id="registerBoard">
-  	insert into board(num, title, writer, content) values(#{cnt}+1,#{board.title},#{board.writer},#{board.content})
+  	insert into board(title, writer, content) values(#{board.title},#{board.writer},#{board.content})
   </insert>
   <select id="getBoardCnt" resultType="int">
-  	select count(*) from board
+  	select count(*) from board where isDel = 'N'
   </select>
   <update id="updateBoard">
   	update board set title = #{board.title}, content = #{board.content}, isDel = #{board.isDel}, delDate = #{board.delDate} where num = #{board.num}
