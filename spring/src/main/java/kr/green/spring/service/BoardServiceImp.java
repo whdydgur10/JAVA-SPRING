@@ -3,6 +3,7 @@ package kr.green.spring.service;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,13 +38,14 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int getBoardCnt() {
-		return boardDao.getBoardCnt();
+	public int getBoardCnt(Criteria cri) {
+		return boardDao.getBoardCnt(cri);
 	}
 
 	@Override
 	public void updateBoard(BoardVo board) {
 		board.setIsDel('N');
+		board.setModify('Y');
 		boardDao.updateBoard(board);
 	}
 
@@ -67,9 +69,8 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public PageMaker getPageMaker(Criteria cri) {
 		PageMaker pm = new PageMaker();
-		int totalCount = boardDao.getBoardCnt();
 		pm.setCriteria(cri);
-		pm.setTotalCount(totalCount);
+		pm.setTotalCount(boardDao.getBoardCnt(cri));
 		return pm;
 	}
 

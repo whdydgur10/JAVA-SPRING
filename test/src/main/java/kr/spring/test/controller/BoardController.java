@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.spring.test.controller.pagination.Criteria;
+import kr.spring.test.controller.pagination.PageMaker;
 import kr.spring.test.service.BoardService;
 import kr.spring.test.vo.BoardVo;
 
@@ -20,13 +22,17 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
-	public ModelAndView boardListGet(ModelAndView mv) {
+	public ModelAndView boardListGet(ModelAndView mv, Criteria cri) {
 	    mv.setViewName("/board/list");
-	    ArrayList<BoardVo> list = boardService.getBoardList();
+	    PageMaker pm = boardService.getPageMaker(cri);
+	    ArrayList<BoardVo> list = boardService.getBoardList(cri);
 	    mv.addObject("list",list);
-	    int boardCnt = boardService.cntBoard();
+	    int boardCnt = boardService.cntBoard(cri);
 	    mv.addObject("boardCnt",boardCnt);
 //	    boardService를 통해 받아온 list를 "list"라는 이름을 가지고 /board/list 서버로 보내준다음 서버에서 받은 이름 ${list}으로 값을 나타낸다.
+	    mv.addObject("pm",pm);
+	    System.out.println(pm);
+	    System.out.println(cri.getType().equals("all"));
 	    return mv;
 	}
 	
@@ -48,9 +54,8 @@ public class BoardController {
 	
 	@RequestMapping(value = "/board/register", method = RequestMethod.POST)
 	public ModelAndView boardRegisterPOST(ModelAndView mv, BoardVo board) {
-	    int boardCnt = boardService.cntBoard()+1;
 	    if(!(board.getTitle().equals("")) && !(board.getWriter().equals(""))) {
-	    	boardService.insertBoard(board, boardCnt);
+	    	boardService.insertBoard(board);
 	    	mv.setViewName("redirect:/board/list");
 	    }
 	    return mv;

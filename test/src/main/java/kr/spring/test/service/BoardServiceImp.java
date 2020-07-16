@@ -6,6 +6,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.spring.test.controller.pagination.Criteria;
+import kr.spring.test.controller.pagination.PageMaker;
 import kr.spring.test.dao.BoardDao;
 import kr.spring.test.vo.BoardVo;
 
@@ -15,8 +17,8 @@ public class BoardServiceImp implements BoardService {
 	private BoardDao boardDao;
 
 	@Override
-	public ArrayList<BoardVo> getBoardList() {
-		return boardDao.getBoardList();
+	public ArrayList<BoardVo> getBoardList(Criteria cri) {
+		return boardDao.getBoardList(cri);
 	}
 //	DB안에 board테이블에 저장되어 있는 모든 값 가져오기
 
@@ -37,14 +39,14 @@ public class BoardServiceImp implements BoardService {
 //	board테이블의 특정 행의 views열 값을 바꾼다.
 	
 	@Override
-	public int cntBoard() {
-		return boardDao.cntBoard();
+	public int cntBoard(Criteria cri) {
+		return boardDao.cntBoard(cri);
 	}
 //	board테이블에 전체 행이 몇개인지 센다.
 
 	@Override
-	public void insertBoard(BoardVo board, int boardCnt) {
-			boardDao.insertBoard(board, boardCnt);
+	public void insertBoard(BoardVo board) {
+			boardDao.insertBoard(board);
 	}
 //	BoarVo의 형식에 맞는 board와 현재 게시글 갯수 boardCnt+1값을 넣어 게시글을 만든다.
 	
@@ -65,5 +67,12 @@ public class BoardServiceImp implements BoardService {
 		board.setDelDate(new Date());
 		boardDao.updateBoard(board);
 	}
-	
+
+	@Override
+	public PageMaker getPageMaker(Criteria cri) {
+		PageMaker pm = new PageMaker();
+		pm.setCriteria(cri);
+		pm.setTotalContent(boardDao.cntBoard(cri));
+		return pm;
+	}
 }

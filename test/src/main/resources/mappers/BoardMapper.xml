@@ -4,7 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.spring.test.dao.BoardDao">
   <select id="getBoardList" resultType="kr.spring.test.vo.BoardVo">
-    select * from board where isDel = 'N' order by num desc limit 0, 10
+    select * from board where isDel = 'N'
+    							<if test="cri.type == 'all'">
+    								and (title like concat ('%',#{cri.search},'%')
+    								or writer like concat ('%',#{cri.search},'%')
+    								or content like concat ('%',#{cri.search},'%'))
+    							</if>
+    							<if test="cri.type == 'title'">
+    								and title like concat ('%',#{cri.search},'%')
+    							</if>
+    							<if test="cri.type == 'writer'">
+    								and writer like concat ('%',#{cri.search},'%')
+    							</if>
+    							<if test="cri.type == 'content'">
+    								and content like concat ('%',#{cri.search},'%')
+    							</if>
+    						order by num desc limit #{cri.pageStart}, #{cri.contentNum}
   </select>
   <select id="getBoard" resultType="kr.spring.test.vo.BoardVo">
   	select * from board where num = #{num}
@@ -13,10 +28,24 @@
   	update board set views = views+1 where num = #{num}
   </update>
   <select id="cntBoard" resultType="Integer">
-  	select count(*) from board
+  	select count(*) from board where isDel = 'N'
+    							<if test="cri.type == 'all'">
+    								and (title like concat ('%',#{cri.search},'%')
+    								or writer like concat ('%',#{cri.search},'%')
+    								or content like concat ('%',#{cri.search},'%'))
+    							</if>
+    							<if test="cri.type == 'title'">
+    								and title like concat ('%',#{cri.search},'%')
+    							</if>
+    							<if test="cri.type == 'writer'">
+    								and writer like concat ('%',#{cri.search},'%')
+    							</if>
+    							<if test="cri.type == 'content'">
+    								and content like concat ('%',#{cri.search},'%')
+    							</if>
   </select>
   <insert id="insertBoard">
-  	insert into board(num, title, writer, content) values (#{cnt}, #{board.title}, #{board.writer}, #{board.content})
+  	insert into board(title, writer, content) values (#{board.title}, #{board.writer}, #{board.content})
   </insert>
   <update id="updateBoard">
   	update board set title = #{board.title}, content = #{board.content}, isDel = #{board.isDel}, modify = #{board.modify}, delDate = #{board.delDate} where num = #{board.num}

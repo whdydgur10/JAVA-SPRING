@@ -17,7 +17,7 @@ public interface BoardDao {
 
 	void registerBoard(@Param("board")BoardVo board);
 
-	int getBoardCnt();
+	int getBoardCnt(@Param("cri")Criteria cri);
 
 	void updateBoard(@Param("board")BoardVo board);
 

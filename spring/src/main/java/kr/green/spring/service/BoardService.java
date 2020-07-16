@@ -16,7 +16,7 @@ public interface BoardService {
 
 	void registerBoard(BoardVo board);
 
-	int getBoardCnt();
+	int getBoardCnt(Criteria cri);
 
 	void updateBoard(BoardVo board);
 
