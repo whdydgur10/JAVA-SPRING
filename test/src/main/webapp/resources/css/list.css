@@ -9,6 +9,7 @@ div>h2{
 .boardSearch{
 	margin-left: 10px;
 	float: left;
+	padding-left: 250px;
 }
 div>a{
 	float: right;
@@ -21,4 +22,10 @@ div>p{
 }
 .container.body{
 	padding: 20px;
+}
+.search{
+	width: 300px;
+}
+#type{
+	height: 30px;
 }

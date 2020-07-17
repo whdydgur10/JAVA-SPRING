@@ -33,7 +33,10 @@ public class Criteria {
 			return type;
 		}
 		public void setType(String type) {
-			this.type = type;
+			if(type.equals("all") || type.equals("title") || type.equals("writer") || type.equals("content"))
+				this.type = type;
+			else
+				this.type = "all";
 		}
 		public String getSearch() {
 			return search;

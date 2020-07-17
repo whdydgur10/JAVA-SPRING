@@ -1,9 +1,16 @@
 package kr.green.spring.service;
 
+import java.util.ArrayList;
+
+import kr.green.spring.vo.UserVo;
+
 public interface UserService {
 
-	String getPw(String id);
+	boolean signup(UserVo user);
 
-	int getCnt();
+	boolean isUserId(UserVo user);
 
+	ArrayList<String> getUserId();
+
+	
 }

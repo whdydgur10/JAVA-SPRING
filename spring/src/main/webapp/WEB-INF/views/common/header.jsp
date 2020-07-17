@@ -15,7 +15,7 @@
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list">게시판</a>
 		      	</li>
 		      	<li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/test">테스트</a>
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/user/signup">회원가입</a>
 		      	</li>   
 	    	</ul>
 		</div> 

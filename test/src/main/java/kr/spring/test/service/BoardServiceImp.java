@@ -20,7 +20,7 @@ public class BoardServiceImp implements BoardService {
 	public ArrayList<BoardVo> getBoardList(Criteria cri) {
 		return boardDao.getBoardList(cri);
 	}
-//	DB안에 board테이블에 저장되어 있는 모든 값 가져오기
+//	DB안에 board테이블에 저장되어 있는 모든 값 중 cri변수로 type별 값 가져오기 
 
 	@Override
 	public BoardVo getBoard(Integer num) {
@@ -42,7 +42,7 @@ public class BoardServiceImp implements BoardService {
 	public int cntBoard(Criteria cri) {
 		return boardDao.cntBoard(cri);
 	}
-//	board테이블에 전체 행이 몇개인지 센다.
+//	board테이블에 cri변수로 type별 행이 몇개인지 센다.
 
 	@Override
 	public void insertBoard(BoardVo board) {
@@ -67,9 +67,10 @@ public class BoardServiceImp implements BoardService {
 		board.setDelDate(new Date());
 		boardDao.updateBoard(board);
 	}
-
+//	특정 튜플을 isDel에 'Y'를 delDate에 새로운 시간을 부여한다.
+	
 	@Override
-	public PageMaker getPageMaker(Criteria cri) {
+	public PageMaker getPageMakerByBoard(Criteria cri) {
 		PageMaker pm = new PageMaker();
 		pm.setCriteria(cri);
 		pm.setTotalContent(boardDao.cntBoard(cri));

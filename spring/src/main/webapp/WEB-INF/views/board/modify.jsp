@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/detail.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board/detail.css">
 </head>
 <body>
 	<div class="container detail">
