@@ -51,7 +51,7 @@
             float: right;
             font-size: 15px;
         }
-        .pw{
+        .pw, .pw2{
             margin: 0 auto;
             width: 300px;
             height: 100px;
@@ -80,6 +80,9 @@
             line-height: 30px;
             background-color: white;
             font-size: 15px;
+        }
+        .pw2{
+        	top: 400px;
         }
         .email{
             margin: 0 auto;

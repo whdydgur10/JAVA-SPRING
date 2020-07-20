@@ -1,6 +1,7 @@
 package kr.spring.test.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.spring.test.dao.UserDao;
@@ -10,6 +11,8 @@ public class UserServiceImp implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public UserVo getUser(String id) {
@@ -17,18 +20,27 @@ public class UserServiceImp implements UserService {
 	}
 
 	@Override
-	public UserVo isUser(UserVo inputUser) {
-//		로그인은 아이디정보를 주고 DB에 있는 일치하는 아이디의 정보를 가져와 비교한다.
-//		DB에 저장된 비밀번호는 암호화가 되어있어 입력한 비밀번호와 다르기 때문에 아이디를 통한 정보 비교를 해야한다.
-//		블라인드 SQL 인젝션 : pw에 이상한 작업을 하면 로그인이 된다.
-		UserVo user = userDao.getUser(inputUser.getId());
-		if(user == null) {
-			return null;
-		}
-		if(user.getPw().equals(inputUser.getPw())) {
-			return user;
-		}
-		return null;
+	public boolean getId(UserVo user) {
+		if(user == null)
+			return false;
+		if(userDao.getUser(user.getId()) != null || user.getId().length() == 0 || user.getPw().length() == 0 || user.getId() == null || user.getEmail().length() == 0 || user.getEmail() == null || user.getGender().length() == 0 || user.getGender() == null)
+			return false;
+		user.setAuth("user");
+		user.setIsDel("N");
+		user.setPw(passwordEncoder.encode(user.getPw()));
+		userDao.insertUser(user);	
+		return true;
 	}
 
+	@Override
+	public UserVo login(UserVo login) {
+		if(login == null)
+			return null;
+		UserVo userDb = userDao.getUser(login.getId());
+		if(passwordEncoder.matches(login.getPw(),userDb.getPw()))
+			
+			return userDb;
+		else
+			return null;
+	}
 }

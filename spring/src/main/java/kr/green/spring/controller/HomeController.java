@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.spring.service.UserService;
+import kr.green.spring.vo.UserVo;
 
 @Controller
 public class HomeController {
@@ -19,9 +20,20 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(ModelAndView mv) {
+	public ModelAndView homeGet(ModelAndView mv) {
 	    mv.setViewName("/main/home");
 	    return mv;
 	}
 	
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ModelAndView homePost(ModelAndView mv, UserVo user) {
+		UserVo dbUser = userService.isSignin(user);
+		if(dbUser != null) {
+			mv.setViewName("redirect:/board/list");
+			mv.addObject("user",dbUser);
+		}
+		else
+			mv.setViewName("redirect:/");
+	    return mv;
+	}
 }

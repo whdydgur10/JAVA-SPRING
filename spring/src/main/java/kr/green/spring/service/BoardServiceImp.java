@@ -3,7 +3,9 @@ package kr.green.spring.service;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.apache.ibatis.annotations.Param;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import kr.green.spring.dao.BoardDao;
 import kr.green.spring.pagenation.Criteria;
 import kr.green.spring.pagenation.PageMaker;
 import kr.green.spring.vo.BoardVo;
+import kr.green.spring.vo.UserVo;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -33,7 +36,12 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void registerBoard(BoardVo board) {
+	public void registerBoard(BoardVo board, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVo user = (UserVo)session.getAttribute("user");
+		if(user == null)
+			return ;
+		board.setWriter(user.getId());
 		boardDao.registerBoard(board);
 	}
 
@@ -43,7 +51,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void updateBoard(BoardVo board) {
+	public void updateBoard(BoardVo board, UserVo user) {
+		board.setWriter(user.getId());
 		board.setIsDel('N');
 		board.setModify('Y');
 		boardDao.updateBoard(board);
@@ -51,14 +60,14 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public void deleteBoard(Integer num) {
-		boardDao.deleteBoard(num);
+		boardDao.deleteBoard(num); 
 	}
 
 	@Override
-	public void deupBoard(Integer num) {
-	    if(num != null) {
+	public void deupBoard(Integer num, UserVo userVo) {
+	    if(num != null && userVo != null) {
 	    	BoardVo board = boardDao.getBoard(num);
-	    	if(board != null) {
+	    	if(board != null && board.getWriter().equals(userVo.getId())) {
 	    		board.setIsDel('Y');
 	    		board.setDelDate(new Date());
 	    		boardDao.updateBoard(board);

@@ -2,6 +2,8 @@ package kr.green.spring.service;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,22 @@ public class UserServiceImp implements UserService {
 	public ArrayList<String> getUserId() {
 		return userDao.getUserId();
 	}
+
+	@Override
+	public UserVo isSignin(UserVo user) {
+		UserVo dbUser = userDao.getUser(user.getId());
+		if(dbUser != null && passwordEncoder.matches(user.getPw(), dbUser.getPw()))
+			return dbUser;
+		else
+			return null;
+	}
+
+	@Override
+	public UserVo getUser(HttpServletRequest request) {
+		return (UserVo)request.getSession().getAttribute("user");
+	}
+
+	
 	
 	
 }

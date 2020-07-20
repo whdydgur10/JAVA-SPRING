@@ -16,7 +16,7 @@
 		</div>
 		<div class="registerWriter">
 			<p class="textWriter">작성자</p>
-			<input type="text" class="dataWriter" name="writer">
+			<input type="text" class="dataWriter" name="writer" value="${user.id}" readonly>
 		</div>
 		<div class="registerContent">
 			<p class="textContent">내용</p>

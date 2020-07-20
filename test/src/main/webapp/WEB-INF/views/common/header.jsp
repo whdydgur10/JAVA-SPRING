@@ -8,12 +8,12 @@
 	  	</button>
 	  	<div class="collapse navbar-collapse" id="collapsibleNavbar">
 	    	<ul class="navbar-nav">
+	    		<li class="nav-item">
+		        	<a class="nav-link" href="<%=request.getContextPath()%>/">홈</a>
+		      	</li>
 		      	<li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/board/list">게시판</a>
 		      	</li>
-		      	<li class="nav-item">
-		        	<a class="nav-link" href="<%=request.getContextPath()%>/user/signin">로그인</a>
-		      	</li>    
 		      	<li class="nav-item">
 		        	<a class="nav-link" href="<%=request.getContextPath()%>/user/signup">회원가입</a>
 		      	</li> 

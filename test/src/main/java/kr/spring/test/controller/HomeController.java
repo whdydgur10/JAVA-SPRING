@@ -23,27 +23,23 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView home(ModelAndView mv, UserVo inputUser) {
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView homeGet(ModelAndView mv, UserVo inputUser) {
 		mv.setViewName("/main/home");
-		UserVo user = userService.isUser(inputUser);
-		mv.addObject("id",inputUser.getId());
-		if(user == null) {
-			mv.addObject("isLogin",false);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ModelAndView homePost(ModelAndView mv, UserVo login) {
+		System.out.println(login);
+		System.out.println(userService.getUser(login.getId()));
+		if(userService.login(login) != null) {
+			System.out.println("성공");
+			mv.setViewName("redirect:/board/list");
 		}
-		System.out.println(user);
-		return mv;
-	}
-	@RequestMapping(value = "/user/signin", method = RequestMethod.GET)
-	public ModelAndView userSigninGet(ModelAndView mv) {
-		logger.info("URI:/user/signin");
-		mv.setViewName("/user/signin");
-		return mv;
-	}
-	@RequestMapping(value = "/user/signup", method = RequestMethod.GET)
-	public ModelAndView userSignupGet(ModelAndView mv) {
-		logger.info("URI:/user/signup");
-		mv.setViewName("/user/signup");
+		else
+			System.out.println("실패");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 	

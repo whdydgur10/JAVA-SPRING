@@ -23,7 +23,7 @@
 			<button>검색</button>
 		</form>
  	</div>
-	<p>현재게시글 ${boardCnt}</p> 
+	<p>현재게시글 ${boardCnt}</p>
 	<a href="<%=request.getContextPath() %>/board/register"><button>글쓰기</button></a>
 	<table class="table table-dark table-striped">
     <thead>

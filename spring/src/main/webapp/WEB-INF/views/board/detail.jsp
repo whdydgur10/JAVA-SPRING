@@ -39,8 +39,10 @@
 			</div>
 		</form>
 		<a href="<%=request.getContextPath() %>/board/list?page=${cri.page}&type=${cri.type}&search=${cri.search}"><button>목록</button></a>
-		<a href="<%=request.getContextPath() %>/board/modify?num=${board.num}"><button>수정</button></a>
-		<a href="<%=request.getContextPath() %>/board/delete?num=${board.num}"><button>삭제</button></a>
+		<c:if test="${board.writer == user.id && user != null}">
+			<a href="<%=request.getContextPath() %>/board/modify?num=${board.num}"><button>수정</button></a>
+			<a href="<%=request.getContextPath() %>/board/delete?num=${board.num}"><button>삭제</button></a>
+		</c:if>
 	</div>
 </body>
 </html>

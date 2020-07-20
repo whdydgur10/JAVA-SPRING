@@ -41,6 +41,12 @@
 	                <input type="password" name="pw">
 	            </div>
 	        </div>
+	        <div class="pw2">
+            	비밀번호 재확인
+            	<div class="pwbox">
+                	<input type="password" name="pw2">
+            	</div>
+        	</div>
 	        <div class="email">
 	            본인확인 이메일
 	            <div class="emailbox">

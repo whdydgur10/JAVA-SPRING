@@ -2,6 +2,8 @@ package kr.green.spring.service;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import kr.green.spring.vo.UserVo;
 
 public interface UserService {
@@ -12,5 +14,8 @@ public interface UserService {
 
 	ArrayList<String> getUserId();
 
+	UserVo isSignin(UserVo user);
+
+	UserVo getUser(HttpServletRequest request);
 	
 }
