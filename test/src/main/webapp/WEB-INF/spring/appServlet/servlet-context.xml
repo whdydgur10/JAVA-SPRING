@@ -35,5 +35,29 @@
 	        </beans:list>
 	    </beans:property>
 	</beans:bean>
+	<beans:bean id="loginInterceptor" 
+		class="kr.spring.test.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="authInterceptor" 
+	class="kr.spring.test.interceptor.AuthInterceptor"></beans:bean>
+	<beans:bean id="unAuthInterceptor" 
+	class="kr.spring.test.interceptor.UnAuthInterceptor"></beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/"/>
+			<mapping path="/user/signin"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		<interceptor>
+	        <mapping path="/board/register"/>
+		    <mapping path="/board/modify"/>
+		    <mapping path="/board/delete"/>
+        <beans:ref bean="authInterceptor"/>
+    	</interceptor>
+    	<interceptor>
+	        <mapping path="/user/signin"/>
+		    <mapping path="/user/signup"/>
+		    <beans:ref bean="unAuthInterceptor"/>
+    	</interceptor>
+	</interceptors>
 	
 </beans:beans>

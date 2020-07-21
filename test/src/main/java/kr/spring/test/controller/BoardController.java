@@ -1,6 +1,9 @@
 package kr.spring.test.controller;
 
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.spring.test.controller.pagination.Criteria;
 import kr.spring.test.controller.pagination.PageMaker;
 import kr.spring.test.service.BoardService;
+import kr.spring.test.service.UserService;
 import kr.spring.test.vo.BoardVo;
+import kr.spring.test.vo.UserVo;
 
 @Controller
 public class BoardController {
@@ -20,6 +25,8 @@ public class BoardController {
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
 	public ModelAndView boardListGet(ModelAndView mv, Criteria cri) {
@@ -50,33 +57,36 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/register", method = RequestMethod.POST)
-	public ModelAndView boardRegisterPOST(ModelAndView mv, BoardVo board) {
-	    if(!(board.getTitle().equals("")) && !(board.getWriter().equals(""))) {
-	    	boardService.insertBoard(board);
+	public ModelAndView boardRegisterPOST(ModelAndView mv, BoardVo board, HttpServletRequest request) {
+	    if(!(board.getTitle().equals(""))) {
+	    	boardService.insertBoard(board, request);
 	    	mv.setViewName("redirect:/board/list");
 	    }
 	    return mv;
 	}
 	
 	@RequestMapping(value = "/board/modify", method = RequestMethod.GET)
-	public ModelAndView boardModifyGet(ModelAndView mv, Integer num) {
+	public ModelAndView boardModifyGet(ModelAndView mv, Integer num, HttpServletRequest request) {
 	    mv.setViewName("/board/modify");
 	    BoardVo board = boardService.getBoard(num);
+	    UserVo user = userService.getUser(request);
+	    if(board == null || !user.getId().equals(board.getWriter()))
+	    	mv.setViewName("redirect:/board/list");
 	    mv.addObject("board",board);
 	    return mv;
 	}
 	
 	@RequestMapping(value = "/board/modify", method = RequestMethod.POST)
-	public ModelAndView boardModifyPost(ModelAndView mv,BoardVo board) {
-	    boardService.updateBoard(board);
+	public ModelAndView boardModifyPost(ModelAndView mv,BoardVo board, HttpServletRequest request) {
+	    boardService.updateBoard(board, request);
 	    mv.setViewName("redirect:/board/list");
 	    return mv;
 	}
 	
 	@RequestMapping(value = "/board/delete", method = RequestMethod.GET)
-	public ModelAndView boardDeleteGet(ModelAndView mv,Integer num) {
+	public ModelAndView boardDeleteGet(ModelAndView mv,Integer num, HttpServletRequest request) {
 		mv.setViewName("redirect:/board/list");
-	    boardService.deleteBoard(num);
+	    boardService.deleteBoard(num, request);
 	    return mv;
 	}
 }

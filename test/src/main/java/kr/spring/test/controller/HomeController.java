@@ -23,23 +23,29 @@ public class HomeController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView homeGet(ModelAndView mv, UserVo inputUser) {
 		mv.setViewName("/main/home");
 		return mv;
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ModelAndView homePost(ModelAndView mv, UserVo login) {
-		System.out.println(login);
-		System.out.println(userService.getUser(login.getId()));
-		if(userService.login(login) != null) {
-			System.out.println("성공");
+	@RequestMapping(value = "/user/signin", method = RequestMethod.GET)
+	public ModelAndView signinGet(ModelAndView mv) {
+		mv.setViewName("/main/home");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/user/signin", method = RequestMethod.POST)
+	public ModelAndView signinPost(ModelAndView mv, UserVo login) {
+		UserVo user = userService.login(login);
+		if(user != null) {
 			mv.setViewName("redirect:/board/list");
+			mv.addObject("user", user);
 		}
-		else
-			System.out.println("실패");
-		mv.setViewName("redirect:/");
+		else {
+			mv.setViewName("redirect:/");
+		}
 		return mv;
 	}
 	

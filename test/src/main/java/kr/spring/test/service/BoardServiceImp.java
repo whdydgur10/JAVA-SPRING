@@ -3,6 +3,8 @@ package kr.spring.test.service;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import kr.spring.test.controller.pagination.Criteria;
 import kr.spring.test.controller.pagination.PageMaker;
 import kr.spring.test.dao.BoardDao;
 import kr.spring.test.vo.BoardVo;
+import kr.spring.test.vo.UserVo;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -45,27 +48,33 @@ public class BoardServiceImp implements BoardService {
 //	board테이블에 cri변수로 type별 행이 몇개인지 센다.
 
 	@Override
-	public void insertBoard(BoardVo board) {
-			boardDao.insertBoard(board);
+	public void insertBoard(BoardVo board, HttpServletRequest request) {
+		UserVo user = (UserVo)request.getSession().getAttribute("user");
+		board.setWriter(user.getId());
+		boardDao.insertBoard(board);
 	}
 //	BoarVo의 형식에 맞는 board와 현재 게시글 갯수 boardCnt+1값을 넣어 게시글을 만든다.
 	
 	@Override
-	public void updateBoard(BoardVo board) {
-		board.setIsDel('N');
-		board.setModify('Y');
-		boardDao.updateBoard(board);
+	public void updateBoard(BoardVo board, HttpServletRequest request) {
+		UserVo user = (UserVo)request.getSession().getAttribute("user");
+		if(user.getId() == board.getWriter()) {
+			board.setIsDel('N');
+			board.setModify('Y');
+			boardDao.updateBoard(board);
+		}
 	}
 //	board값을 수정하게되면 삭제여부는 'N'으로 유지 제목은 (수정)을 추가하도록 한다.
 
 	@Override
-	public void deleteBoard(Integer num) {
+	public void deleteBoard(Integer num, HttpServletRequest request) {
+		UserVo user = (UserVo)request.getSession().getAttribute("user");
 		BoardVo board = boardDao.getBoard(num);
-		if(board == null)
-			return;
-		board.setIsDel('Y');
-		board.setDelDate(new Date());
-		boardDao.updateBoard(board);
+		if(user.getId() == board.getWriter()) {
+			board.setIsDel('Y');
+			board.setDelDate(new Date());
+			boardDao.updateBoard(board);
+		}
 	}
 //	특정 튜플을 isDel에 'Y'를 delDate에 새로운 시간을 부여한다.
 	

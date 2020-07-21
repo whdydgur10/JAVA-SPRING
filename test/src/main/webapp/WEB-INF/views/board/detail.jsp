@@ -45,9 +45,13 @@
 					<div class="dataContent">${board.content}</div>
 				</div>
 				<a href="<%=request.getContextPath() %>/board/list"><button>목록</button></a>
-				<a href="<%=request.getContextPath() %>/board/register"><button>글쓰기</button></a>
-				<a href="<%=request.getContextPath() %>/board/modify?num=${board.num}"><button>수정</button></a>
-				<a href="<%=request.getContextPath() %>/board/delete?num=${board.num}"><button>삭제</button></a>
+				<c:if test="${user != null}">
+					<a href="<%=request.getContextPath() %>/board/register"><button>글쓰기</button></a>
+				</c:if>
+				<c:if test="${user.id == board.writer}">
+					<a href="<%=request.getContextPath() %>/board/modify?num=${board.num}"><button>수정</button></a>
+					<a href="<%=request.getContextPath() %>/board/delete?num=${board.num}"><button>삭제</button></a>
+				</c:if>
 			</div>
 		</c:if>
 	</c:if>

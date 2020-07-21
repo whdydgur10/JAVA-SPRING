@@ -18,10 +18,6 @@
 			<p class="textTitle">제목</p>
 			<input type="text" class="dataTitle" name="title">
 		</div>
-		<div class="registerWriter">
-			<p class="textWriter">작성자</p>
-			<input type="text" class="dataWriter" name="writer">
-		</div>
 		<div class="registerContent">
 			<p class="textContent">내용</p>
 			<textarea class="dataContent" name="content"></textarea>
@@ -33,9 +29,6 @@
 			$('form').submit(function(){
 				if($('.dataTitle').val() == ''){
 					alert('제목을 입력하세요.');
-					return false;
-				}else if($('.dataWriter').val() == ''){
-					alert('작성자를 입력하세요.');
 					return false;
 				}
 			})

@@ -1,7 +1,5 @@
 package kr.green.spring.service;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,21 +35,6 @@ public class UserServiceImp implements UserService {
 		user.setPw(encodePw);
 		userDao.insertUser(user);
 		return true;
-	}
-
-	@Override
-	public boolean isUserId(UserVo user) {
-		ArrayList<String> isUserId = userDao.getUserId();
-		for(String tmp : isUserId) {
-			if(tmp == user.getId())
-				return false;
-		}	
-		return true;
-	}
-
-	@Override
-	public ArrayList<String> getUserId() {
-		return userDao.getUserId();
 	}
 
 	@Override

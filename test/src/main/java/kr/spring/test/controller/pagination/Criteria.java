@@ -8,7 +8,7 @@ public class Criteria {
 		private String search;
 		public Criteria() {
 			this.page = 1;
-			this.contentNum = 5;
+			this.contentNum = 10;
 			this.type = "all";
 			this.search = "";
 		}

@@ -1,5 +1,8 @@
 package kr.spring.test.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,13 @@ public class UserController {
 		else {
 			mv.setViewName("redirect:/user/signup");
 		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "/user/logout", method = RequestMethod.GET)
+	public ModelAndView userLogoutGet(ModelAndView mv, HttpServletRequest request) {
+		request.getSession().removeAttribute("user");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 }

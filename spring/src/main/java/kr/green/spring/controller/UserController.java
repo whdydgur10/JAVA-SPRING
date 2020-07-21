@@ -1,7 +1,5 @@
 package kr.green.spring.controller;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -32,19 +30,11 @@ public class UserController {
 	@RequestMapping(value = "/user/signup", method = RequestMethod.POST)
 	public ModelAndView userSignupPost(ModelAndView mv, UserVo user) {
 	    mv.setViewName("/user/signup");
-	    ArrayList<String> a = userService.getUserId();
-	    boolean userId = userService.isUserId(user);
-	    for(String tmp : a) {
-	    	System.out.println(tmp);
-	    	System.out.println(user.getId());
-	    	System.out.println(tmp == user.getId());
-	    }
 	    if(userService.signup(user)) {
 	    	mv.setViewName("redirect:/");
 	    }else {
 	    	mv.setViewName("redirect:/user/signup");
 	    	mv.addObject("user",user);
-	    	mv.addObject("userId",userId);
 	    }
 	    return mv;
 	}

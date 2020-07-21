@@ -1,31 +1,28 @@
 @charset "UTF-8";
 		*{
             margin: 0;
+            padding: 0;
             
         }
         input, select{
         	outline: none;
         }
+        form{
+        	width: 300px;
+        	margin: 20px auto;
+        }
         .container.body{
         	height: 1150px;
         }
         .title{
-            width: 300px;
             height: 50px;
-            position: absolute;
-            top: 100px;
-            left: calc(50% - 150px);
             font-weight: 700;
             font-size: 40px;
             text-align: center;
             line-height: 50px;
         }
-        .id{
-            width: 300px;
+        .idContainer{
             height: 100px;
-            position: absolute;
-            top: 200px;
-            left: calc(50% - 150px);
             font-size: 20px;
         }
         .idbox{
@@ -33,11 +30,12 @@
             background-color: white;
         }
         .idbox>input:nth-of-type(1){
-            width: 190px;
+            width: 207px;
             border: none;
             line-height: 30px;
             background-color: white; 
             font-size: 15px;
+            float: left:
         }
         .idbox>input:nth-of-type(2){
             width: 90px;
@@ -45,52 +43,43 @@
             line-height: 30px;
             background-color: white;
             font-size: 15px;
+            float: right;
         }
         .currect{
         	margin-top: 5px;
             float: right;
             font-size: 15px;
+            width: 70px;
+            text-align: center;
         }
-        .pw, .pw2{
-            margin: 0 auto;
-            width: 300px;
+        .pwContainer1, .pwContainer2{
             height: 100px;
-            position: absolute;
-            top: 300px;
-            left: calc(50% - 150px);
-            font-size: 20px;
-        }
-        .checkPw{
-            margin: 0 auto;
-            width: 300px;
-            height: 100px;
-            position: absolute;
-            top: 400px;
-            left: calc(50% - 150px);
             font-size: 20px;
         }
         .pwbox{
-            width: 300px;
             border: 1px solid black;
             background-color: white;
         }
         .pwbox>input{
-            width: 290px;
+            width: 297px;
             border: none;
             line-height: 30px;
             background-color: white;
             font-size: 15px;
         }
-        .pw2{
+        .pwContainer2{
         	top: 400px;
         }
-        .email{
-            margin: 0 auto;
-            width: 300px;
+        #success, #danger{
+        	margin: 0;
+        	font-size: 10px;
+        	color: blue;
+        }
+        #danger{
+        	color: red;
+        }
+        .emailContainer{
             height: 100px;
-            position: absolute;
-            top: 500px;
-            left: calc(50% - 150px);
             font-size: 20px;
         }
         .emailbox{
@@ -98,32 +87,39 @@
             background-color: white;
         }
         .emailbox>input{
-            width: 150px;
+            width: 177px;
             line-height: 30px;
             border: none;
             background-color: white;
             font-size: 15px;
+            float: left;
         }
         .emailbox>select{
             border: none;
             width: 100px;
-            line-height: 30px;
+            height: 30px;
             background-color: white;
             font-size: 15px;
+            float: left;
         }
-        .gender{
-            margin: 0 auto;
-            width: 300px;
+        .emailbox>p{
+        	float: left;
+        	margin: 0;
+        	width: 20px;
+        }
+        .emailbox::after, .phonebox::after{
+        	clear: both;
+        	content: '';
+        	display: block;
+        }
+        .genderContainer{
             height: 100px;
-            position: absolute;
-            top: 600px;
-            left: calc(50% - 150px);
             font-size: 20px;
         }
         .genderbox{
             border: 1px solid black;
             background-color: white;
-            height: 35px;
+            height: 32px;
         }
         .genderbox>select, select>option{
             width: 100%;
@@ -133,74 +129,65 @@
             border: none;
             background-color: white;
         }
-        .name{
-            margin: 0 auto;
-            width: 300px;
+        .nameContainer{
             height: 100px;
-            position: absolute;
-            top: 700px;
-            left: calc(50% - 150px);
             font-size: 20px;
         }
         .namebox{
             border: 1px solid black;
             background-color: white;
-            height: 35px;
         }
         .namebox>input{
-            width: 290px;
+            width: 297px;
             border: none;
             line-height: 30px;
             font-size: 15px;
             background-color: white;
         }
-        .birthday{
-            margin: 0 auto;
-            width: 300px;
-            height: 100px;
-            position: absolute;
-            top: 800px;
-            left: calc(50% - 150px);
+        .birthdayContainer{
+            height: 100px;           
             font-size: 20px;
         }
         .birthdaybox{
             border: 1px solid black;
             background-color: white;
             font-size: 15px;
-            line-height: 35px;
+            line-height: 30px;
         }
         .birthdaybox>select{
             border: none;
             width: 70px;
             background-color: white;
-            line-height: 30px;
         }
-        .phone{
-            margin: 0 auto;
-            width: 300px;
+        .phoneContainer{
             height: 100px;
-            position: absolute;
-            top: 900px;
-            left: calc(50% - 150px);
             font-size: 20px;
         }
         .phonebox{
             border: 1px solid black;
             background-color: white;
             font-size: 15px;
-            line-height: 35px;
         }
         .phonebox>input{
-            width: 80px;
+            width: 91px;
             line-height: 30px;
             background-color: white;
             border: none;
             font-size: 15px;
+            float: left;
+        }
+        .phonebox>p{
+        	width: 12px;
+        	float: left;
+        	margin: 0;
+        	line-height: 30px;
+        	text-align: center;
         }
         .number>input, .number>button{
         	width: 150px;
             float: left;
             font-size: 15px;
+            margin-top: 5px;
         }
         .number>button{
         	width: 120px;
@@ -208,12 +195,12 @@
         	font-size: 15px;
         }
         .complete>button{
-            margin: 0 auto;
-            width: 300px;
+        	width: 300px;
+            margin-top: 30px;
             height: 50px;
-            position: absolute;
-            top: 1100px;
-            left: calc(50% - 150px);
             font-size: 20px;
             background-color: white;
+        }
+        .display-none{
+        	display: none;
         }

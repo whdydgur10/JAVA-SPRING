@@ -1,5 +1,8 @@
 package kr.spring.test.service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,8 +18,10 @@ public class UserServiceImp implements UserService {
 	BCryptPasswordEncoder passwordEncoder;
 
 	@Override
-	public UserVo getUser(String id) {
-		return userDao.getUser(id);
+	public UserVo getUser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserVo user = (UserVo)session.getAttribute("user");
+		return userDao.getUser(user.getId());
 	}
 
 	@Override
@@ -38,7 +43,6 @@ public class UserServiceImp implements UserService {
 			return null;
 		UserVo userDb = userDao.getUser(login.getId());
 		if(passwordEncoder.matches(login.getPw(),userDb.getPw()))
-			
 			return userDb;
 		else
 			return null;
