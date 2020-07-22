@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board/register.css">
 </head>
 <body>
-	<form action="<%=request.getContextPath() %>/board/register" method="POST">
+	<form action="<%=request.getContextPath() %>/board/register" method="POST" enctype="multipart/form-data">
 		<div class="registerTitle">
 			<p class="textTitle">제목</p>
 			<input type="text" class="dataTitle" name="title">
@@ -22,6 +22,10 @@
 			<p class="textContent">내용</p>
 			<textarea class="dataContent" name="content"></textarea>
 		</div>
+		<div class="form-group">
+        	<label>파일</label>
+        	<input type="file" class="form-control" name="file2"/>
+    	</div>
 		<button type="submit">등록</button>
 	</form>
 </body>

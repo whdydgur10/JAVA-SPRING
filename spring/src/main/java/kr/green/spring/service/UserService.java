@@ -11,5 +11,7 @@ public interface UserService {
 	UserVo isSignin(UserVo user);
 
 	UserVo getUser(HttpServletRequest request);
+
+	UserVo getUser(String id);
 	
 }

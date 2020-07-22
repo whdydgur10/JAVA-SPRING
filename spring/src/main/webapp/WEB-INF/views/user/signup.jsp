@@ -26,9 +26,9 @@
 	                <input type="text" name="id" class="id">
 	                <input type="text" name="defalutEmail" readonly placeholder="@naver.com">
 	            </div>
-	            <c:if test="${userId}">사용가능한 아이디입니다.</c:if>
-	            <c:if test="${userId}">중복된 아이디입니다.</c:if>
-	            <button type="button" class="currect">중복확인</button>
+	            <div class="dup-fail-msg display-none">이미 사용중이거나 탈퇴한 아이디입니다.</div>
+	            <div class="dup-success-msg display-none">가능한 아이디입니다.</div>
+	            <div class="null-check display-none">필수 항목입니다.</div>
 	        </div>
 	        <div class="pwContainer1">
 	            비밀번호
@@ -158,6 +158,28 @@
 				alert('전화번호를 확인하세요.');
 				return false;
 			}
+		})
+		$('.id').change(function(){
+			$('.id-null').addClass('display-none');
+			var id = $(this).val();
+			$.ajax({
+				async:true,
+			    type:'POST',
+			    data:id,
+			    url:"<%=request.getContextPath()%>/idCheck",
+			    dataType:"json",
+			    contentType:"application/json; charset=UTF-8",
+			    success : function(data){
+				    if(data['check']){
+						$('.dup-success-msg').removeClass('display-none');
+						$('.dup-fail-msg').addClass('display-none');
+					}else{
+						$('.dup-success-msg').addClass('display-none');
+						$('.dup-fail-msg').removeClass('display-none');
+					}
+			        console.log(data);
+			    }
+			});
 		})
     })
 </script>

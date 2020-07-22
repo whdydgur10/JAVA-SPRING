@@ -28,7 +28,7 @@
   	update board set views = views+1 where num = #{num}
   </update>
   <insert id="registerBoard">
-  	insert into board(title, writer, content) values(#{board.title},#{board.writer},#{board.content})
+  	insert into board(title, writer, content, file) values(#{board.title},#{board.writer},#{board.content},#{board.file})
   </insert>
   <select id="getBoardCnt" resultType="int">
   	select count(*) from board where isDel = 'N'
@@ -48,7 +48,11 @@
     					</if>
   </select>
   <update id="updateBoard">
-  	update board set title = #{board.title}, content = #{board.content}, isDel = #{board.isDel}, delDate = #{board.delDate}, modify = #{board.modify} where num = #{board.num}
+  	update board set title = #{board.title}, content = #{board.content}, isDel = #{board.isDel}, delDate = #{board.delDate}, modify = #{board.modify}, 
+  			commend = (select count(*) from commend where boardNum = #{board.num}),
+  			deprecated = (select count(*) from deprecated where boardNum = #{board.num}),
+  			file = #{board.file}
+  			where num = #{board.num}
   </update>
   <delete id="deleteBoard">
   	delete from board where num = #{num}
@@ -56,4 +60,10 @@
   <update id="deupBoard">
   	update board set isDel = 'Y' where num = #{num}
   </update>
+  <insert id="insertCommend">
+  	insert into commend(id,boardNum) values(#{id},#{boardNum});
+  </insert>
+  <select id="isCommend" resultType="int">
+  	select count(*) from commend where boardNum = #{boardNum} and id = #{id};
+  </select>
 </mapper>

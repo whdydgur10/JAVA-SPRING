@@ -25,4 +25,8 @@ public interface BoardDao {
 
 	void deupBoard(@Param("num")Integer num);
 
+	void insertCommend(@Param("boardNum")int boardNum, @Param("id") String id);
+
+	int isCommend(@Param("boardNum")int boardNum, @Param("id") String id);
+
 }

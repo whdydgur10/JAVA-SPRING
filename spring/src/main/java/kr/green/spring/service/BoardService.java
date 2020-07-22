@@ -29,4 +29,6 @@ public interface BoardService {
 
 	PageMaker getPageMaker(Criteria cri);
 
+	int updateCommend(String num, String id, String string);
+
 }

@@ -16,7 +16,7 @@
 		<a href="<%=request.getContextPath() %>/"><button>로그인</button></a>
 	</c:if>
 	<c:if test="${user != null}">
-		<a href="<%=request.getContextPath() %>/board/register"><button>글쓰기</button></a>
+		<a href="<%=request.getContextPath() %>/board/register" enctype="multipart/form-data"><button>글쓰기</button></a>
 	</c:if>
   <table class="table table-dark table-striped">
     <thead>
@@ -45,13 +45,13 @@
   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전페이지</a></li>
   	</c:if>
   	<c:if test="${pm.criteria.page != 1}">
-  		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.criteria.page-1}&type=${pm.criteria.type}&search=${pm.criteria.search}"><i class="far fa-angle-left"></i></a></li>
+  		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.criteria.page-1}&type=${pm.criteria.type}&search=${pm.criteria.search}"><i class="far fa-angle-left" aria-hidden="false"></i></a></li>
   	</c:if>
   	<c:forEach var="index" begin="${pm.startPage}" end="${pm.endPage}">
   		<li class="page-item <c:if test="${index == pm.criteria.page}">active</c:if>"><a class="page-link " href="<%=request.getContextPath()%>/board/list?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>
   	</c:forEach>
 	<c:if test="${pm.criteria.page != pm.lastContent}">
-	  <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.criteria.page+1}&type=${pm.criteria.type}&search=${pm.criteria.search}"><i class="far fa-angle-right"></i></a></li>
+	  <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.criteria.page+1}&type=${pm.criteria.type}&search=${pm.criteria.search}"><i class="far fa-angle-right" aria-hidden="false"></i></a></li>
 	</c:if>
 	<c:if test="${pm.next}">
 		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음페이지</a></li>

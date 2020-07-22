@@ -45,12 +45,13 @@
             font-size: 15px;
             float: right;
         }
-        .currect{
-        	margin-top: 5px;
-            float: right;
-            font-size: 15px;
-            width: 70px;
-            text-align: center;
+        .dup-fail-msg, .dup-success-msg, .null-check{
+        	color: red;
+        	line-height: 16px;
+        	font-size: 10px;
+        }
+        .dup-success-msg{
+        	color: green;
         }
         .pwContainer1, .pwContainer2{
             height: 100px;

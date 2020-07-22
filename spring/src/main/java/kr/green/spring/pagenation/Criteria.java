@@ -8,7 +8,7 @@ public class Criteria {
 	private String search;
 	public Criteria() {
 		this.page = 1;
-		this.perPageNum = 3;
+		this.perPageNum = 10;
 		this.type = 0;
 		this.search = "";
 	}
@@ -25,8 +25,8 @@ public class Criteria {
 		return perPageNum;
 	}
 	public void setperPageNum(int perPageNum) {
-		if(perPageNum < 3)
-			this.perPageNum = 3;
+		if(perPageNum < 10)
+			this.perPageNum = 10;
 		this.perPageNum = perPageNum;
 	}
 	public int getType() {

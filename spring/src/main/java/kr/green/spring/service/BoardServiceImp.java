@@ -83,4 +83,18 @@ public class BoardServiceImp implements BoardService {
 		return pm;
 	}
 
+	@Override
+	public int updateCommend(String num, String id, String commend) {
+		if(boardDao.isCommend(Integer.parseInt(num),id) == 0) {
+			boardDao.insertCommend(Integer.parseInt(num), id);
+		}else {
+			return -1;
+		}
+		BoardVo board = boardDao.getBoard(Integer.parseInt(num));
+		boardDao.updateBoard(board);
+		board = boardDao.getBoard(Integer.parseInt(num));
+		return board.getCommend();
+		
+	}
+
 }
