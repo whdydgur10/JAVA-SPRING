@@ -10,6 +10,6 @@
     select id from user
   </select>
   <insert id="insertUser">
-  	insert into user(id, pw, email, gender) values(#{user.id},#{user.pw},#{user.email},#{user.gender})
+  	insert into user(id, pw, name, email, gender, birthday, phone) values(#{user.id}, #{user.pw}, #{user.name}, #{user.email}, #{user.gender}, #{user.birthday}, #{user.phone})
   </insert>
 </mapper>

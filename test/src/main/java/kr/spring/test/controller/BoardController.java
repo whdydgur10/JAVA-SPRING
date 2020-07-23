@@ -1,6 +1,8 @@
 package kr.spring.test.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,8 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.spring.test.controller.pagination.Criteria;
@@ -88,5 +92,37 @@ public class BoardController {
 		mv.setViewName("redirect:/board/list");
 	    boardService.deleteBoard(num, request);
 	    return mv;
+	}
+	
+	@RequestMapping(value ="/commend")
+	@ResponseBody
+	public Map<Object, Object> commend(@RequestBody int num, HttpServletRequest request){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    if(boardService.insertCommend(num, request, 1)==false) {
+	    	map.put("success",false);
+		}
+	    else {
+	    	BoardVo board = boardService.getBoard(num);
+	    	map.put("success",true);
+	    	map.put("commend",board.getCommend());
+	    	map.put("deprecated",board.getDeprecated());
+	    }
+	    return map;
+	}
+	
+	@RequestMapping(value ="/deprecated")
+	@ResponseBody
+	public Map<Object, Object> deprecated(@RequestBody int num, HttpServletRequest request){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    if(boardService.insertCommend(num, request, 0)==false) {
+	    	map.put("success",false);
+		}
+	    else {
+	    	BoardVo board = boardService.getBoard(num);
+	    	map.put("success",true);
+	    	map.put("commend",board.getCommend());
+	    	map.put("deprecated",board.getDeprecated());
+	    }
+	    return map;
 	}
 }

@@ -29,3 +29,7 @@ div>p{
 #type{
 	height: 30px;
 }
+tbody> th:nth-of-type(2) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

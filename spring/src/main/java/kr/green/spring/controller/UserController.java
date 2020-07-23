@@ -60,4 +60,33 @@ public class UserController {
 	    map.put("check", check);
 	    return map;
 	}
+	
+	@RequestMapping(value ="/test")
+	@ResponseBody
+	public Map<Object, Object> test(@RequestBody TestVo test){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    System.out.println(test);
+	    map.put("res","success");
+	    return map;
+	}
+}
+class TestVo{
+	private String id;
+	private int num;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
+	@Override
+	public String toString() {
+		return "TestVo [id=" + id + ", num=" + num + "]";
+	}
 }

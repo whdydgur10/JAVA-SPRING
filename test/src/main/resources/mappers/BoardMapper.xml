@@ -48,6 +48,18 @@
   	insert into board(title, writer, content) values (#{board.title}, #{board.writer}, #{board.content})
   </insert>
   <update id="updateBoard">
-  	update board set title = #{board.title}, content = #{board.content}, isDel = #{board.isDel}, modify = #{board.modify}, delDate = #{board.delDate} where num = #{board.num}
+  	update board set title = #{board.title}, content = #{board.content}, isDel = #{board.isDel}, modify = #{board.modify}, delDate = #{board.delDate} 
+  				,commend = (select count(*) from commend where type = 1 and boardNum = #{board.num})
+  				,deprecated = (select count(*) from commend where type = 0 and boardNum = #{board.num})
+  				where num = #{board.num}
+  </update>
+  <select id="getCommend" resultType="kr.spring.test.vo.CommendVo">
+  	select * from commend where id = #{userId} and boardNum = #{boardNum};
+  </select>
+  <insert id="insertCommend">
+  	insert into commend(id, boardNum, type) values(#{userId},#{boardNum},#{type});
+  </insert>
+  <update id="updateCommend">
+  	update commend set type = #{type} where num = #{num}
   </update>
 </mapper>

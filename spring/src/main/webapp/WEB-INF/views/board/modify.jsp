@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>게시글${board.num}수정</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board/detail.css">
 </head>
 <body>

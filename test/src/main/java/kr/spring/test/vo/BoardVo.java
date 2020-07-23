@@ -15,6 +15,8 @@ public class BoardVo {
 		private int views;
 		private Date delDate;
 		private char modify;
+		private int commend;
+		private int deprecated;
 		public int getNum() {
 			return num;
 		}
@@ -79,11 +81,23 @@ public class BoardVo {
 		public void setModify(char modify) {
 			this.modify = modify;
 		}
+		public int getCommend() {
+			return commend;
+		}
+		public void setCommend(int commend) {
+			this.commend = commend;
+		}
+		public int getDeprecated() {
+			return deprecated;
+		}
+		public void setDeprecated(int deprecated) {
+			this.deprecated = deprecated;
+		}
 		@Override
 		public String toString() {
-			return "BoardVo [게시글번호=" + num + ", 작성자=" + writer + ", 제목=" + title + ", 내용=" + content
-					+ ", 작성일=" + registerDate + ", 조회수=" + views + ", 삭제여부=" + isDel + ", 삭제기한="
-					+ delDate + "수정" + modify + "]";
+			return "BoardVo [num=" + num + ", writer=" + writer + ", title=" + title + ", content=" + content
+					+ ", registerDate=" + registerDate + ", isDel=" + isDel + ", views=" + views + ", delDate="
+					+ delDate + ", modify=" + modify + ", commend=" + commend + ", deprecated=" + deprecated + "]";
 		}
 		
 }

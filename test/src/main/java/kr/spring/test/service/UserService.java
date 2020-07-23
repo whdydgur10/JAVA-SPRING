@@ -12,4 +12,6 @@ public interface UserService {
 	
 	public UserVo login(UserVo login);
 
+	public UserVo getUser(String id);
+
 }

@@ -12,6 +12,7 @@ import kr.spring.test.controller.pagination.Criteria;
 import kr.spring.test.controller.pagination.PageMaker;
 import kr.spring.test.dao.BoardDao;
 import kr.spring.test.vo.BoardVo;
+import kr.spring.test.vo.CommendVo;
 import kr.spring.test.vo.UserVo;
 
 @Service
@@ -84,5 +85,23 @@ public class BoardServiceImp implements BoardService {
 		pm.setCriteria(cri);
 		pm.setTotalContent(boardDao.cntBoard(cri));
 		return pm;
+	}
+
+	@Override
+	public boolean insertCommend(int num, HttpServletRequest request, int type) {
+		UserVo user = (UserVo)request.getSession().getAttribute("user");
+		BoardVo board = boardDao.getBoard(num);
+		CommendVo commend = (CommendVo) boardDao.getCommend(board.getNum(), user.getId());
+		if(commend == null) {
+			boardDao.insertCommend(board.getNum(), user.getId(), type);
+			boardDao.updateBoard(board);
+			return true;
+		}else if(commend.getType() != type) {
+			boardDao.updateCommend(commend.getNum(), type);
+			boardDao.updateBoard(board);
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

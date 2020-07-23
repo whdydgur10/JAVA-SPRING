@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>글작성</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board/register.css">
 </head>
 <body>

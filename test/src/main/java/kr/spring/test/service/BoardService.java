@@ -26,4 +26,6 @@ public interface BoardService {
 
 	PageMaker getPageMakerByBoard(Criteria cri);
 
+	boolean insertCommend(int num, HttpServletRequest request, int type);
+
 }

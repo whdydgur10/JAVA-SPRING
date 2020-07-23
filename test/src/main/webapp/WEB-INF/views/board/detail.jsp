@@ -22,23 +22,29 @@
 				<div class="detailHead">
 					<div class="detailNum">
 						<p class="textNum">게시글번호</p>
-						<p class="dataNum">${board.num}</p>				
+						<input type="text" class="dataNum" readonly value="${board.num}">		
 					</div>
 					<div class="detailTitle">
 						<p class="textTitle">제목</p>
-						<p class="dataTitle">${board.title}</p>	
+						<input type="text" class="dataTitle" readonly value="${board.title}">
 					</div>
 					<div class="detailViews">
 						<p class="textViews">조회수</p>
-						<p class="dataViews">${board.views}</p>
+						<input type="text" class="dataViews" readonly value="${board.views}">
 					</div>
 					<div class="detailWriter">
 						<p class="textWriter">작성자</p>
-						<p class="dataWriter">${board.writer}</p>
+						<input type="text" class="dataWriter" readonly value="${board.writer}">
 					</div>
 					<div class="detailDate">
 						<p class="textDate">작성일</p>
-						<p class="dataDate">${board.registerDate}</p>
+						<input type="text" class="dataDate" readonly value="${board.registerDate}">
+					</div>
+					<div class="detailCommend">
+						<p class="textCommend">추천</p>
+						<input type="text" class="dataCommend" readonly value="${board.commend}">
+						<p class="textDeprecated">비추천</p>
+						<input type="text" class="dataDeprecated" readonly value="${board.deprecated}">
 					</div>
 				</div>
 				<div class="detailBody">
@@ -54,6 +60,63 @@
 				</c:if>
 			</div>
 		</c:if>
+	</c:if>
+	<c:if test="${user != null}">
+		<script>
+			$(function(){
+				var boardNum;
+				$('.textCommend').click(function(){
+					boardNum = $('.dataNum').val();
+					$.ajax({
+				        async:true,
+				        type:'POST',
+				        data:boardNum,
+				        url:"<%=request.getContextPath()%>/commend",
+				        dataType:"json",
+				        contentType:"application/json; charset=UTF-8",
+				        success : function(data){
+						    if(!data['success'])
+								alert('한번만 적용됩니다.');
+						    else{
+								$('.dataCommend').val(data['commend']);
+								$('.dataDeprecated').val(data['deprecated']);
+							}						     
+						}
+				    });
+				})
+				$('.textDeprecated').click(function(){
+					boardNum = $('.dataNum').val();
+					$.ajax({
+				        async:true,
+				        type:'POST',
+				        data:boardNum,
+				        url:"<%=request.getContextPath()%>/deprecated",
+				        dataType:"json",
+				        contentType:"application/json; charset=UTF-8",
+				        success : function(data){
+				        	if(!data['success'])
+								alert('한번만 적용됩니다.');
+				        	else {
+				        		$('.dataCommend').val(data['commend']);
+								$('.dataDeprecated').val(data['deprecated']);
+					        }	
+						}
+				    });
+				})
+			})
+		</script>
+	</c:if>
+	<c:if test="${user == null}">
+		<script>
+			$(function(){
+				$('.textCommend').click(function(){
+					alert('로그인 후 이용해주세요.');
+				})
+				$('.textDeprecated').click(function(){
+					alert('로그인 후 이용해주세요.');
+				})
+			})
+		</script>
 	</c:if>
 </body>
 </html>

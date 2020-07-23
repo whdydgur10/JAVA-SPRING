@@ -28,7 +28,9 @@ public class UserServiceImp implements UserService {
 	public boolean getId(UserVo user) {
 		if(user == null)
 			return false;
-		if(userDao.getUser(user.getId()) != null || user.getId().length() == 0 || user.getPw().length() == 0 || user.getId() == null || user.getEmail().length() == 0 || user.getEmail() == null || user.getGender().length() == 0 || user.getGender() == null)
+		if(userDao.getUser(user.getId()) != null || user.getId().length() == 0 || user.getPw().length() == 0 || user.getPw() == null || user.getName() != null || user.getName().length() == 0 ||
+				user.getEmail().length() == 0 || user.getEmail() == null || user.getGender().length() == 0 || user.getGender() == null || user.getBirthday().length() == 0 || user.getBirthday() == null || 
+				user.getPhone().length() == 0 || user.getPhone() == null)
 			return false;
 		user.setAuth("user");
 		user.setIsDel("N");
@@ -46,5 +48,10 @@ public class UserServiceImp implements UserService {
 			return userDb;
 		else
 			return null;
+	}
+
+	@Override
+	public UserVo getUser(String id) {
+		return userDao.getUser(id);
 	}
 }

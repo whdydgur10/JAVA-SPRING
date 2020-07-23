@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시판</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/global.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board/list.css">
 </head>

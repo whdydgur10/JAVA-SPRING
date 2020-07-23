@@ -3,8 +3,11 @@ package kr.spring.test.vo;
 public class UserVo {
 	private String id;
 	private String pw;
+	private String name;
 	private String email;
 	private String gender;
+	private String birthday;
+	private String phone;
 	private String auth;
 	private String isDel;
 	public String getId() {
@@ -43,10 +46,28 @@ public class UserVo {
 	public void setIsDel(String isDel) {
 		this.isDel = isDel;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	@Override
 	public String toString() {
-		return "UserVo [id=" + id + ", pw=" + pw + ", email=" + email + ", gender=" + gender + ", auth=" + auth
-				+ ", isDel=" + isDel + "]";
+		return "UserVo [id=" + id + ", pw=" + pw + ", name=" + name + ", email=" + email + ", gender=" + gender
+				+ ", birthday=" + birthday + ", phone=" + phone + ", auth=" + auth + ", isDel=" + isDel + "]";
 	}
 	
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시글${board.num}</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/board/detail.css">
 </head>
 <body>
@@ -49,7 +49,6 @@
 			<div class="detailBody">
 				<div class="dataContent" <c:if test="${board.file != null}">style="height: 555px;"</c:if> <c:if test="${board.file == null}">style="height: 585px;"</c:if>>${board.content}</div>
 			</div>
-			
 		</form>
 		<div class="datailFooter">
 			<a href="<%=request.getContextPath() %>/board/list?page=${cri.page}&type=${cri.type}&search=${cri.search}">목록</a>

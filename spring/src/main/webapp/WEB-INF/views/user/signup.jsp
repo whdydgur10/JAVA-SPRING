@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/detail.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/user/signup.css">
 <script src="<%=request.getContextPath()%>/resources/js/jquery.js"></script>

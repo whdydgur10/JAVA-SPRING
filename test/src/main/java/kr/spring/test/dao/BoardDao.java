@@ -21,4 +21,10 @@ public interface BoardDao {
 
 	void updateBoard(@Param("board")BoardVo board);
 
+	Object getCommend(@Param("boardNum")int num, @Param("userId")String id);
+
+	void insertCommend(@Param("boardNum")int num, @Param("userId")String id, @Param("type")int type);
+
+	void updateCommend(@Param("num")int num, @Param("type")int type);
+
 }

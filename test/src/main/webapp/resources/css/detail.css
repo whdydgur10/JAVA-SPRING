@@ -6,17 +6,24 @@
 	width: 1000px;
 	border: 1px solid black;
 }
-.container.detail p{
+.container.detail p, input{
 	margin: 0;
 	border-right: 1px solid black;
 	float: left;
+}
+input{
+	outline: none;
+	height: 30px;
+	text-align: center;
+	border: none;
+	border-right: 1px solid black;
 }
 .detailHead{
 	height: 30px;
 	text-align: center;
 	line-height: 30px;
 }
-.detailNum, .detailTitle, .detailViews, .detailWriter, .detailDate{
+.detailNum, .detailTitle, .detailViews, .detailWriter, .detailDate, .detailCommend{
 	width: 20%;
 	float: left;
 	border-bottom: 1px solid black;
@@ -24,23 +31,30 @@
 .detailNum>.textNum, .detailViews>.dataViews, .detailWriter>.dataWriter, .detailDate>.dataDate, .detailDate>.dataDate2{
 	width: 70%;
 }
-.detailNum>.dataNum, .detailViews>.textViews, .detailWriter>.textWriter, .detailDate>.textDate{
+.detailNum>.dataNum, .detailViews>.textViews, .detailWriter>.textWriter, .detailDate>.textDate, .detailCommend, .dataCommend, .dataDeprecated{
 	width: 30%;
 }
-.detailTitle, .detailDate{
+.detailTitle{
 	width: 60%;
 }
-.textTitle{
+.detailDate{
+	width: 50%; 
+}
+.textTitle, .textCommend, .textDeprecated{
 	width: 20%;
+}
+.textCommend, .textDeprecated{
+	cursor: pointer;
 }
 .dataTitle, .setDataTitle{
 	width: 80%;
 }
-.detailViews>.dataViews, .detailDate>.dataDate{
-	border-right: none !important;
+.dataTitle{
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-.detailWriter{
-	width: 40%;
+.detailViews>.dataViews, .dataDeprecated{
+	border-right: none !important;
 }
 .detailBody{
 	border-bottom: 1px solid black;
