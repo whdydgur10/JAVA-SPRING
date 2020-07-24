@@ -5,6 +5,7 @@
 	padding: 0;
 	width: 1000px;
 	border: 1px solid black;
+	box-sizing: border-box;
 }
 .container.detail p, input{
 	margin: 0;
@@ -23,21 +24,18 @@ input{
 	text-align: center;
 	line-height: 30px;
 }
-.detailNum, .detailTitle, .detailViews, .detailWriter, .detailDate, .detailCommend{
+.detailNum, .detailTitle, .detailViews, .detailWriter, .detailDate, .detailCommend, .detailFile{
 	width: 20%;
 	float: left;
 	border-bottom: 1px solid black;
 }
-.detailNum>.textNum, .detailViews>.dataViews, .detailWriter>.dataWriter, .detailDate>.dataDate, .detailDate>.dataDate2{
+.dataNum, .dataViews, .dataWriter, .dataDate, .dataDate2{
 	width: 70%;
 }
-.detailNum>.dataNum, .detailViews>.textViews, .detailWriter>.textWriter, .detailDate>.textDate, .detailCommend, .dataCommend, .dataDeprecated{
+.textNum, .textViews, .textWriter, .textDate, .detailCommend, .dataCommend, .dataDeprecated, .detailNum{
 	width: 30%;
 }
-.detailTitle{
-	width: 60%;
-}
-.detailDate{
+.detailDate, .detailTitle{
 	width: 50%; 
 }
 .textTitle, .textCommend, .textDeprecated{
@@ -53,13 +51,26 @@ input{
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.detailViews>.dataViews, .dataDeprecated{
+.dataViews, .dataDeprecated{
 	border-right: none !important;
+}
+.detailFile{
+	width: 100%;
+}
+.textFile{
+	width: 10%;
+}
+.dataFile{
+	width: 90%;
+	color: black;
+	text-align: left;
+	display: inline-block;
+	padding-left: 10px;
 }
 .detailBody{
 	border-bottom: 1px solid black;
 }
-.detailBody>.dataContent{
+.dataContent{
 	width: 100%;
 	height: 635px;
 	overflow: Auto;

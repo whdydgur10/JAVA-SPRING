@@ -7,7 +7,7 @@
 	<h1>
 		Hello world!  		
 	</h1>
-	<form action="<%=request.getContextPath() %>/user/signin" method="POST">
+	<form  method="POST">
 		<div>
 			아이디 : 
 			<input type="text" name="id" id="id">

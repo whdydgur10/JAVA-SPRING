@@ -2,10 +2,10 @@
 
 form{
 	margin: 0 auto;
+	border: 1px solid black;
 }
 p{
 	margin-top: 20px;
-	width: 10%;
 	font-size: 30px;
 }
 input{
@@ -22,4 +22,7 @@ textarea{
 button{
 	margin-top: 20px;
 	margin-bottom: 20px;
+}
+.dataFile{
+	border: 1px solid black;
 }

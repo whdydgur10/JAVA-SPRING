@@ -13,10 +13,14 @@
 <script src="<%=request.getContextPath()%>/resources/js/register.js"></script>
 </head>
 <body>
-	<form action="<%=request.getContextPath() %>/board/register" method="POST">
+	<form action="<%=request.getContextPath() %>/board/register" method="POST" enctype="multipart/form-data">
 		<div class="registerTitle">
 			<p class="textTitle">제목</p>
 			<input type="text" class="dataTitle" name="title">
+		</div>
+		<div class="registerFile">
+			<p class="textFile">첨부파일</p>
+			<input type="file" class="dataFile" name="file2"/>
 		</div>
 		<div class="registerContent">
 			<p class="textContent">내용</p>
@@ -32,6 +36,7 @@
 					return false;
 				}
 			})
+			
 		})
 	</script>
 </body>

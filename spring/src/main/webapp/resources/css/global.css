@@ -6,3 +6,6 @@
 .page-link>i{
 	line-height: 20px;
 }
+.display-none{
+	display: none;
+}

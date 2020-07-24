@@ -45,7 +45,7 @@
     							</if>
   </select>
   <insert id="insertBoard">
-  	insert into board(title, writer, content) values (#{board.title}, #{board.writer}, #{board.content})
+  	insert into board(title, writer, content, file) values (#{board.title}, #{board.writer}, #{board.content}, #{board.file})
   </insert>
   <update id="updateBoard">
   	update board set title = #{board.title}, content = #{board.content}, isDel = #{board.isDel}, modify = #{board.modify}, delDate = #{board.delDate} 

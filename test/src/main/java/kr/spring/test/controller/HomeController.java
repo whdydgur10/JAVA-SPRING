@@ -30,13 +30,7 @@ public class HomeController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/user/signin", method = RequestMethod.GET)
-	public ModelAndView signinGet(ModelAndView mv) {
-		mv.setViewName("/main/home");
-		return mv;
-	}
-	
-	@RequestMapping(value = "/user/signin", method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView signinPost(ModelAndView mv, UserVo login) {
 		UserVo user = userService.login(login);
 		if(user != null) {

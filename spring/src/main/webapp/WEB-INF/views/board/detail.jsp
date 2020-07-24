@@ -44,7 +44,7 @@
 					<p class="textFile">첨부파일</p>
 					<a href="<%=request.getContextPath() %>/board/download?fileName=${board.file}" class="dataFile">${board.orifile}</a>
 				</div>
-			</c:if>
+				</c:if>
 			</div>
 			<div class="detailBody">
 				<div class="dataContent" <c:if test="${board.file != null}">style="height: 555px;"</c:if> <c:if test="${board.file == null}">style="height: 585px;"</c:if>>${board.content}</div>

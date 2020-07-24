@@ -105,10 +105,16 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/modify", method = RequestMethod.POST)
-	public ModelAndView boardModifyPost(ModelAndView mv, BoardVo board, HttpServletRequest request) {
+	public ModelAndView boardModifyPost(ModelAndView mv, BoardVo board, HttpServletRequest request, MultipartFile file2) throws IOException, Exception {
 		logger.info("URI : /board/modify:POST");
 	    mv.setViewName("redirect:/board/list");
 	    UserVo user = userService.getUser(request);
+	    if(file2.getOriginalFilename().length() != 0) {
+	    	String fileName = UploadFileUtils.uploadFile(uploadPath, file2.getOriginalFilename(),file2.getBytes());
+	    	board.setFile(fileName);
+	    }else if(board.getFile().length() == 0) {
+	    	board.setFile(null);
+	    }
 	    boardService.updateBoard(board,user);
 		return mv;
 	}

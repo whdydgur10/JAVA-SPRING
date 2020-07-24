@@ -17,6 +17,7 @@ public class BoardVo {
 		private char modify;
 		private int commend;
 		private int deprecated;
+		private String file;
 		public int getNum() {
 			return num;
 		}
@@ -93,11 +94,22 @@ public class BoardVo {
 		public void setDeprecated(int deprecated) {
 			this.deprecated = deprecated;
 		}
+		public String getFile() {
+			return file;
+		}
+		public void setFile(String file) {
+			this.file = file;
+		}
 		@Override
 		public String toString() {
 			return "BoardVo [num=" + num + ", writer=" + writer + ", title=" + title + ", content=" + content
 					+ ", registerDate=" + registerDate + ", isDel=" + isDel + ", views=" + views + ", delDate="
-					+ delDate + ", modify=" + modify + ", commend=" + commend + ", deprecated=" + deprecated + "]";
+					+ delDate + ", modify=" + modify + ", commend=" + commend + ", deprecated=" + deprecated + ", file="
+					+ file + "]";
+		}
+		public String getOrifile() {
+			int index = file.indexOf("_");
+			return file.substring(index + 1);
 		}
 		
 }
