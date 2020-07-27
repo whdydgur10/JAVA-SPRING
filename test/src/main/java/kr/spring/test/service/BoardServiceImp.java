@@ -59,7 +59,7 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public void updateBoard(BoardVo board, HttpServletRequest request) {
 		UserVo user = (UserVo)request.getSession().getAttribute("user");
-		if(user.getId() == board.getWriter()) {
+		if(user.getId().equals(board.getWriter())) {
 			board.setIsDel('N');
 			board.setModify('Y');
 			boardDao.updateBoard(board);

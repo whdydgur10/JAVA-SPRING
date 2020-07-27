@@ -20,7 +20,7 @@
 		</div>
 		<div class="registerFile">
 			<p class="textFile">첨부파일</p>
-			<input type="file" class="dataFile" name="file2"/>
+			<input type="file" class="dataFile" name="file2">
 		</div>
 		<div class="registerContent">
 			<p class="textContent">내용</p>
@@ -36,7 +36,6 @@
 					return false;
 				}
 			})
-			
 		})
 	</script>
 </body>

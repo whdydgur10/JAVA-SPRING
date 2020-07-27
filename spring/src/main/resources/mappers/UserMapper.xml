@@ -12,4 +12,7 @@
   <select id="getUserId" resultType="String">
   	select id from user;
   </select>
+  <update id="updatePw">
+  	update user set pw = #{user.pw} where id = #{user.id}
+  </update>
 </mapper>

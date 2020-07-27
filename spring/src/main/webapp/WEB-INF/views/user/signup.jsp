@@ -24,6 +24,7 @@
 	                <input type="text" name="id" class="id">
 	                <input type="text" name="defalutEmail" readonly placeholder="@naver.com">
 	            </div>
+	            <label for="id" id="id-error" class="error"></label>
 	            <div class="dup-fail-msg display-none">이미 사용중이거나 탈퇴한 아이디입니다.</div>
 	            <div class="dup-success-msg display-none">가능한 아이디입니다.</div>
 	        </div>
@@ -32,24 +33,28 @@
 	            <div class="pwbox">
 	                <input type="password" name="pw" class="pw" id="pw">
 	            </div>
+	            <label for="pw" id="pw-error" class="error"></label>
 	        </div>
 	        <div class="pwContainer2">
             	비밀번호 재확인
             	<div class="pwbox">
                 	<input type="password" id="pw2" class="pw" name="pw2">
             	</div>
+            	<label for="pw2" id="pw2-error" class="error"></label>
         	</div>
 	        <div class="emailContainer">
 	            본인확인 이메일
 	            <div class="emailbox">
-	                <input type="text" name="emailId" id="emailId">
+	                <input type="text" name="emailId" id="emailId">  
 	                <p>@</p>
 	                <select name="selectEmail" id="selectEmail">
-	                    <option value="naver.com" selected>naver.com</option>
-	                    <option value="gmail.com">gmail.com</option>
-	                    <option value="kakaocorn.com">kakaocorn.com</option>
+	                    <option value="@naver.com" selected>naver.com</option>
+	                    <option value="@gmail.com">gmail.com</option>
+	                    <option value="@kakaocorn.com">kakaocorn.com</option>
 	                </select>  
+	                <input type="hidden" name="email" id="email">
 	            </div>
+	            <label for="email" id="email-error" class="error"></label>
 	        </div>
 	        <div class="genderContainer">
 	            성별
@@ -60,12 +65,14 @@
 	                    <option value="female">여자</option>
 	                </select>
 	            </div>
+	            <label for="gender" id="gender-error" class="error"></label>
 	        </div>
 	        <div class="nameContainer">
 	            이름
 	            <div class="namebox">
 	                <input type="text" name="name">
 	            </div>
+	            <label for="name" id="name-error" class="error"></label>
 	        </div>
 	        <div class="birthdayContainer">
 	            생년월일
@@ -84,17 +91,20 @@
 	                </select>
 	                일
 	            </div>
+	            <input type="hidden" name="birthday" id="birthday">
 	        </div>
 	        <div class="phoneContainer">
 	            휴대전화
 	            <div class="phonebox">
-	                <input type="text" name="num1" class="num1">
-	                <p>-</p> <input type="text" name="num2" class="num2">
-	                <p>-</p> <input type="text" name="num3" class="num3">
+	                <input type="number" name="num1" class="num1" id="num1" maxlength="3">
+	                <p>-</p> <input type="number" name="num2" class="num2" id="num2" maxlength="4">
+	                <p>-</p> <input type="number" name="num3" class="num3" id="num3" maxlength="4">
 	            </div>
-	            <div class="number">
-	                <input type="text" name="number" disabled placeholder="인증번호 입력">
-	                <button type="button" >인증번호 받기</button>
+	            <input type="hidden" name="phone" id="phone">
+	            <div class="phoneCheck">
+	                <input type="text" name="checkNum1" disabled placeholder="인증번호 입력">
+	                <input type="hidden" name="checkNum2">
+	                <button type="button">인증번호 받기</button>
 	            </div>
 	        </div>
 	    </tbody>
@@ -125,7 +135,6 @@
 							$('.dup-success-msg').addClass('display-none');
 							$('.dup-fail-msg').removeClass('display-none');
 						}
-				        console.log(data);
 				    }
 				});
 			else{
@@ -134,7 +143,13 @@
 			}
 		})
 		$("form").validate({
-			 submitHandler: function(form) {
+			submitHandler: function(form) {
+				String email = $('#emailId').val() + $('#emailSite').val();
+				$('#email').val(email);
+				String birthday = $('#year').val() + $('#month').val() + $('#day').val();
+				$('#birthday').val(birthday);
+				String phone = $('#num1').val() + '-' + $('#num2').val() + '-' + $('#num3').val();
+				$('#phone').val(phone);
 		    	//이메일을 아이디를 인풋으로 사이트를 셀렉트로 할 경우 이 곳에서 각자의 값을 가져와 합쳐줄 수 있다. 연락처나 생년월일 동일
 		    	//<input type="hidden" name="email">으로 합친 값을 보내준다.
 		   		$(form).submit();
@@ -159,11 +174,10 @@
 	                minlength : 2
 	            },
 	            emailId: {
-	                required : true,
-	                email : true
+	                required : true
 	            },
 	            gender: {
-	                required : true,
+	                required : true
 	            }
 	        },
 	        //규칙체크 실패시 출력될 메시지
@@ -186,12 +200,11 @@
 	                required : "필수로입력하세요",
 	                minlength : "최소 {0}글자이상이어야 합니다"
 	            },
-	            email: {
-	                required : "필수로입력하세요",
-	                email : "메일규칙에 어긋납니다"
+	            emailId: {
+	                required : "필수로입력하세요"
 	            },
 	            gender: {
-	                required : "필수로입력하세요",
+	                required : "필수로입력하세요"
 	            }
 	        }
 	    });

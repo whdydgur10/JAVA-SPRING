@@ -49,8 +49,8 @@
   </select>
   <update id="updateBoard">
   	update board set title = #{board.title}, content = #{board.content}, isDel = #{board.isDel}, delDate = #{board.delDate}, modify = #{board.modify}, 
-  			commend = (select count(*) from commend where boardNum = #{board.num}),
-  			deprecated = (select count(*) from deprecated where boardNum = #{board.num}),
+  			commend = (select count(*) from commend where boardNum = #{board.num} and type = 1),
+  			deprecated = (select count(*) from commend where boardNum = #{board.num} and type = 0),
   			file = #{board.file}
   			where num = #{board.num}
   </update>

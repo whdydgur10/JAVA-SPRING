@@ -13,5 +13,7 @@ public interface UserService {
 	UserVo getUser(HttpServletRequest request);
 
 	UserVo getUser(String id);
+
+	void newPw(String id, String newPw);
 	
 }

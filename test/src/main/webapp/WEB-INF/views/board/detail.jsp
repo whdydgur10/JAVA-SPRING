@@ -46,15 +46,16 @@
 						<p class="textDeprecated">비추천</p>
 						<input type="text" class="dataDeprecated" readonly value="${board.deprecated}">
 					</div>
+					
+				</div>
+				<div class="detailBody">
+					<div class="dataContent" <c:if test="${board.file != null}">style="height: 605px;"</c:if> >${board.content}</div>
 					<c:if test="${board.file != null}">
 						<div class="detailFile">
 							<p class="textFile">첨부파일</p>
 							<a href="<%=request.getContextPath()%>/board/download?fileName=${board.file}" class="dataFile">${board.orifile}</a>
 						</div>
 					</c:if>
-				</div>
-				<div class="detailBody">
-					<div class="dataContent" <c:if test="${board.file != null}">style="height: 605px;"</c:if> >${board.content}</div>
 				</div>
 				<a href="<%=request.getContextPath() %>/board/list"><button>목록</button></a>
 				<c:if test="${user != null}">

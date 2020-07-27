@@ -7,8 +7,6 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/signup.css">
-<script src="<%=request.getContextPath()%>/resources/js/jquery.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/jquery-ui.js"></script>
 <script src="<%=request.getContextPath() %>/resources/js/user/signup.js"></script>
 </head>
 <body>
@@ -22,35 +20,36 @@
 	        <div class="idContainer">
 	            아이디
 	            <div class="idbox">
-	                <input type="text" name="id" class="id">
+	                <input type="text" name="id" class="id" id="id">
 	                <input type="text" name="defalutEmail" readonly placeholder="@naver.com">
 	            </div>
-	            <div class="id-msg"></div>
+	            <label for="id" id="id-error" class="error"></label>
 	        </div>
 	        <div class="pwContainer1">
 	            비밀번호
 	            <div class="pwbox">
-	                <input type="password" name="pw" class="pw" id="pw1">
+	                <input type="password" name="pw" class="pw" id="pw">
 	            </div>
+	            <label for="pw" id="pw-error" class="error"></label>
 	        </div>
 	        <div class="pwContainer2">
             	비밀번호 재확인
             	<div class="pwbox">
-                	<input type="password" id="pw2" class="pw">
+                	<input type="password" id="pw2" class="pw2">
             	</div>
-            	<p id="success" class="display-none">비밀번호가 일치합니다.</p>
-            	<p id="danger" class="display-none">비밀번호가 일치하지 않습니다.</p>
+            	<label for="pw2" id="pw2-error" class="error"></label>
         	</div>
         	<div class="nameContainer">
         	이름
         		<div class="namebox">
-        			<input type="text" name="name" class="name">
+        			<input type="text" name="name" class="name" id="name">
         		</div>
+        		<label for="name" id="name-error" class="error"></label>
         	</div>
 	        <div class="emailContainer">
 	            본인확인 이메일
 	            <div class="emailbox">
-	                <input type="text" name="emailId" class="emailId">
+	                <input type="text" name="emailId" class="emailId" id="emailId">
 	                <p>@</p>
 	                <select name="emailSite" class="emailSite">
 	                    <option value="naver.com" selected>naver.com</option>
@@ -58,16 +57,18 @@
 	                    <option value="kakaocorn.com">kakaocorn.com</option>
 	                </select>
 	            </div>
+	            <label for="emailId" id="emailId-error" class="error"></label>
 	        </div>
 	        <div class="genderContainer">
 	            성별
 	            <div class="genderbox">
-	                <select name="gender" class='gender'>
+	                <select name="gender" class='gender' id="gender">
 	                    <option value="" selected>성별</option>
 	                    <option value="male">남자</option>
 	                    <option value="female">여자</option>
 	                </select>
 	            </div>
+	            <label for="gender" id="gender-error" class="error"></label>
 	        </div>
 	        <div class="birthdayContainer">
 	            생년월일
@@ -108,113 +109,32 @@
     </form>
 	<script>
 		$(function(){
-			var idCheck = false;
-			var id;
-			$('.id').change(function(){
-				id = $('.id').val();
+			$('.id').keyup(function(){
+				var id = $('.id').val();
 				var str;
-				if(id == '')
-					$('.id-msg').html('<p style="color:red;font-size:12px;">필수 항목</p>');
-				else{
+				if(id.length >= 3) {
 					$.ajax({
-				        async:true,
-				        type:'POST',
-				        data:id,
-				        url:"<%=request.getContextPath()%>/idCheck",
-				        dataType:"json",
-				        contentType:"application/json; charset=UTF-8",
-				        success : function(data){
-				            if(data['idCheck']){
+					    async:true,
+					    type:'POST',
+					    data:id,
+					    url:"<%=request.getContextPath()%>/idCheck",
+					    dataType:"json",
+					    contentType:"application/json; charset=UTF-8",
+					    success : function(data){
+					        if(data['idCheck']){
 								str = '<p style="color:green;font-size:12px;">사용 가능한 아이디입니다.</p>'
-								idCheck = true;
-						    }
-				            else{
-				            	str = '<p style="color:red;font-size:12px;">이미 사용중인 아이디거나 탈퇴한 아이디입니다.</p>'
-								idCheck = false;
-						    }
-						    $('.id-msg').html(str);
-				        }
-				    });
-				}
-			})
-			$('.signup').click(function(){
-				id = $('.id').val();
-				var pw = $('.pw').val();
-				var name = $('.name').val();
-				var email = $('.emailId').val()+'@'+$('.emailSite').val();
-				var gender = $('.gender').val();
-				var birthday = $('.year option:selected').val()+'/'+ $('.month option:selected').val()+'/'+$('.day option:selected').val();
-				var phone = $('.num1').val()+'-'+$('.num2').val()+'-'+$('.num3').val();
-				if(idCheck) {
-					$.ajax({
-				        async:true,
-				        type:'POST',
-				        data:JSON.stringify({"id":id,"pw":pw,"name":name,"email":email,"gender":gender,"birthday":birthday,"phone":phone}),
-				        url:"<%=request.getContextPath()%>/signup",
-				        dataType:"json",
-				        contentType:"application/json; charset=UTF-8",
-				        success : function(data){
-				            alert('회원가입 완료');
-						}
-				    });
-				}
-				else
-					alert('아이디 중복확인 하세요.');
-			})
-			var isPw = false;
-	    	$('.pw').focusout(function () {
-	            var pwd1 = $("#pw1").val();
-	            var pwd2 = $("#pw2").val();
-	            if ( pwd1 != '' && pwd2 == '' ) {
-	                null;
-	            } else if (pwd1 != "" || pwd2 != "") {
-	                if (pwd1 == pwd2) {
-	                    $("#success").removeClass('display-none');
-	                    $("#danger").addClass('display-none');
-	                    isPw = true;
-	                } else {
-	                    $("#success").addClass('display-none');
-	                    $("#danger").removeClass('display-none');
-	                    isPw = false;
-	                }
-	            }
-	        })
-			$('form').submit(function(){
-				if($('.id').val() == ''){
-					alert('아이디를 입력하세요.');
-					return false;
-				}
-				if(idCheck == false){
-					alert('아이디를 확인하세요..');
-					return false;
-				}
-				if($('.pw').val() == ''){
-					alert('비밀번호를 입력하세요.');
-					return false;
-				}
-				if(isPw == false){
-					alert('비밀번호를 확인하세요.');
-					return false;
-				}
-				if($('.name').val() == ''){
-					alert('이름을 입력하세요.');
-					return false;
-				}
-				if($('.emailId').val() == '' || $('.emailSite option:selected').val() == ''){
-					alert('이메일을 확인하세요.');
-					return false;
-				}
-				if($('.gender option:selected').val() == ''){
-					alert('성별을 입력하세요.');
-					return false;
-				}
-				if($('.year option:selected').val() == '' || $('.month option:selected').val() == '' || $('.day option:selected').val() == ''){
-					alert('생년월일을 확인하세요.');
-					return false;
-				}
-				if($('.num1').val() == '' || $('.num2').val() == '' || $('.num3').val() == ''){
-					alert('전화번호를 확인하세요.');
-					return false;
+							}
+					        else{
+					            str = '<p style="color:red;font-size:12px;">이미 사용중인 아이디거나 탈퇴한 아이디입니다.</p>'
+							}
+							$('#id-error').html(str);
+					    }
+					});
+				}else{
+					if(id.length == 0)
+						$('#id-error').html('필수 항목입니다.');
+					else
+						$('#id-error').html('아이디는 세글자 이상이어야 합니다.')
 				}
 			})
 			var startYear = 1950;
@@ -240,7 +160,61 @@
 	                $('.day').append('<option value="'+i+'">'+i+'</option>');
 	            }
 	         })
+	         $("form").validate({
+				 
+		        rules: {
+		            pw: {
+		                required : true,
+		                minlength : 8,
+		                maxlength : 20,
+		                regex: /^\w*(\d[A-z]|[A-z]\d)\w*$/
+		            },
+		            pw2: {
+		                required : true,
+		                equalTo : pw
+		            },
+		            name: {
+		                required : true
+		            },
+		            emailId: {
+		                required : true,
+		            },
+		            gender: {
+		                required : true
+		            }
+		        },
+		        //규칙체크 실패시 출력될 메시지
+		        messages : {
+		            pw: {
+		                required : "필수로입력하세요",
+		                minlength : "최소 {0}글자이상이어야 합니다",
+		                minlength : "최대 {0}글자이하이어야 합니다",
+		                regex : "영문자, 숫자로 이루어져있으며 최소 하나이상 포함"
+		            },
+		            pw2: {
+		                required : "필수로입력하세요",
+		                equalTo : "비밀번호가 일치하지 않습니다."
+		            },
+		            name: {
+		                required : "필수로입력하세요"
+		            },
+		            emailId: {
+		                required : "필수로입력하세요"
+		            },
+		            gender: {
+		                required : "필수로입력하세요"
+		            }
+		        }
+		    });
 		})
+		$.validator.addMethod(
+		    "regex",
+		    function(value, element, regexp) {
+		        var re = new RegExp(regexp);
+		        return this.optional(element) || re.test(value);
+		    },
+		    "Please check your input."
+		);
 	</script>
 </body>
 </html>

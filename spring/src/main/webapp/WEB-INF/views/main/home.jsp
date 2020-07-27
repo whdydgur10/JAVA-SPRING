@@ -17,6 +17,7 @@
 				<input type="password" name=pw>
 			</div>
 			<button type="submit">로그인</button>
+			<a href="<%=request.getContextPath()%>/user/lostPw"><button type="button">비밀번호 찾기</button></a>
 		</form>
 	</div>
 </c:if>

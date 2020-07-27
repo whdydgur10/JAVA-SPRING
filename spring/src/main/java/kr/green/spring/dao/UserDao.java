@@ -14,4 +14,6 @@ public interface UserDao {
 
 	public ArrayList<String> getUserId();
 
+	public void updatePw(@Param("user")UserVo user);
+
 }

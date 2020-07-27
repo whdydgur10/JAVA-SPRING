@@ -41,9 +41,6 @@ input{
 .textTitle, .textCommend, .textDeprecated{
 	width: 20%;
 }
-.textCommend, .textDeprecated{
-	cursor: pointer;
-}
 .dataTitle, .setDataTitle{
 	width: 80%;
 }
@@ -56,18 +53,18 @@ input{
 }
 .detailFile{
 	width: 100%;
-	line-height: 30px;
+	height: 30px;
 }
 .textFile{
 	width: 10%;
-	text-align: center;
 }
-.dataFile{
-	width: 90%;
+.newFile, .dataFile{
 	color: black;
 	text-align: left;
 	display: inline-block;
 	padding-left: 10px;
+	border: none !important;
+	max-width: 80%;
 }
 .detailBody{
 	border-bottom: 1px solid black;
@@ -103,4 +100,16 @@ button{
 	background-color: transparent;
 	border-right: 1px solid black;
 	outline: none;
+}
+.deleteFile{
+	border: none;
+	float: left;
+}
+.registerFile{
+	height: 30px;
+	border-top: 1px solid black;
+}
+.textFile{
+	line-height: 30px;
+	text-align: center;
 }

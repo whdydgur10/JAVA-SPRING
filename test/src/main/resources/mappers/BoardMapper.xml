@@ -51,6 +51,7 @@
   	update board set title = #{board.title}, content = #{board.content}, isDel = #{board.isDel}, modify = #{board.modify}, delDate = #{board.delDate} 
   				,commend = (select count(*) from commend where type = 1 and boardNum = #{board.num})
   				,deprecated = (select count(*) from commend where type = 0 and boardNum = #{board.num})
+  				,file = #{board.file}
   				where num = #{board.num}
   </update>
   <select id="getCommend" resultType="kr.spring.test.vo.CommendVo">

@@ -35,9 +35,9 @@
 				</div>
 				<div class="detailCommend">
 					<p class="textCommend">추천</p>
-					<input class="dataCommend" name="commend" value="${board.commend}" readonly>
+					<p class="dataCommend">${board.commend}</p>
 					<p class="textDeprecated">비추천</p>
-					<input class="dataDeprecated" name="deprecated" value="${board.deprecated}" readonly>
+					<p class="dataDeprecated">${board.deprecated}</p>
 				</div>
 				<c:if test="${board.file != null}">
 					<div class="detailFile">
@@ -53,7 +53,7 @@
 				<textarea class="setDataContent" name="content" <c:if test="${board.file == null}">style="height: 585px;"</c:if>>${board.content}</textarea>
 				<div class="form-group">
 		        	<label>파일</label>
-		        	<input type="file" class="form-control" name="file2"/>
+		        	<input type="file" class="form-control" name="file2">
 		    	</div>
 			</div>
 			
