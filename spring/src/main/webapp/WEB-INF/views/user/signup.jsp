@@ -144,16 +144,16 @@
 		})
 		$("form").validate({
 			submitHandler: function(form) {
-				String email = $('#emailId').val() + $('#emailSite').val();
+				var email = $('#emailId').val() + $('#emailSite').val();
 				$('#email').val(email);
-				String birthday = $('#year').val() + $('#month').val() + $('#day').val();
+				var birthday = $('#year').val() + $('#month').val() + $('#day').val();
 				$('#birthday').val(birthday);
-				String phone = $('#num1').val() + '-' + $('#num2').val() + '-' + $('#num3').val();
+				var phone = $('#num1').val() + '-' + $('#num2').val() + '-' + $('#num3').val();
 				$('#phone').val(phone);
-		    	//이메일을 아이디를 인풋으로 사이트를 셀렉트로 할 경우 이 곳에서 각자의 값을 가져와 합쳐줄 수 있다. 연락처나 생년월일 동일
-		    	//<input type="hidden" name="email">으로 합친 값을 보내준다.
 		   		$(form).submit();
-		   	}
+		   		//이메일을 아이디를 인풋으로 사이트를 셀렉트로 할 경우 이 곳에서 각자의 값을 가져와 합쳐줄 수 있다. 연락처나 생년월일 동일
+		    	//<input type="hidden" name="email">으로 합친 값을 보내준다.
+		   	},
 	        rules: {
 	            id: {
 	                required : true,
