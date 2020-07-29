@@ -1,6 +1,9 @@
 package kr.spring.test.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +28,10 @@ public class HomeController {
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView homeGet(ModelAndView mv, UserVo inputUser) {
+	public ModelAndView homeGet(ModelAndView mv, UserVo inputUser, HttpServletRequest r) {
 		mv.setViewName("/main/home");
+		HttpSession session = r.getSession();
+		System.out.println(session.getAttribute("user"));
 		return mv;
 	}
 	

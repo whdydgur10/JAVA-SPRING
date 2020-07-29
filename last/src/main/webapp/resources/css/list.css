@@ -1,0 +1,18 @@
+@charset "UTF-8";
+.container{
+	margin-top: 20px;
+}
+table a{
+	color: white;
+}
+table a:hover {
+	color: white;
+}
+th:nth-of-type(2) {
+	width: 400px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+th:nth-of-type(4) {
+	width: 200px;
+}

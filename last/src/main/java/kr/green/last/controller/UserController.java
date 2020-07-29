@@ -3,6 +3,8 @@ package kr.green.last.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +47,6 @@ public class UserController {
 	@ResponseBody
 	public Map<Object, Object> idcheck(@RequestBody String id){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
-	    System.out.println((userService.isUser(id) == false));
 	    map.put("idCheck",(userService.isUser(id) == false));
 	    return map;
 	}
@@ -63,8 +64,15 @@ public class UserController {
 			mv.addObject("user",dbUser);
 			mv.setViewName("redirect:/");
 		}else
-			mv.setViewName("/user/signin");
+			mv.setViewName("redirect:/user/signin");
 		System.out.println(dbUser);
+		return mv;
+	}
+	
+	@RequestMapping(value = "/user/signout", method = RequestMethod.GET)
+	public ModelAndView signoutGet(ModelAndView mv, HttpServletRequest r) {
+		r.getSession().removeAttribute("user");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 }

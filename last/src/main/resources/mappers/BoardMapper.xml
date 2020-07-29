@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.last.dao.BoardDao">
+	<select id="getBoardList" resultType="kr.green.last.vo.BoardVo">
+		select * from board where isDel = 'N' order by num desc limit #{cri.startPage}, #{cri.pageContent};
+	</select>
+	<insert id="insertBoard">
+		insert into board(title, writer, content) values(#{board.title}, #{user}, #{board.content})
+	</insert>
+	<select id="countBoard" resultType="int">
+		select count(*) from board where isDel = 'N'
+	</select>
+	<select id="getBoard" resultType="kr.green.last.vo.BoardVo">
+		select * from board where num = #{num}
+	</select>
+	<update id="updateViews">
+		update board set views = views + 1 where num = #{num}
+	</update>
+</mapper>

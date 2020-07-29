@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/global.css">
-
+${user}
 <c:if test="${user == null }">
 	<h1>
 		Hello world!  		

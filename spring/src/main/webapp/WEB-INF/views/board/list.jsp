@@ -16,7 +16,7 @@
 		<a href="<%=request.getContextPath() %>/"><button>로그인</button></a>
 	</c:if>
 	<c:if test="${user != null}">
-		<a href="<%=request.getContextPath() %>/board/register" enctype="multipart/form-data"><button>글쓰기</button></a>
+		<a href="<%=request.getContextPath() %>/board/register"><button>글쓰기</button></a>
 	</c:if>
   <table class="table table-dark table-striped">
     <thead>

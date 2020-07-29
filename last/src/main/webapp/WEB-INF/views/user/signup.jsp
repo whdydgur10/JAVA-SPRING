@@ -14,7 +14,6 @@
 				<h4>아이디</h4>
 				<input type="text" name="id" class="id" id="id">
 				<label for="id" id="id-check" class="check"></label>
-				<label for="id" id="id-error" class="error"></label>
 				<button type="button" class="idCheck">중복 체크</button>
 			</div>
 			<div class="pwBox box">
@@ -95,38 +94,36 @@
 <script>
 	$(function(){
 		var id;
-		var yesId;
+		var yesId = null;
 		$('.idCheck').click(function(){
 			id = $('.id').val();
 			$.ajax({
-			    async:true,
-			    type:'POST',
-			    data:id,
-			    url:"<%=request.getContextPath()%>/idCheck",
-			    dataType:"json",
-			    contentType:"application/json; charset=UTF-8",
-			    success : function(data){
-			        if(data['idCheck'] == true) {
-				        $('#id-check').html('<p style="color:red;font-size:12px;">이미 가입중이거나 탈퇴된 아이디입니다</p>');
-				        $('button[type=submit]').attr('disabled','disabled');
-			        }
-			        else {
-			            $('#id-check').html('<p style="color:green;font-size:12px;">가입 가능한 아이디입니다</p>');
-			            $('button[type=submit]').removeAttr('disabled');
-			            yesId = id;
-			        }
+				async:true,
+				type:'POST',
+				data:id,
+				url:"<%=request.getContextPath()%>/idCheck",
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+				    if(data['idCheck'] == true) {
+					    $('#id-check').html('<p style="color:red;font-size:12px;">이미 가입중이거나 탈퇴된 아이디입니다</p>');
+					    $('button[type=submit]').attr('disabled','disabled');
+				    }
+				    else {
+				        $('#id-check').html('<p style="color:green;font-size:12px;">가입 가능한 아이디입니다</p>');
+				        $('button[type=submit]').removeAttr('disabled');
+				        yesId = id;
+				    }
 			    }
 			});
 		})
 		$('.id').change(function(){
 			id = $('.id').val();
 			if(id == ''){
-				$('#id-check').html('');
+				$('#id-check').html('<p style="color:red;font-size:12px;">필수 입력입니다</p>');
 				$('button[type=submit]').attr('disabled','disabled');
 			}else if(yesId != id)
 				$('button[type=submit]').attr('disabled','disabled');
 		})
-				
 	})
-	
 </script>
