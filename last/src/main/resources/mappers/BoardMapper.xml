@@ -18,4 +18,31 @@
 	<update id="updateViews">
 		update board set views = views + 1 where num = #{num}
 	</update>
+	<update id="updateBoard">
+		update board set title = #{board.title}, content = #{board.content}, modify = #{board.modify}, modifyDate = #{board.modifyDate}
+				,commend = (select count(*) from commend where boardNum = #{board.num} and type = '1')
+				,deprecated = (select count(*) from commend where boardNum = #{board.num} and type = '0')
+		 		where num = #{board.num}
+	</update>
+	<update id="deleteBoard">
+		update board set isDel = #{board.isDel}, delDate = #{board.delDate} where num = #{board.num}
+	</update>
+	<select id="getCommend" resultType="kr.green.last.vo.CommendVo">
+		select * from commend where boardNum = #{board.num} and userId = #{user.id}
+	</select>
+	<insert id="insertCommend">
+		insert into commend(boardNum, userId, type) values(#{board.num}, #{user.id}, #{type})
+	</insert>
+	<update id="updateCommend">
+		update commend set type = #{type} where num = #{commend.num}
+	</update>
+	<insert id="insertFile">
+		insert into file(boardNum, name) values(#{boardNum}, #{file})
+	</insert>
+	<select id="getBoardNum" resultType="int">
+		select max(num) from board
+	</select>
+	<select id="getFileList" resultType="kr.green.last.vo.FileVo">
+		select * from file where boardNum = #{boardNum}
+	</select>
 </mapper>

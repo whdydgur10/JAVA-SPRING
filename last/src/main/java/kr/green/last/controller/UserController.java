@@ -65,7 +65,6 @@ public class UserController {
 			mv.setViewName("redirect:/");
 		}else
 			mv.setViewName("redirect:/user/signin");
-		System.out.println(dbUser);
 		return mv;
 	}
 	

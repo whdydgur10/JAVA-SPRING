@@ -1,0 +1,86 @@
+@charset "UTF-8";
+.detailContainer{
+		width: 1100px;
+		border: 1px solid black;
+		margin: 20px auto;
+		height: 800px;
+	}
+	input{
+		border: none;
+		outline: none;
+		height: 30px;
+		padding: 0px;
+		text-align: center;
+		border-right: 1px solid black;
+		float: left;
+		line-height: 30px;
+	}
+	.box{
+		border-bottom: 1px solid black;
+		float: left;
+	}
+	.box>p{
+		float: left;
+		line-height: 30px;
+		height: 30px;
+		text-align: center;
+		border-right: 1px solid black;
+		box-sizing: border-box;
+		margin: 0;
+	}
+	.text, .registerDateBox{
+		width: 40%;
+	}
+	.numBox, .viewsBox, .textTitle, .textCommend, .textDeprecated{
+		width: 20%;
+	}
+	.titleBox, .data{
+		width: 60%;
+	}
+	.dataViews, .dataDeprecated{
+		border: none !important;
+	}
+	.textNum, .dataNum{
+		width: 50%
+	}
+	.dataTitle{
+		width: 80%;
+	}
+	.writerBox, .commendBox, .dataCommend, .dataDeprecated{
+		width: 30%;
+	}
+	.fileBox {
+		width: 100%;
+	}
+	.textFile{
+		width: 10%;
+	}
+	.dataContent{
+		width: 100%;
+		height: 670px;
+		border: none;
+		border-bottom: 1px solid black;
+		resize: none;
+		outline: none;
+		padding: 10px;
+	}
+	.footer>button{
+		border: none;
+		background-color: transparent;
+	}
+	.footer>button:hover{
+		text-decoration: underline;
+	}
+	.footer>a, .footer>button{
+		float: left;
+		height: 36px;
+		color: black;
+		line-height: 36px;
+		text-align: center;
+		padding: 0 10px;
+		border-right: 1px solid black;
+		display: inline-block;
+	}
+	.textCommend, .textDeprecated{
+		cursor: pointer;
+	}

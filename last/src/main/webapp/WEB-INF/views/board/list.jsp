@@ -25,15 +25,22 @@
 		      	</tr>
 		    </thead>
 		    <tbody>
-			    <c:forEach var="board" items="${list}"> 
-			    	<tr>
-			    		<td>${board.num}</td>
-			        	<td><a href="<%=request.getContextPath()%>/board/detail?num=${board.num}">${board.title}</a></td>
-			        	<td>${board.writer}</td>
-			        	<td>${board.registerDate}</td>
-			        	<td>${board.views}</td>
-			      	</tr>
-		      	</c:forEach>
+		    	<c:if test="${list.size() == 0}">
+		    		<tr>
+		    			<td colspan="5" style="text-align: center;">등록된 게시글이 없습니다.</td>
+		    		</tr>
+		    	</c:if>
+		    	<c:if test="${list.size() != 0}">
+		    		<c:forEach var="board" items="${list}"> 
+				    	<tr>
+				    		<td>${board.num}</td>
+				        	<td><a href="<%=request.getContextPath()%>/board/detail?num=${board.num}">${board.title}<c:if test="${board.modify == 'Y'.charAt(0)}">(수정)</c:if></a></td>
+				        	<td>${board.writer}</td>
+				        	<td>${board.registerDate}</td>
+				        	<td>${board.views}</td>
+				      	</tr>
+		      		</c:forEach>
+		    	</c:if>
 		    </tbody> 
 		</table>
 		<ul class="pagination" style="justify-content: center;">
@@ -64,5 +71,4 @@
 		    </c:if>
 		</ul>
   	</div>
-  
 </div>

@@ -17,7 +17,8 @@ public class BoardVo {
 	private char modify;
 	private int commend;
 	private int deprecated;
-	private String file;
+	private int fileCnt;
+	private Date modifyDate;
 	public int getNum() {
 		return num;
 	}
@@ -88,11 +89,11 @@ public class BoardVo {
 	public void setCommend(int commend) {
 		this.commend = commend;
 	}
-	public String getFile() {
-		return file;
+	public int getFileCnt() {
+		return fileCnt;
 	}
-	public void setFile(String file) {
-		this.file = file;
+	public void setFileCnt(int fileCnt) {
+		this.fileCnt = fileCnt;
 	}
 	public int getDeprecated() {
 		return deprecated;
@@ -100,10 +101,28 @@ public class BoardVo {
 	public void setDeprecated(int deprecated) {
 		this.deprecated = deprecated;
 	}
+	public String getModifyDate() {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String to = transFormat.format(modifyDate);
+		return to;
+	}
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+	public void setModifyDate(String date) {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			modifyDate = transFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public String toString() {
 		return "BoardVo [num=" + num + ", title=" + title + ", writer=" + writer + ", content=" + content
 				+ ", registerDate=" + registerDate + ", isDel=" + isDel + ", delDate=" + delDate + ", views=" + views
-				+ ", modify=" + modify + ", commend=" + commend + ", deprecated=" + deprecated + ", file=" + file + "]";
+				+ ", modify=" + modify + ", commend=" + commend + ", deprecated=" + deprecated + ", fileCnt=" + fileCnt
+				+ ", modifyDate=" + modifyDate + "]";
 	}
+	
 }
