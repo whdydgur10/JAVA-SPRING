@@ -2,6 +2,23 @@
 .container{
 	margin-top: 20px;
 }
+.header{
+	position: relative;
+}
+.selectBox{
+	position: absolute;
+	left: 300px;
+	bottom: 4px;
+}
+form{
+	margin: 0;
+}
+.searchType{
+	height: 30px;
+}
+.searchWord{
+	width: 300px;
+}
 table a{
 	color: white;
 }
@@ -15,4 +32,8 @@ th:nth-of-type(2) {
 }
 th:nth-of-type(4) {
 	width: 200px;
+}
+.register{
+	float: left;
+	color: black;
 }

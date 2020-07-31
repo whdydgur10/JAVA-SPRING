@@ -36,7 +36,7 @@
 			<div class="fileBox box">
 				<p class="textFile">첨부파일</p>
 				<c:forEach var="file" items="${list}">
-					<a href="<%=request.getContextPath()%>/board/download?fileName=${file.name}">${file.orifile}</a>
+					<a href="<%=request.getContextPath()%>/board/download?fileName=${file.name}" class="dataFile">${file.orifile}</a>
 				</c:forEach> 
 			</div>
 		</c:if>

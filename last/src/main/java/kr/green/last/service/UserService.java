@@ -12,8 +12,10 @@ public interface UserService {
 
 	UserVo login(UserVo user);
 
+	String getId(String email);
 
+	String getEmail(String id);
 
-	
+	void newPw(String id, String newPw);
 
 }

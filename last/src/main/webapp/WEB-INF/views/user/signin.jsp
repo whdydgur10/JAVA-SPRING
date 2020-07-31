@@ -15,8 +15,8 @@
 		</div>
 		<div class="search">
 			<button type="submit">로그인</button>|
-			<a href="#">아이디 찾기</a>|
-			<a href="#">비밀번호 찾기</a>|
+			<a href="<%=request.getContextPath()%>/user/lostid">아이디 찾기</a>|
+			<a href="<%=request.getContextPath()%>/user/lostpw">비밀번호 찾기</a>|
 			<a href="<%=request.getContextPath()%>/user/signup">회원가입</a>
 		</div>
 	</div>

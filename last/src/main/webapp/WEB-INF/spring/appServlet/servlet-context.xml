@@ -40,6 +40,8 @@
 		class="kr.green.last.interceptor.LoginInterceptor"></beans:bean>
 	<beans:bean id="authInterceptor" 
 		class="kr.green.last.interceptor.AuthInterceptor"></beans:bean>
+	<beans:bean id="unAuthInterceptor" 
+	class="kr.green.last.interceptor.UnAuthInterceptor"></beans:bean>
 	<interceptors>
 	    <interceptor>
 	        <mapping path="/"/>
@@ -51,6 +53,11 @@
 	        <mapping path="/board/modify"/>
 	        <mapping path="/board/delete"/>
 	        <beans:ref bean="authInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+	        <mapping path="/user/signup"/>
+	        <mapping path="/user/signin"/>
+	        <beans:ref bean="unAuthInterceptor"/>
 	    </interceptor>
 	</interceptors>
 

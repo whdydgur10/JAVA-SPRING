@@ -45,7 +45,7 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public PageMaker getPageMaker(Criteria cri) {
 		PageMaker pm = new PageMaker();
-		pm.setCriteria(cri);
+		pm.setCri(cri);
 		pm.setTotalCount(boardDao.countBoard(cri));
 		return pm;
 	}
@@ -111,6 +111,17 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public ArrayList<FileVo> getFileList(Integer num) {
 		return boardDao.getFileList(num);
+	}
+
+	@Override
+	public void updateBoardFile(int boardNum) {
+		boardDao.updateBoardFile(boardNum);
+		
+	}
+
+	@Override
+	public void deleteBoardFile(int num) {
+		boardDao.deleteBoardFile(num);
 	}
 
 }

@@ -11,7 +11,18 @@
 <div class="container">
 	<div class="header">
 		<h2>게시판</h2>
-	  	<a href="<%=request.getContextPath()%>/board/register">글쓰기</a>
+		<div class="selectBox">
+			<form method="GET">
+				<select name="searchType" class="searchType">
+					<option value="all" <c:if test="${pm.cri.searchType == 'all'}">selected</c:if>>전체</option>
+					<option value="title" <c:if test="${pm.cri.searchType == 'title'}">selected</c:if>>제목</option>
+					<option value="writer" <c:if test="${pm.cri.searchType == 'writer'}">selected</c:if>>작성자</option>
+					<option value="content" <c:if test="${pm.cri.searchType == 'content'}">selected</c:if>>내용</option>
+				</select>
+				<input type="text" class="searchWord" name="searchWord" value="${pm.cri.searchWord}">
+				<button type="submit">검색</button>
+			</form>
+		</div>
 	</div>
   	<div class="body">
   		<table class="table table-dark table-striped">
@@ -34,7 +45,7 @@
 		    		<c:forEach var="board" items="${list}"> 
 				    	<tr>
 				    		<td>${board.num}</td>
-				        	<td><a href="<%=request.getContextPath()%>/board/detail?num=${board.num}">${board.title}<c:if test="${board.modify == 'Y'.charAt(0)}">(수정)</c:if></a></td>
+				        	<td><a href="<%=request.getContextPath()%>/board/detail?num=${board.num}&page=${pm.cri.page}&searchType=${pm.cri.searchType}&searchWord=${pm.cri.searchWord}">${board.title}<c:if test="${board.modify == 'Y'.charAt(0)}">(수정)</c:if></a></td>
 				        	<td>${board.writer}</td>
 				        	<td>${board.registerDate}</td>
 				        	<td>${board.views}</td>
@@ -43,32 +54,43 @@
 		    	</c:if>
 		    </tbody> 
 		</table>
+		<c:if test="${user != null}"><a href="<%=request.getContextPath()%>/board/register" class="register"><button type="button" class="linkRegister">글쓰기</button></a></c:if>
+		<c:if test="${user == null}"><a href="<%=request.getContextPath()%>/user/signin" class="register"><button type="button" class="linkRegister">글쓰기</button></a></c:if>
 		<ul class="pagination" style="justify-content: center;">
 		  	<c:if test="${pm.prev}">
 		        <li class="page-item">
-		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.startPage-1}"><i class="fas fa-angle-double-left"></i></a>
+		            <a class="page-link" style="height:38px;padding-top:10px;" href="<%=request.getContextPath()%>/board/list?searchType=${pm.cri.searchType}&searchWord=${pm.cri.searchWord}&page=${pm.startPage-1}"><i class="fas fa-angle-double-left"></i></a>
 		        </li>
 		    </c:if>
-		    <c:if test="${pm.criteria.page != 1}">
+		    <c:if test="${pm.cri.page != 1}">
 		        <li class="page-item">
-		            <a style="height:38px;padding-top:10px;" class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.criteria.page - 1}"><i class="fas fa-angle-left"></i></a>
+		            <a style="height:38px;padding-top:10px;" class="page-link" href="<%=request.getContextPath()%>/board/list?searchType=${pm.cri.searchType}&searchWord=${pm.cri.searchWord}&page=${pm.cri.page - 1}"><i class="fas fa-angle-left"></i></a>
 		        </li>
 		    </c:if>
 		    <c:forEach var="index" begin="${pm.startPage}" end="${pm.endPage}">
-		  		<li class="page-item <c:if test="${index == pm.criteria.page}">active</c:if>">
-		  			<a class="page-link " href="<%=request.getContextPath()%>/board/list?page=${index}">${index}</a>
+		  		<li class="page-item <c:if test="${index == pm.cri.page}">active</c:if>">
+		  			<a class="page-link " href="<%=request.getContextPath()%>/board/list?searchType=${pm.cri.searchType}&searchWord=${pm.cri.searchWord}&page=${index}">${index}</a>
 		  		</li>
 		  	</c:forEach>
-		  	<c:if test="${pm.criteria.page != pm.endPage}">
+		  	<c:if test="${pm.cri.page != pm.endPage}">
 		        <li class="page-item" >
-		            <a style="height:38px;padding-top:10px;" class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.criteria.page + 1}"><i class="fas fa-angle-right"></i></a>
+		            <a style="height:38px;padding-top:10px;" class="page-link" href="<%=request.getContextPath()%>/board/list?searchType=${pm.cri.searchType}&searchWord=${pm.cri.searchWord}&page=${pm.cri.page + 1}"><i class="fas fa-angle-right"></i></a>
 		        </li>
 		    </c:if>
 		    <c:if test="${pm.next}">
 		        <li class="page-item">
-		            <a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.endPage+1}"><i class="fas fa-angle-double-right"></i></a>
+		            <a class="page-link" style="height:38px;padding-top:10px;" href="<%=request.getContextPath()%>/board/list?searchType=${pm.cri.searchType}&searchWord=${pm.cri.searchWord}&page=${pm.endPage+1}"><i class="fas fa-angle-double-right"></i></a>
 		        </li>
 		    </c:if>
 		</ul>
   	</div>
 </div>
+<c:if test="${user == null}">
+	<script>
+		$(function(){
+			$('.linkRegister').click(function(){
+				alert('로그인 후 이용하세요.');
+			})
+		})
+	</script>
+</c:if>

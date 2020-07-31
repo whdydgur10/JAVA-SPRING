@@ -4,7 +4,7 @@
 <title>게시글수정</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/detail.css">
 <div class="detailContainer">
-	<form method="post">
+	<form method="post" enctype="multipart/form-data">
 		<div class="header">
 			<div class="numBox box">
 				<p class="textNum text">게시글 번호</p>
@@ -33,6 +33,16 @@
 				<p class="dataDeprecated data">${board.deprecated}</p>
 			</div>
 		</div>
+		<div class="fileBox box">
+			<p class="textFile">첨부파일</p>
+			<div>
+				<c:forEach var="file" items="${list}">
+					<p class="dataFile">${file.orifile}</p><button type="button" class="deleteDataFile">X</button><input type="hidden" name="file2" value="${file.name}">
+				</c:forEach> 
+				<button type="button" class="addFile">추가</button>
+				<input type="hidden" value="${list.size()}" class="listSize">
+			</div>
+		</div>
 		<div class="body">
 			<textarea class="dataContent" name="content" >${board.content}</textarea>
 		</div>
@@ -43,3 +53,29 @@
 		</div>
 	</form>
 </div>
+<script>
+	$(function(){
+		var fileNum = $('.listSize').val();
+		$('.addFile').click(function(){
+			if(fileNum < 5){
+				$(this).before('<input type="file" name="file" class="file"><button type="button" class="deleteFile">삭제</button>');
+				deleteFile($(this).prev())
+				fileNum++;
+			}
+		})
+		$('.deleteDataFile').click(function(){
+			$(this).prev().remove();
+			$(this).next().val('');
+			$(this).remove();
+			fileNum--;
+			console.log(fileNum);
+		})
+		function deleteFile(obj){
+			$(obj).click(function(){
+				$(this).prev().remove();
+				$(this).remove();
+				fileNum--;
+			})
+		}
+	})
+</script>

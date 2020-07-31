@@ -46,6 +46,22 @@ public class UserServiceImp implements UserService  {
 		}
 	}
 
+	@Override
+	public String getId(String email) {
+		return userDao.getId(email);
+	}
+
+	@Override
+	public String getEmail(String id) {
+		return userDao.getEmail(id);
+	}
+
+	@Override
+	public void newPw(String id, String newPw) {
+		userDao.newPw(id, passwordEncoder.encode(newPw));
+		
+	}
+
 	
 
 

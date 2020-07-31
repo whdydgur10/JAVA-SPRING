@@ -12,8 +12,10 @@ public interface UserDao {
 
 	Object isUser(@Param("id")String id);
 
+	String getId(@Param("email")String email);
 
+	String getEmail(@Param("id")String id);
 
-	
+	void newPw(@Param("id")String id, @Param("pw")String newPw);
 
 }

@@ -4,13 +4,42 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.last.dao.BoardDao">
 	<select id="getBoardList" resultType="kr.green.last.vo.BoardVo">
-		select * from board where isDel = 'N' order by num desc limit #{cri.startPage}, #{cri.pageContent};
+		select * from board where isDel = 'N'
+									<if test="cri.searchType == 'all'">
+    									and (title like concat ('%',#{cri.searchWord},'%')
+    									or writer like concat ('%',#{cri.searchWord},'%')
+    									or content like concat ('%',#{cri.searchWord},'%'))
+    								</if>
+    								<if test="cri.searchType == 'title'">
+    									and title like concat ('%',#{cri.searchWord},'%')
+    								</if>
+    								<if test="cri.searchType == 'writer'">
+    									and writer like concat ('%',#{cri.searchWord},'%')
+    								</if>
+    								<if test="cri.searchType == 'content'">
+    									and content like concat ('%',#{cri.searchWord},'%')
+    								</if>
+    								order by num desc limit #{cri.startPage}, #{cri.pageContent};
 	</select>
 	<insert id="insertBoard">
 		insert into board(title, writer, content) values(#{board.title}, #{user}, #{board.content})
 	</insert>
 	<select id="countBoard" resultType="int">
 		select count(*) from board where isDel = 'N'
+									<if test="cri.searchType == 'all'">
+    									and (title like concat ('%',#{cri.searchWord},'%')
+    									or writer like concat ('%',#{cri.searchWord},'%')
+    									or content like concat ('%',#{cri.searchWord},'%'))
+    								</if>
+    								<if test="cri.searchType == 'title'">
+    									and title like concat ('%',#{cri.searchWord},'%')
+    								</if>
+    								<if test="cri.searchType == 'writer'">
+    									and writer like concat ('%',#{cri.searchWord},'%')
+    								</if>
+    								<if test="cri.searchType == 'content'">
+    									and content like concat ('%',#{cri.searchWord},'%')
+    								</if>
 	</select>
 	<select id="getBoard" resultType="kr.green.last.vo.BoardVo">
 		select * from board where num = #{num}
@@ -22,6 +51,7 @@
 		update board set title = #{board.title}, content = #{board.content}, modify = #{board.modify}, modifyDate = #{board.modifyDate}
 				,commend = (select count(*) from commend where boardNum = #{board.num} and type = '1')
 				,deprecated = (select count(*) from commend where boardNum = #{board.num} and type = '0')
+				,file = (select count(*) from file where boardNum = #{board.num})
 		 		where num = #{board.num}
 	</update>
 	<update id="deleteBoard">
@@ -45,4 +75,10 @@
 	<select id="getFileList" resultType="kr.green.last.vo.FileVo">
 		select * from file where boardNum = #{boardNum}
 	</select>
+	<update id="updateBoardFile">
+		update board set file = (select count(*) from file where boardNum = #{boardNum}) where num = #{boardNum}
+	</update>
+	<delete id="deleteBoardFile">
+		delete from file where boardNum = #{boardNum}
+	</delete>
 </mapper>

@@ -38,4 +38,8 @@ public interface BoardDao {
 
 	ArrayList<FileVo> getFileList(@Param("boardNum")Integer num);
 
+	void updateBoardFile(@Param("boardNum")int boardNum);
+
+	void deleteBoardFile(@Param("boardNum")int num);
+	
 }

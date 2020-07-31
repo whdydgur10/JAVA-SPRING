@@ -33,4 +33,8 @@ public interface BoardService {
 
 	ArrayList<FileVo> getFileList(Integer num);
 
+	void updateBoardFile(int boardNum);
+
+	void deleteBoardFile(int num);
+
 }

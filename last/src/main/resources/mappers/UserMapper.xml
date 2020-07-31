@@ -12,4 +12,13 @@
   <select id="isUser" resultType="string">
   	select id from user where id = #{id}
   </select>
+  <select id="getId" resultType="string">
+  	select id from user where email = #{email}
+  </select>
+  <select id="getEmail" resultType="string">
+  	select email from user where id = #{id}
+  </select>
+  <update id="newPw">
+  	update user set pw = #{pw} where id = #{id}
+  </update>
 </mapper>

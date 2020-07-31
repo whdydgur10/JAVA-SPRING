@@ -9,7 +9,7 @@ public class Criteria {
 	
 	public Criteria() {
 		this.page = 1;
-		this.pageContent = 1;
+		this.pageContent = 10;
 		this.searchType = "all";
 		this.searchWord = "";
 	}
@@ -25,15 +25,18 @@ public class Criteria {
 		return pageContent;
 	}
 	public void setPageContent(int pageContent) {
-		if(pageContent < 1)
-			pageContent = 1;
+		if(pageContent < 10)
+			pageContent = 10;
 		this.pageContent = pageContent;
 	}
 	public String getSearchType() {
 		return searchType;
 	}
 	public void setSearchType(String searchType) {
-		this.searchType = searchType;
+		if(searchType.equals("all") || searchType.equals("title") || searchType.equals("writer") || searchType.equals("content"))
+			this.searchType = searchType;
+		else
+			this.searchType = "all";
 	}
 	public String getSearchWord() {
 		return searchWord;

@@ -14,7 +14,6 @@
 			<div>
 				<input type="file" name="file" class="file"><button type="button" class="deleteFile">삭제</button>
 			</div>
-			
 		</div>
 		<button type="button" class="addFile">추가</button>
 		<div class="titleBox box">

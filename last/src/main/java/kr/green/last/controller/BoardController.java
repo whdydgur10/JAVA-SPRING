@@ -61,9 +61,12 @@ public class BoardController {
 		boardService.insertBoard(board, r);
 		int boardNum = boardService.getBoardNum();
 		for(MultipartFile tmp : file) {
-			String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes());
-			boardService.insertFile(boardNum, fileName);
+			if(!(tmp.getOriginalFilename() == "")) {
+				String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes());
+				boardService.insertFile(boardNum, fileName);
+			}
 		}
+		boardService.updateBoardFile(boardNum);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
@@ -130,7 +133,9 @@ public class BoardController {
 		BoardVo board = boardService.getBoard(num);
 		UserVo user = (UserVo)r.getSession().getAttribute("user");
 		if(board != null && board.getWriter().equals(user.getId())) {
+			ArrayList<FileVo> list = boardService.getFileList(num);
 			mv.addObject("board", board);
+			mv.addObject("list", list);
 			mv.setViewName("/board/modify");
 		}
 		else
@@ -139,7 +144,23 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/board/modify", method = RequestMethod.POST)
-	public ModelAndView boardModifyPost(ModelAndView mv, BoardVo board) {
+	public ModelAndView boardModifyPost(ModelAndView mv, BoardVo board, MultipartFile[] file, String[] file2) throws IOException, Exception {
+		boardService.deleteBoardFile(board.getNum());
+		if(file2 != null) {
+			for(String tmp : file2) {
+				if(!tmp.equals("")) {
+					boardService.insertFile(board.getNum(), tmp);
+				}
+			}
+		}
+		if(file != null) {
+			for(MultipartFile tmp : file) {
+				if(!(tmp.getOriginalFilename() == "")) {
+					String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes());
+					boardService.insertFile(board.getNum(), fileName);
+				}
+			}
+		}
 		boardService.updateBoard(board);
 		mv.setViewName("redirect:/board/list");
 		return mv;
