@@ -6,11 +6,12 @@
 <style>
 	
 </style>
+<title>삐숑빠숑뿌슝</title>
 <div class="head">
 	<div class="logo" style="text-align: center;width:1400px;margin:0 auto;position: relative;">
 		<a href="<%=request.getContextPath()%>/" style="color:rgb(33,51,87);font-size:80px;">빠숑</a>
 			<div class="use" style="position: absolute;right:0;top:0;">
-			<a href="#">로그인</a> | <a href="#">회원가입</a> | <a href="#">문의사항</a>
+			<a href="#">로그인</a> | <a href="<%=request.getContextPath()%>/user/signup">회원가입</a> | <a href="#">문의사항</a>
 		</div>
 	</div>
 	
