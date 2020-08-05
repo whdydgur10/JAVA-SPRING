@@ -1,0 +1,73 @@
+@charset "UTF-8";
+a{
+	color: black;
+}
+.logo>a:hover{
+		text-decoration: none;
+	}
+	.btn-gender>a{
+		margin-left: 10px;
+	}
+	.btn-gender>a:hover{
+		text-decoration: none;
+	}
+	.btn-gender>a, nav>a{
+		background-color: transparent;
+		border: none;
+		color: white;
+		outline: none;
+	}
+	.MWMenu>a, .MMenu>a{
+		margin-left:20px;
+		margin-right:20px;
+		height: 50px;
+		display: inline-block;
+	}
+	.WMenu>a{
+		margin-left:10px;
+		margin-right:10px;
+		height: 50px;
+		display: inline-block;
+	}
+	nav>a:hover{
+		color: white;
+		text-decoration: none;
+	}
+	.M:hover{
+		color:rgb(106,106,244);
+	}
+	.W:hover{
+		color:rgb(244,106,106);
+	}
+	.MW:hover{
+		color:rgb(106,244,106);
+	}
+	.M.select{
+		color:rgb(106,106,244);
+	}
+	.W.select{
+		color:rgb(244,106,106);
+	}
+	.MW.select{
+		color:rgb(106,244,106);
+	}
+	.display-none{
+		display: none;
+	}
+	.subMenu a{
+		color: white;
+		opacity: 0.7;
+		width: 100%;
+		display: inline-block;
+		font-size: 20px;
+	}
+	.subContainer>div{
+		float:left;
+		background-color: rgb(33,51,87);
+		padding:10px 0;
+	}
+	.subContainer::after {
+		clear: both;
+		content: '';
+		display: block;
+	}
