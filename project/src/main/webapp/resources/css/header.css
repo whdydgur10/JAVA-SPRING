@@ -1,7 +1,4 @@
 @charset "UTF-8";
-a{
-	color: black;
-}
 .logo>a:hover{
 		text-decoration: none;
 	}
@@ -51,9 +48,6 @@ a{
 	.MW.select{
 		color:rgb(106,244,106);
 	}
-	.display-none{
-		display: none;
-	}
 	.subMenu a{
 		color: white;
 		opacity: 0.7;
@@ -65,9 +59,9 @@ a{
 		float:left;
 		background-color: rgb(33,51,87);
 		padding:10px 0;
+		z-index: 5;
 	}
-	.subContainer::after {
-		clear: both;
-		content: '';
-		display: block;
+	
+	.subContainer{
+		z-index: 5;
 	}

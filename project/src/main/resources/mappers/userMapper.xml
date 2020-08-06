@@ -2,6 +2,34 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.green.project.dao.userDao">
-  
+<mapper namespace="kr.green.project.dao.UserDao">
+	<insert id="insertUser">
+		insert into user(id, pw, name, phone, birthday, gender, email) values(#{user.id}, #{user.pw}, #{user.name}, #{user.phone}, #{user.birthday}, #{user.gender}, #{user.email})
+	</insert>
+	<select id="isUserId" resultType="kr.green.project.vo.UserVo">
+		select * from user where id = #{id}
+	</select>
+	<insert id="insertLevel">
+		insert into level(userId, level) values(#{id}, 1)
+	</insert>
+	<select id="getLevelNum" resultType="int">
+		select * from level where userId = #{id}
+	</select>
+	<select id="getCouponNum" resultType="int">
+		select count(*) from coupon where userId = #{id}
+	</select>
+	<select id="getPurchaseListNum" resultType="int">
+		select count(*) from purchaseList
+							join (select * from purchase where userId = #{id}) as pc
+							where purchaseNum = pc.num
+	</select>
+	<select id="getVaginalNum" resultType="int">
+		select count(*) from vaginal where userId = #{id}
+	</select>
+	<select id="getShoppingBasketNum" resultType="int">
+		select count(*) from shoppingBasket where userId = #{id}
+	</select>
+	<select id="getReviewNum" resultType="int">
+		select count(*) from review where userId = #{id}
+	</select>
 </mapper>

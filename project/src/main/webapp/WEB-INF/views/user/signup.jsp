@@ -40,6 +40,11 @@
 	h3{
 		margin:0;
 	}
+	label{
+		color: red;
+		font-size:12px;
+		margin:0;
+	}
 </style>
 <div style="background-color:rgb(33,51,87)">
 	<div style="text-align:center;width:1200px;font-size:50px;margin:0 auto;font-weight:bold;color:white;">빠숑 회원가입 하기!<span style="font-size:40px">!</span><span style="font-size:30px">!</span></div>
@@ -72,8 +77,8 @@
 			<h4>성별</h4>
 			<select name="gender" class="gender" id="gender">
 				<option value="" selected>선택</option>
-				<option value="male">남성</option>
-				<option value="female">여성</option>
+				<option value="M">남성</option>
+				<option value="W">여성</option>
 			</select>
 			<label for="gender" id="gender-error" class="error"></label>
 		</div>
@@ -159,14 +164,13 @@
 		        	$('.day').append('<option value="'+i+'">'+i+'</option>');
 		    }
 		})
-		var emailSite = ['naver.com','kakao.com'];
+		var emailSite = ['naver.com','kakao.com','gmail.com','yahoo.com','daum.net'];
 		for(var i = 0; i < emailSite.length; i++) {
 			$('.emailSite').append('<option value="@' + emailSite[i] + '">' + emailSite[i] +'</option>');
 		}
 		$('.btn-certification').click(function(){
 			$(this).prev().removeAttr('disabled');
 		})
-		
 		$("form").validate({
 			submitHandler: function(form) {
 				var email = $('.emailId').val() + $('.emailSite').val();
@@ -194,15 +198,6 @@
 		        gender: {
 		            required : true
 		        },
-		        year: {
-		            required : true
-			    },
-			    month: {
-		            required : true
-			    },
-			    day: {
-		            required : true
-			    },
 		        num1: {
 		            required : true,
 		        },
@@ -230,15 +225,6 @@
 		        gender: {
 		       		required : "필수 입력입니다"
 		        },
-		        year: {
-		        	required : "필수 입력입니다"
-			    },
-			    month: {
-		        	required : "필수 입력입니다"
-			    },
-			    day: {
-		        	required : "필수 입력입니다"
-			    },
 			    num1: {
 		            required : "필수 입력입니다"
 		        },

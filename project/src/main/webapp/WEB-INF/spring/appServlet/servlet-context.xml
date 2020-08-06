@@ -36,6 +36,13 @@
 	    </beans:property>
 	</beans:bean>
 
-
+	<beans:bean id="loginInterceptor" 
+	class="kr.green.project.interceptor.LoginInterceptor"></beans:bean>
+	<interceptors>
+	    <interceptor>
+	        <mapping path="/user/signin"/>
+	        <beans:ref bean="loginInterceptor"/>
+	    </interceptor>
+	</interceptors>
 	
 </beans:beans>

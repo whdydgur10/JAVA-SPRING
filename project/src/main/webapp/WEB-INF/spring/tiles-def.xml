@@ -5,7 +5,7 @@
  
 <tiles-definitions>
     <!-- (1) 레이아웃을 적용하지않는화면-->    
-    <definition name=".nonBaseLayout" template="/WEB-INF/views/layout/nonBaseLayout.jsp">
+    <definition name=".user" template="/WEB-INF/views/layout/userLayout.jsp">
         <put-attribute name="title" value="" />
         <put-attribute name="header" value="" />
         <put-attribute name="middle" value="" />        
@@ -16,17 +16,31 @@
     <definition name=".root" template="/WEB-INF/views/layout/baseLayout.jsp">
         <put-attribute name="title" value="" />
         <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/views/common/menu.jsp" />
         <put-attribute name="middle" value="/WEB-INF/views/common/middle.jsp" />        
         <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
     </definition>
     
+    <definition name=".information" template="/WEB-INF/views/layout/informationLayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+        <put-attribute name="middle" value="" />
+        <put-attribute name="footer" value="/WEB-INF/views/common/footer2.jsp" />
+    </definition>
+    
     <!-- (1) -->    
-    <definition name="/user/*" extends=".nonBaseLayout">
+    <definition name="/user/*" extends=".user">
       <put-attribute name="body" value="/WEB-INF/views/user/{1}.jsp" />
+    </definition>
+ 
+ 	<definition name="/information/*" extends=".information">      
+      <put-attribute name="body" value="/WEB-INF/views/information/{1}.jsp" />
     </definition>
  
     <!-- (2) -->
    <definition name="/*/*" extends=".root">      
       <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
     </definition>
+    
+    
 </tiles-definitions>
