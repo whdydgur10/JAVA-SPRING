@@ -1,0 +1,24 @@
+@charset "UTF-8";
+li{
+	margin-top:20px;
+}
+li>a, .more:hover{
+	color:white;
+}
+.more{
+	border: 1px solid white;
+	background-color: rgb(33,51,87);
+	color: white;
+	margin-left:10px;
+	padding: 2px;
+	border-radius: 10px;
+}
+.select, li>a:hover {
+	color: rgb(57,219,53);
+	text-decoration: underline;
+}
+.all>div{
+	box-shadow: 5px 2px 2px 2px;
+	height:60px;
+	line-height:60px;
+}

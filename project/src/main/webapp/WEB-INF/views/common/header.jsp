@@ -10,7 +10,7 @@
 		<a href="<%=request.getContextPath()%>/" style="color:rgb(33,51,87);font-size:80px;">빠숑</a>
 			<div class="use" style="position: absolute;right:0;top:0;">
 			<c:if test="${user == null}"><a href="<%=request.getContextPath()%>/user/signin">로그인</a></c:if><c:if test="${user != null}"><a href="<%=request.getContextPath()%>/user/signout">로그아웃</a></c:if> 
-			| <c:if test="${user == null}"><a href="<%=request.getContextPath()%>/user/signup">회원가입</a></c:if><c:if test="${user != null}"><a href="<%=request.getContextPath()%>/information/user">내 정보</a></c:if> 
+			| <c:if test="${user == null}"><a href="<%=request.getContextPath()%>/user/signup">회원가입</a></c:if><c:if test="${user != null}"><a href="<%=request.getContextPath()%>/information/all">내 정보</a></c:if> 
 			| <a href="#">문의사항</a>
 		</div>
 	</div>

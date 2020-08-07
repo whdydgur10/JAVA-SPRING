@@ -29,8 +29,8 @@
 	<form method="post">
 		<div style="width:300px;margin:100px auto 0;">
 			<span class="remark">아이디와 비밀번호를 입력해주세요.</span>
-			<input type="text" placeholder="아이디" name="id" style="width:300px;outline:none;">
-			<input type="password" placeholder="비밀번호" name="pw" style="width:300px;outline:none;">
+			<input type="text" class="id" placeholder="아이디" name="id" style="width:300px;">
+			<input type="password" class="pw" placeholder="비밀번호" name="pw" style="width:300px;">
 			<button type="submit" style="width:300px;background-color:rgb(33,51,87);color:white;">로그인하기</button>
 			<span class="remark">아직 회원가입을 안하셨나요?</span>
 			<a href="<%=request.getContextPath()%>/user/signup" style="width:100%;color:black;display:inline-block;">회원가입하러 가기</a>
@@ -40,3 +40,17 @@
 		</div>
 	</form>
 </div>
+<script>
+	$(function(){
+		$('form').submit(function(){ 
+			if($('.id').val() == ''){ 
+				alert('아이디를 입력하세요.'); 
+				return false; 
+			} 
+			if($('.pw').val() == ''){ 
+				alert('비밀번호를 입력하세요.'); 
+				return false; 
+			} 
+		}) 
+	})
+</script>

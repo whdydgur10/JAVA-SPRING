@@ -84,11 +84,4 @@ public class HomeController {
 	    return mv;
 	}
 	
-	@RequestMapping(value= "/information/user", method = RequestMethod.GET)
-	public ModelAndView userInformationGet(ModelAndView mv, HttpServletRequest h){
-		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		mv.addObject("userInform", userService.getUserInform(user.getId()));
-	    mv.setViewName("/information/user");
-	    return mv;
-	}
 }

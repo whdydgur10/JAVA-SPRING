@@ -8,20 +8,11 @@ public interface UserDao {
 
 	void insertUser(@Param("user")UserVo user);
 
-	UserVo isUserId(@Param("id")String id);
+	UserVo getUserId(@Param("id")String id);
 
 	void insertLevel(@Param("id")String id);
 
-	int getLevelNum(@Param("id")String id);
+	void updateUserPw(@Param("id")String id,@Param("pw")String newPw);
 
-	int getCouponNum(@Param("id")String id);
-
-	int getPurchaseListNum(@Param("id")String id);
-
-	int getVaginalNum(@Param("id")String id);
-
-	int getShoppingBasketNum(@Param("id")String id);
-
-	int getReviewNum(@Param("id")String id);
 	
 }

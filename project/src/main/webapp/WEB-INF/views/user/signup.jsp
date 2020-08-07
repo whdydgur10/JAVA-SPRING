@@ -4,7 +4,6 @@
 <title>회원가입</title>
 <style>
 	input, select{
-		outline: none;
 		autocomplete="off"
 	}
 	form>div{
