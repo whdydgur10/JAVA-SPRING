@@ -1,5 +1,7 @@
 package kr.green.project.vo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PurchaseVo {
@@ -16,7 +18,9 @@ public class PurchaseVo {
 	private int price;
 	private int discountPrice;
 	private int deliveryPrice;
-//	구매번호 / 회원아이디 / 입금여부 / 입금남은날 / 포인트사용여부 / 쿠폰사용여부 / 물품발송상황 / 확정여부 / 확정남은날 / 총금액 / 할인금 / 배송비
+	private int usePoint;
+	private Date orderDate;
+//	구매번호 / 회원아이디 / 입금여부 / 입금남은날 / 포인트사용여부 / 쿠폰사용여부 / 물품발송상황 / 확정여부 / 확정남은날 / 총금액 / 할인금 / 배송비 / 사용한 포인트 / 주문날짜
 	public int getNum() {
 		return num;
 	}
@@ -35,11 +39,21 @@ public class PurchaseVo {
 	public void setDeposit(String deposit) {
 		this.deposit = deposit;
 	}
-	public Date getDepositDate() {
-		return depositDate;
+	public String getDepositDate() {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(depositDate);
+		return to;
 	}
 	public void setDepositDate(Date depositDate) {
 		this.depositDate = depositDate;
+	}
+	public void setDepositDate(String date) {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			depositDate = transFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	public char getIsPoint() {
 		return isPoint;
@@ -65,11 +79,21 @@ public class PurchaseVo {
 	public void setIsConfirm(char isConfirm) {
 		this.isConfirm = isConfirm;
 	}
-	public Date getConfirmDate() {
-		return confirmDate;
+	public String getConfirmDate() {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(confirmDate);
+		return to;
 	}
 	public void setConfirmDate(Date confirmDate) {
 		this.confirmDate = confirmDate;
+	}
+	public void setConfirmDate(String date) {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			confirmDate = transFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	public int getPrice() {
 		return price;
@@ -89,12 +113,34 @@ public class PurchaseVo {
 	public void setDeliveryPrice(int deliveryPrice) {
 		this.deliveryPrice = deliveryPrice;
 	}
+	public int getUsePoint() {
+		return usePoint;
+	}
+	public void setUsePoint(int usePoint) {
+		this.usePoint = usePoint;
+	}
+	public String getOrderDate() {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(orderDate);
+		return to;
+	}
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+	public void setOrderDate(String date) {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			orderDate = transFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public String toString() {
-		return "Purchase [num=" + num + ", userId=" + userId + ", deposit=" + deposit + ", depositDate=" + depositDate
+		return "PurchaseVo [num=" + num + ", userId=" + userId + ", deposit=" + deposit + ", depositDate=" + depositDate
 				+ ", isPoint=" + isPoint + ", isCoupon=" + isCoupon + ", situation=" + situation + ", isConfirm="
 				+ isConfirm + ", confirmDate=" + confirmDate + ", price=" + price + ", discountPrice=" + discountPrice
-				+ ", deliveryPrice=" + deliveryPrice + "]";
+				+ ", deliveryPrice=" + deliveryPrice + ", usePoint=" + usePoint + ", orderDate=" + orderDate + "]";
 	}
 	
 }

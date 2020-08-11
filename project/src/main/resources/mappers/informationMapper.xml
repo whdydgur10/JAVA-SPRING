@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.project.dao.InformationDao">
-	<select id="getLevel" resultType="int">
+	<select id="getLevelNum" resultType="int">
 		select level from level where userId = #{id}
 	</select>
 	<select id="getCouponNum" resultType="int">
@@ -23,7 +23,47 @@
 	<select id="getReviewNum" resultType="int">
 		select count(*) from review where userId = #{id}
 	</select>
-	<select id="getAddressList" resultType="kr.green.project.vo.AddressVo">
+	<select id="getMainAddress" resultType="kr.green.project.vo.AddressVo">
+		select * from address where userId = #{id} and isMain = 'Y'
+	</select>
+	<select id="getSubAddressList" resultType="kr.green.project.vo.AddressVo">
+		select * from address where userId = #{id} and isMain = 'N'
+	</select>
+	<select id="getaddressList" resultType="kr.green.project.vo.AddressVo">
 		select * from address where userId = #{id}
+	</select>
+	<insert id="insertAddress">
+		insert into address(userId, code, address, detail, isMain) values(#{user.id}, #{address.code}, #{address.address}, #{address.detail}, #{address.isMain})
+	</insert>
+	<update id="updateIsSub">
+		update address set isMain = 'N' where userId = #{id} and isMain = 'Y'
+	</update>
+	<update id="updateIsMain">
+		update address set isMain = 'Y' where num = #{num}
+	</update>
+	<delete id="deleteAddress">
+		delete from address where num = #{num}
+	</delete>
+	<select id="getLevel" resultType="kr.green.project.subVo.LevelPointVo">
+		select * from level
+					join (select * from point) as point
+					where level.level = point.level and level.userId = #{id}
+	</select>
+	<select id="getPurchasePrice" resultType="String">
+		select sum(price) from purchase where userId = #{id}
+	</select>
+	<select id="getPointList" resultType="kr.green.project.vo.PointVo">
+		select * from point
+	</select>
+	<select id="getUsePoint" resultType="String">
+		select sum(usePoint) from purchase where userId = #{id}
+	</select>
+	<select id="getNeedPrice" resultType="String">
+		select needPrice from point
+							join (select * from level where userId = #{id}) as level
+							where point.level = level.level
+	</select>
+	<select id="getPurchase" resultType="kr.green.project.vo.PurchaseVo">
+		select * from purchase where userId = #{id} and situation = '상품 도착' order by num DESC
 	</select>
 </mapper>

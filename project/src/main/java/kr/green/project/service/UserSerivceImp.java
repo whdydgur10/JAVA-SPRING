@@ -1,6 +1,6 @@
 package kr.green.project.service;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,13 +40,23 @@ public class UserSerivceImp implements UserService {
 	}
 
 	@Override
-	public void updateUserPw(HttpServletRequest h, String pw) {
+	public void updateUserPw(UserVo user, String pw) {
 		String newPw = passwordEncoder.encode(pw);
-		UserVo user = (UserVo)h.getSession().getAttribute("user");
 		userDao.updateUserPw(user.getId(), newPw);
 		
 	}
 
-	
+	@Override
+	public void updateUserPhone(UserVo user, String phone) {
+		userDao.updateUserPhone(user.getId(), phone);
+		
+	}
+
+	@Override
+	public void deleteUser(String id) {
+		userDao.deleteUser(id, new Date());
+		
+	}
+
 
 }

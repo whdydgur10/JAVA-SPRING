@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.project.service.InformationService;
 import kr.green.project.service.UserService;
+import kr.green.project.vo.AddressVo;
 import kr.green.project.vo.UserVo;
 
 @Controller
@@ -36,16 +37,58 @@ public class InformationController {
 	
 	@RequestMapping(value= "/information/account", method = RequestMethod.GET)
 	public ModelAndView accountInformationGet(ModelAndView mv, HttpServletRequest h){
-		mv.addObject("addressList", infos.getAddressList(h));
+		mv.addObject("mainAddress", infos.getMainAddress(h));
+		mv.addObject("subAddressList", infos.getSubAddressList(h));
+		mv.addObject("addressList", infos.getaddressList(h));
 		mv.addObject("menu", "account");
 	    mv.setViewName("/information/account");
 	    return mv;
 	}
 	
-	@RequestMapping(value= "/information/account", method = RequestMethod.POST)
-	public ModelAndView accountInformationPost(ModelAndView mv, HttpServletRequest h, String pw){
-		users.updateUserPw(h, pw);
-	    mv.setViewName("redirect:/information/account");
+	@RequestMapping(value= "/information/account/pw", method = RequestMethod.POST)
+	public ModelAndView accountInformationPwPost(ModelAndView mv, HttpServletRequest h, String pw){
+		UserVo user = (UserVo) h.getSession().getAttribute("user");
+		if(!pw.equals("")) 
+			users.updateUserPw(user, pw);
+		mv.setViewName("redirect:/information/account");
+	    return mv;
+	}
+	
+	@RequestMapping(value= "/information/account/phone", method = RequestMethod.POST)
+	public ModelAndView accountInformationPhonePost(ModelAndView mv, HttpServletRequest h, String phone){
+		UserVo user = (UserVo) h.getSession().getAttribute("user");
+		if(!phone.equals(""))
+			users.updateUserPhone(user, phone);
+		mv.setViewName("redirect:/information/account");
+	    return mv;
+	}
+	
+	@RequestMapping(value= "/information/account/address", method = RequestMethod.POST)
+	public ModelAndView accountInformationAddressPost(ModelAndView mv, HttpServletRequest h, AddressVo address){
+		UserVo user = (UserVo) h.getSession().getAttribute("user");
+		if(!address.getAddress().equals(""))
+			infos.insertAddress(user, address);
+		mv.setViewName("redirect:/information/account");
+	    return mv;
+	}
+	
+	@RequestMapping(value= "/information/account/addressOption", method = RequestMethod.POST)
+	public ModelAndView accountInformationAddressOptionPost(ModelAndView mv, HttpServletRequest h, int num, String option){
+		UserVo user = (UserVo) h.getSession().getAttribute("user");
+		if(option.equals("newMain"))
+			infos.updateIsMain(user, num);
+		else if(option.equals("deleteAddress"))
+			infos.deleteAddress(num);
+		mv.setViewName("redirect:/information/account");
+	    return mv;
+	}
+	
+	@RequestMapping(value= "/information/account/deleteAccount", method = RequestMethod.GET)
+	public ModelAndView accountInformationDeleteAccountPost(ModelAndView mv, HttpServletRequest h){
+		UserVo user = (UserVo) h.getSession().getAttribute("user");
+		users.deleteUser(user.getId());
+		h.getSession().removeAttribute("user");
+		mv.setViewName("redirect:/");
 	    return mv;
 	}
 	
@@ -68,8 +111,16 @@ public class InformationController {
 	}
 	
 	@RequestMapping(value= "/information/level", method = RequestMethod.GET)
-	public ModelAndView levelInformationGet(ModelAndView mv){
+	public ModelAndView levelInformationGet(ModelAndView mv, HttpServletRequest h){
+		mv.addObject("level", infos.getLevel(h));
+		mv.addObject("purchase", infos.getPurchasePrice(h));
 		mv.addObject("menu", "level");
+		mv.addObject("pointList", infos.getPointList());
+		mv.addObject("usePoint", infos.getUsePoint(h));
+		mv.addObject("remain", infos.getRemainPrice(h));
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		mv.addObject("userInform", infos.getUserInform(user.getId()));
+		mv.addObject("purchaseList", infos.getPurchase(h));
 	    mv.setViewName("/information/level");
 	    return mv;
 	}

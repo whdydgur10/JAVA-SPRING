@@ -1,5 +1,9 @@
 package kr.green.project.vo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class UserVo {
 
 	private String id;
@@ -10,10 +14,10 @@ public class UserVo {
 	private String gender;
 	private String auth;
 	private String email;
-	private String point;
+	private int point;
 	private String coupon;
 	private String isDel;
-	private String isDelDate;
+	private Date isDelDate;
 //	아이디 / 비밀번호 / 이름 / 연락처 / 생년월일 / 성별 / 권한 / 이메일 / 포인트 / 쿠폰 / 삭제여부 / 삭제기간
 	public String getId() {
 		return id;
@@ -63,10 +67,10 @@ public class UserVo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPoint() {
+	public int getPoint() {
 		return point;
 	}
-	public void setPoint(String point) {
+	public void setPoint(int point) {
 		this.point = point;
 	}
 	public String getCoupon() {
@@ -82,10 +86,20 @@ public class UserVo {
 		this.isDel = isDel;
 	}
 	public String getIsDelDate() {
-		return isDelDate;
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy/MM/dd");
+		String to = transFormat.format(isDelDate);
+		return to;
 	}
-	public void setIsDelDate(String isDelDate) {
+	public void setIsDelDate(Date isDelDate) {
 		this.isDelDate = isDelDate;
+	}
+	public void setIsDelDate(String date) {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy/MM/dd");
+		try {
+			isDelDate = transFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	@Override
 	public String toString() {
@@ -94,4 +108,7 @@ public class UserVo {
 				+ coupon + ", isDel=" + isDel + ", isDelDate=" + isDelDate + "]";
 	}
 	
+	public String getStringPoint() {
+		return String.format("%,d", point);
+	}
 }

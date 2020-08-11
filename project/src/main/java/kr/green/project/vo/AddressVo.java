@@ -3,9 +3,11 @@ package kr.green.project.vo;
 public class AddressVo {
 
 	private int num;
-	private String address;
 	private String userId;
-	private String isMain;
+	private char isMain;
+	private String code;
+	private String address;
+	private String detail;
 //	주소지 번호 / 주소내용 / 회원아이디 / 기본배송지 설정
 	public int getNum() {
 		return num;
@@ -25,15 +27,28 @@ public class AddressVo {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getIsMain() {
+	public char getIsMain() {
 		return isMain;
 	}
-	public void setIsMain(String isMain) {
-		this.isMain = isMain;
+	public void setIsMain(char c) {
+		this.isMain = c;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 	@Override
 	public String toString() {
-		return "AddressVo [num=" + num + ", address=" + address + ", userId=" + userId + ", isMain=" + isMain + "]";
+		return "AddressVo [num=" + num + ", userId=" + userId + ", isMain=" + isMain + ", code=" + code + ", address="
+				+ address + ", detail=" + detail + "]";
 	}
 	
 }

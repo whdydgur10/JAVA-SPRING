@@ -1,7 +1,5 @@
 package kr.green.project.service;
 
-import javax.servlet.http.HttpServletRequest;
-
 import kr.green.project.vo.UserVo;
 
 public interface UserService {
@@ -12,7 +10,11 @@ public interface UserService {
 
 	UserVo getUser(UserVo user);
 
-	void updateUserPw(HttpServletRequest h, String pw);
+	void updateUserPw(UserVo user, String pw);
+
+	void updateUserPhone(UserVo user, String phone);
+
+	void deleteUser(String id);
 
 	
 }

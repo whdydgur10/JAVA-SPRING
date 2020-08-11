@@ -9,11 +9,11 @@
 		margin-top:10px;
 		width: 210px;
 	}
-	.changePw>input{
+	.changePw input{
 		width: 500px;
 		margin-top: 10px;
 	}
-	.btn-pw, .btn-phone{
+	.btn-pw, .btn-phone, .btn-email{
 		background-color: rgb(33,51,87); 
 		color: white;
 		display: block;
@@ -34,18 +34,19 @@
 		display: block;
 		margin:0;
 	}
-	.changePhone>div{
+	.changePhone div{
 		margin-top: 10px;
 	}
-	.changePhone>div:nth-last-of-type(2)>input {
+	.changePhone div:nth-last-of-type(2)>input {
 		width:124px;
 	}
-	.createAddress>input{
+	.createAddress input{
 		margin-bottom: 10px;
 	}
 </style>
 <div class="account">
 	<h4>계정</h4>
+	<hr>
 	<div class="change" style="margin-bottom:80px;">
 		<a href="#" data-target=".changePw">비밀번호를 바꾸겠어요. <i class="far fa-grin-squint"></i></a>
 		<a href="#" data-target=".changePhone">전화번호를 바꾸겠어요. <i class="far fa-grin-squint"></i></a>
@@ -53,27 +54,29 @@
 		<a href="#" data-target=".changeEmail">이메일을 바꾸겠어요. <i class="far fa-grin-squint"></i></a>
 		<a href="#" data-target=".deleteAccount">회원탈퇴를 하겠어요. <i class="far fa-grin-tears"></i></a>
 	</div>
-	<div class="changeContent" style="height:400px;width:100%;padding:40px 20px 20px 20px;text-align:center;">
-		<form method="post">
-			<div class="changePw" style="position: relative;">
+	<div class="changeContent" style="height:380px;width:100%;padding:40px 20px 20px 20px;text-align:center;">
+		<div class="changePw content" style="position: relative;">
+			<form method="post" action="<%=request.getContextPath()%>/information/account/pw">
 				<input type="password" name="pw3" class="pw3" placeholder="현재 비밀번호">
 				<p class="pwCheck"></p>
 				<input type="password" name="pw" id="pw" placeholder="새 비밀번호">
 				<input type="password" name="pw2" id="pw2" placeholder="비밀번호 재확인">
 				<button class="btn-pw" type="submit">변경하기</button>
-			</div>
-			<div class="changePhone display-none">
+			</form>
+		</div>
+		<div class="changePhone content display-none">
+			<form method="post" action="<%=request.getContextPath()%>/information/account/phone">
 				<div>
 					기존 연락처
 					<input type="text" value="${user.phone}" readonly style="width:400px;text-align:center;font-size: 15px;">
 				</div>
 				<div>
 					바꿀 연락처
-					<input type="text" class="num1" name="num1">
+					<input type="text" class="num1" name="num1" maxlength="3" >
 					-
-					<input type="text" class="num2" name="num2">
+					<input type="text" class="num2" name="num2" maxlength="4">
 					-
-					<input type="text" class="num3" name="num3">
+					<input type="text" class="num3" name="num3" maxlength="4">
 					<input type="hidden" name="phone" class="phone">
 				</div>
 				<div class="certification" style="margin-top:5px;">
@@ -81,50 +84,143 @@
 					<button class="btn-certification" type="button" style="width:130px;">인증번호 받기</button>
 					<button class="btn-phone" type="submit">변경하기</button>
 				</div>
-			</div>
-			<div class="changeAddress display-none" style="position:relative;width:100%;height:100%;box-shadow: 2px 2px 2px 2px;margin:0 auto;">
-				<div class="viewAddress">
-					<c:if test="${addressList.size() == 0}">
-						<div style="line-height:340px;font-size:30px;">입력된 주소가 없습니다.</div>
-					</c:if>
-					<c:if test="${addressList.size() != 0}">
-						<c:forEach var="address" items="${addressList}">
-						
+			</form>
+		</div>
+		<div class="changeAddress content display-none" style="position:relative;width:100%;height:100%;box-shadow: 2px 2px 2px 2px;margin:0 auto;">
+			<div class="viewAddress">
+				<c:if test="${addressList.size() == 0}">
+					<div style="line-height:340px;font-size:30px;">입력된 주소가 없습니다.</div>
+				</c:if>
+				<c:if test="${addressList.size() != 0}">
+					<form method="post" action="<%=request.getContextPath()%>/information/account/addressOption">
+						<div style="padding-top:20px;">
+							<input type="radio" value="${mainAddress.num}" name="num" checked="checked">
+							<input type="text" value="${mainAddress.code}" readonly style="width:100px;">
+							<input type="text" value="${mainAddress.address}" readonly style="width:300px;">
+							<input type="text" value="${mainAddress.detail}" readonly style="width:300px;">
+      						<label for="isMain">기본배송지</label>
+						</div>
+						<c:forEach var="address" items="${subAddressList}">
+							<div style="padding-top:20px;">
+								<input type="radio" value="${address.num}" name="num" >
+								<input type="text" value="${address.code}" readonly style="width:100px;">
+								<input type="text" value="${address.address}" readonly style="width:300px;">
+								<input type="text" value="${address.detail}" readonly style="width:300px;">
+       							<label for="isMain">추가배송지</label>
+							</div>
 						</c:forEach>
-					</c:if>
-				</div>
+						<c:if test="${addressList.size() < 3}">
+							<button class="link-address" type="button" style="position:absolute;bottom:30px;right:50px;color:white;background-color:rgb(33,51,87)">배송지 추가하기</button>
+						</c:if>
+						<c:if test="${addressList.size() != 0}">
+							<div style="padding-top:50px;">
+								<span>옵션 : </span>
+								<select class="addressOption" name="option">
+									<option value="" selected>선택</option>
+									<option value="newMain">기본배송지 설정</option>
+									<option value="deleteAddress">배송지 삭제</option>
+								</select>
+								<button>확인</button>
+							</div>
+						</c:if>
+					</form>
+				</c:if>
+			</div>
+			<c:if test="${addressList.size() < 3}">
 				<div class="createAddress display-none">
-					<input type="text" id="code" name="code" placeholder="우편번호" readonly style="margin-top:80px;width:200px;">
-					<input class="searchCode"type="button" value="우편번호 찾기"><br>
-					<input type="text" id="address" name="address" placeholder="주소" readonly style="width:320px;;"><br>
-					<input type="text" id="detail" name="detail" placeholder="상세주소" style="width:320px;"><br>
-					<button class="btn-address" type="submit" style="background-color:rgb(33,51,87);color: white;width:320px;">추가하기</button>
+					<form method="post" action="<%=request.getContextPath()%>/information/account/address" style="margin:0;height:100%;position:relative;">
+						<button class="closeCreate" type="button" style="position:absolute;right:5px;top:5px;border:none;background-color:transparent;outline:none;">X</button>
+						<input type="text" id="code" name="code" placeholder="우편번호" readonly style="margin-top:80px;width:200px;">
+						<input class="searchCode"type="button" value="우편번호 찾기"><br>
+						<input type="text" id="address" name="address" placeholder="주소" readonly style="width:320px;;"><br>
+						<input type="text" id="detail" name="detail" placeholder="상세주소" style="width:320px;"><br>
+						<input type="hidden" name="isMain" value="<c:if test="${addressList.size() == 0}">Y</c:if><c:if test="${addressList.size() != 0}">N</c:if>"><br>
+						<button class="btn-address" type="submit" style="background-color:rgb(33,51,87);color: white;width:320px;">생성하기</button>
+					</form>
 				</div>
-				<button class="link-address" type="button" style="position:absolute;bottom:30px;left:350px;">주소 생성하기</button>
-			</div>
-			<div class="changeAddress display-none">
-			
-			</div>
-			<div class="deleteAccount display-none">
-			
-			</div>
-		</form>
+				<c:if test="${addressList.size() == 0}">
+					<button class="link-address" type="button" style="position:absolute;bottom:30px;right:50px;color:white;background-color:rgb(33,51,87)">기본배송지 생성하기</button>
+				</c:if>
+			</c:if>
+		</div>
+		<div class="changeEmail content display-none">
+			<form method="post" action="<%=request.getContextPath()%>/information/account/email">
+				<div style="width:500px;margin:0 auto">
+					<input type="text" style="width:370px;" class="emailId" placeholder="이메일 변경하기"> @
+					<select class="emailSite">
+					</select>
+					<input type="hidden" name="email">
+					<button type="submit" class="btn-email">변경하기</button>
+				</div>
+			</form>
+		</div>
+		<div class="deleteAccount content display-none">
+			<form method="get" action="<%=request.getContextPath()%>/information/account/deleteAccount">
+				<div>
+					<span>정말로 탈퇴를 하시겠습니까?</span><br>
+					<span>탈퇴를 하려면 빨간 버튼을 취소하려면 파란 버튼을 눌러주세요.</span><br>
+					<button type="submit" style="background-color: red;width:200px;height:200px;"><h1 style="opacity:0;">탈퇴</h1></button>
+					<button type="button" style="background-color: blue;width:200px;height:200px;"><h1 style="opacity:0;">취소</h1></button>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
-${adjust }
-<c:if test="${adjust == true}">
-	<script>
-		$(function(){
-			alert('성공적으로 변경했습니다.');
-		})
-	</script>
-</c:if>		
 <script>
         $(function(){
-            $('.link-address').click(function(){
+        	$('.deleteAccount button[type=button]').click(function(){
+				alert('yeh!!!!');
+           	})
+           	$('.deleteAccount button[type=submit').click(function(){
+				alert('시무룩');
+           	})
+            $('.deleteAccount button[type=submit]').hover(function(){
+					$(this).animate({'opacity':'0.7'},300);
+					$(this).children().animate({'opacity':'1'},300);
+                },function(){
+                	$(this).animate({'opacity':'1'},300);
+                	$(this).children().animate({'opacity':'0'},300);
+            })
+            $('.deleteAccount button[type=button]').hover(function(){
+					$(this).animate({'opacity':'0.7'},300);
+					$(this).children().animate({'opacity':'1'},300);
+                },function(){
+                	$(this).animate({'opacity':'1'},300);
+                	$(this).children().animate({'opacity':'0'},300);
+            })
+        	var emailSite = ['naver.com','kakao.com','gmail.com','yahoo.com','daum.net'];
+    		for(var i = 0; i < emailSite.length; i++) {
+    			$('.emailSite').append('<option value="@' + emailSite[i] + '">' + emailSite[i] +'</option>');
+    		}
+            $('.changePhone input').keypress(function(event){
+                if(event.keyCode >= 48 && event.keyCode <= 57){
+                    return true;
+                }else{
+                    return false;
+                }
+            })
+            $('body').click(function(){
+            	$('.viewAddress').removeClass('display-none');
+                $('.createAddress').addClass('display-none');
+                $('.link-address').removeClass('display-none');
+            })
+            $('.closeCreate').click(function(e){
+            	$('.viewAddress').removeClass('display-none');
+                $('.createAddress').addClass('display-none');
+                $('.link-address').removeClass('display-none');
+                e.stopPropagation();
+           	})
+            $('input[type=radio]').click(function(){
+				$('.viewAddress input[type=radio]').prop('checked', false);
+				$('.viewAddress input[type=radio]').removeAttr('checked');
+				$(this).prop('checked', true);
+				$(this).prop('checked', true).attr('checked','checked');
+            })
+            $('.link-address').click(function(e){
                 $('.viewAddress').addClass('display-none');
                 $('.createAddress').removeClass('display-none');
                 $(this).addClass('display-none');
+                e.stopPropagation();
             })
             $('.searchCode').click(function(){
                 getPost();
@@ -177,7 +273,7 @@ ${adjust }
             }
             $('.change>a').click(function(){
                 var target = $(this).attr('data-target');
-                $('.changeContent').children().children().addClass('display-none');
+                $('.changeContent').children().addClass('display-none');
                 $(target).removeClass('display-none');
             }) 
             $('.pw3').change(function(){
@@ -218,7 +314,9 @@ ${adjust }
                 submitHandler: function(form) {
                     var phone = $('.num1').val() + '-' + $('.num2').val() + '-' + $('.num3').val();
                     $('.phone').val(phone);
-                       $(form).submit();
+                    var email = $('.emailId').val() + $('.emailSite').val();
+    				$('.email').val(email);
+                    $(form).submit();
                 },
                 rules: {
                     pw: {
@@ -230,15 +328,6 @@ ${adjust }
                     pw2: {
                         required : true,
                         equalTo : pw
-                    },
-                    num1: {
-                        required : true,
-                    },
-                    num2: {
-                        required : true,
-                    },
-                    num3: {
-                        required : true,
                     }
                 },
                 messages : {
@@ -251,15 +340,6 @@ ${adjust }
                     pw2: {
                         required : "필수 입력입니다",
                         equalTo : "비밀번호가 일치하지 않습니다."
-                    },
-                    num1: {
-                        required : "필수 입력입니다"
-                    },
-                    num2: {
-                        required : "필수 입력입니다"
-                    },
-                    num3: {
-                        required : "필수 입력입니다"
                     }
                 }
             });

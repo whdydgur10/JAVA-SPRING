@@ -2,13 +2,14 @@ package kr.green.project.vo;
 
 public class PointVo {
 
-	private int level;
+	private String level;
 	private double point;
-//	레벨 / 적립율
-	public int getLevel() {
+	private int needPrice;
+//	레벨 / 적립율 / 조건금액
+	public String getLevel() {
 		return level;
 	}
-	public void setLevel(int level) {
+	public void setLevel(String level) {
 		this.level = level;
 	}
 	public double getPoint() {
@@ -17,9 +18,19 @@ public class PointVo {
 	public void setPoint(double point) {
 		this.point = point;
 	}
+	public int getNeedPrice() {
+		return needPrice;
+	}
+	public void setNeedPrice(int needPrice) {
+		this.needPrice = needPrice;
+	}
 	@Override
 	public String toString() {
-		return "PointVo [level=" + level + ", point=" + point + "]";
+		return "PointVo [level=" + level + ", point=" + point + ", needPrice=" + needPrice + "]";
+	}
+	
+	public String getStringNeedPrice() {
+		return String.format("%,d", needPrice);
 	}
 	
 }

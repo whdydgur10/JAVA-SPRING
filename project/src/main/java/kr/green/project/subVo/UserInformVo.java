@@ -1,4 +1,4 @@
-package kr.green.project.vo;
+package kr.green.project.subVo;
 
 public class UserInformVo {
 
@@ -9,15 +9,6 @@ public class UserInformVo {
 	private int vaginalNum;
 	private int shoppingBasketNum;
 	private int reviewNum;
-	public UserInformVo() {
-		this.level = 1;
-		this.couponNum = 0;
-		this.point = 0;
-		this.purchaseListNum = 0;
-		this.vaginalNum = 0;
-		this.shoppingBasketNum = 0;
-		this.reviewNum = 0;
-	}
 	public int getLevel() {
 		return level;
 	}
@@ -31,6 +22,7 @@ public class UserInformVo {
 		this.couponNum = couponNum;
 	}
 	public int getPoint() {
+		
 		return point;
 	}
 	public void setPoint(int point) {
