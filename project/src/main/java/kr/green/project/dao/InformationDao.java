@@ -6,9 +6,11 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.green.project.subVo.LevelPointVo;
 import kr.green.project.vo.AddressVo;
+import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.UserVo;
+import kr.green.project.vo.VaginalVo;
 
 public interface InformationDao {
 
@@ -48,7 +50,23 @@ public interface InformationDao {
 
 	String getNeedPrice(@Param("id")String id);
 
-	ArrayList<PurchaseVo> getPurchase(String id);
+	ArrayList<PurchaseVo> getPurchase(@Param("id")String id);
+
+	ArrayList<PurchaseVo> getUsePointPurchase(@Param("id")String id);
+
+	ArrayList<CouponVo> getCouponList(@Param("id")String id);
+
+	CouponVo isCouponName(@Param("code")String code);
+
+	void insertCoupon(@Param("id")String id, @Param("coupon")CouponVo coupon);
+
+	ArrayList<CouponVo> getUseCouponList(@Param("id")String id);
+
+	CouponVo isGetCoupon(@Param("id")String id, @Param("name")String code);
+
+	ArrayList<PurchaseVo> getPurchaseList(@Param("id")String id);
+
+	ArrayList<VaginalVo> getVaginalList(@Param("id")String id);
 
 	
 

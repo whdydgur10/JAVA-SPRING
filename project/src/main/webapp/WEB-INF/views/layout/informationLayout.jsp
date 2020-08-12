@@ -17,11 +17,9 @@
 			<li><a href="<%=request.getContextPath()%>/information/account" class="information <c:if test="${menu == 'account'}">select</c:if>" data-target=".account">계정</a></li>
 			<li><a href="<%=request.getContextPath()%>/information/level" class="information <c:if test="${menu == 'level'}">select</c:if>">레벨</a></li>
 			<li><a href="<%=request.getContextPath()%>/information/coupon" class="information <c:if test="${menu == 'coupon'}">select</c:if>">쿠폰</a></li>
-			<li><a href="<%=request.getContextPath()%>/information/point" class="information <c:if test="${menu == 'point'}">select</c:if>">적립금</a></li>
 			<li><a href="<%=request.getContextPath()%>/information/purchaseList" class="information <c:if test="${menu == 'purchaseList'}">select</c:if>">주문내역</a></li>
 			<li><a href="<%=request.getContextPath()%>/information/vaginal" class="information <c:if test="${menu == 'vaginal'}">select</c:if>">문의내역</a></li>
 			<li><a href="<%=request.getContextPath()%>/information/shoppingBasket" class="information <c:if test="${menu == 'shoppingBasket'}">select</c:if>">장바구니</a></li>
-			<li><a href="<%=request.getContextPath()%>/information/review" class="information <c:if test="${menu == 'review'}">select</c:if>">후기</a></li>
 		</ul>
 	</div>
 	<div class="centerContainer" style="width:900px;height:100%;border-right:1px solid black;border-left:1px solid black;box-sizing:border-box;float:left;padding:20px;">

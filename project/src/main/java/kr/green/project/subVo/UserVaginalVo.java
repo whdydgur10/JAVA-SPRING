@@ -1,27 +1,21 @@
-package kr.green.project.vo;
+package kr.green.project.subVo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class VaginalVo {
+public class UserVaginalVo {
 
 	private int num;
 	private String title;
 	private Date registerDate;
-	private char isAnswer;
 	private char isSecret;
 	private String userId;
 	private int view;
+	private String id;
+	private String name;
+	private String auth;
 	private int registerNum;
-	private String content;
-	public int getRegisterNum() {
-		return registerNum;
-	}
-	public void setRegisterNum(int registerNum) {
-		this.registerNum = registerNum;
-	}
-	//	질의글번호 / 제목 / 작성일 / 답변여부 / 비밀글여부 / 회원아이디 / 조회수
 	public int getNum() {
 		return num;
 	}
@@ -74,17 +68,34 @@ public class VaginalVo {
 	public void setView(int view) {
 		this.view = view;
 	}
-	public String getContent() {
-		return content;
+	public String getId() {
+		return id;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAuth() {
+		return auth;
+	}
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+	public int getRegisterNum() {
+		return registerNum;
+	}
+	public void setRegisterNum(int registerNum) {
+		this.registerNum = registerNum;
 	}
 	@Override
 	public String toString() {
-		return "VaginalVo [num=" + num + ", title=" + title + ", registerDate=" + registerDate + ", isAnswer="
-				+ isAnswer + ", isSecret=" + isSecret + ", userId=" + userId + ", view=" + view + ", registerNum="
-				+ registerNum + ", content=" + content + "]";
+		return "UserVaginalVo [num=" + num + ", title=" + title + ", registerDate=" + registerDate + ", isAnswer="
+				+ isAnswer + ", isSecret=" + isSecret + ", userId=" + userId + ", view=" + view + ", id=" + id
+				+ ", name=" + name + ", auth=" + auth + ", registerNum=" + registerNum + "]";
 	}
-	
 }

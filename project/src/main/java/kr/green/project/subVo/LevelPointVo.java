@@ -44,8 +44,7 @@ public class LevelPointVo {
 	}
 	
 	public int getIntPoint() {
-		System.out.println((int)Math.floor(point*100));
-		System.out.println(String.valueOf((int)Math.floor(point*100)));
 		return Integer.parseInt(String.valueOf((int)Math.floor(point*100)));
 	}
+
 }

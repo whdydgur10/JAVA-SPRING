@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.project.dao.VaginalDao">
+	<select id="getVaginalList" resultType="kr.green.project.subVo.UserVaginalVo">
+		select * from vaginal
+					join (select * from user) as user
+					where vaginal.userId = user.id
+					order by num desc
+	</select>
+	<select id="getVaginal" resultType="kr.green.project.vo.VaginalVo">
+		select * from vaginal where num = #{num}
+	</select>
+</mapper>

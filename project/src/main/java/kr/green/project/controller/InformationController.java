@@ -30,6 +30,7 @@ public class InformationController {
 	public ModelAndView userInformationGet(ModelAndView mv, HttpServletRequest h){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
 		mv.addObject("userInform", infos.getUserInform(user.getId()));
+		mv.addObject("couponList", infos.getCouponList(user.getId()));
 		mv.addObject("menu", "all");
 	    mv.setViewName("/information/all");
 	    return mv;
@@ -112,43 +113,62 @@ public class InformationController {
 	
 	@RequestMapping(value= "/information/level", method = RequestMethod.GET)
 	public ModelAndView levelInformationGet(ModelAndView mv, HttpServletRequest h){
-		mv.addObject("level", infos.getLevel(h));
-		mv.addObject("purchase", infos.getPurchasePrice(h));
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		mv.addObject("level", infos.getLevel(user.getId()));
+		mv.addObject("purchase", infos.getPurchasePrice(user.getId()));
 		mv.addObject("menu", "level");
 		mv.addObject("pointList", infos.getPointList());
-		mv.addObject("usePoint", infos.getUsePoint(h));
-		mv.addObject("remain", infos.getRemainPrice(h));
-		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		mv.addObject("usePoint", infos.getUsePoint(user.getId()));
+		mv.addObject("remain", infos.getRemainPrice(user.getId()));
 		mv.addObject("userInform", infos.getUserInform(user.getId()));
-		mv.addObject("purchaseList", infos.getPurchase(h));
+		mv.addObject("purchaseList", infos.getPurchase(user.getId()));
+		mv.addObject("usePointList", infos.getUsePointPurchase(user.getId()));
 	    mv.setViewName("/information/level");
 	    return mv;
 	}
 	
 	@RequestMapping(value= "/information/coupon", method = RequestMethod.GET)
-	public ModelAndView couponInformationGet(ModelAndView mv){
+	public ModelAndView couponInformationGet(ModelAndView mv, HttpServletRequest h){
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		mv.addObject("couponList", infos.getCouponList(user.getId()));
+		mv.addObject("useCouponList", infos.getUseCouponList(user.getId()));
 		mv.addObject("menu", "coupon");
 	    mv.setViewName("/information/coupon");
 	    return mv;
 	}
 	
-	@RequestMapping(value= "/information/point", method = RequestMethod.GET)
-	public ModelAndView pointInformationGet(ModelAndView mv){
-		mv.addObject("menu", "point");
-	    mv.setViewName("/information/point");
+	@RequestMapping("/codeCheck")
+	@ResponseBody
+	public Map<Object, Object> namecheck(@RequestBody String code, HttpServletRequest h){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user = (UserVo)h.getSession().getAttribute("user");
+	    map.put("nameCheck", infos.isCouponName(code, user.getId()));
+	    return map;
+	}
+	
+	@RequestMapping(value= "/information/coupon", method = RequestMethod.POST)
+	public ModelAndView couponInformationPost(ModelAndView mv, HttpServletRequest h, String code){
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		infos.insertCoupon(user.getId(), code);
+		mv.addObject("menu", "coupon");
+	    mv.setViewName("redirect:/information/coupon");
 	    return mv;
 	}
 	
 	@RequestMapping(value= "/information/purchaseList", method = RequestMethod.GET)
-	public ModelAndView purchaseListInformationGet(ModelAndView mv){
+	public ModelAndView purchaseListInformationGet(ModelAndView mv, HttpServletRequest h){
 		mv.addObject("menu", "purchaseList");
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		mv.addObject("purchaseList", infos.getPurchaseList(user.getId()));
 	    mv.setViewName("/information/purchaseList");
 	    return mv;
 	}
 	
 	@RequestMapping(value= "/information/vaginal", method = RequestMethod.GET)
-	public ModelAndView vaginalInformationGet(ModelAndView mv){
+	public ModelAndView vaginalInformationGet(ModelAndView mv, HttpServletRequest h){
 		mv.addObject("menu", "vaginal");
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		mv.addObject("vaginalList", infos.getVaginalList(user.getId()));
 	    mv.setViewName("/information/vaginal");
 	    return mv;
 	}
@@ -160,10 +180,4 @@ public class InformationController {
 	    return mv;
 	}
 	
-	@RequestMapping(value= "/information/review", method = RequestMethod.GET)
-	public ModelAndView reviewInformationGet(ModelAndView mv){
-		mv.addObject("menu", "review");
-	    mv.setViewName("/information/review");
-	    return mv;
-	}
 }

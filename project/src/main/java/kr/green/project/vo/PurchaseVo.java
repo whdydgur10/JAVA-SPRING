@@ -143,4 +143,11 @@ public class PurchaseVo {
 				+ ", deliveryPrice=" + deliveryPrice + ", usePoint=" + usePoint + ", orderDate=" + orderDate + "]";
 	}
 	
+	public int getPricePoint() {
+		return (price - usePoint) / 100;
+	}
+	
+	public String getStringPrice() {
+		return String.format("%,d", price);
+	}
 }

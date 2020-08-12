@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.project.service.InformationService;
 import kr.green.project.service.UserService;
 import kr.green.project.vo.UserVo;
 
@@ -23,6 +24,8 @@ public class HomeController {
 	
 	@Autowired
 	UserService userService;
+	@Autowired
+	InformationService infos;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -42,6 +45,8 @@ public class HomeController {
 	public ModelAndView signupPost(ModelAndView mv, UserVo user){
 		if(user != null) {
 			userService.insertUser(user);
+			String code = "X5Q8411";
+			infos.insertCoupon(user.getId(), code);
 			mv.setViewName("redirect:/");
 		}
 		else

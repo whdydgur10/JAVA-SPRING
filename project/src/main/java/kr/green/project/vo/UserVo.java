@@ -86,7 +86,7 @@ public class UserVo {
 		this.isDel = isDel;
 	}
 	public String getIsDelDate() {
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String to = transFormat.format(isDelDate);
 		return to;
 	}
@@ -94,7 +94,7 @@ public class UserVo {
 		this.isDelDate = isDelDate;
 	}
 	public void setIsDelDate(String date) {
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			isDelDate = transFormat.parse(date);
 		} catch (ParseException e) {

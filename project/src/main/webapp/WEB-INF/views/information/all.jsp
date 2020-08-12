@@ -11,10 +11,7 @@
 		<span>레벨 ${userInform.level}<a href="<%=request.getContextPath()%>/information/level" class="more">레벨</a></span>
 	</div>
 	<div class="couponBox">
-		<span>쿠폰 보유량 ${userInform.couponNum}<a href="<%=request.getContextPath()%>/information/coupon" class="more">쿠폰</a></span>
-	</div>
-	<div class="pointBox">
-		<span>적립금  ${user.point}<a href="<%=request.getContextPath()%>/information/point" class="more">적립금</a></span>
+		<span>쿠폰 보유량 ${couponList.size()}<a href="<%=request.getContextPath()%>/information/coupon" class="more">쿠폰</a></span>
 	</div>
 	<div class="purchaseListBox">
 		<span>주문내역  ${userInform.purchaseListNum}<a href="<%=request.getContextPath()%>/information/purchaseList" class="more">주문내역</a></span>
@@ -24,8 +21,5 @@
 	</div>
 	<div class="shoppingBasketBox">
 		<span>장바구니  ${userInform.shoppingBasketNum}<a href="<%=request.getContextPath()%>/information/shoppingBasket" class="more">장바구니</a></span>
-	</div>
-	<div class="reviewBox">
-		<span>후기  ${userInform.reviewNum}<a href="<%=request.getContextPath()%>/information/review" class="more">후기</a></span>
 	</div>
 </div>	

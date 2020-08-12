@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <title>내 정보</title>
@@ -56,23 +55,25 @@
 		</c:forEach>
 	</div>
 	<div class="showGetPoint" style="float:left;width:100%;height:170px;box-shadow: 2px 2px 2px 2px;margin-top:20px;">
-		<b style="line-height:20px;display:inline-block;padding:10px 0 0 10px;">적립 포인트</b>${level.intPoint}
-		<c:if test="${purchaseList.size() == 0}">
-			<div style="height:140px;text-align:center;line-height:140px;font-size:30px;">적립 내용이 없습니다.</div>
-		</c:if>
-		<c:if test="${purchaseList.size() != 0}">
-			<div style="width:100%;height:140px;overflow:auto">
-				<table class="table">
-					<thead>
+		<b style="line-height:20px;display:inline-block;padding:10px 0 0 10px;">적립 포인트</b>
+		<div style="width:100%;height:140px;overflow:auto">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>구매번호</th>
+						<th>주문내역</th>
+						<th>주문일자</th>
+						<th>확정일자</th>
+						<th>적립 포인트</th>
+					</tr>
+				</thead>
+				<tbody >
+					<c:if test="${purchaseList.size() == 0}">
 						<tr>
-							<th>구매 번호</th>
-							<th>주문내역</th>
-							<th>주문일자</th>
-							<th>확정일자</th>
-							<th>쌓인 포인트</th>
+							<td colspan="5">적립 내역이 없습니다.</td>
 						</tr>
-					</thead>
-					<tbody >
+					</c:if>
+					<c:if test="${purchaseList.size() != 0}">
 					<c:set var="listLength" value="${purchaseList.size()}"/>
 						<c:forEach var="list" items="${purchaseList}" varStatus="status">
 							<tr>
@@ -80,21 +81,47 @@
 								<td><a href="#">상품이름</a></td>
 								<td>${list.orderDate}</td>
 								<td>${list.confirmDate}</td>
-								<td>${list.price * level.intPoint / 100}point</td>
+								<td>${list.pricePoint * level.intPoint }point</td>
 							</tr>
 						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</c:if>
+					</c:if>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div class="showUsePoint" style="float:left;width:100%;height:170px;box-shadow: 2px 2px 2px 2px;">
-		<b style="line-height:20px;display:inline-block;padding:10px 0 0 10px;">사용 포인트</b>
+	<b style="line-height:20px;display:inline-block;padding:10px 0 0 10px;">사용 포인트</b>
+		<div style="width:100%;height:140px;overflow:auto">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>구매번호</th>
+						<th>주문내역</th>
+						<th>주문일자</th>
+						<th>확정일자</th>
+						<th>사용 포인트</th>
+					</tr>
+				</thead>
+				<tbody >
+					<c:if test="${usePointList.size() == 0}">
+						<tr>
+							<td colspan="5">적립 내역이 없습니다.</td>
+						</tr>
+					</c:if>
+					<c:if test="${usePointList.size() != 0}">
+					<c:set var="listLength" value="${usePointList.size()}"/>
+						<c:forEach var="list" items="${usePointList}" varStatus="status">
+							<tr>
+								<td>${listLength - status.count + 1}</td>
+								<td><a href="#">상품이름</a></td>
+								<td>${list.orderDate}</td>
+								<td>${list.confirmDate}</td>
+								<td>${list.usePoint}point</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	
 </div>
-<script>
-	$(function(){
-		
-	})
-</script>

@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import kr.green.project.subVo.LevelPointVo;
 import kr.green.project.subVo.UserInformVo;
 import kr.green.project.vo.AddressVo;
+import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.UserVo;
+import kr.green.project.vo.VaginalVo;
 
 public interface InformationService {
 
@@ -31,16 +33,30 @@ public interface InformationService {
 
 	void deleteAddress(int num);
 
-	LevelPointVo getLevel(HttpServletRequest h);
+	LevelPointVo getLevel(String id);
 
-	String getPurchasePrice(HttpServletRequest h);
+	String getPurchasePrice(String id);
 
 	ArrayList<PointVo> getPointList();
 
-	String getUsePoint(HttpServletRequest h);
+	String getUsePoint(String id);
 
-	String getRemainPrice(HttpServletRequest h);
+	String getRemainPrice(String id);
 
-	ArrayList<PurchaseVo> getPurchase(HttpServletRequest h);
+	ArrayList<PurchaseVo> getPurchase(String id);
+
+	ArrayList<PurchaseVo> getUsePointPurchase(String id);
+
+	ArrayList<CouponVo> getCouponList(String id);
+
+	int isCouponName(String code, String id);
+
+	void insertCoupon(String id, String code);
+
+	ArrayList<CouponVo> getUseCouponList(String id);
+
+	ArrayList<PurchaseVo> getPurchaseList(String id);
+
+	ArrayList<VaginalVo> getVaginalList(String id);
 
 }

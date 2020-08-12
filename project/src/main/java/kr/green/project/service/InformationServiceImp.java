@@ -8,16 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.mysql.cj.ParseInfo;
-
 import kr.green.project.dao.InformationDao;
 import kr.green.project.dao.UserDao;
 import kr.green.project.subVo.LevelPointVo;
 import kr.green.project.subVo.UserInformVo;
 import kr.green.project.vo.AddressVo;
+import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.UserVo;
+import kr.green.project.vo.VaginalVo;
 
 @Service
 public class InformationServiceImp implements InformationService {
@@ -94,15 +94,13 @@ public class InformationServiceImp implements InformationService {
 	}
 
 	@Override
-	public LevelPointVo getLevel(HttpServletRequest h) {
-		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		return infoDao.getLevel(user.getId());
+	public LevelPointVo getLevel(String id) {
+		return infoDao.getLevel(id);
 	}
 
 	@Override
-	public String getPurchasePrice(HttpServletRequest h) {
-		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		String sum = infoDao.getPurchasePrice(user.getId());
+	public String getPurchasePrice(String id) {
+		String sum = infoDao.getPurchasePrice(id);
 		if(sum == null)
 			return "0";
 		return String.format("%,d", Integer.parseInt(sum));
@@ -114,28 +112,68 @@ public class InformationServiceImp implements InformationService {
 	}
 
 	@Override
-	public String getUsePoint(HttpServletRequest h) {
-		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		if(infoDao.getUsePoint(user.getId()) == null)
+	public String getUsePoint(String id) {
+		if(infoDao.getUsePoint(id) == null)
 			return "0";
-		return String.format("%,d", Integer.parseInt(infoDao.getUsePoint(user.getId())));
+		return String.format("%,d", Integer.parseInt(infoDao.getUsePoint(id)));
 	}
 
 	@Override
-	public String getRemainPrice(HttpServletRequest h) {
-		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		String price = infoDao.getPurchasePrice(user.getId());
+	public String getRemainPrice(String id) {
+		String price = infoDao.getPurchasePrice(id);
 		if(price == null)
 			price = "0";
-		String point = infoDao.getNeedPrice(user.getId());
+		String point = infoDao.getNeedPrice(id);
 		int res = Integer.parseInt(point) - Integer.parseInt(price);
 		return String.format("%,d", res);
 	}
 
 	@Override
-	public ArrayList<PurchaseVo> getPurchase(HttpServletRequest h) {
-		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		return infoDao.getPurchase(user.getId());
+	public ArrayList<PurchaseVo> getPurchase(String id) {
+		return infoDao.getPurchase(id);
+	}
+
+	@Override
+	public ArrayList<PurchaseVo> getUsePointPurchase(String id) {
+		return infoDao.getUsePointPurchase(id);
+	}
+
+	@Override
+	public ArrayList<CouponVo> getCouponList(String id) {
+		return infoDao.getCouponList(id);
+	}
+
+	@Override
+	public int isCouponName(String code, String id) {
+		if(infoDao.isCouponName(code) == null) 
+			return 0;
+		else if(infoDao.isGetCoupon(id, code) != null) 
+			return 1;
+		else
+			return 2;
+	}
+
+	@Override
+	public void insertCoupon(String id, String code) {
+		System.out.println(1);
+		CouponVo coupon = infoDao.isCouponName(code);
+		System.out.println(2);
+		infoDao.insertCoupon(id, coupon);
+	}
+
+	@Override
+	public ArrayList<CouponVo> getUseCouponList(String id) {
+		return infoDao.getUseCouponList(id);
+	}
+
+	@Override
+	public ArrayList<PurchaseVo> getPurchaseList(String id) {
+		return infoDao.getPurchaseList(id);
+	}
+
+	@Override
+	public ArrayList<VaginalVo> getVaginalList(String id) {
+		return infoDao.getVaginalList(id);
 	}
 
 	

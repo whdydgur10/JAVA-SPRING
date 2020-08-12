@@ -66,4 +66,28 @@
 	<select id="getPurchase" resultType="kr.green.project.vo.PurchaseVo">
 		select * from purchase where userId = #{id} and situation = '상품 도착' order by num DESC
 	</select>
+	<select id="getUsePointPurchase" resultType="kr.green.project.vo.PurchaseVo">
+		select * from purchase where userId = #{id} and situation = '상품 도착' and isPoint = 'Y' order by num DESC
+	</select>
+	<select id="getCouponList" resultType="kr.green.project.vo.CouponVo">
+		select * from coupon where userId = #{id} and purchaseNum is null
+	</select>
+	<select id="isCouponName" resultType="kr.green.project.vo.CouponVo">
+		select * from coupon where code = #{code} and userId = 'root'
+	</select>
+	<insert id="insertCoupon">
+		insert into coupon(code, discount, userId ,name) values(#{coupon.code}, #{coupon.discount}, #{id}, #{coupon.name})
+	</insert>
+	<select id="getUseCouponList" resultType="kr.green.project.vo.CouponVo">
+		select * from coupon where userId = #{id} and purchaseNum is not null
+	</select>
+	<select id="isGetCoupon" resultType="kr.green.project.vo.CouponVo">
+		select * from coupon where userId = #{id} and code = #{code}
+	</select>
+	<select id="getPurchaseList" resultType="kr.green.project.vo.PurchaseVo">
+		select * from purchase where userId = #{id} order by num DESC
+	</select>
+	<select id="getVaginalList" resultType="kr.green.project.vo.VaginalVo">
+		select * from vaginal where userId = #{id} order by num DESC
+	</select>
 </mapper>
