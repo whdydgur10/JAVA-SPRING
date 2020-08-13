@@ -55,9 +55,9 @@
 		</c:forEach>
 	</div>
 	<div class="showGetPoint" style="float:left;width:100%;height:170px;box-shadow: 2px 2px 2px 2px;margin-top:20px;">
-		<b style="line-height:20px;display:inline-block;padding:10px 0 0 10px;">적립 포인트</b>
+		<b>적립 포인트</b>
 		<div style="width:100%;height:140px;overflow:auto">
-			<table class="table">
+			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>구매번호</th>

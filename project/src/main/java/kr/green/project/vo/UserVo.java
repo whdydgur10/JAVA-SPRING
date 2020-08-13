@@ -12,7 +12,7 @@ public class UserVo {
 	private String phone;
 	private String birthday;
 	private String gender;
-	private String auth;
+	private int auth;
 	private String email;
 	private int point;
 	private String coupon;
@@ -55,10 +55,10 @@ public class UserVo {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public String getAuth() {
+	public int getAuth() {
 		return auth;
 	}
-	public void setAuth(String auth) {
+	public void setAuth(int auth) {
 		this.auth = auth;
 	}
 	public String getEmail() {

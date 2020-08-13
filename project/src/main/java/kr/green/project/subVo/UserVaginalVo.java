@@ -16,6 +16,8 @@ public class UserVaginalVo {
 	private String name;
 	private String auth;
 	private int registerNum;
+	private String content;
+	private char isAnswer;
 	public int getNum() {
 		return num;
 	}
@@ -43,12 +45,6 @@ public class UserVaginalVo {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-	}
-	public char getIsAnswer() {
-		return isAnswer;
-	}
-	public void setIsAnswer(char isAnswer) {
-		this.isAnswer = isAnswer;
 	}
 	public char getIsSecret() {
 		return isSecret;
@@ -92,10 +88,23 @@ public class UserVaginalVo {
 	public void setRegisterNum(int registerNum) {
 		this.registerNum = registerNum;
 	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public char getIsAnswer() {
+		return isAnswer;
+	}
+	public void setIsAnswer(char isAnswer) {
+		this.isAnswer = isAnswer;
+	}
 	@Override
 	public String toString() {
-		return "UserVaginalVo [num=" + num + ", title=" + title + ", registerDate=" + registerDate + ", isAnswer="
-				+ isAnswer + ", isSecret=" + isSecret + ", userId=" + userId + ", view=" + view + ", id=" + id
-				+ ", name=" + name + ", auth=" + auth + ", registerNum=" + registerNum + "]";
+		return "UserVaginalVo [num=" + num + ", title=" + title + ", registerDate=" + registerDate + ", isSecret="
+				+ isSecret + ", userId=" + userId + ", view=" + view + ", id=" + id + ", name=" + name + ", auth="
+				+ auth + ", registerNum=" + registerNum + ", content=" + content + ", isAnswer=" + isAnswer + "]";
 	}
+	
 }

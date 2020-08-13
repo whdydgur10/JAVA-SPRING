@@ -38,10 +38,25 @@
 
 	<beans:bean id="loginInterceptor" 
 	class="kr.green.project.interceptor.LoginInterceptor"></beans:bean>
+	<beans:bean id="authInterceptor" 
+	class="kr.green.project.interceptor.AuthInterceptor"></beans:bean>
+	<beans:bean id="unAuthInterceptor" 
+	class="kr.green.project.interceptor.UnAuthInterceptor"></beans:bean>
 	<interceptors>
 	    <interceptor>
 	        <mapping path="/user/signin"/>
 	        <beans:ref bean="loginInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+	        <mapping path="/vaginal/register"/>
+	        <mapping path="/vaginal/secret"/>
+	        <mapping path="/information/*"/>
+	        <beans:ref bean="authInterceptor"/>
+	    </interceptor>
+	    <interceptor>
+	        <mapping path="/user/signin"/>
+	        <mapping path="/user/signup"/>
+	        <beans:ref bean="unAuthInterceptor"/>
 	    </interceptor>
 	</interceptors>
 	

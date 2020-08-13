@@ -9,6 +9,8 @@ public class ProductenrollmentVo {
 	private String middleCategory;
 	private String subCategory;
 	private int adNum;
+	private String productCode;
+	private int discount;
 //	등록글 번호 / 제목 / 내용 / 대분류 / 중분류 / 소분류 / 광고번호
 	public int getNum() {
 		return num;
@@ -49,14 +51,26 @@ public class ProductenrollmentVo {
 	public int getAdNum() {
 		return adNum;
 	}
+	public int getDiscount() {
+		return discount;
+	}
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
 	public void setAdNum(int adNum) {
 		this.adNum = adNum;
 	}
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
 	@Override
 	public String toString() {
-		return "ProductEnrollmentVo [num=" + num + ", title=" + title + ", content=" + content + ", mainCategory="
+		return "ProductenrollmentVo [num=" + num + ", title=" + title + ", content=" + content + ", mainCategory="
 				+ mainCategory + ", middleCategory=" + middleCategory + ", subCategory=" + subCategory + ", adNum="
-				+ adNum + "]";
+				+ adNum + ", productCode=" + productCode + ", discount=" + discount + "]";
 	}
 	
 }

@@ -7,7 +7,7 @@
 	<hr>
 	<div style="width:100%;height:550px;box-shadow: 2px 2px 2px 2px;margin-top:20px;">
 		<div style="width:100%;height:550px;overflow:auto;">
-			<table class="table" style="text-align:center;">
+			<table class="table table-hover" style="text-align:center;">
 				<thead>
 					<tr>
 						<th>구매번호</th>

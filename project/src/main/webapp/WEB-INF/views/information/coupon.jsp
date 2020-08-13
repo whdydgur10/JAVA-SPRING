@@ -17,9 +17,9 @@
 	</form>
 	
 	<div class="getCoupon" style="width:100%;height:240px;box-shadow: 2px 2px 2px 2px;margin-top:20px;">
-	<b style="line-height:20px;display:inline-block;padding:10px 0 0 10px;">사용 가능한 쿠폰</b>
+	<b>사용 가능한 쿠폰</b>
 		<div style="width:100%;height:210px;overflow:auto">
-			<table class="table" style="text-align:center">
+			<table class="table table-hover" style="text-align:center">
 				<thead>
 					<tr>
 						<th>쿠폰번호</th>
@@ -47,7 +47,7 @@
 		</div>	
 	</div>
 	<div class="useCoupon" style="width:100%;height:240px;box-shadow: 2px 2px 2px 2px;margin-top:20px;">
-	<b style="line-height:20px;display:inline-block;padding:10px 0 0 10px;">사용한 쿠폰</b>
+	<b>사용한 쿠폰</b>
 		<div style="width:100%;height:210px;overflow:auto">
 			<table class="table" style="text-align:center;">
 				<thead>

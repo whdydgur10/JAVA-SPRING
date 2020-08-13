@@ -8,8 +8,36 @@
 					join (select * from user) as user
 					where vaginal.userId = user.id
 					order by num desc
+					limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
-	<select id="getVaginal" resultType="kr.green.project.vo.VaginalVo">
-		select * from vaginal where num = #{num}
+	<select id="getUserVaginal" resultType="kr.green.project.subVo.UserVaginalVo">
+		select * from vaginal 
+						join (select * from user) as user
+						on vaginal.userId = user.id
+						where num = #{num}
+	</select>
+	<select id="getAnswer" resultType="kr.green.project.vo.AnswerVo">
+		select * from answer where vaginalNum = #{num}
+	</select>
+	<update id="increaseView">
+		update vaginal set view = view + 1 where num = #{num}
+	</update>
+	<insert id="insertVaginal">
+		insert into vaginal(num, title, registerDate, isSecret, userId, content, registerNum) values(#{vaginal.num}, #{vaginal.title}, #{vaginal.registerDate}, #{vaginal.isSecret}, #{id}, #{vaginal.content}, #{vaginal.registerNum})
+	</insert>
+	<select id="countVaginalAuth" resultType="int">
+		select count(*) from vaginal
+							join (select * from user) as user
+							on vaginal.userId = user.id
+							where user.auth = 0
+	</select>
+	<select id="countVaginalA" resultType="int">
+		select count(*) from vaginal
+							join (select * from user) as user
+							on vaginal.userId = user.id
+							where user.auth = 1
+	</select>
+	<select id="countVaginal" resultType="int">
+		select count(*) from vaginal
 	</select>
 </mapper>

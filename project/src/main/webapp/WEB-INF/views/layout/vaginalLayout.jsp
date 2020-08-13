@@ -9,7 +9,7 @@
 </head>
 <body>
     <tiles:insertAttribute name="header"/>
-    <div class="vaginalContainer" style="width:1400px;height:800px;margin:0 auto;">
+    <div class="vaginalContainer" style="width:1400px;min-height:600px;margin:20px auto 50px;">
     	<tiles:insertAttribute name="body" />
     </div>                                       
 	<tiles:insertAttribute name="footer" />

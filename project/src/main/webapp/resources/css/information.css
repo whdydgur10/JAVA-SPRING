@@ -22,3 +22,12 @@ li>a, .more:hover{
 	height:60px;
 	line-height:60px;
 }
+th{
+	background-color: rgb(33,51,87) !important;
+	color:white !important;
+}
+b{
+	line-height:20px;
+	display:inline-block;
+	padding:5px 0 5px 10px;
+}

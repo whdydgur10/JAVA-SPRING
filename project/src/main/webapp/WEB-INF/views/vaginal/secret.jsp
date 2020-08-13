@@ -1,9 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<title><c:if test="${vaginal.auth == 1}">공지사항</c:if><c:if test="${vaginal.auth == 0}">문의글${vaginal.registerNum}</c:if></title>
+<title>문의글${vaginal.registerNum}</title>
 <div class="form-group">
-    <label for="title"><c:if test="${vaginal.auth == 1}">공지제목</c:if><c:if test="${vaginal.auth == 0}">문의제목</c:if></label>
+    <label for="title">문의제목</label>
     <input type="text" class="form-control" id="title" value="${vaginal.title}" readonly>
 </div>
 <div class="form-group">
@@ -15,7 +15,7 @@
     <input type="text" class="form-control" id="file" value="" readonly>
 </div>
 <div class="form-group">
-    <label for="content"><c:if test="${vaginal.auth == 1}">공지내용</c:if><c:if test="${vaginal.auth == 0}">문의내용</c:if></label>
+    <label for="content">문의내용</label>
     <textarea readonly class="form-control" id="content" style="resize:none;height:300px;overflow:auto">${vaginal.content}</textarea>
 </div>
 <c:if test="${answer != null}">
