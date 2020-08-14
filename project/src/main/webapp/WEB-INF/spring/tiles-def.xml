@@ -13,7 +13,7 @@
     </definition>
  
     <!-- (2) 레이아웃을 적용하는화면-->
-    <definition name=".root" template="/WEB-INF/views/layout/baseLayout.jsp">
+    <definition name=".home" template="/WEB-INF/views/layout/baseLayout.jsp">
         <put-attribute name="title" value="" />
         <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
         <put-attribute name="menu" value="/WEB-INF/views/common/menu.jsp" />
@@ -35,10 +35,9 @@
         <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
     </definition>
     
-    <definition name=".product" template="/WEB-INF/views/layout/baseLayout.jsp">
+    <definition name=".root" template="/WEB-INF/views/layout/rootLayout.jsp">
         <put-attribute name="title" value="" />
-        <put-attribute name="header" value="" />
-        <put-attribute name="menu" value="" />
+        <put-attribute name="header" value="/WEB-INF/views/common/rootHeader.jsp" />
         <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
     </definition>
     
@@ -55,12 +54,16 @@
       <put-attribute name="body" value="/WEB-INF/views/vaginal/{1}.jsp" />
     </definition>
  
- 	<definition name="/product/*" extends=".product">      
-      <put-attribute name="body" value="/WEB-INF/views/product/{1}.jsp" />
+ 	<definition name="/root/*/*" extends=".root">      
+      <put-attribute name="body" value="/WEB-INF/views/root/{1}/{2}.jsp" />
+    </definition>
+    
+    <definition name="/root/*" extends=".root">      
+      <put-attribute name="body" value="/WEB-INF/views/root/{1}.jsp" />
     </definition>
  	
     <!-- (2) -->
-   <definition name="/*/*" extends=".root">      
+   <definition name="/*/*" extends=".home">      
       <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
     </definition>
     

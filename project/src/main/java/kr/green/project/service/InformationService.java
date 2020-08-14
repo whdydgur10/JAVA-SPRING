@@ -49,7 +49,7 @@ public interface InformationService {
 
 	ArrayList<CouponVo> getCouponList(String id);
 
-	int isCouponName(String code, String id);
+	int isCouponCode(String code, String id);
 
 	void insertCoupon(String id, String code);
 

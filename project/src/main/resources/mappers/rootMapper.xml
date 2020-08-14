@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="kr.green.project.dao.RootDao">
+  	<select id="getProductOptionList" resultType="kr.green.project.subVo.ProductOptionVo">
+  		select * from product
+				join project.option 
+		        where product.code = productCode
+  				<if test="productCode != null">
+  					and product.code like concat('%',#{productCode},'%')
+  				</if>
+  				<if test="rootCri.type == 'codedown'">
+  				order by code desc
+  				</if>
+  				<if test="rootCri.type == 'codeup'">
+  				order by code asc
+  				</if>
+  				<if test="rootCri.type == 'namedown'">
+  				order by name desc
+  				</if>
+  				<if test="rootCri.type == 'nameup'">
+  				order by name asc
+  				</if>
+  				<if test="rootCri.type == 'sizedown'">
+  				order by size desc
+  				</if>
+  				<if test="rootCri.type == 'sizeup'">
+  				order by size asc
+  				</if>
+  				<if test="rootCri.type == 'colordown'">
+  				order by color desc
+  				</if>
+  				<if test="rootCri.type == 'colorup'">
+  				order by color asc
+  				</if>
+  				<if test="rootCri.type == 'amountdown'">
+  				order by amount desc
+  				</if>
+  				<if test="rootCri.type == 'amountup'">
+  				order by amount asc
+  				</if>
+  				<if test="rootCri.type == 'purchasedown'">
+  				order by purchase desc
+  				</if>
+  				<if test="rootCri.type == 'purchaseup'">
+  				order by purchase asc
+  				</if>
+  				limit #{rootCri.pageStart} , #{rootCri.perPageNum}
+  	</select>
+  	<update id="updateAmount">
+  		update project.option set amount = #{amount} where optionCode = #{optionCode}
+  	</update>
+  	<select id="getProductCode" resultType="kr.green.project.vo.ProductVo">
+  		select * from product where code = #{code}		
+  	</select>
+  	<select id="getOptionSize" resultType="kr.green.project.vo.OptionVo">
+  		select * from project.option where productCode = #{productCode} group by size	
+  	</select>
+  	<select id="getOptionColor" resultType="kr.green.project.vo.OptionVo">
+  		select * from project.option where productCode = #{productCode} group by color
+  	</select>
+  	<select id="countOption" resultType="int">
+  		select count(*) from product
+				join project.option 
+		        where product.code = productCode
+  				<if test="productCode != null">
+  					and product.code like concat('%',#{productCode},'%')
+  				</if>
+  				<if test="rootCri.type == 'codedown'">
+  				order by code desc
+  				</if>
+  				<if test="rootCri.type == 'codeup'">
+  				order by code asc
+  				</if>
+  				<if test="rootCri.type == 'namedown'">
+  				order by name desc
+  				</if>
+  				<if test="rootCri.type == 'nameup'">
+  				order by name asc
+  				</if>
+  				<if test="rootCri.type == 'sizedown'">
+  				order by size desc
+  				</if>
+  				<if test="rootCri.type == 'sizeup'">
+  				order by size asc
+  				</if>
+  				<if test="rootCri.type == 'colordown'">
+  				order by color desc
+  				</if>
+  				<if test="rootCri.type == 'colorup'">
+  				order by color asc
+  				</if>
+  				<if test="rootCri.type == 'amountdown'">
+  				order by amount desc
+  				</if>
+  				<if test="rootCri.type == 'amountup'">
+  				order by amount asc
+  				</if>
+  				<if test="rootCri.type == 'purchasedown'">
+  				order by purchase desc
+  				</if>
+  				<if test="rootCri.type == 'purchaseup'">
+  				order by purchase asc
+  				</if>
+  	</select>
+  </mapper>

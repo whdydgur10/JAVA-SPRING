@@ -56,13 +56,13 @@ public interface InformationDao {
 
 	ArrayList<CouponVo> getCouponList(@Param("id")String id);
 
-	CouponVo isCouponName(@Param("code")String code);
+	CouponVo isCouponCode(@Param("code")String code);
 
 	void insertCoupon(@Param("id")String id, @Param("coupon")CouponVo coupon);
 
 	ArrayList<CouponVo> getUseCouponList(@Param("id")String id);
 
-	CouponVo isGetCoupon(@Param("id")String id, @Param("name")String code);
+	CouponVo isGetCoupon(@Param("id")String id, @Param("code")String code);
 
 	ArrayList<PurchaseVo> getPurchaseList(@Param("id")String id);
 

@@ -3,7 +3,12 @@
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/header.css">
 <script src="<%=request.getContextPath()%>/resources/js/menu.js"></script>
-<div style="background-color:rgb(33,51,87);box-shadow: 5px 0px 2px 2px;height:50px;">
+<style>
+	.subContainer>div{
+		position:absolute;
+	}
+</style>
+<div style="background-color:rgb(33,51,87);box-shadow: 5px 0px 2px 2px;height:50px;position:relative;">
 		<div class="menuContainer" style="height:100%;width:1400px;margin:0 auto;">
 			<div class="btn-gender" style="float:left;font-size: 25px;line-height:50px;">
 				<a href="#" class="M" style="" data-target=".MMenu">남성</a>

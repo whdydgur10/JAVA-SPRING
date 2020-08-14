@@ -2,18 +2,18 @@ package kr.green.project.vo;
 
 public class OptionVo {
 
-	private String code;
+	private String optionCode;
 	private String size;
 	private String color;
 	private int amount;
 	private int purchase;
 	private String productCode;
 //	옵션코드 / 사이즈 / 색상 / 재고량 / 구매량 / 제품코드
-	public String getCode() {
-		return code;
+	public String getOptionCode() {
+		return optionCode;
 	}
-	public void setCode(String code) {
-		this.code = code;
+	public void setOptionCode(String optionCode) {
+		this.optionCode = optionCode;
 	}
 	public String getSize() {
 		return size;
@@ -47,7 +47,7 @@ public class OptionVo {
 	}
 	@Override
 	public String toString() {
-		return "OptionVo [code=" + code + ", size=" + size + ", color=" + color + ", amount=" + amount + ", purchase="
+		return "OptionVo [optionCode=" + optionCode + ", size=" + size + ", color=" + color + ", amount=" + amount + ", purchase="
 				+ purchase + ", productCode=" + productCode + "]";
 	}
 	

@@ -144,8 +144,9 @@ public class InformationServiceImp implements InformationService {
 	}
 
 	@Override
-	public int isCouponName(String code, String id) {
-		if(infoDao.isCouponName(code) == null) 
+	public int isCouponCode(String code, String id) {
+		
+		if(infoDao.isCouponCode(code) == null)
 			return 0;
 		else if(infoDao.isGetCoupon(id, code) != null) 
 			return 1;
@@ -155,9 +156,7 @@ public class InformationServiceImp implements InformationService {
 
 	@Override
 	public void insertCoupon(String id, String code) {
-		System.out.println(1);
-		CouponVo coupon = infoDao.isCouponName(code);
-		System.out.println(2);
+		CouponVo coupon = infoDao.isCouponCode(code);
 		infoDao.insertCoupon(id, coupon);
 	}
 

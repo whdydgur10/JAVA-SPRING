@@ -72,7 +72,7 @@
 	<select id="getCouponList" resultType="kr.green.project.vo.CouponVo">
 		select * from coupon where userId = #{id} and purchaseNum is null
 	</select>
-	<select id="isCouponName" resultType="kr.green.project.vo.CouponVo">
+	<select id="isCouponCode" resultType="kr.green.project.vo.CouponVo">
 		select * from coupon where code = #{code} and userId = 'root'
 	</select>
 	<insert id="insertCoupon">
