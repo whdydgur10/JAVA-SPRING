@@ -25,7 +25,7 @@
 		<option value="up" <c:if test="${order == 'up'}">selected</c:if>>낮은순</option>
 	</select>
 	<input type="hidden" name="type" class="type" value="${rootPage.rootCri.type}">
-	<input class="select" type="text" name="productCode" placeholder="제품코드" style="width:300px;">
+	<input class="select" type="text" name="productCode" placeholder="제품코드" style="width:300px;" value="${productCode}">
 	<button>검색</button>
 </form>
 <div>
@@ -58,7 +58,7 @@
 							<td><input type="text" class="amount1" value="${list.amount}" readonly></td>
 							<td><input type="text" value="${list.purchase}" readonly></td>
 							<td><input class="input" type="text"></td>
-							<td><input type="hidden" name="amount"></td>
+							<td><input type="hidden" name="amount" value="0"></td>
 							<td><input type="hidden" name="optionCode" value="${list.optionCode}"></td>
 						</tr>
 					</c:forEach>

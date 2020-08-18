@@ -8,7 +8,7 @@ public class RootCri {
 	private String search;
 	public RootCri() {
 		this.page = 1;
-		this.perPageNum = 1;
+		this.perPageNum = 20;
 		this.type = "code";
 		this.search = "";
 	}
@@ -26,8 +26,8 @@ public class RootCri {
 		return perPageNum;
 	}
 	public void setPerPageNum(int perPageNum) {
-		if(perPageNum < 1) {
-			this.perPageNum = 1;
+		if(perPageNum < 20) {
+			this.perPageNum = 20;
 		}
 		else
 		this.perPageNum = perPageNum;

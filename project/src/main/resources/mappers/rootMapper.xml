@@ -23,10 +23,10 @@
   				order by name asc
   				</if>
   				<if test="rootCri.type == 'sizedown'">
-  				order by size desc
+  				order by sizeNum desc
   				</if>
   				<if test="rootCri.type == 'sizeup'">
-  				order by size asc
+  				order by sizeNum asc
   				</if>
   				<if test="rootCri.type == 'colordown'">
   				order by color desc
@@ -80,10 +80,10 @@
   				order by name asc
   				</if>
   				<if test="rootCri.type == 'sizedown'">
-  				order by size desc
+  				order by sizeNum desc
   				</if>
   				<if test="rootCri.type == 'sizeup'">
-  				order by size asc
+  				order by sizeNum asc
   				</if>
   				<if test="rootCri.type == 'colordown'">
   				order by color desc
@@ -104,4 +104,31 @@
   				order by purchase asc
   				</if>
   	</select>
+  	<insert id="insertProduct">
+  		insert into product values(#{product.code}, #{product.name}, #{product.price}, #{product.gender})
+  	</insert>
+  	<insert id="insertOption">
+  		insert into project.option(optionCode, size, color, productCode, sizeNum) values(#{option.optionCode}, #{option.size}, #{option.color}, #{option.productCode}, #{option.sizeNum})
+  	</insert>
+  	<delete id="deleteSize">
+  		delete from project.option where productCode = #{productCode} and size = #{size}
+  	</delete>
+  	<delete id="deleteColor">
+  		delete from project.option where productCode = #{productCode} and color = #{color}
+  	</delete>
+  	<update id="updateProductModify">
+  		update product set modify = #{modify} where code = #{code}
+  	</update>
+  	<update id="updateProduct">
+  		update product set name = #{product.name}, price = #{product.price}, gender = #{product.gender}, modify = #{product.modify}
+  	</update>
+  	<select id="getOption" resultType="kr.green.project.vo.OptionVo">
+  		select * from project.option where productCode = #{productCode} and size = #{size} and color = #{color}
+  	</select>
+  	<select id="getEnrollment" resultType="kr.green.project.vo.ProductenrollmentVo">
+  		select * from project.productenrollment where productCode = #{code}
+  	</select>
+  	<insert id="insertCategory">
+  		insert into category(mainCategory, middleCategory, subCategory) values(#{category.mainCategory}, #{category.middleCategory}, #{category.subCategory})
+  	</insert>
   </mapper>

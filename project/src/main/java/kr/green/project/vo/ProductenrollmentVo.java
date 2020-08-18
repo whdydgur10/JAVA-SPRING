@@ -3,14 +3,12 @@ package kr.green.project.vo;
 public class ProductenrollmentVo {
 
 	private int num;
-	private String title;
-	private String content;
-	private char mainCategory;
-	private String middleCategory;
-	private String subCategory;
+	private String mainTitle;
+	private String subTitle;
 	private int adNum;
 	private String productCode;
 	private int discount;
+	private int categoryNum;
 //	등록글 번호 / 제목 / 내용 / 대분류 / 중분류 / 소분류 / 광고번호
 	public int getNum() {
 		return num;
@@ -18,35 +16,24 @@ public class ProductenrollmentVo {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public String getTitle() {
-		return title;
+	
+	public String getMainTitle() {
+		return mainTitle;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setMainTitle(String mainTitle) {
+		this.mainTitle = mainTitle;
 	}
-	public String getContent() {
-		return content;
+	public String getSubTitle() {
+		return subTitle;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setSubTitle(String subTitle) {
+		this.subTitle = subTitle;
 	}
-	public char getMainCategory() {
-		return mainCategory;
+	public int getCategoryNum() {
+		return categoryNum;
 	}
-	public void setMainCategory(char mainCategory) {
-		this.mainCategory = mainCategory;
-	}
-	public String getMiddleCategory() {
-		return middleCategory;
-	}
-	public void setMiddleCategory(String middleCategory) {
-		this.middleCategory = middleCategory;
-	}
-	public String getSubCategory() {
-		return subCategory;
-	}
-	public void setSubCategory(String subCategory) {
-		this.subCategory = subCategory;
+	public void setCategoryNum(int categoryNum) {
+		this.categoryNum = categoryNum;
 	}
 	public int getAdNum() {
 		return adNum;
@@ -68,9 +55,9 @@ public class ProductenrollmentVo {
 	}
 	@Override
 	public String toString() {
-		return "ProductenrollmentVo [num=" + num + ", title=" + title + ", content=" + content + ", mainCategory="
-				+ mainCategory + ", middleCategory=" + middleCategory + ", subCategory=" + subCategory + ", adNum="
-				+ adNum + ", productCode=" + productCode + ", discount=" + discount + "]";
+		return "ProductenrollmentVo [num=" + num + ", mainTitle=" + mainTitle + ", subTitle=" + subTitle + ", adNum="
+				+ adNum + ", productCode=" + productCode + ", discount=" + discount + ", categoryNum=" + categoryNum
+				+ "]";
 	}
 	
 }

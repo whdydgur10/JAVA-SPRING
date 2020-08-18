@@ -9,6 +9,7 @@ import kr.green.project.dao.RootDao;
 import kr.green.project.pagination.RootCri;
 import kr.green.project.pagination.RootPage;
 import kr.green.project.subVo.ProductOptionVo;
+import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 
@@ -21,21 +22,49 @@ public class RootServiceImp implements RootService {
 	@Override
 	public void insertProduct(ProductVo product, String[] size, String[] color) {
 		if(product.getName() != null && product.getCode() != null && product.getGender() != null && product.getPrice() != 0 && size.length != 0 && color.length != 0) {
+			ProductVo product2 = rootDao.getProductCode(product.getCode());
 			int cnt = 1;
+			int num = product2.getModify();
 			String code;
 			for(String s : size) {
 				for(String c : color) {
 					OptionVo option = new OptionVo();
-					if(cnt > 10)
-						code = "0" + Integer.toString(cnt);
-					else
-						code = "00" + Integer.toString(cnt);
-					option.setColor(c);
-					option.setSize(s);
-					option.setProductCode(product.getCode());
-					option.setOptionCode(product.getCode() + code);
-					System.out.println(option);
-					cnt++;
+					if(rootDao.getOption(product.getCode(), s, c) == null) {
+						if(s.equals("MS") || s.equals("ms"))
+							option.setSizeNum(0);
+						else if(s.equals("S") || s.equals("s"))
+							option.setSizeNum(1);
+						else if(s.equals("M") || s.equals("m"))
+							option.setSizeNum(2);
+						else if(s.equals("L") || s.equals("l"))
+							option.setSizeNum(3);
+						else if(s.equals("XL") || s.equals("xl"))
+							option.setSizeNum(4);
+						else if(s.equals("XXL") || s.equals("xxl"))
+							option.setSizeNum(5);
+						else if(s.equals("XXXL") || s.equals("xxxl"))
+							option.setSizeNum(6);
+						else if(s.equals("FREE") || s.equals("free"))
+							option.setSizeNum(9);
+						else
+							option.setSizeNum(0);
+						option.setSize(s);
+						if(cnt > 9 && num == 0)
+							code = "0" + Integer.toString(cnt);
+						else if(cnt <= 9 && num == 0)
+							code = "00" + Integer.toString(cnt);
+						else if(cnt > 9 && num != 0)
+							code = Integer.toString(1 * num) + Integer.toString(cnt);
+						else if(cnt <= 9 && num != 0)
+							code = Integer.toString(1 * num) + "0" + Integer.toString(cnt);
+						else 
+							code = Integer.toString(cnt);
+						option.setColor(c);
+						option.setProductCode(product.getCode());
+						option.setOptionCode(product.getCode() + code);
+						rootDao.insertOption(option);
+						cnt++;
+					}
 				}
 			}
 		}
@@ -49,7 +78,8 @@ public class RootServiceImp implements RootService {
 	@Override
 	public void updateAmount(String[] optionCode, int[] amount) {
 		for(int i = 0; i < optionCode.length; i++ ) {
-			rootDao.updateAmount(optionCode[i], amount[i]);
+			if(amount[i] != 0)
+				rootDao.updateAmount(optionCode[i], amount[i]);
 		}
 		
 	}
@@ -57,8 +87,10 @@ public class RootServiceImp implements RootService {
 	@Override
 	public boolean isProductCode(String code) {
 		ProductVo product = rootDao.getProductCode(code);
-		if(product == null)
+		if(product == null) {
+			rootDao.insertProduct(product);
 			return true;
+		}
 		else
 			return false;
 	}
@@ -86,6 +118,42 @@ public class RootServiceImp implements RootService {
 		rootPage.setRootCri(rootCri);
 		rootPage.setTotalCount(rootDao.countOption(productCode, rootCri));
 		return rootPage;
+	}
+
+	@Override
+	public void deleteSize(String size, String productCode) {
+		rootDao.deleteSize(size, productCode);
+	}
+
+	@Override
+	public void deleteColor(String color, String productCode) {
+		rootDao.deleteColor(color, productCode);
+	}
+
+	@Override
+	public void updateProduct(ProductVo product) {
+		rootDao.updateProduct(product);
+		
+	}
+
+	@Override
+	public int isEnrollmentProduct(String code) {
+		if(rootDao.getProductCode(code) == null)
+			return 1;
+		else
+			if(rootDao.getEnrollment(code) == null)
+				return 2;
+		return 0;
+	}
+
+	@Override
+	public void insertCategory(String mainCategory, String middleCategory, String subCategory) {
+		CategoryVo category = new CategoryVo();
+		category.setMainCategory(mainCategory);
+		category.setMiddleCategory(middleCategory);
+		category.setSubCategory(subCategory);
+		rootDao.insertCategory(category);
+		
 	}
 
 }

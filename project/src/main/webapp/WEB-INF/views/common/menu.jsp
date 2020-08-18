@@ -7,23 +7,26 @@
 	.subContainer>div{
 		position:absolute;
 	}
+	.subContainer a:hover{
+		opacity: 1;
+	}
 </style>
 <div style="background-color:rgb(33,51,87);box-shadow: 5px 0px 2px 2px;height:50px;position:relative;">
 		<div class="menuContainer" style="height:100%;width:1400px;margin:0 auto;">
 			<div class="btn-gender" style="float:left;font-size: 25px;line-height:50px;">
-				<a href="#" class="M" style="" data-target=".MMenu">남성</a>
-			    <a href="#" class="W" style="" data-target=".WMenu">여성</a>
-				<a href="#" class="MW select" style="" data-target=".MWMenu">공용</a>
+				<a href="#" class="M <c:if test="${user.gender == 'M'}">select</c:if>"  style="" data-target=".MMenu">남성</a>
+			    <a href="#" class="W <c:if test="${user.gender == 'W'}">select</c:if>" style="" data-target=".WMenu">여성</a>
+				<a href="#" class="MW <c:if test="${user.gender == 'MW' || user == null}">select</c:if>" style="" data-target=".MWMenu">공용</a>
 			</div>
 			<div class="navContainer">
-				<nav class="MMenu display-none" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
+				<nav class="MMenu <c:if test="${user.gender != 'M' || user == null}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
 					<a href="#" data-target=".subMMenu>.outer">아우터</a>
 					<a href="#" data-target=".subMMenu>.top">상의</a>
 					<a href="#" data-target=".subMMenu>.bottom">하의</a>
 					<a href="#" data-target=".subMMenu>.shose">신발</a>
 					<a href="#" data-target=".subMMenu>.etc">etc</a>
 				</nav>
-				<nav class="WMenu display-none" style="float:left;font-size: 35px;line-height:50px;margin-left:60px;margin-right:60px;">
+				<nav class="WMenu <c:if test="${user.gender != 'W' || user == null}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:60px;margin-right:60px;">
 					<a href="#" data-target=".subWMenu>.outer">아우터</a>
 					<a href="#" data-target=".subWMenu>.onepiece">원피스</a>
 					<a href="#" data-target=".subWMenu>.top">상의</a>
@@ -32,7 +35,7 @@
 					<a href="#" data-target=".subWMenu>.shose">신발</a>
 					<a href="#" data-target=".subWMenu>.etc">etc</a>
 				</nav>
-				<nav class="MWMenu" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
+				<nav class="MWMenu <c:if test="${user.gender != 'MW' && user != null}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
 					<a href="#" data-target=".subMWMenu>.outer">아우터</a>
 					<a href="#" data-target=".subMWMenu>.top">상의</a>
 					<a href="#" data-target=".subMWMenu>.bottom">하의</a>
@@ -48,7 +51,7 @@
 			</form>
 		</div>
 		<div class="subContainer subMMenu" style="width:800px;margin:0 auto;">
-			<div class="outer display-none subMenu" style="width:120px;text-align:center;margin-left:25px;">
+			<div class="outer subMenu display-none" style="width:120px;text-align:center;margin-left:25px;">
 				<a href="#">코트</a>
 				<a href="#">점퍼</a>
 				<a href="#">자켓</a>
@@ -59,7 +62,7 @@
 				<a href="#">항공점퍼</a>
 				<a href="#">가디건</a>
 			</div>
-			<div class="top display-none subMenu" style="width:130px;text-align:center;margin-left:160px;">
+			<div class="top subMenu display-none" style="width:130px;text-align:center;margin-left:160px;">
 				<a href="#">반팔티</a>
 				<a href="#">긴팔티</a>
 				<a href="#">셔츠/남방</a>

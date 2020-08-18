@@ -11,6 +11,7 @@ public class ProductOptionVo {
 	private String color;
 	private int amount;
 	private int purchase;
+	private int sizeNum;
 	public String getCode() {
 		return code;
 	}
@@ -65,10 +66,16 @@ public class ProductOptionVo {
 	public void setPurchase(int purchase) {
 		this.purchase = purchase;
 	}
+	public int getSizeNum() {
+		return sizeNum;
+	}
+	public void setSizeNum(int sizeNum) {
+		this.sizeNum = sizeNum;
+	}
 	@Override
 	public String toString() {
-		return "ProductOption [code=" + code + ", name=" + name + ", price=" + price + ", gender=" + gender
+		return "ProductOptionVo [code=" + code + ", name=" + name + ", price=" + price + ", gender=" + gender
 				+ ", optionCode=" + optionCode + ", size=" + size + ", color=" + color + ", amount=" + amount
-				+ ", purchase=" + purchase + "]";
+				+ ", purchase=" + purchase + ", sizeNum=" + sizeNum + "]";
 	}
 }

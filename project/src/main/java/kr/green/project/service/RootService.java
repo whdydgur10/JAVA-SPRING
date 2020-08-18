@@ -26,4 +26,14 @@ public interface RootService {
 
 	RootPage getRootPage(String productCode, RootCri rootCri);
 
+	void deleteSize(String size, String productCode);
+
+	void deleteColor(String color, String productCode);
+
+	void updateProduct(ProductVo product);
+
+	int isEnrollmentProduct(String code);
+
+	void insertCategory(String mainCategory, String middleCategory, String tmp2);
+
 }

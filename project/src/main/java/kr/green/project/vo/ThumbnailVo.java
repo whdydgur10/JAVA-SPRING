@@ -5,6 +5,7 @@ public class ThumbnailVo {
 	private int num;
 	private int enrollNum;
 	private String image;
+	private int sequence;
 //	썸네일번호 / 등록글 번호 / 이미지
 	public int getNum() {
 		return num;
@@ -24,9 +25,16 @@ public class ThumbnailVo {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	public int getSequence() {
+		return sequence;
+	}
+	public void setSequence(int sequence) {
+		this.sequence = sequence;
+	}
 	@Override
 	public String toString() {
-		return "ThumbnailVo [num=" + num + ", enrollNum=" + enrollNum + ", image=" + image + "]";
+		return "ThumbnailVo [num=" + num + ", enrollNum=" + enrollNum + ", image=" + image + ", sequence=" + sequence
+				+ "]";
 	}
 	
 }
