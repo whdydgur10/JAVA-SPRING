@@ -81,6 +81,13 @@
 </div>
 <script>
 	$(function(){
+		$('.input').keypress(function(event){
+            if(event.keyCode >= 48 && event.keyCode <= 57){
+                return true;
+            }else{
+                return false;
+            }
+        })
 		$('.input').change(function(){
 			var amount = parseInt($(this).parents('tr').find('.amount1').val()) + parseInt($(this).val());
 			$(this).parents('tr').find('input[name=amount]').val(amount);

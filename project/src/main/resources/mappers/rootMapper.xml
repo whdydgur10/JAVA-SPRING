@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="kr.green.project.dao.RootDao">
-  	<select id="getProductOptionList" resultType="kr.green.project.subVo.ProductOptionVo">
+  	<select id="getProductOptionList" resultType="kr.green.project.dto.ProductOptionDto">
   		select * from product
 				join project.option 
 		        where product.code = productCode
@@ -58,7 +58,7 @@
   		select * from project.option where productCode = #{productCode} group by size	
   	</select>
   	<select id="getOptionColor" resultType="kr.green.project.vo.OptionVo">
-  		select * from project.option where productCode = #{productCode} group by color
+  		select color, sum(amount) as allAmount, productCode  from project.option where productCode = #{productCode} group by color
   	</select>
   	<select id="countOption" resultType="int">
   		select count(*) from product
@@ -131,4 +131,28 @@
   	<insert id="insertCategory">
   		insert into category(mainCategory, middleCategory, subCategory) values(#{category.mainCategory}, #{category.middleCategory}, #{category.subCategory})
   	</insert>
+  	<select id="getMiddleCategoryList" resultType="String">
+  		select middleCategory from category where mainCategory = #{category} group by middleCategory
+  	</select>
+  	<select id="getSubCategoryList" resultType="String">
+  		select subCategory from category where mainCategory = #{category.mainCategory} and middleCategory = #{category.middleCategory} group by subCategory
+  	</select>
+  	<insert id="insertEnrollment">
+  		insert into productenrollment(mainTitle, subTitle, productCode, discount, categoryNum) values(#{enrollment.mainTitle}, #{enrollment.subTitle}, #{enrollment.productCode}, #{enrollment.discount}, #{enrollment.categoryNum})
+  	</insert>
+  	<select id="getCategoryNum" resultType="int">
+  		select categoryNum from category where mainCategory = #{category.mainCategory} and middleCategory = #{category.middleCategory} and subCategory = #{category.subCategory}
+  	</select>
+  	<select id="getEnrollmentNum" resultType="int">
+  		select num from productenrollment where productNum = #{productNum}
+  	</select>
+  	<select id="getProductenrollment" resultType="kr.green.project.vo.ProductenrollmentVo">
+  		select * from productenrollment where num = #{num}
+  	</select>
+  	<select id="getEnrollmentString" resultType="kr.green.project.vo.ProductenrollmentVo">
+  		select * from productenrollment where productCode = #{productCode}
+  	</select>
+  	<select id="getOptionSizeColor" resultType="kr.green.project.vo.OptionVo">
+  		select size, productCode from project.option where productCode = #{productCode} and color = #{color} order by size
+  	</select>
   </mapper>

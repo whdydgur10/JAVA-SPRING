@@ -44,4 +44,7 @@ public class ProductVo {
 				+ modify + "]";
 	}
 	
+	public String getStringPrice() {
+		return String.format("%,d", price);
+	}
 }

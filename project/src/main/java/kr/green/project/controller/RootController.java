@@ -1,5 +1,6 @@
 package kr.green.project.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.project.pagination.RootCri;
 import kr.green.project.service.RootService;
+import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
+import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.UserVo;
 
 @Controller
@@ -28,9 +31,14 @@ public class RootController {
 	@RequestMapping(value= "/root/page", method = RequestMethod.GET)
 	public ModelAndView rootGet(ModelAndView mv, HttpServletRequest h){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		
+//		if(user == null)
+//			mv.setViewName("redirect:/");
+//		else {
+//			if(user.getAuth() == 0) 
+//				mv.setViewName("redirect:/");
+//			else
 				mv.setViewName("/root/page");
-		
+//		}
 	    return mv;
 	}
 	
@@ -46,14 +54,14 @@ public class RootController {
 	@RequestMapping(value= "/root/product/register", method = RequestMethod.GET)
 	public ModelAndView rootProductRegisterGet(ModelAndView mv, HttpServletRequest h){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		if(user == null)
-			mv.setViewName("redirect:/");
-		else {
-			if(user.getAuth() == 0) 
-				mv.setViewName("redirect:/");
-			else
+//		if(user == null)
+//			mv.setViewName("redirect:/");
+//		else {
+//			if(user.getAuth() == 0) 
+//				mv.setViewName("redirect:/");
+//			else
 				mv.setViewName("/root/product/register");
-		}
+//		}
 	    return mv;
 	}
 	
@@ -75,12 +83,12 @@ public class RootController {
 	@RequestMapping(value= "/root/product/amount", method = RequestMethod.GET)
 	public ModelAndView rootProductAmountGet(ModelAndView mv, HttpServletRequest h, String productCode, RootCri rootCri, String group, String order){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		if(user == null)
-			mv.setViewName("redirect:/");
-		else {
-			if(user.getAuth() == 0) 
-				mv.setViewName("redirect:/");
-			else {
+//		if(user == null)
+//			mv.setViewName("redirect:/");
+//		else {
+//			if(user.getAuth() == 0) 
+//				mv.setViewName("redirect:/");
+//			else {
 				mv.addObject("rootPage", roots.getRootPage(productCode, rootCri));
 				mv.addObject("group", group);
 				mv.addObject("order", order);
@@ -88,8 +96,8 @@ public class RootController {
 				mv.addObject("productCode", productCode);
 				mv.addObject("productList", roots.getProductOptionList(productCode, rootCri));
 				mv.setViewName("/root/product/amount");
-			}
-		}
+//			}
+//		}
 	    return mv;
 	}
 	
@@ -103,18 +111,18 @@ public class RootController {
 	@RequestMapping(value= "/root/product/update", method = RequestMethod.GET)
 	public ModelAndView rootProductUpdateGet(ModelAndView mv, HttpServletRequest h, String productCode){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		if(user == null)
-			mv.setViewName("redirect:/");
-		else {
-			if(user.getAuth() == 0) 
-				mv.setViewName("redirect:/");
-			else {
+//		if(user == null)
+//			mv.setViewName("redirect:/");
+//		else {
+//			if(user.getAuth() == 0) 
+//				mv.setViewName("redirect:/");
+//			else {
 				mv.addObject("size", roots.getOptionSize(productCode));
 				mv.addObject("color", roots.getOptionColor(productCode));
 				mv.addObject("product", roots.getProduct(productCode));
 				mv.setViewName("/root/product/update");
-			}
-		}
+//			}
+//		}
 	    return mv;
 	}
 	
@@ -150,18 +158,16 @@ public class RootController {
 	@RequestMapping(value= "/root/product/enrollment", method = RequestMethod.GET)
 	public ModelAndView rootProductEnrollmentGet(ModelAndView mv, HttpServletRequest h, String productCode){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		if(user == null)
-			mv.setViewName("redirect:/");
-		else {
-			if(user.getAuth() == 0) 
-				mv.setViewName("redirect:/");
-			else {
-				mv.addObject("size", roots.getOptionSize(productCode));
-				mv.addObject("color", roots.getOptionColor(productCode));
+//		if(user == null)
+//			mv.setViewName("redirect:/");
+//		else {
+//			if(user.getAuth() == 0) 
+//				mv.setViewName("redirect:/");
+//			else {
 				mv.addObject("product", roots.getProduct(productCode));
 				mv.setViewName("/root/product/enrollment");
-			}
-		}
+//			}
+//		}
 	    return mv;
 	}
 	
@@ -170,6 +176,65 @@ public class RootController {
 	public Map<Object, Object> enrollmentCodecheck(@RequestBody String code){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    map.put("codeCheck", roots.isEnrollmentProduct(code));
+	    return map;
+	}
+	
+	@RequestMapping("/enrollment/middleCategory")
+	@ResponseBody
+	public Map<Object, Object> enrollmentMiddleCategory(@RequestBody String category){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    map.put("middleCategory", roots.getMiddleCategoryList(category));
+	    return map;
+	}
+	
+	@RequestMapping("/enrollment/subCategory")
+	@ResponseBody
+	public Map<Object, Object> enrollmentSubCategory(@RequestBody CategoryVo category){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    map.put("subCategory", roots.getSubCategoryList(category));
+	    return map;
+	}
+	
+	@RequestMapping("/enrollment/categoryNum")
+	@ResponseBody
+	public Map<Object, Object> enrollmentCategoryNum(@RequestBody CategoryVo category){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    map.put("categoryNum", roots.getcategoryNum(category));
+	    return map;
+	}
+	
+	@RequestMapping("/enrollment/register")
+	@ResponseBody
+	public Map<Object, Object> enrollmentRegister(@RequestBody ProductenrollmentVo enrollment){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.insertEnrollment(enrollment);
+	    return map;
+	}
+
+	@RequestMapping(value= "/root/product/enrollmentContent", method = RequestMethod.GET)
+	public ModelAndView rootProductEnrollmentContentGet(ModelAndView mv, HttpServletRequest h, String productCode){
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+//		if(user == null)
+//			mv.setViewName("redirect:/");
+//		else {
+//			if(user.getAuth() == 0) 
+//				mv.setViewName("redirect:/");
+//			else {
+				mv.addObject("enrollment", roots.getEnrollmentString(productCode));
+				mv.addObject("product", roots.getProduct(productCode));
+				mv.addObject("colorList", roots.getOptionColor(productCode));
+				mv.setViewName("/root/product/enrollmentContent");
+//			}
+//		}
+	    return mv;
+	}
+	
+	@RequestMapping("/enrollment/size")
+	@ResponseBody
+	public Map<Object, Object> enrollmentSize(@RequestBody OptionVo option){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    map.put("yes",roots.getOptionSizeColor(option.getProductCode(), option.getColor()));
+	   
 	    return map;
 	}
 }

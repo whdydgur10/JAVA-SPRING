@@ -102,17 +102,17 @@
 		</div>
 		<div class="phoneBox box">
 			<h4>전화번호</h4>
-			<input type="text" class="num1" name="num1">
+			<input type="text" class="num1" name="num1" maxlength="3">
 			-
-			<input type="text" class="num2" name="num2">
+			<input type="text" class="num2" name="num2" maxlength="4">
 			-
-			<input type="text" class="num3" name="num3">
+			<input type="text" class="num3" name="num3" maxlength="4">
 			<input type="hidden" name="phone" class="phone">
 			<label for="num1" id="num1-error" class="error"></label>
 			<label for="num2" id="num2-error" class="error"></label>
 			<label for="num3" id="num3-error" class="error"></label>
 			<div class="certification" style="margin-top:5px;">
-				<input type="text" name="num4" class="name4" disabled="disabled" placeholder="인증번호 입력" style="width: 250px;text-align:center;">
+				<input type="text" name="num4" class="num4" disabled="disabled" placeholder="인증번호 입력" style="width: 250px;text-align:center;">
 				<button class="btn-certification" type="button" style="float:right;width:130px;">인증번호 받기</button>
 			</div>
 		</div>
@@ -134,6 +134,13 @@
 </div>
 <script>
 	$(function(){
+		$('.phoneBox input').keypress(function(event){
+            if(event.keyCode >= 48 && event.keyCode <= 57){
+                return true;
+            }else{
+                return false;
+            }
+        })
 		var startYear = 1930;
 		var endYear = 2020;
 		var month = 12;
@@ -199,12 +206,15 @@
 		        },
 		        num1: {
 		            required : true,
+		            minlength : 2
 		        },
 		        num2: {
 		            required : true,
+		            minlength : 3
 		        },
 		        num3: {
 		            required : true,
+		            minlength : 4
 		        }
 		    },
 		    messages : {
@@ -225,13 +235,16 @@
 		       		required : "필수 입력입니다"
 		        },
 			    num1: {
-		            required : "필수 입력입니다"
+		            required : "필수 입력입니다",
+		            minlength : "다시한번 확인해주세요"  
 		        },
 		        num2: {
-		            required : "필수 입력입니다"
+		            required : "필수 입력입니다",
+		            minlength : "다시한번 확인해주세요"
 		        },
 		        num3: {
-		            required : "필수 입력입니다"
+		            required : "필수 입력입니다",
+		            minlength : "다시한번 확인해주세요"
 		        }
 		    }
 		});

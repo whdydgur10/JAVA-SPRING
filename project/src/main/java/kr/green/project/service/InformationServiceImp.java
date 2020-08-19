@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import kr.green.project.dao.InformationDao;
 import kr.green.project.dao.UserDao;
-import kr.green.project.subVo.LevelPointVo;
-import kr.green.project.subVo.UserInformVo;
+import kr.green.project.dto.LevelPointDto;
+import kr.green.project.dto.UserInformDto;
 import kr.green.project.vo.AddressVo;
 import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
@@ -30,8 +30,8 @@ public class InformationServiceImp implements InformationService {
 	BCryptPasswordEncoder passwordEncoder;
 	
 	@Override
-	public UserInformVo getUserInform(String id) {
-		UserInformVo user = new UserInformVo();
+	public UserInformDto getUserInform(String id) {
+		UserInformDto user = new UserInformDto();
 		user.setLevel(infoDao.getLevelNum(id));
 		user.setCouponNum(infoDao.getCouponNum(id));
 		user.setPoint(userDao.getPoint(id));
@@ -94,7 +94,7 @@ public class InformationServiceImp implements InformationService {
 	}
 
 	@Override
-	public LevelPointVo getLevel(String id) {
+	public LevelPointDto getLevel(String id) {
 		return infoDao.getLevel(id);
 	}
 

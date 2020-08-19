@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import kr.green.project.subVo.LevelPointVo;
-import kr.green.project.subVo.UserInformVo;
+import kr.green.project.dto.LevelPointDto;
+import kr.green.project.dto.UserInformDto;
 import kr.green.project.vo.AddressVo;
 import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
@@ -15,7 +15,7 @@ import kr.green.project.vo.VaginalVo;
 
 public interface InformationService {
 
-	UserInformVo getUserInform(String id);
+	UserInformDto getUserInform(String id);
 
 	boolean isPw(String pw, String id );
 	
@@ -33,7 +33,7 @@ public interface InformationService {
 
 	void deleteAddress(int num);
 
-	LevelPointVo getLevel(String id);
+	LevelPointDto getLevel(String id);
 
 	String getPurchasePrice(String id);
 

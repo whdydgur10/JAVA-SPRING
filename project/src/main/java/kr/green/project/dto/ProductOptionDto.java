@@ -1,6 +1,6 @@
-package kr.green.project.subVo;
+package kr.green.project.dto;
 
-public class ProductOptionVo {
+public class ProductOptionDto {
 
 	private String code;
 	private String name;

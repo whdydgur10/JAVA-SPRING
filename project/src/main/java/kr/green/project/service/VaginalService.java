@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.green.project.dto.UserVaginalDto;
 import kr.green.project.pagination.Criteria;
 import kr.green.project.pagination.PageMaker;
-import kr.green.project.subVo.UserVaginalVo;
 import kr.green.project.vo.AnswerVo;
 import kr.green.project.vo.VaginalVo;
 
 public interface VaginalService {
 
-	ArrayList<UserVaginalVo> getVaginalList(Criteria cri);
+	ArrayList<UserVaginalDto> getVaginalList(Criteria cri);
 
-	UserVaginalVo getUserVaginal(int num);
+	UserVaginalDto getUserVaginal(int num);
 
 	void increaseView(int num);
 

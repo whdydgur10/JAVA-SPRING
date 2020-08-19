@@ -1,6 +1,6 @@
-package kr.green.project.subVo;
+package kr.green.project.dto;
 
-public class UserInformVo {
+public class UserInformDto {
 
 	private int level;
 	private int couponNum;

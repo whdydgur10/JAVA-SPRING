@@ -1,10 +1,10 @@
-package kr.green.project.subVo;
+package kr.green.project.dto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class UserVaginalVo {
+public class UserVaginalDto {
 
 	private int num;
 	private String title;

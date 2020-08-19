@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.project.dto.UserVaginalDto;
 import kr.green.project.service.InformationService;
 import kr.green.project.service.UserService;
-import kr.green.project.subVo.UserVaginalVo;
 import kr.green.project.vo.AddressVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;

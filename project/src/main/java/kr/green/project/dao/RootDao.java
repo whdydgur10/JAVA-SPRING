@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.green.project.dto.ProductOptionDto;
 import kr.green.project.pagination.RootCri;
-import kr.green.project.subVo.ProductOptionVo;
 import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
@@ -13,7 +13,7 @@ import kr.green.project.vo.ProductenrollmentVo;
 
 public interface RootDao {
 
-	ArrayList<ProductOptionVo> getProductOptionList(@Param("productCode")String productCode, @Param("rootCri")RootCri rootCri);
+	ArrayList<ProductOptionDto> getProductOptionList(@Param("productCode")String productCode, @Param("rootCri")RootCri rootCri);
 
 	void updateAmount(@Param("optionCode")String optionCode, @Param("amount")int amount);
 
@@ -40,5 +40,21 @@ public interface RootDao {
 	ProductenrollmentVo getEnrollment(@Param("code")String code);
 
 	void insertCategory(@Param("category")CategoryVo category);
+
+	String[] getMiddleCategoryList(@Param("category")String category);
+
+	String[] getSubCategoryList(@Param("category")CategoryVo category);
+
+	void insertEnrollment(@Param("enrollment")ProductenrollmentVo enrollment);
+
+	int getCategoryNum(@Param("category")CategoryVo category);
+
+	int getEnrollmentNum(@Param("productCode")String productCode);
+
+	ProductenrollmentVo getProductenrollment(@Param("num")int num);
+
+	ProductenrollmentVo getEnrollmentString(@Param("productCode")String productCode);
+
+	ArrayList<OptionVo> getOptionSizeColor(@Param("productCode")String productCode, @Param("color")String color);
 
 }

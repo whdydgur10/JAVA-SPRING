@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.project.dao.VaginalDao;
+import kr.green.project.dto.UserVaginalDto;
 import kr.green.project.pagination.Criteria;
 import kr.green.project.pagination.PageMaker;
-import kr.green.project.subVo.UserVaginalVo;
 import kr.green.project.vo.AnswerVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;
@@ -23,12 +23,12 @@ public class VaginalServiceImp implements VaginalService {
 	VaginalDao vagiDao;
 	
 	@Override
-	public ArrayList<UserVaginalVo> getVaginalList(Criteria cri) {
+	public ArrayList<UserVaginalDto> getVaginalList(Criteria cri) {
 		return vagiDao.getVaginalList(cri);
 	}
 
 	@Override
-	public UserVaginalVo getUserVaginal(int num) {
+	public UserVaginalDto getUserVaginal(int num) {
 		return vagiDao.getUserVaginal(num);
 	}
 

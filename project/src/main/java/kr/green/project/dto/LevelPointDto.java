@@ -1,6 +1,6 @@
-package kr.green.project.subVo;
+package kr.green.project.dto;
 
-public class LevelPointVo {
+public class LevelPointDto {
 
 	private int num;
 	private String userId;

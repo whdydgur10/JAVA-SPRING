@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.project.dto.UserVaginalDto;
 import kr.green.project.pagination.Criteria;
 import kr.green.project.service.VaginalService;
-import kr.green.project.subVo.UserVaginalVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;
 
@@ -30,7 +30,7 @@ public class VaginalController {
 	
 	@RequestMapping(value= "/vaginal/detail", method = RequestMethod.GET)
 	public ModelAndView vaginalDetailGet(ModelAndView mv, int num){
-		UserVaginalVo vaginal = vagis.getUserVaginal(num);
+		UserVaginalDto vaginal = vagis.getUserVaginal(num);
 		vaginal.setView(vaginal.getView() + 1);
 		mv.addObject("vaginal", vaginal);
 		mv.addObject("answer", vagis.getAnswer(num));
@@ -42,7 +42,7 @@ public class VaginalController {
 	@RequestMapping(value= "/vaginal/secret", method = RequestMethod.GET)
 	public ModelAndView vaginalSecretGet(ModelAndView mv, int num, HttpServletRequest h){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		UserVaginalVo vaginal = vagis.getUserVaginal(num);
+		UserVaginalDto vaginal = vagis.getUserVaginal(num);
 		if(user != null && user.getAuth() == 0 && user.getId() != vaginal.getUserId())
 			mv.setViewName("redirect:/vaginal/list");
 		else {

@@ -3,14 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.project.dao.VaginalDao">
-	<select id="getVaginalList" resultType="kr.green.project.subVo.UserVaginalVo">
+	<select id="getVaginalList" resultType="kr.green.project.dto.UserVaginalDto">
 		select * from vaginal
 					join (select * from user) as user
 					where vaginal.userId = user.id
 					order by num desc
 					limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
-	<select id="getUserVaginal" resultType="kr.green.project.subVo.UserVaginalVo">
+	<select id="getUserVaginal" resultType="kr.green.project.dto.UserVaginalDto">
 		select * from vaginal 
 						join (select * from user) as user
 						on vaginal.userId = user.id

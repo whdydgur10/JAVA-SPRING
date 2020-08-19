@@ -9,6 +9,7 @@ public class OptionVo {
 	private int purchase;
 	private String productCode;
 	private int sizeNum;
+	private int allAmount;
 //	옵션코드 / 사이즈 / 색상 / 재고량 / 구매량 / 제품코드
 	public String getOptionCode() {
 		return optionCode;
@@ -52,10 +53,18 @@ public class OptionVo {
 	public void setSizeNum(int sizeNum) {
 		this.sizeNum = sizeNum;
 	}
+	public int getAllAmount() {
+		return allAmount;
+	}
+	public void setAllAmount(int allAmount) {
+		this.allAmount = allAmount;
+	}
 	@Override
 	public String toString() {
 		return "OptionVo [optionCode=" + optionCode + ", size=" + size + ", color=" + color + ", amount=" + amount
-				+ ", purchase=" + purchase + ", productCode=" + productCode + ", sizeNum=" + sizeNum + "]";
+				+ ", purchase=" + purchase + ", productCode=" + productCode + ", sizeNum=" + sizeNum + ", allAmount="
+				+ allAmount + "]";
 	}
+	
 	
 }

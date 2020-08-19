@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
-import kr.green.project.subVo.LevelPointVo;
+import kr.green.project.dto.LevelPointDto;
 import kr.green.project.vo.AddressVo;
 import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
@@ -40,7 +40,7 @@ public interface InformationDao {
 
 	void deleteAddress(@Param("num")int num);
 
-	LevelPointVo getLevel(@Param("id")String id);
+	LevelPointDto getLevel(@Param("id")String id);
 
 	String getPurchasePrice(@Param("id")String id);
 

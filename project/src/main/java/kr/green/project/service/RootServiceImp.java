@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.project.dao.RootDao;
+import kr.green.project.dto.ProductOptionDto;
 import kr.green.project.pagination.RootCri;
 import kr.green.project.pagination.RootPage;
-import kr.green.project.subVo.ProductOptionVo;
 import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
+import kr.green.project.vo.ProductenrollmentVo;
 
 @Service
 public class RootServiceImp implements RootService {
@@ -71,7 +72,7 @@ public class RootServiceImp implements RootService {
 	}
 
 	@Override
-	public ArrayList<ProductOptionVo> getProductOptionList(String productCode, RootCri rootCri) {
+	public ArrayList<ProductOptionDto> getProductOptionList(String productCode, RootCri rootCri) {
 		return rootDao.getProductOptionList(productCode, rootCri);
 	}
 
@@ -156,4 +157,46 @@ public class RootServiceImp implements RootService {
 		
 	}
 
+	@Override
+	public String[] getMiddleCategoryList(String category) {
+		return rootDao.getMiddleCategoryList(category);
+	}
+
+	@Override
+	public String[] getSubCategoryList(CategoryVo category) {
+		return rootDao.getSubCategoryList(category);
+	}
+
+	@Override
+	public void insertEnrollment(ProductenrollmentVo enrollment) {
+		rootDao.insertEnrollment(enrollment);
+		
+	}
+
+	@Override
+	public int getEnrollmentNum(String productCode) {
+		System.out.println(productCode);
+		return rootDao.getEnrollmentNum(productCode);
+	}
+
+	@Override
+	public ProductenrollmentVo getEnrollment(int num) {
+		return rootDao.getProductenrollment(num);
+	}
+
+	@Override
+	public int getcategoryNum(CategoryVo category) {
+		return rootDao.getCategoryNum(category);
+	}
+
+	@Override
+	public ProductenrollmentVo getEnrollmentString(String productCode) {
+		return rootDao.getEnrollmentString(productCode);
+	}
+
+	@Override
+	public ArrayList<OptionVo> getOptionSizeColor(String productCode, String color) {
+		return rootDao.getOptionSizeColor(productCode, color);
+	}
+	
 }

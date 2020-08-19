@@ -44,7 +44,7 @@
 	<delete id="deleteAddress">
 		delete from address where num = #{num}
 	</delete>
-	<select id="getLevel" resultType="kr.green.project.subVo.LevelPointVo">
+	<select id="getLevel" resultType="kr.green.project.dto.LevelPointDto">
 		select * from level
 					join (select * from point) as point
 					where level.level = point.level and level.userId = #{id}
