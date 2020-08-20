@@ -53,6 +53,8 @@ public interface RootService {
 	ProductenrollmentVo getEnrollmentString(String productCode);
 
 	ArrayList<OptionVo> getOptionSizeColor(String productCode, String color);
+
+	OptionVo getOption(String productCode, String size, String color);
 	
 
 }

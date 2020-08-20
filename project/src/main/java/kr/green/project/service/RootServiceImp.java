@@ -169,6 +169,8 @@ public class RootServiceImp implements RootService {
 
 	@Override
 	public void insertEnrollment(ProductenrollmentVo enrollment) {
+		ProductVo product = rootDao.getProductCode(enrollment.getProductCode());
+		enrollment.setFinalPrice(product.getPrice() - enrollment.getDiscount());
 		rootDao.insertEnrollment(enrollment);
 		
 	}
@@ -197,6 +199,11 @@ public class RootServiceImp implements RootService {
 	@Override
 	public ArrayList<OptionVo> getOptionSizeColor(String productCode, String color) {
 		return rootDao.getOptionSizeColor(productCode, color);
+	}
+
+	@Override
+	public OptionVo getOption(String productCode, String size, String color) {
+		return rootDao.getOption(productCode, size, color);
 	}
 	
 }

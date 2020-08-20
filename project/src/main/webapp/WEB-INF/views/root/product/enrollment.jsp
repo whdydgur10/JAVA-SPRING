@@ -42,14 +42,7 @@
 		    </select>
 		</div>
 		<input type="hidden" name="categoryNum" class="categoryNum" id="categoryNum">
-		<div class="form-group">
-		    <label for="mainTitle">제목</label>
-		    <input type="text" class="mainTitle form-control" id="mainTitle" name="mainTitle" >
-		</div>
-		<div class="form-group">
-		    <label for="subTitle">부제목</label>
-		    <input type="text" class="subTitle form-control" id="subTitle" name="subTitle">
-		</div>
+		<input type="hidden"  name="subTitle" value="${product.name}">
 		<button type="button" class="link" style="height:50px;display:inline-block;line-height:50px;border-top:1px solid black;border-left:1px solid black;width:150px;text-align:center;background-color:rgb(33,51,87);color:white;margin-left:225px;">내용 작성하기</button>
 	</form>
 </div>
@@ -137,10 +130,9 @@
 		var productCode = $('#code').val();
 		var discount = $('#discount').val();
 		var categoryNum = $('#categoryNum').val();
-		var mainTitle = $('#mainTitle').val();
 		var subTitle = $('#subTitle').val();
 		var finalPrice = $('#price')val() - $('#discount').val();
-		var list = {"productCode":productCode, "discount":discount, "categoryNum":categoryNum, "mainTitle":mainTitle, "subTitle":subTitle, "finalPrice":finalPrice};
+		var list = {"productCode":productCode, "discount":discount, "categoryNum":categoryNum, "subTitle":subTitle, "finalPrice":finalPrice};
 		$.ajax({
 			async:true,
 			type:'POST',
@@ -174,9 +166,6 @@
 				},
 				subCategory: {
 				    required : true
-				},
-				mainTitle: {
-				   required : true
 				}
 			},
 			messages : {
@@ -196,9 +185,6 @@
 				    required : "필수 입력입니다"
 				},
 				subCategory: {
-				    required : "필수 입력입니다"
-				},
-				mainTitle: {
 				    required : "필수 입력입니다"
 				}
 			}

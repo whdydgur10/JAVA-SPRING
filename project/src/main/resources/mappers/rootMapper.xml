@@ -153,6 +153,6 @@
   		select * from productenrollment where productCode = #{productCode}
   	</select>
   	<select id="getOptionSizeColor" resultType="kr.green.project.vo.OptionVo">
-  		select size, productCode from project.option where productCode = #{productCode} and color = #{color} order by size
+  		select size, productCode, sizeNum, amount from project.option where productCode = #{productCode} and color = #{color} order by sizeNum
   	</select>
   </mapper>

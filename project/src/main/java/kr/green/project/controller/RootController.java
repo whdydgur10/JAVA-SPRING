@@ -233,8 +233,51 @@ public class RootController {
 	@ResponseBody
 	public Map<Object, Object> enrollmentSize(@RequestBody OptionVo option){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
-	    map.put("yes",roots.getOptionSizeColor(option.getProductCode(), option.getColor()));
-	   
+	    ArrayList<OptionVo> list = roots.getOptionSizeColor(option.getProductCode(), option.getColor());
+	    ArrayList<String> list2 = new ArrayList<String>();
+	    String str1 = " <option value=\"";
+	    String str2 = "\">";
+	    String str3 = "\"disabled=\"disabled\">";
+	    String str4 = "</option>";
+	    String str5 = "(품절)</option>";
+	    for(OptionVo tmp : list) {
+	    	if(tmp.getAmount() == 0)
+	    		list2.add(str1 + tmp.getSize() + str3 + tmp.getSize() + str5);
+	    	else
+	    		list2.add(str1 + tmp.getSize() + str2 + tmp.getSize() + str4);
+	    }
+	    map.put("option", list2);
+	    return map;
+	}
+	
+	@RequestMapping("/enrollment/amount")
+	@ResponseBody
+	public Map<Object, Object> enrollmentAmount(@RequestBody OptionVo option){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    OptionVo option2 = roots.getOption(option.getProductCode(), option.getSize(), option.getColor());
+	    if(option.getPurchase() < option2.getAmount())
+	    	map.put("more",true);
+	    else
+	    	map.put("more",false);
+	    return map;
+	}
+	
+	@RequestMapping("/enrollment/finalPrice")
+	@ResponseBody
+	public Map<Object, Object> enrollmentIncFinalPrice(@RequestBody OptionVo option){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    ProductenrollmentVo enrollment = roots.getEnrollmentString(option.getProductCode());
+	    map.put("price",String.format("%,d", enrollment.getFinalPrice() * (option.getPurchase())));
+	    return map;
+	}
+	
+	@RequestMapping("/enrollment/discount")
+	@ResponseBody
+	public Map<Object, Object> enrollmentIncDiscount(@RequestBody String code){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    ProductenrollmentVo enrollment = roots.getEnrollmentString(code);
+	    ProductVo product = roots.getProduct(code);
+	    map.put("discount",(int)((double)(enrollment.getDiscount()) / (double)product.getPrice() * 100));
 	    return map;
 	}
 }

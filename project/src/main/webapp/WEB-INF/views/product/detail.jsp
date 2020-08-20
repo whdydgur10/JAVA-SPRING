@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<title>판매글 작성</title>
+<title>${product.code}</title>
 <style>
 	.mainBox:after, .subThumnailBox:after, .allPriceBox:after{
 		clear: both;
@@ -66,7 +66,7 @@
 	}
 </style>
 <div class="mainBox" style="width:1100px;margin:20px auto;">
-	<input type="text" name="mainTitle" style="width:100%;border:1px solid black;height:35px;" placeholder="제목">
+	<h1>${enrollment.mainTitle }</h1>
 	<hr>
 	<hr>
 	<div class="thumnailBox" style="width:600px;float:left;margin-bottom:20px;">
@@ -82,7 +82,7 @@
 	</div>
 		<div class="setProductBox" style="width:500px;float:left;padding-left:100px;">
 			<div class="setProductBoxHead">
-			<input type="text" name="mainTitle" style="width:100%;border:1px solid black;height:35px;" placeholder="부제목 기재 안할시 상품명">
+			<span>${enrollment.subTitle}</span>
 			<span style="font-size:20px;">${product.code}</span>
 			<input type="hidden" id="code" value="${product.code}" >
 				<hr><br>
@@ -102,12 +102,12 @@
 				</select>
 			<form method="post" style="margin-top:20px;">
 				<div class="allPriceBox" style="margin-bottom:15px;"><span>총 상품금액 : <span class="allPrice" style="font-size:25px;color:red;">0</span></span></div>
-				<button type="button" class="linkShoppingBasket" >장바구니</button><button type="button" class="linkPurchaseList" >구매하기</button>
+				<button class="linkShoppingBasket" action="#" >장바구니</button><button class="linkPurchaseList" action="#">구매하기</button>
 			</form>
 		</div>
 	</div>
 	<div style="width:100%;height:500px;float:left;">
-		<h1>상품정보</h1>
+	
 	</div>
 </div>
 <script>
@@ -135,7 +135,6 @@
 	    }
 	});
 	function allPrice(){
-		allPurchase = 0;
 		for(i = 0; i < $('.productBox').length; i++){
 			index = $('.productBox')[i];
 			allPurchase = allPurchase + parseInt($(index).find('.purchase').val());	
@@ -153,10 +152,11 @@
 		    }
 		});
 	}
+	
 	$('#size').change(function(){
 		color = $('#color').val();
 		size = $('#size').val();
-		str = code + " - " + color + " - " + size;
+		var str = code + " - " + color + " - " + size;
 		var cnt = 0;
 		for(i = 0; i < codeL.length; i++){
 			if(codeL[i] == code && colorL[i] == color && sizeL[i] == size){
@@ -273,7 +273,7 @@
 		color = $('#color').val();
 		if(color != ""){
 			$('#size').removeAttr('disabled');
-			var list = {"productCode":code, "color":color};
+			list = {"productCode":code, "color":color};
 			$.ajax({
 				async:true,
 				type:'POST',
@@ -284,7 +284,7 @@
 				success : function(data){
 					$('#size').empty();
 					$('#size').append('<option value="" selected>사이즈</option>');
-					for(var i = 0; i < data['option'].length; i++){
+					for(i = 0; i < data['option'].length; i++){
 						$('#size').append(data['option'][i]);
 					}
 			    }
