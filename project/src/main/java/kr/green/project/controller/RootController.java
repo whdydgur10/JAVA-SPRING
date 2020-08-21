@@ -223,6 +223,7 @@ public class RootController {
 				mv.addObject("enrollment", roots.getEnrollmentString(productCode));
 				mv.addObject("product", roots.getProduct(productCode));
 				mv.addObject("colorList", roots.getOptionColor(productCode));
+				mv.addObject("sizeList", roots.getOptionSize(productCode));
 				mv.setViewName("/root/product/enrollmentContent");
 //			}
 //		}
@@ -271,13 +272,18 @@ public class RootController {
 	    return map;
 	}
 	
-	@RequestMapping("/enrollment/discount")
+	@RequestMapping("/enrollment/color")
 	@ResponseBody
 	public Map<Object, Object> enrollmentIncDiscount(@RequestBody String code){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
-	    ProductenrollmentVo enrollment = roots.getEnrollmentString(code);
-	    ProductVo product = roots.getProduct(code);
-	    map.put("discount",(int)((double)(enrollment.getDiscount()) / (double)product.getPrice() * 100));
+	    ArrayList<OptionVo> list = roots.getOptionColor(code);
+	    ArrayList<String> list2 = new ArrayList<String>();
+	    String str1 = "<span style=\"display:inline-block;width:20px;height:20px;background-color:";
+	    String str2 = ";border:1px solid black;margin-right:15px;\"></span>";
+	    for(OptionVo tmp : list) {
+	    	list2.add(str1 + tmp.getColor() + str2);
+	    }
+	    map.put("color",list2);
 	    return map;
 	}
 }

@@ -171,6 +171,7 @@ public class RootServiceImp implements RootService {
 	public void insertEnrollment(ProductenrollmentVo enrollment) {
 		ProductVo product = rootDao.getProductCode(enrollment.getProductCode());
 		enrollment.setFinalPrice(product.getPrice() - enrollment.getDiscount());
+		enrollment.setDiscountPercent((int)((double)(enrollment.getDiscount()) / (double)product.getPrice() * 100));
 		rootDao.insertEnrollment(enrollment);
 		
 	}

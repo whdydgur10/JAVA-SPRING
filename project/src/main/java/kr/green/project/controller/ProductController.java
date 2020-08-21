@@ -26,6 +26,7 @@ public class ProductController {
 			mv.addObject("enrollment", roots.getEnrollmentString(productCode));
 			mv.addObject("product", roots.getProduct(productCode));
 			mv.addObject("colorList", roots.getOptionColor(productCode));
+			mv.addObject("sizeList", roots.getOptionSize(productCode));
 			mv.setViewName("/product/detail");
 	    return mv;
 	}

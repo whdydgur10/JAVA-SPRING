@@ -55,7 +55,7 @@
   		select * from product where code = #{code}		
   	</select>
   	<select id="getOptionSize" resultType="kr.green.project.vo.OptionVo">
-  		select * from project.option where productCode = #{productCode} group by size	
+  		select * from project.option where productCode = #{productCode} group by size order by sizeNum
   	</select>
   	<select id="getOptionColor" resultType="kr.green.project.vo.OptionVo">
   		select color, sum(amount) as allAmount, productCode  from project.option where productCode = #{productCode} group by color

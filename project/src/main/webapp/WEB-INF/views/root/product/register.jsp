@@ -44,7 +44,7 @@
 		<div class="form-group color">
 		    <label for="color">색상</label><span style="opacity:0.7;">(black, white, blue, yellow...)</span><button type="button" class="addColor" style="background-color: transparent;margin-left:5px;">추가</button><br>
 		    <input type="text" name="color" style="width:90px;"><button class="deleteColor">X</button></div>
-		<button class="codeCheck" type="button" style="height:50px;display:inline-block;line-height:50px;border-top:1px solid black;border-left:1px solid black;width:150px;text-align:center;background-color:rgb(33,51,87);color:white;margin-left:225px;">등록하기</button>
+		<button class="codeCheck" type="button" style="height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:150px;text-align:center;background-color:rgb(33,51,87);color:white;margin-left:225px;">등록하기</button>
 		<button type="submit" hidden=""></button>
 	</form>
 </div>

@@ -2,16 +2,15 @@ package kr.green.project.vo;
 
 public class ThumbnailVo {
 
-	private int num;
+	private int thumbnailNum;
 	private int enrollNum;
-	private String image;
-	private int sequence;
+	private String thumbnailImage;
 //	썸네일번호 / 등록글 번호 / 이미지
-	public int getNum() {
-		return num;
+	public int getThumbnailNum() {
+		return thumbnailNum;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setThumbnailNum(int thumbnailNum) {
+		this.thumbnailNum = thumbnailNum;
 	}
 	public int getEnrollNum() {
 		return enrollNum;
@@ -19,22 +18,15 @@ public class ThumbnailVo {
 	public void setEnrollNum(int enrollNum) {
 		this.enrollNum = enrollNum;
 	}
-	public String getImage() {
-		return image;
+	public String getThumbnailImage() {
+		return thumbnailImage;
 	}
-	public void setImage(String image) {
-		this.image = image;
-	}
-	public int getSequence() {
-		return sequence;
-	}
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
+	public void setThumbnailImage(String thumbnailImage) {
+		this.thumbnailImage = thumbnailImage;
 	}
 	@Override
 	public String toString() {
-		return "ThumbnailVo [num=" + num + ", enrollNum=" + enrollNum + ", image=" + image + ", sequence=" + sequence
-				+ "]";
+		return "ThumbnailVo [thumbnailNum=" + thumbnailNum + ", enrollNum=" + enrollNum + ", thumbnailImage=" + thumbnailImage + "]";
 	}
 	
 }

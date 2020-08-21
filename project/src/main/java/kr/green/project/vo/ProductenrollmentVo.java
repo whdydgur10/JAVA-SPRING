@@ -10,6 +10,7 @@ public class ProductenrollmentVo {
 	private int discount;
 	private int categoryNum;
 	private int finalPrice;
+	private int discountPercent;
 //	등록글 번호 / 제목 / 내용 / 대분류 / 중분류 / 소분류 / 광고번호
 	public int getNum() {
 		return num;
@@ -60,11 +61,17 @@ public class ProductenrollmentVo {
 	public void setFinalPrice(int finalPrice) {
 		this.finalPrice = finalPrice;
 	}
+	public int getDiscountPercent() {
+		return discountPercent;
+	}
+	public void setDiscountPercent(int discountPercent) {
+		this.discountPercent = discountPercent;
+	}
 	@Override
 	public String toString() {
 		return "ProductenrollmentVo [num=" + num + ", mainTitle=" + mainTitle + ", subTitle=" + subTitle + ", adNum="
 				+ adNum + ", productCode=" + productCode + ", discount=" + discount + ", categoryNum=" + categoryNum
-				+ ", finalPrice=" + finalPrice + "]";
+				+ ", finalPrice=" + finalPrice + ", discountPercent=" + discountPercent + "]";
 	}
 	
 	public String getStringFinalPrice() {
