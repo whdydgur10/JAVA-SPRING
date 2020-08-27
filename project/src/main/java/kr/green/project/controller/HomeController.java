@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.project.pagination.ProductCri;
 import kr.green.project.service.InformationService;
+import kr.green.project.service.ProductService;
 import kr.green.project.service.UserService;
 import kr.green.project.vo.UserVo;
 
@@ -26,11 +28,28 @@ public class HomeController {
 	UserService userService;
 	@Autowired
 	InformationService infos;
+	@Autowired
+	ProductService pros;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@RequestMapping(value= "/", method = RequestMethod.GET)
-	public ModelAndView home(ModelAndView mv){
+	public ModelAndView home(ModelAndView mv, HttpServletRequest h, ProductCri cri){
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		if(user == null) {
+			if(cri.getMainCategory().equals(""))
+				cri.setMainCategory("MW");
+			mv.addObject("cri", cri);
+			mv.addObject("list", pros.getProductEnrollmentList(cri));
+			mv.addObject("pageMaker", pros.getProductPage(cri));
+		}
+		else {
+			if(cri.getMainCategory().equals(""))
+				cri.setMainCategory(user.getGender());
+			mv.addObject("cri", cri);
+			mv.addObject("list", pros.getProductEnrollmentList(cri));
+			mv.addObject("pageMaker", pros.getProductPage(cri));
+		}
 	    mv.setViewName("/main/home");
 	    return mv;
 	}

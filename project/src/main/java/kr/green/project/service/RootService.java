@@ -6,6 +6,8 @@ import kr.green.project.dto.ProductOptionDto;
 import kr.green.project.pagination.RootCri;
 import kr.green.project.pagination.RootPage;
 import kr.green.project.vo.CategoryVo;
+import kr.green.project.vo.ContentremarkVo;
+import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
@@ -18,7 +20,7 @@ public interface RootService {
 
 	void updateAmount(String[] optionCode, int[] amount);
 
-	boolean isProductCode(String code);
+	boolean isProductCode(ProductVo product);
 
 	ProductVo getProduct(String productCode);
 
@@ -55,6 +57,19 @@ public interface RootService {
 	ArrayList<OptionVo> getOptionSizeColor(String productCode, String color);
 
 	OptionVo getOption(String productCode, String size, String color);
+
+	void insertThumnailImage(int enrollmentNum, String fileName);
+
+	void insertContentImage(int enrollmentNum, String fileName);
+
+	void insertContentremark(int enrollmentNum, ContentremarkVo contentremark);
+
+	void insertContentsize(int enrollmentNum, String[] contentShoulder, String[] contentChest, String[] contentSleeve,
+			String[] contentSize, String[] contentLength);
+
+	void insertContentSizeText(int enrollmentNum, String contentSizeText);
+
+	void updateTitle(int enrollmentNum, String mainTitle, String subTitle);
 	
 
 }

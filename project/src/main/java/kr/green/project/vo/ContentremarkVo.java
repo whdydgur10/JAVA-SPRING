@@ -1,6 +1,6 @@
 package kr.green.project.vo;
 
-public class ContentremarkVO {
+public class ContentremarkVo {
 
 	private int contentRemarkNum;
 	private String contentElasticity;

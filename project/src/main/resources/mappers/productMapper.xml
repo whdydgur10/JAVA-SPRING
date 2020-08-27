@@ -3,5 +3,57 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.project.dao.ProductDao">
-
+	<select id="getContentRemark" resultType="kr.green.project.vo.ContentremarkVo">
+		select * from contentremark where enrollmentNum = #{num}
+	</select>
+	<select id="getContentSize" resultType="kr.green.project.vo.ContentsizeVo">
+		select * from contentsize where enrollmentNum = #{num}
+	</select>
+	<select id="getContentSizeText" resultType="kr.green.project.vo.ContentsizetextVo">
+		select * from contentsizetext where enrollmentNum = #{num}
+	</select>
+	<select id="getThumbnailImage" resultType="kr.green.project.vo.ThumbnailVo">
+		select * from thumbnail where enrollmentNum = #{num}
+	</select>
+	<select id="getContentImage" resultType="kr.green.project.vo.ContentimageVo">
+		select * from contentimage where enrollmentNum = #{num}
+	</select>
+	<select id="getProductEnrollmentList" resultType="kr.green.project.vo.ProductenrollmentVo">
+		select * from productenrollment 
+							join (select categoryNum from category where mainCategory = #{cri.mainCategory}
+																<if test="cri.middleCategory.length != 0">
+																and middleCategory = #{cri.middleCategory}
+																</if>
+																<if test="cri.subCategory.length != 0">
+																and subCategory = #{cri.subCategory}
+																</if>
+							) as category
+							on productenrollment.categoryNum = category.categoryNum
+							<if test="cri.search.length != 0">
+								and productenrollment.mainTitle like concat ('%',#{cri.search},'%')
+								or productenrollment.subTitle like concat ('%',#{cri.search},'%')
+							</if>
+							limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="countProductEnrollment" resultType="int">
+		select count(*) from productenrollment 
+							join (select categoryNum from category where mainCategory = #{cri.mainCategory}
+																<if test="cri.middleCategory.length != 0">
+																and middleCategory = #{cri.middleCategory}
+																</if>
+																<if test="cri.subCategory.length != 0">
+																and subCategory = #{cri.subCategory}
+																</if>
+							) as category
+							on productenrollment.categoryNum = category.categoryNum
+							<if test="cri.search.length != 0">
+								and productenrollment.mainTitle like concat ('%',#{cri.search},'%')
+								or productenrollment.subTitle like concat ('%',#{cri.search},'%')
+							</if>
+	</select>
+	<select id="getEnrollmentThumbnailList" resultType="kr.green.project.dto.EnrollmentThumbnailDto">
+		select * from productenrollment 
+							join (select min(thumbnailNum) as thumbnailNum, thumbnailImage from thumbnail where enrollmentNum = #{enroll.num}) as thumb
+							where productenrollment.num = #{enroll.num}
+	</select>
 </mapper>

@@ -88,19 +88,14 @@
 		text-align:center;
 		margin-bottom: 20px;
 	}
-	.imageInformBox>img{
-		width:800px;
-		height:800px;
-		border:1px solid black;
-	}
 </style>
 <div class="mainBox" style="width:1100px;margin:20px auto;">
 	<form method="post" enctype="multipart/form-data">
-		<input type="text" name="mainTitle" accept="image/*" style="width:100%;border:1px solid black;height:35px;" placeholder="제목">
+		<input type="text" id="mainTitle" name="mainTitle" accept="image/*" style="width:100%;border:1px solid black;height:35px;" placeholder="제목">
 		<hr>
 		<hr>
 		<div class="thumnailBox" style="width:600px;float:left;margin-bottom:20px;">
-			<input type="file" style="" name="thumbnailImage" class="thumbnailImage">
+			<input type="file" style="width:400px;" name="thumbnailImage" class="thumbnailImage"><span style="opacity: 0.7;font-size:12px;">(큰 썸네일 필수사항)</span>
 			<img style="width:600px;height:600px;border:1px solid black;">
 			<div class="subThumnailBox" style="width:100%;">
 				<div>
@@ -131,7 +126,7 @@
 		</div>
 			<div class="setProductBox" style="width:500px;float:left;padding-left:100px;">
 				<div class="setProductBoxHead">
-				<input type="text" name="mainTitle" style="width:100%;border:1px solid black;height:35px;" placeholder="부제목 기재 안할시 상품명">
+				<input type="text" name="subTitle" style="width:100%;border:1px solid black;height:35px;" placeholder="부제목 기재 안할시 상품명">
 				<span style="font-size:20px;">${product.code}</span>
 				<input type="hidden" id="code" value="${product.code}" >
 					<hr><br>
@@ -158,11 +153,11 @@
 		<div class="informationBox" style="width:100%;float:left;">
 			<h1 style="text-align:center;">상품정보</h1>
 			<div class="sizeInformBox">
-				<h3>사이즈</h3><input type="hidden" name="enrollmentNum" value="${enrollment.num }">
+				<h3>사이즈<span style="opacity: 0.7;font-size:12px;">(필수사항)</span></h3><input type="hidden" name="enrollmentNum" value="${enrollment.num }">
 				<table class="table">
 					<thead>
 						<tr>
-							<th style="width:10%;">size</th>
+							<th style="width:10%;">사이즈</th>
 							<th style="width:22.5%;">총장</th>
 							<th style="width:22.5%;">어깨너비</th>
 							<th style="width:22.5%;">가슴단면</th>
@@ -170,7 +165,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="option" items="${sizeList}">
+						<c:forEach var="option" items="${sizeList}" varStatus="status">
 							<tr>
 								<td><input type="hidden"  name="contentSize" value="${option.size}">${option.size}</td>
 								<td><input type="text" name="contentLength"></td>
@@ -190,50 +185,50 @@
 - 실제 입고 있는 옷을 측정 후 비교하여 구매하시면 실수없는 구매를 하실 수 있답니다.</textarea>
 			</div>
 			<div class="remarkInformBox">
-				<h3>참고사항</h3>
+				<h3>참고사항<span style="opacity: 0.7;font-size:12px;">(필수사항)</span></h3>
 				<table class="table">
 					<tbody>
-						<tr>
+						<tr class="elasticity">
 							<td>신축성 (elasticity)</td>
-							<td><input type="radio" name="elasticity" value="good">좋음</td>
-							<td><input type="radio" name="elasticity" value="normal">보통</td>
-							<td><input type="radio" name="elasticity" value="no">없음</td>
+							<td><input type="radio" name="contentElasticity" value="good">좋음</td>
+							<td><input type="radio" name="contentElasticity" value="normal">보통</td>
+							<td><input type="radio" name="contentElasticity" value="no">없음</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>안감 (lining)</td>
-							<td><input type="radio" name="lining" value="yes">있음</td>
-							<td><input type="radio" name="lining" value="no">없음</td>
-							<td><input type="radio" name="lining" value="fleece">기모</td>
+							<td><input type="radio" name="contentLining" value="yes">있음</td>
+							<td><input type="radio" name="contentLining" value="no">없음</td>
+							<td><input type="radio" name="contentLining" value="fleece">기모</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>비침 (see-through)</td>
-							<td><input type="radio" name="seethrough" value="yes">있음</td>
-							<td><input type="radio" name="seethrough" value="little">약간</td>
-							<td><input type="radio" name="seethrough" value="bright">약간(밝은색만)</td>
-							<td><input type="radio" name="seethrough" value="no">없음, 안비침</td>
+							<td><input type="radio" name="contentSeethrough" value="yes">있음</td>
+							<td><input type="radio" name="contentSeethrough" value="little">약간</td>
+							<td><input type="radio" name="contentSeethrough" value="bright">약간(밝은색만)</td>
+							<td><input type="radio" name="contentSeethrough" value="no">없음, 안비침</td>
 						</tr>
 						<tr>
 							<td>두께 (thickness)</td>
-							<td><input type="radio" name="thickness" value="thick">두꺼움</td>
-							<td><input type="radio" name="thickness" value="normal">보통</td>
-							<td><input type="radio" name="thickness" value="little">약간얇음</td>
-							<td><input type="radio" name="thickness" value="thin">얇음</td>
+							<td><input type="radio" name="contentThickness" value="thick">두꺼움</td>
+							<td><input type="radio" name="contentThickness" value="normal">보통</td>
+							<td><input type="radio" name="contentThickness" value="little">약간얇음</td>
+							<td><input type="radio" name="contentThickness" value="thin">얇음</td>
 						</tr>
 						<tr>
 							<td>무게감(weight)</td>
-							<td><input type="radio" name="weight" value="heavy">무거움</td>
-							<td><input type="radio" name="weight" value="suitable">적당함</td>
-							<td><input type="radio" name="weight" value="light">가벼움</td>
+							<td><input type="radio" name="contentWeight" value="heavy">무거움</td>
+							<td><input type="radio" name="contentWeight" value="suitable">적당함</td>
+							<td><input type="radio" name="contentWeight" value="light">가벼움</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>세탁방법 (dry)</td>
-							<td><input type="radio" name="dry" value="dry">드라이클리닝</td>
-							<td><input type="radio" name="dry" value="wash">단독세탁</td>
-							<td><input type="radio" name="dry" value="dryWash">드라이,단독세탁</td>
-							<td><input type="radio" name="dry" value="cold">찬물손세탁</td>
+							<td><input type="radio" name="contentDry" value="dry">드라이클리닝</td>
+							<td><input type="radio" name="contentDry" value="wash">단독세탁</td>
+							<td><input type="radio" name="contentDry" value="dryWash">드라이,단독세탁</td>
+							<td><input type="radio" name="contentDry" value="cold">찬물손세탁</td>
 						</tr>
 					</tbody>
 				</table>
@@ -245,12 +240,10 @@
 - 세탁방법 : 면 원단으로 형태 변형 및 이염 방지를 위해 차가운 물에 중성 세제 이용하여 손세탁하기를 권장합니다.
 				</textarea>
 			</div>
-			<div class="colorInformBox">
-				<h3>색상표</h3>
-			</div>
 			<div class="imageInformBox" style="position:relative;padding-bottom:30px;">
-				<h3>이미지</h3>
-				<input type="file" id="image" name="contentImage" accept="image/*" class="contentImage" onchange="setImage(event);">
+				<h3>이미지<span style="opacity: 0.7;font-size:12px;">(필수사항 한개 이상)</span></h3>
+				<input type="file" id="image" name="contentImage" accept="image/*">
+				<img style="width:800px;height:800px;border:1px solid black;">
 				<button class="addImage" type="button" style="width:100px;height:30px;position:absolute;bottom:0;right:0;">추가하기</button>
 			</div>
 		</div>
@@ -258,6 +251,110 @@
 	</form>
 </div>
 <script>
+	$("form").validate({
+		rules: {
+			mainTitle: {
+				required : true
+			},
+			thumbnailImage: {
+				required : ""
+			},
+			contentLength: {
+				required : true
+			},
+			contentShoulder: {
+				required : true
+			},
+			contentChest: {
+				required : true
+			},
+			contentSleeve: {
+				required : true
+			},
+			contentSizeText: {
+				required : true
+			},
+			contentElasticity: {
+				required : true
+			},
+			contentLining: {
+				required : true
+			},
+			contentSeethrough: {
+				required : true
+			},
+			contentThickness: {
+				required : true
+			},
+			contentWeight: {
+				required : true
+			},
+			contentDry: {
+				required : true
+			},
+			contentRemarkText: {
+				required : true
+			},
+			contentImage: {
+				required : true
+			}
+		},
+		messages : {
+			mainTitle: {
+				required : "필수 입력입니다"
+			},
+			thumbnailImage: {
+				required : ""
+			},
+			contentLength: {
+				required : ""
+			},
+			contentShoulder: {
+				required : ""
+			},
+			contentChest: {
+				required : ""
+			},
+			contentSleeve: {
+				required : ""
+			},
+			contentSizeText: {
+				required : ""
+			},
+			contentElasticity: {
+				required : ""
+			},
+			contentLining: {
+				required : ""
+			},
+			contentSeethrough: {
+				required : ""
+			},
+			contentThickness: {
+				required : ""
+			},
+			contentWeight: {
+				required : ""
+			},
+			contentDry: {
+				required : ""
+			},
+			contentRemarkText: {
+				required : ""
+			},
+			contentImage: {
+				required : ""
+			}
+		}
+	});
+	$.validator.addMethod(
+		"regex",
+		function(value, element, regexp) {
+			var re = new RegExp(regexp);
+			return this.optional(element) || re.test(value);
+		},
+		"Please check your input."
+	);
 	function delImage(obj){
 		obj.change(function(){
 			if(obj.val() == ""){
@@ -267,25 +364,11 @@
 		})
 	}
 	delImage($('#image'));
-	function setImage(event) { 
-		var reader = new FileReader();
-		/*객체 생성*/ 
-		reader.onload = function(event) { 
-			/*객체에 올라가면*/
-			var img = document.createElement("img"); 
-			/*이미지란 img태그를 생성*/
-			img.setAttribute("src", event.target.result); 
-			/*이미지에 src속성에 올린 이미지 삽입*/
-			$('.addImage').before(img);
-		};
-		if(event.target.files[0] != null)
-			reader.readAsDataURL(event.target.files[0]); 
-		/*생성된 객체를 통해 image를 변환시킨다*/
-	}
 	function addImage(obj){
 		obj.click(function(){
-			$(obj).before('<input type="file" id="image" name="contentImage" accept="image/*" onchange="setImage(event);">');
-			delImage($(this).prev('input'));
+			$(obj).before('<input type="file" id="image" name="contentImage" accept="image/*" ><img style="width:800px;height:800px;border:1px solid black;">');
+			delImage($(this).prev().prev('input'));
+			image($(this).prev().prev('input'));
 		})
 	}
 	addImage($('.addImage'));
@@ -305,7 +388,7 @@
 		async:true,
 		type:'POST',
 		data:code,
-		url:"<%=request.getContextPath()%>/enrollment/color",
+		url:"<%=request.getContextPath()%>/enrollment/colorBox",
 		dataType:"json",
 		contentType:"application/json; charset=UTF-8",
 		success : function(data){
@@ -365,9 +448,9 @@
 			codeL.push(code);
 			colorL.push(color);
 			sizeL.push(size);
-			deleteBox($('link').children('.productBox').last().children('.deleteProduct'));
-			decPurchase($('link').children('.productBox').last().find('.decrease'));
-			incPurchase($('link').children('.productBox').last().find('.increase'));
+			deleteBox($('.productBox').last().children('.deleteProduct'));
+			decPurchase($('.productBox').last().find('.decrease'));
+			incPurchase($('.productBox').last().find('.increase'));
 			allPrice();
 		}
 	})
@@ -472,54 +555,57 @@
 		}else
 			$('#size').attr('disabled','disbaled');
 	})
-	$(document).ready(function (e){
-    	$("input[type=file]").change(function(e){
-        	if($(this).val() != ""){
-        		var files = e.target.files;
-            	var arr =Array.prototype.slice.call(files);
-            	//업로드 가능 파일인지 체크
-            	for(var i=0;i<files.length;i++){
-              		if(!checkExtension(files[i].name,files[i].size)){
-                		return false;
-              		}
-            	}        
-            	preview(arr,$(this)); 
-            }      
+	image($("input[type=file]"));
+	function image(obj){
+		obj.change(function(e){
+	        if($(this).val() != ""){
+	        	var files = e.target.files;
+	            var arr =Array.prototype.slice.call(files);
+	            //업로드 가능 파일인지 체크
+	            for(var i=0;i<files.length;i++){
+	              	if(!checkExtension(files[i].name,files[i].size)){
+	                	return false;
+	              	}
+	            }        
+	            preview(arr,$(this)); 
+	        }else{
+	        	$(this).next('img').removeAttr('src');
+			}  
 		});
-    	function checkExtension(fileName,fileSize){
-      		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-      		var maxSize = 20971520;  //20MB      
-      		if(fileSize >= maxSize){
-        		alert('파일 사이즈 초과');
-        		$("input[type='file']").val("");  //파일 초기화
-        		return false;
-      		}      
-      		if(regex.test(fileName)){
-        		alert('업로드 불가능한 파일이 있습니다.');
-        		$("input[type='file']").val("");  //파일 초기화
-        		return false;
-      		}
-      		return true;
-    	}
-    	function preview(arr,obj){
-      		arr.forEach(function(f){        
-        	//파일명이 길면 파일명...으로 처리
-        		var fileName = f.name;
-        		if(fileName.length > 10){
-          			fileName = fileName.substring(0,7)+"...";
-        		}
-        		//이미지 파일 미리보기
-        		if(f.type.match('image.*')){
-          		var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-          		reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-            	//str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
-	            	obj.next('img').attr('src',e.target.result);
-          		} 
-          		reader.readAsDataURL(f);
-        		}else{
-	            	obj.next('img').attr('src',e.target.result);
-        		}
-      		});//arr.forEach
-    	}
-  });
+	    function checkExtension(fileName,fileSize){
+	      	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+	      	var maxSize = 20971520;  //20MB      
+	      	if(fileSize >= maxSize){
+	        	alert('파일 사이즈 초과');
+	        	$("input[type='file']").val("");  //파일 초기화
+	        	return false;
+	      	}      
+	      	if(regex.test(fileName)){
+	       		alert('업로드 불가능한 파일이 있습니다.');
+	        	$("input[type='file']").val("");  //파일 초기화
+	        	return false;
+	      	}
+	      	return true;
+	    }
+	    function preview(arr,obj){
+	      	arr.forEach(function(f){        
+	        //파일명이 길면 파일명...으로 처리
+	        	var fileName = f.name;
+	        	if(fileName.length > 10){
+	          		fileName = fileName.substring(0,7)+"...";
+	        	}
+	        	//이미지 파일 미리보기
+	       		if(f.type.match('image.*')){
+	         	var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
+	          	reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+	            //str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
+		           	obj.next('img').attr('src',e.target.result);
+	          	} 
+	         	reader.readAsDataURL(f);
+	        	}else{
+		            obj.next('img').attr('src',e.target.result);
+	        	}
+	      	});//arr.forEach
+	    }
+	}
 </script>

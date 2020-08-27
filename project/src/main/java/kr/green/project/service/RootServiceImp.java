@@ -10,6 +10,8 @@ import kr.green.project.dto.ProductOptionDto;
 import kr.green.project.pagination.RootCri;
 import kr.green.project.pagination.RootPage;
 import kr.green.project.vo.CategoryVo;
+import kr.green.project.vo.ContentremarkVo;
+import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
@@ -41,9 +43,9 @@ public class RootServiceImp implements RootService {
 							option.setSizeNum(3);
 						else if(s.equals("XL") || s.equals("xl"))
 							option.setSizeNum(4);
-						else if(s.equals("XXL") || s.equals("xxl"))
+						else if(s.equals("2XL") || s.equals("2xl"))
 							option.setSizeNum(5);
-						else if(s.equals("XXXL") || s.equals("xxxl"))
+						else if(s.equals("3XL") || s.equals("3xl"))
 							option.setSizeNum(6);
 						else if(s.equals("FREE") || s.equals("free"))
 							option.setSizeNum(9);
@@ -86,9 +88,10 @@ public class RootServiceImp implements RootService {
 	}
 	
 	@Override
-	public boolean isProductCode(String code) {
-		ProductVo product = rootDao.getProductCode(code);
-		if(product == null) {
+	public boolean isProductCode(ProductVo product) {
+		ProductVo product2 = rootDao.getProductCode(product.getCode());
+		if(product2 == null) {
+			System.out.println(product);
 			rootDao.insertProduct(product);
 			return true;
 		}
@@ -171,9 +174,12 @@ public class RootServiceImp implements RootService {
 	public void insertEnrollment(ProductenrollmentVo enrollment) {
 		ProductVo product = rootDao.getProductCode(enrollment.getProductCode());
 		enrollment.setFinalPrice(product.getPrice() - enrollment.getDiscount());
+		System.out.println(product);
+		System.out.println(enrollment);
+		System.out.println(product.getPrice() - enrollment.getDiscount());
+		System.out.println(enrollment.getFinalPrice());
 		enrollment.setDiscountPercent((int)((double)(enrollment.getDiscount()) / (double)product.getPrice() * 100));
 		rootDao.insertEnrollment(enrollment);
-		
 	}
 
 	@Override
@@ -205,6 +211,54 @@ public class RootServiceImp implements RootService {
 	@Override
 	public OptionVo getOption(String productCode, String size, String color) {
 		return rootDao.getOption(productCode, size, color);
+	}
+
+	@Override
+	public void updateTitle(int enrollmentNum, String mainTitle, String subTitle) {
+		ProductenrollmentVo enrollment = rootDao.getProductenrollment(enrollmentNum);
+		ProductVo product = rootDao.getProductCode(enrollment.getProductCode());
+		enrollment.setMainTitle(mainTitle);
+		enrollment.setSubTitle(subTitle);
+		if(subTitle.equals(""))
+			enrollment.setSubTitle(product.getName());
+		rootDao.updateTitle(enrollment, enrollmentNum);
+	}
+
+	@Override
+	public void insertThumnailImage(int enrollmentNum, String fileName) {
+		rootDao.insertThumnailImage(enrollmentNum, fileName);
+	}
+
+	@Override
+	public void insertContentImage(int enrollmentNum, String fileName) {
+		rootDao.insertContentImage(enrollmentNum, fileName);
+	}
+
+	@Override
+	public void insertContentremark(int enrollmentNum, ContentremarkVo contentremark) {
+		rootDao.insertContentremark(enrollmentNum, contentremark);
+	}
+
+	@Override
+	public void insertContentsize(int enrollmentNum, String[] contentShoulder, String[] contentChest, String[] contentSleeve,
+			String[] contentSize, String[] contentLength) {
+		for(int i = 0; i < contentShoulder.length; i++) {
+			ContentsizeVo size = new ContentsizeVo();
+			size.setContentChest(contentChest[i]);
+			size.setContentLength(contentLength[i]);
+			size.setContentShoulder(contentShoulder[i]);
+			size.setContentSize(contentSize[i]);
+			size.setContentSleeve(contentSleeve[i]);
+			size.setEnrollmentNum(enrollmentNum);
+			rootDao.insertContentsize(enrollmentNum, size);
+		}
+		
+	}
+
+	@Override
+	public void insertContentSizeText(int enrollmentNum, String contentSizeText) {
+		rootDao.insertContentSizeText(enrollmentNum, contentSizeText);
+		
 	}
 	
 }

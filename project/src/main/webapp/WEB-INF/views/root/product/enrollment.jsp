@@ -131,7 +131,7 @@
 		var discount = $('#discount').val();
 		var categoryNum = $('#categoryNum').val();
 		var subTitle = $('#subTitle').val();
-		var finalPrice = $('#price')val() - $('#discount').val();
+		var finalPrice = $('#price').val() - $('#discount').val();
 		var list = {"productCode":productCode, "discount":discount, "categoryNum":categoryNum, "subTitle":subTitle, "finalPrice":finalPrice};
 		$.ajax({
 			async:true,
@@ -146,50 +146,48 @@
 		    }
 		});
 	})
-	$(function(){
-		$("form").validate({
-			rules: {
-				code: {
-				    required : true
-				},
-				name: {
-				   	required : true
-				},
-				price: {
-				    required : true
-				},
-				mainCategory: {
-				    required : true
-				},
-				middleCategory: {
-				    required : true
-				},
-				subCategory: {
-				    required : true
-				}
+	$("form").validate({
+		rules: {
+			code: {
+				required : true
 			},
-			messages : {
-				code: {
-				    required : "필수 입력입니다"
-				},
-				name: {
-				    required : "필수 입력입니다"
-				},
-				price: {
-				    required : "필수 입력입니다"
-				},
-				mainCategory: {
-				    required : "필수 입력입니다"
-				},
-				middleCategory: {
-				    required : "필수 입력입니다"
-				},
-				subCategory: {
-				    required : "필수 입력입니다"
-				}
+			name: {
+				required : true
+			},
+			price: {
+				required : true
+			},
+			mainCategory: {
+				required : true
+			},
+			middleCategory: {
+				required : true
+			},
+			subCategory: {
+				required : true
 			}
-		});
-	})
+		},
+		messages : {
+			code: {
+				required : "필수 입력입니다"
+			},
+			name: {
+				required : "필수 입력입니다"
+			},
+			price: {
+				required : "필수 입력입니다"
+			},
+			mainCategory: {
+			    required : "필수 입력입니다"
+			},
+			middleCategory: {
+				required : "필수 입력입니다"
+			},
+			subCategory: {
+				required : "필수 입력입니다"
+			}
+		}
+	});
 	$.validator.addMethod(
 		"regex",
 		function(value, element, regexp) {

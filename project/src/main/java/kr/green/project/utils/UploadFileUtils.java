@@ -10,27 +10,20 @@ import org.springframework.util.FileCopyUtils;
 public class UploadFileUtils {
 
 	public static String uploadFile(String uploadPath, String originalName, byte[] 	
-			fileData)throws Exception{
-		UUID uid = UUID.randomUUID();
-		String savedName = uid.toString() +"_" + originalName;
-		String savedPath = calcPath(uploadPath);
+			fileData, String code)throws Exception{
+		String savedName = originalName;
+		String savedPath = calcPath(uploadPath, code);
 		File target = new File(uploadPath + savedPath, savedName);
 		FileCopyUtils.copy(fileData, target);
 		String uploadFileName = makeIcon(uploadPath, savedPath, savedName);
 		return uploadFileName;
 	}
 	
-	private static String calcPath(String uploadPath) {
-		Calendar cal = Calendar.getInstance();
+	private static String calcPath(String uploadPath, String code) {
 		
-		String yearPath = File.separator+cal.get(Calendar.YEAR);
-		String monthPath = yearPath + File.separator 
-            + new DecimalFormat("00").format(cal.get(Calendar.MONTH)+1);
-		String datePath = monthPath + File.separator 
-            + new DecimalFormat("00").format(cal.get(Calendar.DATE));
-		makeDir(uploadPath, yearPath, monthPath, datePath);
+		makeDir(uploadPath, code);
 		
-		return datePath;
+		return code;
  
 	}
 	private static void makeDir(String uploadPath, String... paths) {

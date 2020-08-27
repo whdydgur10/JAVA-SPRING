@@ -1,6 +1,6 @@
 package kr.green.project.vo;
 
-public class ContentSizeVO {
+public class ContentsizeVo {
 
 	private int contentSizeNum;
 	private String contentSize;
@@ -9,7 +9,6 @@ public class ContentSizeVO {
 	private String contentChest;
 	private String contentSleeve;
 	private int enrollmentNum;
-	private String contentSizeText;
 	public int getContentSizeNum() {
 		return contentSizeNum;
 	}
@@ -52,18 +51,11 @@ public class ContentSizeVO {
 	public void setEnrollmentNum(int enrollmentNum) {
 		this.enrollmentNum = enrollmentNum;
 	}
-	public String getContentSizeText() {
-		return contentSizeText;
-	}
-	public void setContentSizeText(String contentSizeText) {
-		this.contentSizeText = contentSizeText;
-	}
 	@Override
 	public String toString() {
 		return "contentSize [contentSizeNum=" + contentSizeNum + ", contentSize=" + contentSize + ", contentLength="
 				+ contentLength + ", contentShoulder=" + contentShoulder + ", contentChest=" + contentChest
-				+ ", contentSleeve=" + contentSleeve + ", enrollmentNum=" + enrollmentNum + ", contentSizeText="
-				+ contentSizeText + "]";
+				+ ", contentSleeve=" + contentSleeve + ", enrollmentNum=" + enrollmentNum + "]";
 	}
 	
 }

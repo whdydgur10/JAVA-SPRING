@@ -92,7 +92,7 @@
 		    <select class="form-control" id="gender" name="gender">
 		    	<option value="" selected>선택</option>
 		    	<option value="M" <c:if test="${product.gender == 'M'}">selected</c:if>>남성</option>
-		    	<option value="W" <c:if test="${product.gender == 'W'}">selected></c:if>>여성</option>
+		    	<option value="W" <c:if test="${product.gender == 'W'}">selected</c:if>>여성</option>
 		    	<option value="MW" <c:if test="${product.gender == 'MW'}">selected></c:if>>공용</option>
 		    </select>
 		</div>
@@ -126,127 +126,161 @@
         <button type="button" id="no">아니오</button>
       </div>
     </div>
-<script>	
-		var color;
-		var size;
-		// Get the modal
-        var modal = document.getElementById('myModal');
+<script>
+	$(function(){
+		$("form").validate({
+			rules: {
+				name: {
+					required : true
+				},
+				price: {
+					required : true
+				},
+				gender: {
+					required : true
+				}
+			},
+			messages : {
+				name: {
+					required : "필수 입력입니다"
+				},
+				price: {
+					required : "필수 입력입니다"
+				},
+				gender: {
+				    required : "필수 입력입니다"
+				}
+			}
+		});
+		$.validator.addMethod(
+			"regex",
+			function(value, element, regexp) {
+				var re = new RegExp(regexp);
+				return this.optional(element) || re.test(value);
+			},
+			"Please check your input."
+		);
+	})
+	var color;
+	var size;
+	// Get the modal
+    var modal = document.getElementById('myModal');
  
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];                                          
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];                                          
  
-        // When the user clicks on the button, open the modal 
+    // When the user clicks on the button, open the modal 
    		
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+	function modal_size(obj){
+		obj.click(function(){
+			modal.style.display = "block";
+			size = $(this).prev().prev().val();
+		})
+	}
+
+	function modal_color(obj){
+		obj.click(function(){
+			modal.style.display = "block";
+			color = $(this).prev().prev().val();
+		})
+	}
+        
+    function no_close(obj){
+        obj.click(function(){
+        	modal.style.display = "none";
+        })
+    }
+
+	function size_close(obj){
+		obj.click(function(){
+			modal.style.display = "none";
+			sizeClass = '.' + size;
+			sizeId = '#' + size;
+			productCode = $('#code').val();
+			$(sizeClass).remove();
+			$(sizeId).next().remove();
+			$(sizeId).remove();
+
+			var list = {"size":size, "productCode":productCode};
+			$.ajax({
+				async:true,
+				type:'POST',
+				data:JSON.stringify(list),
+				url:"<%=request.getContextPath()%>/deleteSize",
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+	    
+				    }
+			});
+		})
+	}
+
+	function color_close(obj){
+		obj.click(function(){
+			modal.style.display = "none";
+			colorClass = '.' + color;
+			colorId = '#' + color;
+			productCode = $('#code').val();
+			$(colorClass).remove();
+			$(colorId).next().remove();
+			$(colorId).remove();
+			alert(color);
+			alert(productCode);
+			var list = {"color":color, "productCode":productCode};
+			$.ajax({
+				async:true,
+				type:'POST',
+				data:JSON.stringify(list),
+				url:"<%=request.getContextPath()%>/deleteColor",
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+					   
+				}
+			});
+		})
+	}
+ 		
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
             modal.style.display = "none";
         }
+    }
 
-		function modal_size(obj){
-			obj.click(function(){
-				modal.style.display = "block";
-				size = $(this).prev().prev().val();
-			})
-		}
-
-		function modal_color(obj){
-			obj.click(function(){
-				modal.style.display = "block";
-				color = $(this).prev().prev().val();
-			})
-		}
+	modal_size($('.deleteOldSize'));
+	modal_color($('.deleteOldColor'));
+	no_close($('#no'));
+	size_close($('#yes'));
+	color_close($('#yes'));
         
-        function no_close(obj){
-        	obj.click(function(){
-        		modal.style.display = "none";
-            })
-		}
-
-		function size_close(obj){
-			obj.click(function(){
-				modal.style.display = "none";
-				sizeClass = '.' + size;
-				sizeId = '#' + size;
-				productCode = $('#code').val();
-				$(sizeClass).remove();
-				$(sizeId).next().remove();
-				$(sizeId).remove();
-
-				var list = {"size":size, "productCode":productCode};
-				$.ajax({
-					async:true,
-					type:'POST',
-					data:JSON.stringify(list),
-					url:"<%=request.getContextPath()%>/deleteSize",
-					dataType:"json",
-					contentType:"application/json; charset=UTF-8",
-					success : function(data){
-					    
-				    }
-				});
-			})
-		}
-
-		function color_close(obj){
-			obj.click(function(){
-				modal.style.display = "none";
-				colorClass = '.' + color;
-				colorId = '#' + color;
-				productCode = $('#code').val();
-				$(colorClass).remove();
-				$(colorId).next().remove();
-				$(colorId).remove();
-				alert(color);
-				alert(productCode);
-				var list = {"color":color, "productCode":productCode};
-				$.ajax({
-					async:true,
-					type:'POST',
-					data:JSON.stringify(list),
-					url:"<%=request.getContextPath()%>/deleteColor",
-					dataType:"json",
-					contentType:"application/json; charset=UTF-8",
-					success : function(data){
-					    
-				    }
-				});
-			})
-		}
- 		
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-		modal_size($('.deleteOldSize'));
-		modal_color($('.deleteOldColor'));
-		no_close($('#no'));
-		size_close($('#yes'));
-		color_close($('#yes'));
-        
-        function dColor(obj){
-			obj.click(function(){
-				$(this).prev().remove();
-				$(this).remove();
-			})
-		}
-		dColor($('.deleteColor'));
-		$('.addColor').click(function(){
-			$(this).parent().append('<input type="text" name="color" style="width:90px;"><button class="deleteColor">X</button>');
-			dColor($(this).parent().children().last());
+    function dColor(obj){
+		obj.click(function(){
+			$(this).prev().remove();
+			$(this).remove();
 		})
-		function dSize(obj){
-			obj.click(function(){
-				$(this).prev().remove();
-				$(this).remove();
-			})
-		}
-		dSize($('.deleteSize'));
-		$('.addSize').click(function(){
-			$(this).parent().append('<input type="text" name="size" style="width:40px;"><button class="deleteSize">X</button>');
-			dSize($(this).parent().children().last());
+	}
+	dColor($('.deleteColor'));
+	$('.addColor').click(function(){
+		$(this).parent().append('<input type="text" name="color" style="width:90px;"><button class="deleteColor">X</button>');
+		dColor($(this).parent().children().last());
+	})
+	function dSize(obj){
+		obj.click(function(){
+			$(this).prev().remove();
+			$(this).remove();
 		})
+	}
+	dSize($('.deleteSize'));
+	$('.addSize').click(function(){
+		$(this).parent().append('<input type="text" name="size" style="width:40px;"><button class="deleteSize">X</button>');
+		dSize($(this).parent().children().last());
+	})
 		
 </script>

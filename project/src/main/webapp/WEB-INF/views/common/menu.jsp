@@ -10,23 +10,30 @@
 	.subContainer a:hover{
 		opacity: 1;
 	}
+	.searchBox>input, .searchBox>button{
+		height:30px;
+	}
 </style>
 <div style="background-color:rgb(33,51,87);box-shadow: 5px 0px 2px 2px;height:50px;position:relative;">
+	<form method="get" action="<%=request.getContextPath()%>/">
+		<input type="hidden" class="mainCategory" name="mainCategory" value="${cri.mainCategory}">
+		<input type="hidden" class="middleCategory" name="middleCategory" value="${cri.middleCategory}">
+		<input type="hidden" class="subCategory" name="subCategory" value="${cri.subCategory}">
 		<div class="menuContainer" style="height:100%;width:1400px;margin:0 auto;">
 			<div class="btn-gender" style="float:left;font-size: 25px;line-height:50px;">
-				<a href="#" class="M <c:if test="${user.gender == 'M'}">select</c:if>"  style="" data-target=".MMenu">남성</a>
-			    <a href="#" class="W <c:if test="${user.gender == 'W'}">select</c:if>" style="" data-target=".WMenu">여성</a>
-				<a href="#" class="MW <c:if test="${user.gender == 'MW' || user == null}">select</c:if>" style="" data-target=".MWMenu">공용</a>
+				<a href="#" class="M <c:if test="${cri.mainCategory == 'M'}">select</c:if>"  style="" data-target=".MMenu">남성</a>
+			    <a href="#" class="W <c:if test="${cri.mainCategory == 'W'}">select</c:if>" style="" data-target=".WMenu">여성</a>
+				<a href="#" class="MW <c:if test="${cri.mainCategory == 'MW'}">select</c:if>" style="" data-target=".MWMenu">공용</a>
 			</div>
 			<div class="navContainer">
-				<nav class="MMenu <c:if test="${user.gender != 'M' || user == null}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
+				<nav class="MMenu <c:if test="${cri.mainCategory != 'M'}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
 					<a href="#" data-target=".subMMenu>.outer">아우터</a>
 					<a href="#" data-target=".subMMenu>.top">상의</a>
 					<a href="#" data-target=".subMMenu>.bottom">하의</a>
 					<a href="#" data-target=".subMMenu>.shose">신발</a>
 					<a href="#" data-target=".subMMenu>.etc">etc</a>
 				</nav>
-				<nav class="WMenu <c:if test="${user.gender != 'W' || user == null}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:60px;margin-right:60px;">
+				<nav class="WMenu <c:if test="${cri.mainCategory != 'W'}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:60px;margin-right:60px;">
 					<a href="#" data-target=".subWMenu>.outer">아우터</a>
 					<a href="#" data-target=".subWMenu>.onepiece">원피스</a>
 					<a href="#" data-target=".subWMenu>.top">상의</a>
@@ -35,7 +42,7 @@
 					<a href="#" data-target=".subWMenu>.shose">신발</a>
 					<a href="#" data-target=".subWMenu>.etc">etc</a>
 				</nav>
-				<nav class="MWMenu <c:if test="${user.gender != 'MW' && user != null}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
+				<nav class="MWMenu <c:if test="${cri.mainCategory != 'MW'}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
 					<a href="#" data-target=".subMWMenu>.outer">아우터</a>
 					<a href="#" data-target=".subMWMenu>.top">상의</a>
 					<a href="#" data-target=".subMWMenu>.bottom">하의</a>
@@ -43,12 +50,11 @@
 					<a href="#" data-target=".subMWMenu>.etc">etc</a>
 				</nav>
 			</div>
-			<form method="get">
-				<div class="searchBox" style="float:right;margin-top:10px;">
-					<input type="text" name="search" style="outline:none;width:250px;" autocomplete="off">
-					<button type="submit" style="outline: none;">검색</button>
-				</div>
-			</form>
+			<div class="searchBox" style="float:right;margin-top:10px;">
+				<input type="text" name="search" style="outline:none;width:250px;" autocomplete="off">
+				<button type="button" class="btn-search" style="outline: none;">검색</button>
+				<button type="submit" class="search" hidden=""></button>
+			</div>
 		</div>
 		<div class="subContainer subMMenu" style="width:800px;margin:0 auto;">
 			<div class="outer subMenu display-none" style="width:120px;text-align:center;margin-left:25px;">
@@ -219,4 +225,50 @@
 				<a href="#">머플러</a>
 			</div>
 		</div>
-	</div>
+		<button type="submit" class="category" hidden=""></button>
+	</form>
+</div>
+<script>
+	$('.btn-gender a').click(function(){
+		if($(this).text() == "남성")
+			$('.mainCategory').val("M");
+		else if($(this).text() == "여성")
+			$('.mainCategory').val("W");
+		else if($(this).text() == "공용")
+			$('.mainCategory').val("MW");
+		$('.middleCategory').val('');
+		$('.subCategory').val('');
+		$('.category').click();
+	})
+	$('.navContainer a').hover(function(){
+		$('.middleCategory').val(($(this).text()));
+		console.log($('.middleCategory').val());
+	})
+	$('.navContainer a').hover(function(){
+		var target = $(this).attr('data-target');
+		$(target).parent().children().addClass('display-none');
+		$(target).removeClass('display-none');
+	},function(){
+		$('.subContainer').children().addClass('display-none');
+	})
+	$('.subMenu').hover(function(){
+		$(this).removeClass('display-none');
+	},function(){
+		$(this).addClass('display-none');
+	})
+	$('.navContainer a').click(function(){
+		$('.middleCategory').val(($(this).text()));
+		$('.subCategory').val('');
+		$('.category').click();
+	})
+	$('.subMenu>a').click(function(){
+		console.log($(this).text());
+		$('.subCategory').val($(this).text());
+		$('.category').click();
+	})
+	$('.btn-search').click(function(){
+		$('.middleCategory').val('');
+		$('.subCategory').val('');
+		$('.search').click();
+	})
+</script>

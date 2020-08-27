@@ -25,3 +25,6 @@
 <div class="linkBox">
 	<a href="<%=request.getContextPath()%>/root/product/enrollment">판매글 작성</a>
 </div>
+<div class="linkBox">
+	<a href="<%=request.getContextPath()%>/root/product/enrollmentUpdate">판매글 수정</a>
+</div>

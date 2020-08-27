@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import kr.green.project.dto.ProductOptionDto;
 import kr.green.project.pagination.RootCri;
 import kr.green.project.vo.CategoryVo;
+import kr.green.project.vo.ContentremarkVo;
+import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
@@ -56,5 +58,17 @@ public interface RootDao {
 	ProductenrollmentVo getEnrollmentString(@Param("productCode")String productCode);
 
 	ArrayList<OptionVo> getOptionSizeColor(@Param("productCode")String productCode, @Param("color")String color);
+
+	void updateTitle(@Param("enrollment")ProductenrollmentVo enrollment, @Param("enrollmentNum")int enrollmentNum);
+
+	void insertThumnailImage(@Param("enrollmentNum")int enrollmentNum, @Param("fileName")String fileName);
+
+	void insertContentImage(@Param("enrollmentNum")int enrollmentNum, @Param("fileName")String fileName);
+
+	void insertContentremark(@Param("enrollmentNum")int enrollmentNum, @Param("remark")ContentremarkVo contentremark);
+
+	void insertContentsize(@Param("enrollmentNum")int enrollmentNum, @Param("size")ContentsizeVo contentsize);
+
+	void insertContentSizeText(@Param("enrollmentNum")int enrollmentNum, @Param("contentSizeText")String contentSizeText);
 
 }

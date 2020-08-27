@@ -105,7 +105,7 @@
   				</if>
   	</select>
   	<insert id="insertProduct">
-  		insert into product values(#{product.code}, #{product.name}, #{product.price}, #{product.gender})
+  		insert into product values(#{product.code}, #{product.name}, #{product.price}, #{product.gender}, #{product.modify})
   	</insert>
   	<insert id="insertOption">
   		insert into project.option(optionCode, size, color, productCode, sizeNum) values(#{option.optionCode}, #{option.size}, #{option.color}, #{option.productCode}, #{option.sizeNum})
@@ -138,7 +138,7 @@
   		select subCategory from category where mainCategory = #{category.mainCategory} and middleCategory = #{category.middleCategory} group by subCategory
   	</select>
   	<insert id="insertEnrollment">
-  		insert into productenrollment(mainTitle, subTitle, productCode, discount, categoryNum) values(#{enrollment.mainTitle}, #{enrollment.subTitle}, #{enrollment.productCode}, #{enrollment.discount}, #{enrollment.categoryNum})
+  		insert into productenrollment(productCode, discount, categoryNum, finalPrice, discountPercent) values(#{enrollment.productCode}, #{enrollment.discount}, #{enrollment.categoryNum}, #{enrollment.finalPrice}, #{enrollment.discountPercent})
   	</insert>
   	<select id="getCategoryNum" resultType="int">
   		select categoryNum from category where mainCategory = #{category.mainCategory} and middleCategory = #{category.middleCategory} and subCategory = #{category.subCategory}
@@ -155,4 +155,24 @@
   	<select id="getOptionSizeColor" resultType="kr.green.project.vo.OptionVo">
   		select size, productCode, sizeNum, amount from project.option where productCode = #{productCode} and color = #{color} order by sizeNum
   	</select>
+  	<update id="updateTitle">
+  		update productenrollment set mainTitle = #{enrollment.mainTitle}, subTitle = #{enrollment.subTitle} where num = #{enrollmentNum}
+  	</update>
+  	<insert id="insertThumnailImage">
+  		insert into thumbnail(enrollmentNum, thumbnailImage) values(#{enrollmentNum}, #{fileName})
+  	</insert>
+  	<insert id="insertContentImage">
+  		insert into contentimage(enrollmentNum, contentImage) values(#{enrollmentNum}, #{fileName})
+  	</insert>
+  	<insert id="insertContentremark">
+  		insert into contentremark(contentElasticity, contentLining, contentSeethrough, contentThickness, contentWeight, contentDry, contentRemarkText, enrollmentNum) 
+  			values(#{remark.contentElasticity}, #{remark.contentLining}, #{remark.contentSeethrough}, #{remark.contentThickness}, #{remark.contentWeight}, #{remark.contentDry}, #{remark.contentRemarkText}, #{enrollmentNum})
+  	</insert>
+  	<insert id="insertContentsize">
+  		insert into contentsize(contentSize, contentLength, contentShoulder, contentChest, contentSleeve, enrollmentNum)
+  			values(#{size.contentSize}, #{size.contentLength}, #{size.contentShoulder}, #{size.contentChest}, #{size.contentSleeve}, #{enrollmentNum})
+  	</insert>
+  	<insert id="insertContentSizeText">
+  		insert into contentsizetext(enrollmentNum, contentSizeText) values(#{enrollmentNum}, #{contentSizeText})
+  	</insert>
   </mapper>

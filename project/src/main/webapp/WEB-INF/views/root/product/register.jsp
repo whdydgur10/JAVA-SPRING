@@ -74,10 +74,14 @@
 		})
 		$('.codeCheck').click(function(){
 			var code = $('#code').val();
+			var name = $('#name').val();
+			var price = $('#price').val();
+			var gender = $('#gender').val();
+			var list = {"code":code, "name":name, "price":price, "gender":gender};
 			$.ajax({
 				async:true,
 				type:'POST',
-				data:code,
+				data:JSON.stringify(list),
 				url:"<%=request.getContextPath()%>/root/codeCheck",
 				dataType:"json",
 				contentType:"application/json; charset=UTF-8",
@@ -92,5 +96,43 @@
 			    }
 			});
 		})
+		$("form").validate({
+			rules: {
+				code: {
+					required : true
+				},
+				name: {
+					required : true
+				},
+				price: {
+					required : true
+				},
+				gender: {
+					required : true
+				}
+			},
+			messages : {
+				code: {
+					required : "필수 입력입니다"
+				},
+				name: {
+					required : "필수 입력입니다"
+				},
+				price: {
+					required : "필수 입력입니다"
+				},
+				gender: {
+				    required : "필수 입력입니다"
+				}
+			}
+		});
+		$.validator.addMethod(
+			"regex",
+			function(value, element, regexp) {
+				var re = new RegExp(regexp);
+				return this.optional(element) || re.test(value);
+			},
+			"Please check your input."
+		);
 	})
 </script>

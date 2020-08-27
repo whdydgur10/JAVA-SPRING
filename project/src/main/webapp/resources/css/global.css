@@ -8,3 +8,8 @@ a{
 input, select{
 	outline: none;
 }
+.error{
+	color: red;
+	font-size:12px;
+	margin:0;
+}

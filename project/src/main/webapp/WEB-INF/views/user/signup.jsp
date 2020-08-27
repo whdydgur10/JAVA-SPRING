@@ -39,11 +39,6 @@
 	h3{
 		margin:0;
 	}
-	label{
-		color: red;
-		font-size:12px;
-		margin:0;
-	}
 </style>
 <div style="background-color:rgb(33,51,87)">
 	<div style="text-align:center;width:1200px;font-size:50px;margin:0 auto;font-weight:bold;color:white;">빠숑 회원가입 하기!<span style="font-size:40px">!</span><span style="font-size:30px">!</span></div>

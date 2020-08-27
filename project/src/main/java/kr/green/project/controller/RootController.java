@@ -1,5 +1,6 @@
 package kr.green.project.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.project.pagination.ProductCri;
 import kr.green.project.pagination.RootCri;
+import kr.green.project.service.ProductService;
 import kr.green.project.service.RootService;
+import kr.green.project.utils.UploadFileUtils;
 import kr.green.project.vo.CategoryVo;
+import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
@@ -27,6 +33,9 @@ public class RootController {
 
 	@Autowired
 	RootService roots;
+	@Autowired
+	ProductService pros;
+	private String uploadPath = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\";
 	
 	@RequestMapping(value= "/root/page", method = RequestMethod.GET)
 	public ModelAndView rootGet(ModelAndView mv, HttpServletRequest h){
@@ -67,9 +76,9 @@ public class RootController {
 	
 	@RequestMapping("/root/codeCheck")
 	@ResponseBody
-	public Map<Object, Object> codecheck(@RequestBody String code){
+	public Map<Object, Object> codecheck(@RequestBody ProductVo product){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
-	    map.put("codeCheck", roots.isProductCode(code));
+	    map.put("codeCheck", roots.isProductCode(product));
 	    return map;
 	}
 	
@@ -272,18 +281,85 @@ public class RootController {
 	    return map;
 	}
 	
-	@RequestMapping("/enrollment/color")
+	@RequestMapping("/enrollment/colorBox")
 	@ResponseBody
-	public Map<Object, Object> enrollmentIncDiscount(@RequestBody String code){
+	public Map<Object, Object> enrollmentColorBox(@RequestBody String code){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    ArrayList<OptionVo> list = roots.getOptionColor(code);
 	    ArrayList<String> list2 = new ArrayList<String>();
-	    String str1 = "<span style=\"display:inline-block;width:20px;height:20px;background-color:";
-	    String str2 = ";border:1px solid black;margin-right:15px;\"></span>";
+	    String str1 = "<span class=\"";
+	    String str2 = "\" style=\"display:inline-block;width:20px;height:20px;border:1px solid black;margin-right:15px;\"></span>";
 	    for(OptionVo tmp : list) {
 	    	list2.add(str1 + tmp.getColor() + str2);
 	    }
 	    map.put("color",list2);
 	    return map;
+	}
+	
+	@RequestMapping(value= "/root/product/enrollmentContent", method = RequestMethod.POST)
+	public ModelAndView rootProductEnrollmentContentPost(ModelAndView mv, HttpServletRequest h,String productCode, MultipartFile[] thumbnailImage, MultipartFile[] contentImage, ContentremarkVo contentremark, int enrollmentNum, String contentSizeText, String[] contentSize, String[] contentLength
+			,	String[] contentShoulder, String[] contentChest, String[] contentSleeve, String mainTitle, String subTitle) throws IOException, Exception{
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+//		if(user == null)
+//			mv.setViewName("redirect:/");
+//		else {
+//			if(user.getAuth() == 0) 
+//				mv.setViewName("redirect:/");
+//			else {
+				for(MultipartFile tmp : thumbnailImage) {
+					if(!(tmp.getOriginalFilename() == "")) {
+						String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+						roots.insertThumnailImage(enrollmentNum, fileName);
+					}
+				}
+				roots.insertContentsize(enrollmentNum, contentShoulder, contentChest, contentSleeve, contentSize, contentLength);
+				roots.insertContentSizeText(enrollmentNum, contentSizeText);
+				roots.insertContentremark(enrollmentNum, contentremark);
+				for(MultipartFile tmp : contentImage) {
+					if(!(tmp.getOriginalFilename() == "")) {
+						String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+						roots.insertContentImage(enrollmentNum, fileName);
+					}
+				}
+				roots.updateTitle(enrollmentNum, mainTitle, subTitle);
+				mv.setViewName("redirect:/root/page");
+////			}
+//		}
+	    return mv;
+	}
+	
+	@RequestMapping(value= "/root/product/enrollmentUpdate", method = RequestMethod.GET)
+	public ModelAndView rootProductEnrollmentUpdateGet(ModelAndView mv, HttpServletRequest h, String productCode){
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		ProductenrollmentVo enrollment = roots.getEnrollmentString(productCode);
+//		if(user == null)
+//			mv.setViewName("redirect:/");
+//		else {
+//			if(user.getAuth() == 0) 
+//				mv.setViewName("redirect:/");
+//			else {
+				if(enrollment != null) {
+					System.out.println(1);
+					mv.addObject("enrollment", enrollment);
+					System.out.println(2);
+					mv.addObject("product", roots.getProduct(productCode));
+					System.out.println(3);
+					mv.addObject("colorList", roots.getOptionColor(productCode));
+					System.out.println(4);
+					mv.addObject("sizeList", pros.getContentSize(enrollment.getNum()));
+					System.out.println(5);
+					mv.addObject("remark", pros.getContentRemark(enrollment.getNum()));
+					System.out.println(6);
+					mv.addObject("sizeText", pros.getContentSizeText(enrollment.getNum()));
+					System.out.println(7);
+					mv.addObject("thumbnail", pros.getThumbnailImage(enrollment.getNum()));
+					System.out.println(8);
+					mv.addObject("image", pros.getContentImage(enrollment.getNum()));
+					mv.setViewName("/root/product/enrollmentUpdate");
+				}else
+					mv.setViewName("/root/product/enrollmentUpdate");
+//			}
+//		}
+	    return mv;
 	}
 }
