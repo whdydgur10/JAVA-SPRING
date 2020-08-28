@@ -26,7 +26,6 @@ public interface ProductService {
 	ArrayList<EnrollmentThumbnailDto> getProductEnrollmentList(ProductCri cri);
 
 	ProductPage getProductPage(ProductCri cri);
-
 	
 
 }

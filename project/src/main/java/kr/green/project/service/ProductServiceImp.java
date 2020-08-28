@@ -22,6 +22,7 @@ public class ProductServiceImp implements ProductService {
 	@Autowired
 	ProductDao proDao;
 	
+	
 	@Override
 	public ContentremarkVo getContentRemark(int num) {
 		return proDao.getContentRemark(num);

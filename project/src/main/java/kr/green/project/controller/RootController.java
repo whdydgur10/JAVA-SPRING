@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.green.project.pagination.ProductCri;
 import kr.green.project.pagination.RootCri;
 import kr.green.project.service.ProductService;
 import kr.green.project.service.RootService;
@@ -339,26 +338,68 @@ public class RootController {
 //				mv.setViewName("redirect:/");
 //			else {
 				if(enrollment != null) {
-					System.out.println(1);
 					mv.addObject("enrollment", enrollment);
-					System.out.println(2);
 					mv.addObject("product", roots.getProduct(productCode));
-					System.out.println(3);
 					mv.addObject("colorList", roots.getOptionColor(productCode));
-					System.out.println(4);
 					mv.addObject("sizeList", pros.getContentSize(enrollment.getNum()));
-					System.out.println(5);
 					mv.addObject("remark", pros.getContentRemark(enrollment.getNum()));
-					System.out.println(6);
 					mv.addObject("sizeText", pros.getContentSizeText(enrollment.getNum()));
-					System.out.println(7);
 					mv.addObject("thumbnail", pros.getThumbnailImage(enrollment.getNum()));
-					System.out.println(8);
 					mv.addObject("image", pros.getContentImage(enrollment.getNum()));
 					mv.setViewName("/root/product/enrollmentUpdate");
 				}else
 					mv.setViewName("/root/product/enrollmentUpdate");
 //			}
+//		}
+	    return mv;
+	}
+	
+	@RequestMapping("/enrollment/updateImage")
+	@ResponseBody 
+	public  Map<Object, Object> enrollmentUpdateImage(@RequestBody MultipartFile fileData, String img, String code, int imageNum, String table) throws IOException, Exception{
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.updateImage(fileData, img, code, imageNum, table);
+	    String image = roots.getImage(imageNum, table);
+	    String str = "<%=request.getContextPath()%>/resources/img/";
+	    map.put("image", str + image);
+	    return map;
+	}
+	
+	@RequestMapping("/enrollment/deleteImage")
+	public  Map<Object, Object> enrollmentDeleteImage(String img, int imageNum, String table) throws IOException, Exception{
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.deleteImage(img, imageNum, table);
+	    return map;
+	}
+//	html에 map.put으로 정보를 주려면 @ResponseBody / @RequestBody가 있어야함
+	@RequestMapping(value= "/root/product/enrollmentUpdate", method = RequestMethod.POST)
+	public ModelAndView rootProductEnrollmentUpdatePost(ModelAndView mv, HttpServletRequest h,String productCode, MultipartFile[] thumbnailImage, MultipartFile[] contentImage, ContentremarkVo contentremark, int enrollmentNum, String contentSizeText, String[] contentSize, String[] contentLength
+			,	String[] contentShoulder, String[] contentChest, String[] contentSleeve, String mainTitle, String subTitle) throws IOException, Exception{
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+//		if(user == null)
+//			mv.setViewName("redirect:/");
+//		else {
+//			if(user.getAuth() == 0) 
+//				mv.setViewName("redirect:/");
+//			else {
+				for(MultipartFile tmp : thumbnailImage) {
+					if(!(tmp.getOriginalFilename() == "")) {
+						String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+						roots.insertThumnailImage(enrollmentNum, fileName);
+					}
+				}
+				roots.insertContentsize(enrollmentNum, contentShoulder, contentChest, contentSleeve, contentSize, contentLength);
+				roots.insertContentSizeText(enrollmentNum, contentSizeText);
+				roots.insertContentremark(enrollmentNum, contentremark);
+				for(MultipartFile tmp : contentImage) {
+					if(!(tmp.getOriginalFilename() == "")) {
+						String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+						roots.insertContentImage(enrollmentNum, fileName);
+					}
+				}
+				roots.updateTitle(enrollmentNum, mainTitle, subTitle);
+				mv.setViewName("redirect:/root/page");
+////			}
 //		}
 	    return mv;
 	}

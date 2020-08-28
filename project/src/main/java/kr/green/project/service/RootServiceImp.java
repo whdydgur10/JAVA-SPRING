@@ -1,14 +1,18 @@
 package kr.green.project.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.project.dao.RootDao;
 import kr.green.project.dto.ProductOptionDto;
 import kr.green.project.pagination.RootCri;
 import kr.green.project.pagination.RootPage;
+import kr.green.project.utils.DeleteFile;
+import kr.green.project.utils.UploadFileUtils;
 import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.ContentsizeVo;
@@ -21,6 +25,7 @@ public class RootServiceImp implements RootService {
 	
 	@Autowired
 	RootDao rootDao;
+	private String uploadPath = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\";
 	
 	@Override
 	public void insertProduct(ProductVo product, String[] size, String[] color) {
@@ -261,4 +266,27 @@ public class RootServiceImp implements RootService {
 		
 	}
 	
+	@Override
+	public void updateImage(MultipartFile fileData, String img, String code, int imageNum, String table) throws IOException, Exception {
+	    DeleteFile delete = new DeleteFile();
+	    String path = delete.getFilePath();
+	    delete.setFilePath(path + img);
+	    delete.deleteFile();
+	    String fileName = UploadFileUtils.uploadFile(uploadPath, fileData.getOriginalFilename(),fileData.getBytes(), code);
+	    rootDao.updateImage(imageNum, fileName, table);
+	}
+
+	@Override
+	public String getImage(int imageNum, String table) {
+		return rootDao.getImage(imageNum, table);
+	}
+
+	@Override
+	public void deleteImage(String img, int imageNum, String table) {
+		DeleteFile delete = new DeleteFile();
+	    String path = delete.getFilePath();
+	    delete.setFilePath(path + img);
+	    delete.deleteFile();
+		rootDao.deleteImage(imageNum, table);
+	}
 }

@@ -175,4 +175,46 @@
   	<insert id="insertContentSizeText">
   		insert into contentsizetext(enrollmentNum, contentSizeText) values(#{enrollmentNum}, #{contentSizeText})
   	</insert>
+  	<update id="updateImage">
+  		update ${table} set 
+  					<if test="table eq 'contentimage'">
+  						contentImage = #{fileName} where contentImageNum = #{imageNum}
+  					</if>
+  					<if test="table eq 'thumbnail'">
+  						thumbnailImage = #{fileName} where thumbnailNum = #{imageNum}
+  					</if>
+  					
+  					
+  	</update>
+  	<select id="getImage" resultType="String">
+  		select 
+  					<if test="table eq 'thumbnail'">
+  						 thumbnailImage
+  					</if>
+  					<if test="table eq 'contentimage'">
+  						contentImage
+  					</if>
+  		from ${table} where
+					<if test="table eq 'thumbnail'">
+  						thumbnailNum = #{imageNum}
+  					</if>
+  					<if test="table eq 'contentimage'">
+  						contentImageNum = #{imageNum}
+  					</if>
+  	</select>
+  	<delete id="deleteImage">
+  		delete from <if test="table eq 'thumbnail'">
+  						 thumbnail
+  					</if>
+  					<if test="table eq 'contentimage'">
+  						contentimage
+  					</if>
+  				where 
+  					<if test="table eq 'thumbnail'">
+  						thumbnailNum = #{imageNum}
+  					</if>
+  					<if test="table eq 'contentimage'">
+  						contentImageNum = #{imageNum}
+  					</if>
+  	</delete>
   </mapper>

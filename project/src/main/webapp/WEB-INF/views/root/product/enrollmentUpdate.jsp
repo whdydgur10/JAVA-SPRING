@@ -31,7 +31,7 @@
 		width:100%;
 		height:30px;
 	}
-	form{
+	.productBox, .setProductBoxHead button{
 		font-size: 15px;
 	}
 	.deleteProduct{
@@ -89,6 +89,7 @@
 	.table{
 		text-align:center;
 		margin-bottom: 20px;
+		width:100%;
 	}
 	.adBox{
 		width:300px;
@@ -97,8 +98,21 @@
 		right:0;
 		top: 0;
 	}
+	.subThumnailBox>div{
+		position: relative;
+	}
+	.sizeInformBox .table input{
+		width:180px;
+	}
+	.sizeInformBox .table input:nth-of-type(1){
+		width:80px;
+	}
+	.subThumnailBox .btn-del{
+		top:50px !important;
+		right:120px !important;
+	}
 	.white{
-	background-color: white;
+		background-color: white;
 	}
 	.red{
 		background-color: red;
@@ -163,49 +177,62 @@
 </style>
 <div class="detailConteiner" style="width:1450px;margin:20px auto;">
 	<form method="get">
-		<input class="select" type="search" name="productCode" placeholder="제품코드" style="width:300px;">
+		<input class="select" type="search" name="productCode" placeholder="제품코드" style="width:300px;" value="${product.code }">
 		<button>검색</button>
 	</form>
-	<form method="post" class="form">
+	<form method="post" class="form" enctype="multipart/form-data" id="fo">
 		<div class="mainBox" style="width:1100px;float:left;">
-			<h1>${enrollment.mainTitle }</h1>
+			<input type="text" id="mainTitle" name="mainTitle" accept="image/*" style="width:100%;border:1px solid black;height:35px;" value="${enrollment.mainTitle}">
 			<hr>
 			<hr>
 			<div class="thumnailBox" style="width:600px;float:left;margin-bottom:20px;">
-				<input type="file" style="width:400px;" name="thumbnailImage" class="thumbnailImage" value="<%=request.getContextPath()%>/resources/img/${thumbnail[0].thumbnailImage}"><span style="opacity: 0.7;font-size:12px;">(큰 썸네일 필수사항)</span>
-				<img style="width:600px;height:600px;border:1px solid black;" src="${thumbnail[0].thumbnailImage}">
+				<input type="file" style="width:400px;" <c:if test="${thumbnail[0].thumbnailImage == null}">name="thumbnailImage" class="insert"</c:if><c:if test="${thumbnail[0].thumbnailImage != null}">class="update"</c:if>>
+				<img style="width:600px;height:600px;border:1px solid black;" <c:if test="${thumbnail[0].thumbnailImage != null}">src="<%=request.getContextPath()%>/resources/img/${thumbnail[0].thumbnailImage}"</c:if>>
+				<input type="hidden" value="${thumbnail[0].thumbnailNum}">
 				<div class="subThumnailBox" style="width:100%;">
 					<div>
-						<input type="file" accept="image/*" name="thumbnailImage" class="thumbnailImage2" value="${thumbnail[1].thumbnailImage}">
-						<img  src="<%=request.getContextPath()%>/resources/img/${thumbnail[1].thumbnailImage}">
+						<input type="file" accept="image/*" <c:if test="${thumbnail[1].thumbnailImage == null}">name="thumbnailImage" class="insert"</c:if><c:if test="${thumbnail[1].thumbnailImage != null}">class="update"</c:if>>
+						<img <c:if test="${thumbnail[1].thumbnailImage != null}">src="<%=request.getContextPath()%>/resources/img/${thumbnail[1].thumbnailImage}"</c:if>>
+						<input type="hidden" value="${thumbnail[1].thumbnailNum}">
+						<c:if test="${thumbnail[1].thumbnailImage != null}"><button type="button" style="position:absolute;right:0;top:0;" class="btn-del">삭제</button></c:if>
 					</div>
 					<div>
-						<input type="file" accept="image/*" name="thumbnailImage" class="thumbnailImage2" value="${thumbnail[2].thumbnailImage}">
-						<img src="<%=request.getContextPath()%>/resources/img/${thumbnail[2].thumbnailImage}">
+						<input type="file" accept="image/*" <c:if test="${thumbnail[2].thumbnailImage == null}">name="thumbnailImage" class="insert"</c:if><c:if test="${thumbnail[2].thumbnailImage != null}">class="update"</c:if>>
+						<img <c:if test="${thumbnail[2].thumbnailImage != null}">src="<%=request.getContextPath()%>/resources/img/${thumbnail[2].thumbnailImage}"</c:if>>
+						<input type="hidden" value="${thumbnail[2].thumbnailNum}">
+						<c:if test="${thumbnail[2].thumbnailImage != null}"><button type="button" style="position:absolute;right:0;top:0;" class="btn-del">삭제</button></c:if>
 					</div>
 					<div>
-						<input type="file" accept="image/*" name="thumbnailImage" class="thumbnailImage2" value="${thumbnail[3].thumbnailImage}">
-						<img src="<%=request.getContextPath()%>/resources/img/${thumbnail[3].thumbnailImage}">
+						<input type="file" accept="image/*" <c:if test="${thumbnail[3].thumbnailImage == null}">name="thumbnailImage" class="insert"</c:if><c:if test="${thumbnail[3].thumbnailImage != null}">class="update"</c:if>>
+						<img <c:if test="${thumbnail[3].thumbnailImage != null}">src="<%=request.getContextPath()%>/resources/img/${thumbnail[3].thumbnailImage}"</c:if>>
+						<input type="hidden" value="${thumbnail[3].thumbnailNum}">
+						<c:if test="${thumbnail[3].thumbnailImage != null}"><button type="button" style="position:absolute;right:0;top:0;" class="btn-del">삭제</button></c:if>
 					</div>
 					<div>
-						<input type="file" accept="image/*" name="thumbnailImage" class="thumbnailImage2" value="${thumbnail[4].thumbnailImage}">
-						<img src="<%=request.getContextPath()%>/resources/img/${thumbnail[4].thumbnailImage}">
+						<input type="file" accept="image/*" <c:if test="${thumbnail[4].thumbnailImage == null}">name="thumbnailImage" class="insert"</c:if><c:if test="${thumbnail[4].thumbnailImage != null}">class="update"</c:if>>
+						<img <c:if test="${thumbnail[4].thumbnailImage != null}">src="<%=request.getContextPath()%>/resources/img/${thumbnail[4].thumbnailImage}"</c:if>>
+						<input type="hidden" value="${thumbnail[4].thumbnailNum}">
+						<c:if test="${thumbnail[4].thumbnailImage != null}"><button type="button" style="position:absolute;right:0;top:0;" class="btn-del">삭제</button></c:if>
 					</div>
 					<div>
-						<input type="file" accept="image/*" name="thumbnailImage" class="thumbnailImage2" value="${thumbnail[5].thumbnailImage}">
-						<img src="<%=request.getContextPath()%>/resources/img/${thumbnail[5].thumbnailImage}">
+						<input type="file" accept="image/*" <c:if test="${thumbnail[5].thumbnailImage == null}">name="thumbnailImage" class="insert"</c:if><c:if test="${thumbnail[5].thumbnailImage != null}">class="update"</c:if>>
+						<img <c:if test="${thumbnail[5].thumbnailImage != null}">src="<%=request.getContextPath()%>/resources/img/${thumbnail[5].thumbnailImage}"</c:if>>
+						<input type="hidden" value="${thumbnail[5].thumbnailNum}">
+						<c:if test="${thumbnail[5].thumbnailImage != null}"><button type="button" style="position:absolute;right:0;top:0;" class="btn-del">삭제</button></c:if>
 					</div>
 					<div>
-						<input type="file" accept="image/*" name="thumbnailImage" class="thumbnailImage2" value="${thumbnail[6].thumbnailImage}">
-						<img src="<%=request.getContextPath()%>/resources/img/${thumbnail[6].thumbnailImage}">
+						<input type="file" accept="image/*" <c:if test="${thumbnail[6].thumbnailImage == null}">name="thumbnailImage" class="insert"</c:if><c:if test="${thumbnail[6].thumbnailImage != null}">class="update"</c:if>>
+						<img <c:if test="${thumbnail[6].thumbnailImage != null}">src="<%=request.getContextPath()%>/resources/img/${thumbnail[6].thumbnailImage}"</c:if>>
+						<input type="hidden" value="${thumbnail[6].thumbnailNum}">
+						<c:if test="${thumbnail[6].thumbnailImage != null}"><button type="button" style="position:absolute;right:0;top:0;" class="btn-del">삭제</button></c:if>
 					</div>
+					<input type="hidden" class="thumbnaildata">
 				</div>
 			</div>
 				<div class="setProductBox" style="width:500px;float:left;padding-left:100px;">
 					<div class="setProductBoxHead">
 					<span>${enrollment.subTitle}</span>
 					<span style="font-size:20px;">${product.code}</span>
-					<input type="hidden" id="code" value="${product.code}" >
 						<hr><br>
 						<c:if test="${enrollment.discount == 0}"><span style="color:red;">${product.stringPrice}원</span></c:if>
 						<c:if test="${enrollment.discount != 0}"><span style="color:red;">${enrollment.stringFinalPrice}원</span><span style="color:gray;text-decoration:line-through;margin-left:10px;">${product.stringPrice}원</span><span class="discount" style="font-size:15px;float:right;margin-top:10px;">${enrollment.discountPercent}% 할인</span></c:if>
@@ -221,7 +248,7 @@
 						<select name="size" id="size" disabled="disabled">
 							<option value="" selected>사이즈</option>
 						</select>
-					<div class="allPriceBox" style="margin-bottom:15px;"><span>총 상품금액 : <span class="allPrice" style="font-size:25px;color:red;">0</span></span></div>
+					<div class="allPriceBox" style="margin-bottom:15px;"><span style="font-size:15px;">총 상품금액 : <span class="allPrice" style="font-size:25px;color:red;">0</span></span></div>
 					<button class="linkShoppingBasket" type="button" <c:if test="${user == null}">disabled</c:if>>장바구니</button><button class="linkPurchaseList" type="button" <c:if test="${user == null}">disabled</c:if>>구매하기</button>
 				</div>
 			</div>
@@ -232,11 +259,11 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th style="width:10%;">사이즈</th>
-								<th style="width:22.5%;">총장</th>
-								<th style="width:22.5%;">어깨너비</th>
-								<th style="width:22.5%;">가슴단면</th>
-								<th style="width:22.5%;">소매길이</th>
+								<th>사이즈</th>
+								<th>총장</th>
+								<th>어깨너비</th>
+								<th>가슴단면</th>
+								<th>소매길이</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -311,11 +338,17 @@
 				</div>
 				<div class="imageInformBox" style="position:relative;padding-bottom:30px;">
 					<c:forEach var="content" items="${image}">
-						<input type="file" id="image" name="contentImage" accept="image/*" value="${content.contentImage}">
-						<img style="width:800px;height:800px;margin-bottom:30px;" src="<%=request.getContextPath()%>/resources/img/${content.contentImage}">
+						<div style="position:relative;">
+							<input type="file" class="update" accept="image/*">
+							<img style="width:800px;height:800px;margin-bottom:30px;" src="<%=request.getContextPath()%>/resources/img/${content.contentImage}">
+							<input type="hidden" value="${content.contentImageNum}">
+							<button type="button" style="position:absolute;right:0;top:0;" class="btn-del">삭제</button>
+						</div>
 					</c:forEach>
 					<button class="addImage" type="button" style="width:100px;height:30px;position:absolute;bottom:0;right:0;">추가하기</button>
 				</div>
+				<button type="button" class="btn-submit" style="height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:150px;text-align:center;background-color:rgb(33,51,87);color:white;margin-left:500px;">변경하기</button>
+				<button type="submit" hidden=""></button>
 			</div>
 		</div>
 	</form>
@@ -325,7 +358,7 @@
 	var codeL = [];
 	var colorL = [];
 	var sizeL = [];
-	var code = $('#code').val();
+	var code = $('.select').val();
 	var color;
 	var size;
 	var i;
@@ -333,6 +366,134 @@
 	var list2;
 	var index;
 	var purchase;
+	var img;
+	$('.imageInformBox .btn-del').click(function(){
+		$(this).prev().prev().removeAttr('src');
+		<%-- var frm = document.getElementById('fo');
+		var fileData = new FormData(frm);
+		var imageNum = $(this).prev().val();
+		fileData.append('img', img);
+		fileData.append('imageNum', imageNum);
+		fileData.append('table', 'contentimage');
+		$.ajax({
+		    url:"<%=request.getContextPath()%>/enrollment/deleteImage",
+		    type:'POST',
+		    data:fileData,
+		    async:false,
+		    cache:false,
+		    contentType:false,
+		    processData:false,
+			success : function(data){
+		    }
+		}) --%>
+		$(this).parent().remove();
+	})
+	$('.subThumnailBox .btn-del').click(function(){
+		$(this).prev().prev().removeAttr('src');
+		<%-- var frm = document.getElementById('fo');
+		var fileData = new FormData(frm);
+		var imageNum = $(this).prev().val();
+		fileData.append('img', img);
+		fileData.append('imageNum', imageNum);
+		fileData.append('table', 'contentimage');
+		$.ajax({
+		    url:"<%=request.getContextPath()%>/enrollment/deleteImage",
+		    type:'POST',
+		    data:fileData,
+		    async:false,
+		    cache:false,
+		    contentType:false,
+		    processData:false,
+			success : function(data){
+		    }
+		}) --%>
+	})
+	$('.update').hover(function(){
+		var str = $(this).next('img').attr('src');
+		if(str != null){
+			var array = str.split("/");
+			for(i = array.length - 2;i<array.length; i++) {
+				if(i == array.length - 2){
+					img = array[i] + "\\";
+				}
+				else
+					img = img + array[i];
+			}
+		}
+	})
+	$('.thumnailBox .update').change(function(){
+		var fi = $(this)[0].files[0];
+		if(fi != null){
+			var index = $(this).next('img');
+			var frm = document.getElementById('fo');
+			var fileData = new FormData(frm);
+			var imageNum = $(this).next().next().val();
+			fileData.append('img', img);
+			fileData.append('code', code);
+			fileData.append('imageNum', imageNum);
+			fileData.append('table', 'thumbnail');
+			fileData.append('fileData', $(this)[0].files[0]);
+			$.ajax({
+			    url:"<%=request.getContextPath()%>/enrollment/updateImage",
+			    type:'POST',
+			    data:fileData,
+			    async:false,
+			    cache:false,
+			    contentType:false,
+			    processData:false,
+			    /* error:function(request,status,error){
+		  		 	console.log('test');
+				}, */
+				success : function(data){
+					index.attr('src',data['image']);
+			    }
+			})
+		}
+	})
+	$('.imageInformBox .update').change(function(){
+		var fi = $(this)[0].files[0];
+		console.log(fi == null);
+		if(fi != null){
+			var index = $(this).next('img');
+			var frm = document.getElementById('fo');
+			var fileData = new FormData(frm);
+			var imageNum = $(this).next().next().val();
+			fileData.append('img', img);
+			fileData.append('code', code);
+			fileData.append('imageNum', imageNum);
+			fileData.append('table', 'contentimage');
+			fileData.append('fileData', $(this)[0].files[0]);
+			$.ajax({
+			    url:"<%=request.getContextPath()%>/enrollment/updateImage",
+			    type:'POST',
+			    data:fileData,
+			    async:false,
+			    cache:false,
+			    contentType:false,
+			    processData:false,
+				success : function(data){
+					index.attr('src',data['image']);
+			    }
+			})
+		}
+	})
+	function delImage(obj){
+		obj.change(function(){
+			if(obj.val() == ""){
+				obj.next('img').remove();
+				obj.remove();
+			}
+		})
+	}
+	delImage($('#image'));
+	function addImage(obj){
+		obj.click(function(){
+			$(obj).before('<input type="file" class="insert" id="image" name="contentImage" accept="image/*" ><img style="width:800px;height:800px;border:1px solid black;">');
+			delImage($(this).prev().prev('input'));
+			image($(this).prev().prev('input'));
+		})
+	}
+	addImage($('.addImage'));
 	$.ajax({
 		async:true,
 		type:'POST',
@@ -505,9 +666,9 @@
 		}else
 			$('#size').attr('disabled','disbaled');
 	})
-	image($("input[type=file]"));
 	function image(obj){
 		obj.change(function(e){
+			console.log($(this).val());
 	        if($(this).val() != ""){
 	        	var files = e.target.files;
 	            var arr =Array.prototype.slice.call(files);
@@ -558,13 +719,14 @@
 	      	});//arr.forEach
 	    }
 	}
+	image($('.insert'));
 	$("form").validate({
 		rules: {
 			mainTitle: {
 				required : true
 			},
 			thumbnailImage: {
-				required : ""
+				required : true
 			},
 			contentLength: {
 				required : true

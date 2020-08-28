@@ -1,28 +1,21 @@
 package kr.green.project.vo;
 
-public class enrollmentContentVo {
+public class ContentsizetextVo {
 
-	private int contentNum;
-	private String content;
-	private int sequence;
+	private int contentSizeTextNum;
+	private String contentSizeText;
 	private int enrollmentNum;
-	public int getContentNum() {
-		return contentNum;
+	public int getContentSizeTextNum() {
+		return contentSizeTextNum;
 	}
-	public void setContentNum(int contentNum) {
-		this.contentNum = contentNum;
+	public void setContentSizeTextNum(int contentSizeTextNum) {
+		this.contentSizeTextNum = contentSizeTextNum;
 	}
-	public String getContent() {
-		return content;
+	public String getContentSizeText() {
+		return contentSizeText;
 	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public int getSequence() {
-		return sequence;
-	}
-	public void setSequence(int sequence) {
-		this.sequence = sequence;
+	public void setContentSizeText(String contentSizeText) {
+		this.contentSizeText = contentSizeText;
 	}
 	public int getEnrollmentNum() {
 		return enrollmentNum;
@@ -32,7 +25,8 @@ public class enrollmentContentVo {
 	}
 	@Override
 	public String toString() {
-		return "enrollmentContentVo [contentNum=" + contentNum + ", content=" + content + ", sequence=" + sequence
+		return "contentSizeTextVo [contentSizeTextNum=" + contentSizeTextNum + ", contentSizeText=" + contentSizeText
 				+ ", enrollmentNum=" + enrollmentNum + "]";
 	}
+	
 }

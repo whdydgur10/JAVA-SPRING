@@ -1,6 +1,9 @@
 package kr.green.project.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.project.dto.ProductOptionDto;
 import kr.green.project.pagination.RootCri;
@@ -70,6 +73,13 @@ public interface RootService {
 	void insertContentSizeText(int enrollmentNum, String contentSizeText);
 
 	void updateTitle(int enrollmentNum, String mainTitle, String subTitle);
+
+	void updateImage(MultipartFile fileData, String img, String code, int imageNum, String table)
+			throws IOException, Exception;
+
+	String getImage(int imageNum, String table);
+
+	void deleteImage(String img, int imageNum, String table);
 	
 
 }

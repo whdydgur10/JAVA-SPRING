@@ -95,7 +95,7 @@
 		<hr>
 		<hr>
 		<div class="thumnailBox" style="width:600px;float:left;margin-bottom:20px;">
-			<input type="file" style="width:400px;" name="thumbnailImage" class="thumbnailImage"><span style="opacity: 0.7;font-size:12px;">(큰 썸네일 필수사항)</span>
+			<input type="file" style="width:400px;" name="thumbnailImage" class="thumbnailImage">
 			<img style="width:600px;height:600px;border:1px solid black;">
 			<div class="subThumnailBox" style="width:100%;">
 				<div>
@@ -558,6 +558,7 @@
 	image($("input[type=file]"));
 	function image(obj){
 		obj.change(function(e){
+			console.log($(this).val());
 	        if($(this).val() != ""){
 	        	var files = e.target.files;
 	            var arr =Array.prototype.slice.call(files);

@@ -157,7 +157,7 @@
 		<hr>
 		<hr>
 		<div class="thumnailBox" style="width:600px;float:left;margin-bottom:20px;">
-			<img style="width:600px;height:600px;" src="<%=request.getContextPath()%>/resources/img/${thumbnail[0].thumbnailImage}">
+			<img style="width:600px;height:600px;" src="<c:if test="${thumbnail[0].thumbnailImage != null}"><%=request.getContextPath()%>/resources/img/${thumbnail[0].thumbnailImage}</c:if><c:if test="${thumbnail[0].thumbnailImage == null}"><%=request.getContextPath()%>/resources/img/썸네일 준비중.png</c:if>">
 			<div class="subThumnailBox" style="width:100%;">
 				<c:if test="${thumbnail[1].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/${thumbnail[1].thumbnailImage}"></c:if>
 				<c:if test="${thumbnail[2].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/${thumbnail[2].thumbnailImage}"></c:if>
@@ -320,7 +320,6 @@
 		log(height);
 	});
 	function log(str){
-		console.log(str);
 	    if(str > (allHeight - 760)) {
 		    $('.adBox').css({'position':'absolute','right':'0','top':allHeight - 800});
 	    }else if(str > 60)

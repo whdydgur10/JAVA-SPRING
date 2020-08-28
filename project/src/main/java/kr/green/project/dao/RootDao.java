@@ -71,4 +71,10 @@ public interface RootDao {
 
 	void insertContentSizeText(@Param("enrollmentNum")int enrollmentNum, @Param("contentSizeText")String contentSizeText);
 
+	void updateImage(@Param("imageNum")int imageNum, @Param("fileName")String fileName, @Param("table")String table);
+
+	String getImage(@Param("imageNum")int imageNum, @Param("table")String table);
+
+	void deleteImage(@Param("imageNum")int imageNum, @Param("table")String table);
+
 }
