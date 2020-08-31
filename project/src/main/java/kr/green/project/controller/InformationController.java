@@ -231,6 +231,7 @@ public class InformationController {
 			mv.setViewName("redirect:/");
 		else {
 			mv.addObject("menu", "shoppingBasket");
+			mv.addObject("shoppingBasketList", infos.getShoppingBasketList(user.getId()));
 		    mv.setViewName("/information/shoppingBasket");
 		}
 	    return mv;

@@ -1,6 +1,8 @@
 package kr.green.project.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,16 @@ public class ProductServiceImp implements ProductService {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(proDao.countProductEnrollment(cri));
 		return pageMaker;
+	}
+
+	@Override
+	public void insertShoppingBasket(String id, String enrollmentNum, String[] optionCode, String[] purchase) {
+		SimpleDateFormat  dateForm = new SimpleDateFormat("yyyy-MM-dd");
+		String today = dateForm.format(new Date());
+		for(int i = 0; i < optionCode.length; i++) {
+			proDao.insertShoppingBasket(id, enrollmentNum, optionCode[i], purchase[i], today);
+			proDao.updateOptionPurchase(optionCode[i], purchase[i]);
+		}
 	}
 
 	

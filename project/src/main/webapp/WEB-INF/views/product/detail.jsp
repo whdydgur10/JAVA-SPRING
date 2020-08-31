@@ -150,6 +150,60 @@
 	.lightpurple{
 		background-color: #b19cd9;
 	}
+	/* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    
+    /* Modal Content/Box */
+    .modal-content {
+      	position:relative;
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%; /* Could be more or less, depending on screen size */
+        height: 120px;                     
+    }
+    /* The Close Button */
+    .close {
+       	position:absolute;
+        color: #aaa;
+        right:20px;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .modal-content button{
+       	width: 100px;
+       	background-color: transparent;
+       	position: absolute;
+       	bottom:20px;
+    }
+	.modal-content button:hover{
+		background-color: rgb(33,51,87);
+		color: white;
+	}
+	#yes{
+		left: 20%;
+	}
+	#no{
+		right: 20%;
+	}
 </style>
 <div class="detailConteiner" style="width:1450px;margin:20px auto;">
 	<div class="mainBox" style="width:1100px;float:left;">
@@ -167,11 +221,13 @@
 				<c:if test="${thumbnail[6].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/${thumbnail[6].thumbnailImage}"></c:if>
 			</div>
 		</div>
+		<form method="post" style="margin-top:20px;">
 			<div class="setProductBox" style="width:500px;float:left;padding-left:100px;">
 				<div class="setProductBoxHead">
 				<span>${enrollment.subTitle}</span>
 				<span style="font-size:20px;">${product.code}</span>
 				<input type="hidden" id="code" value="${product.code}" >
+				<input type="hidden" id="code" name="enrollmentNum" value="${enrollment.num}" >
 					<hr><br>
 					<c:if test="${enrollment.discount == 0}"><span style="color:red;">${product.stringPrice}원</span></c:if>
 					<c:if test="${enrollment.discount != 0}"><span style="color:red;">${enrollment.stringFinalPrice}원</span><span style="color:gray;text-decoration:line-through;margin-left:10px;">${product.stringPrice}원</span><span class="discount" style="font-size:15px;float:right;margin-top:10px;">${enrollment.discountPercent}% 할인</span></c:if>
@@ -187,12 +243,13 @@
 					<select name="size" id="size" disabled="disabled">
 						<option value="" selected>사이즈</option>
 					</select>
-				<form method="post" style="margin-top:20px;">
-					<div class="allPriceBox" style="margin-bottom:15px;"><span>총 상품금액 : <span class="allPrice" style="font-size:25px;color:red;" name="allPrice">0</span></span></div>
-					<button class="linkShoppingBasket" action="#" <c:if test="${user == null}">disabled</c:if>>장바구니</button><button class="linkPurchaseList" action="#" <c:if test="${user == null}">disabled</c:if>>구매하기</button>
-				</form>
+					<div class="allPriceBox" style="margin-bottom:15px;"><span>총 상품금액 : <span class="allPrice" style="font-size:25px;color:red;">0</span></span></div>
+					<button type="button" class="linkShoppingBasket">장바구니</button><button class="linkPurchaseList" type="button">구매하기</button>
+					<button type="submit" hidden="" class="btn-submit"></button>
+					<input type="hidden" class="linkWhere" name="where">
+				</div>
 			</div>
-		</div>
+		</form>
 		<div class="informationBox" style="width:100%;float:left;">
 			<h1 style="text-align:center;">상품정보</h1>
 			<div class="sizeInformBox">
@@ -307,7 +364,81 @@
 		</div>
 	</div>
 </div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+ 
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close" onclick="close()">&times;</span>
+        <p>장바구니에 담겼습니다.</p>                                                           
+        <p>상품들을 더 보시겠습니까?</p>
+        <button type="button" id="yes">예</button>
+    	<button type="button" id="no">아니오</button>
+	</div>
+</div>
+<c:if test="${user == null}">
+	<script>
+		$('.linkShoppingBasket').click(function(){
+			alert('로그인 후 이용해주세요.');
+		})
+		$('.linkPurchaseList').click(function(){
+			alert('로그인 후 이용해주세요.');
+		})
+	</script>
+</c:if>
+<c:if test="${user != null}">
+	<script>
+		$('.linkShoppingBasket').click(function(){
+			modal.style.display = "block";
+		})
+		$('.linkPurchaseList').click(function(){
+			if($('.allPrice').text() != 0){
+				$('.linkWhere').val('list');
+				$('.btn-submit').click();
+			}else
+				alert('상품을 선택해주세요.');
+		})
+	</script>
+</c:if>
 <script>
+//Get the modal
+	var modal = document.getElementById('myModal');
+	var span = document.getElementsByClassName("close")[0];          
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+
+	function yes_close(obj){
+	    obj.click(function(){
+	    	modal.style.display = "none";
+	    	if($('.allPrice').text() != 0){
+	    		$('.linkWhere').val('noBasket');
+				$('.btn-submit').click();
+			}else
+				alert('상품을 선택해주세요.');
+	    })
+	}
+    
+	function no_close(obj){
+	    obj.click(function(){
+	    	modal.style.display = "none";
+	    	if($('.allPrice').text() != 0){
+	    		$('.linkWhere').val('goBasket');
+				$('.btn-submit').click();
+			}else
+				alert('상품을 선택해주세요.');
+	    })
+	}
+	
+	window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+	yes_close($('#yes'));
+	no_close($('#no'));
+
 	setInterval(function(){
 	    $('.adImageBox').children().first().animate({'margin-left':'-300px'},1,function(){
 	        $('.adImageBox').children().first().detach().appendTo('.adImageBox');
@@ -392,11 +523,22 @@
 			$('#size').attr('disabled','disabled');
 		}
 		else{
-			$('.allPriceBox').before('<div class="productBox"><span>' + str + '</span><input type="hidden" class="productCode" name="productCode"><input type="hidden" class="color" name="color"><input type="hidden" class="size" name="size"><button class="deleteProduct" type="button">X</button>'
+			$('.allPriceBox').before('<div class="productBox"><span>' + str + '</span><input type="hidden" class="optionCode" name="optionCode"><input type="hidden" class="color"><input type="hidden" class="size"><button class="deleteProduct" type="button">X</button>'
 					+'<div style="height:30px;margin-top:5px;"><button type="button" class="decrease">-</button><span class="showPurchase" style="margin:0 15px;">1</span><input type="hidden" class="purchase" name="purchase" value="1"><button type="button" class="increase">+</button><span class="showPrice">${enrollment.stringFinalPrice}원</span><input type="hidden" class="price" name="price"></div><hr></div>');
-			$('.productBox').last().children('productCode').val(code);
 			$('.productBox').last().children('.color').val(color);
 			$('.productBox').last().children('.size').val(size);
+			var list = {"color":color, "size":size, "productCode":code}
+			$.ajax({
+				async:true,
+				type:'POST',
+				data:JSON.stringify(list),
+				url:"<%=request.getContextPath()%>/enrollment/optionCode",
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+					$('.productBox').last().children('.optionCode').val(data['optionCode']);
+			    }
+			});
 			$('#color').val("");
 			$('#size').val("");
 			$('#size').attr('disabled','disabled');
@@ -456,7 +598,6 @@
 			color = obj.parents('.productBox').children('.color').val();
 			size = obj.parents('.productBox').children('.size').val();
 			list = {"productCode":code, "color":color, "size":size, "purchase":purchase};
-			console.log(1);
 			$.ajax({
 				async:true,
 				type:'POST',

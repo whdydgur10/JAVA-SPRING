@@ -56,4 +56,13 @@
 							join (select min(thumbnailNum) as thumbnailNum, thumbnailImage from thumbnail where enrollmentNum = #{enroll.num}) as thumb
 							where productenrollment.num = #{enroll.num}
 	</select>
+	<select id="getShoppingBasketList" resultType="kr.green.project.vo.ShoppingbasketVo">
+		select * from shoppingbasket where isPurchase = 'N'
+	</select>
+	<insert id="insertShoppingBasket">
+		insert into shoppingbasket(userId, enrollNum, purchase, basketDate, optionCode) values(#{userId}, #{enrollNum}, #{purchase}, #{today}, #{optionCode})
+	</insert>
+	<update id="updateOptionPurchase">
+		update project.option set amount = amount - #{purchase}, purchase = #{purchase} where optionCode = #{optionCode}
+	</update>
 </mapper>

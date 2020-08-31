@@ -233,12 +233,11 @@
 					</tbody>
 				</table>
 				<textarea name="contentRemarkText">
-- 소재 : 면100%
-- 제조국 : 베트남
-- 제조사 : (주)스타일노리터
-- 제조연월 : 2020년 03월 이후
-- 세탁방법 : 면 원단으로 형태 변형 및 이염 방지를 위해 차가운 물에 중성 세제 이용하여 손세탁하기를 권장합니다.
-				</textarea>
+- 소재 : 상품택에 기재
+- 제조국 : 상품택에 기재
+- 제조사 : 상품택에 기재
+- 제조연월 : 상품택에 기재
+- 세탁방법 : 상품택에 기재</textarea>
 			</div>
 			<div class="imageInformBox" style="position:relative;padding-bottom:30px;">
 				<h3>이미지<span style="opacity: 0.7;font-size:12px;">(필수사항 한개 이상)</span></h3>

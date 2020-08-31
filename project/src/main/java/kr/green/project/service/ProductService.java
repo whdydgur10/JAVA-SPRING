@@ -26,6 +26,7 @@ public interface ProductService {
 	ArrayList<EnrollmentThumbnailDto> getProductEnrollmentList(ProductCri cri);
 
 	ProductPage getProductPage(ProductCri cri);
-	
 
+	void insertShoppingBasket(String id, String enrollmentNum, String[] optionCode, String[] purchase);
+	
 }

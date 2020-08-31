@@ -93,4 +93,8 @@ public class EnrollmentThumbnailDto {
 				+ ", finalPrice=" + finalPrice + ", discountPercent=" + discountPercent + ", thumbnailNum="
 				+ thumbnailNum + ", enrollNum=" + enrollNum + ", thumbnailImage=" + thumbnailImage + "]";
 	}
+	
+	public String getStringFinalPrice() {
+		return String.format("%,d", finalPrice);
+	}
 }

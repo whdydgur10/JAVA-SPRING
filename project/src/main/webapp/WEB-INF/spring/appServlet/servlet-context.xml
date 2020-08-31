@@ -2,10 +2,17 @@
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+    <!-- 스케쥴러 xmlns:task와 schemaLocation 맨밑 3줄 추가 -->
+       
 		
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -72,5 +79,11 @@
 		-->
 	    <beans:constructor-arg value="D:\조용혁\JAVA-SPRING\project\src\main\webapp\resources\img"></beans:constructor-arg>
 	</beans:bean>
+	
+	<!-- 스케쥴러파일이 존재하는 패키지 설정 -->
+	<context:component-scan base-package="kr.green.project.utils" />
+		<!-- 해당 태그들은 크론탭을 설정에 필요한 태그들 -->
+		<task:scheduler id="jobScheduler" pool-size="10" />
+		<task:annotation-driven scheduler="jobScheduler" />
 	
 </beans:beans>

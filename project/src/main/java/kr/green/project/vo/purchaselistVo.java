@@ -7,7 +7,8 @@ public class purchaselistVo {
 	private int enrollNum;
 	private int purchase;
 	private char isCancel;
-//	구매리스트번호 / 구매주문서번호 / 등록글번호 / 구매량 / 취소여부
+	private int basketNum;
+//	구매리스트번호 / 구매주문서번호 / 등록글번호 / 구매량 / 취소여부 / 장바구니번호
 	public int getListNum() {
 		return listNum;
 	}
@@ -39,10 +40,16 @@ public class purchaselistVo {
 	public void setIsCancel(char isCancel) {
 		this.isCancel = isCancel;
 	}
+	public int getBasketNum() {
+		return basketNum;
+	}
+	public void setBasketNum(int basketNum) {
+		this.basketNum = basketNum;
+	}
 	@Override
 	public String toString() {
 		return "purchaselistVo [listNum=" + listNum + ", purchaseNum=" + purchaseNum + ", enrollNum=" + enrollNum
-				+ ", purchase=" + purchase + ", isCancel=" + isCancel + "]";
+				+ ", purchase=" + purchase + ", isCancel=" + isCancel + ", basketNum=" + basketNum + "]";
 	}
 	
 }

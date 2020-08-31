@@ -11,6 +11,7 @@ import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.ContentsizetextVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.ShoppingbasketVo;
 import kr.green.project.vo.ThumbnailVo;
 
 public interface ProductDao {
@@ -32,5 +33,11 @@ public interface ProductDao {
 	int getCategoryNum(@Param("cri")ProductCri cri);
 
 	ArrayList<EnrollmentThumbnailDto> getEnrollmentThumbnailList(@Param("enroll")ProductenrollmentVo tmp);
+
+	ArrayList<ShoppingbasketVo> getShoppingBasketList();
+
+	void insertShoppingBasket(@Param("userId")String id, @Param("enrollNum")String enrollmentNum, @Param("optionCode")String optionCode, @Param("purchase")String purchase, @Param("today")String today);
+
+	void updateOptionPurchase(@Param("optionCode")String optionCode, @Param("purchase")String purchase);
 
 }

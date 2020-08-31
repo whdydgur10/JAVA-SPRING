@@ -611,7 +611,6 @@
 			color = obj.parents('.productBox').children('.color').val();
 			size = obj.parents('.productBox').children('.size').val();
 			list = {"productCode":code, "color":color, "size":size, "purchase":purchase};
-			console.log(1);
 			$.ajax({
 				async:true,
 				type:'POST',
