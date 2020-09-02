@@ -11,6 +11,8 @@ import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.ContentsizetextVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.ShoppingbasketVo;
 import kr.green.project.vo.ThumbnailVo;
 
@@ -38,6 +40,14 @@ public interface ProductDao {
 
 	void insertShoppingBasket(@Param("userId")String id, @Param("enrollNum")String enrollmentNum, @Param("optionCode")String optionCode, @Param("purchase")String purchase, @Param("today")String today);
 
-	void updateOptionPurchase(@Param("optionCode")String optionCode, @Param("purchase")String purchase);
+	void updateDecOptionPurchase(@Param("optionCode")String optionCode, @Param("purchase")String purchase);
+
+	void updateIncOptionPurchase(@Param("optionCode")String optionCode, @Param("purchase")int purchase);
+
+	void insertPurchase(@Param("id")String id);
+
+	int getPurchaseNum(@Param("id")String id);
+
+	void insertPurchaseListBasket(@Param("list")PurchaselistVo list);
 
 }

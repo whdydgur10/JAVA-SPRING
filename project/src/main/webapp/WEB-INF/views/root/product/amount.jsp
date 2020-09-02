@@ -25,7 +25,7 @@
 		<option value="up" <c:if test="${order == 'up'}">selected</c:if>>낮은순</option>
 	</select>
 	<input type="hidden" name="type" class="type" value="${rootPage.rootCri.type}">
-	<input class="select" type="text" name="productCode" placeholder="제품코드" style="width:300px;" value="${productCode}">
+	<input class="select" type="text" name="productCode" placeholder="상품코드" style="width:300px;" value="${productCode}">
 	<button>검색</button>
 </form>
 <div>

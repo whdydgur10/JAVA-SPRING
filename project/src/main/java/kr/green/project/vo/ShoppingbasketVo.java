@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class ShoppingbasketVo {
 
-	private int num;
+	private int shoppingNum;
 	private String userId;
 	private int enrollNum;
 	private char isPurchase;
@@ -14,11 +14,11 @@ public class ShoppingbasketVo {
 	private Date basketDate;
 	private String optionCode;
 //	장바구니번호 / 회원아이디 / 등록글 번호 / 존재여부 / 구매량 / 담은 날짜 / 옵션코드
-	public int getNum() {
-		return num;
+	public int getShoppingNum() {
+		return shoppingNum;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setShoppingNum(int shoppingNum) {
+		this.shoppingNum = shoppingNum;
 	}
 	public String getUserId() {
 		return userId;
@@ -68,7 +68,7 @@ public class ShoppingbasketVo {
 	}
 	@Override
 	public String toString() {
-		return "ShoppingbasketVo [num=" + num + ", userId=" + userId + ", enrollNum=" + enrollNum + ", isPurchase="
+		return "ShoppingbasketVo [shoppingNum=" + shoppingNum + ", userId=" + userId + ", enrollNum=" + enrollNum + ", isPurchase="
 				+ isPurchase + ", purchase=" + purchase + ", basketDate=" + basketDate + ", optionCode=" + optionCode
 				+ "]";
 	}

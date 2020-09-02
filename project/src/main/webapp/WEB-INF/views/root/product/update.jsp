@@ -71,7 +71,7 @@
 
 <div style="width:600px;margin:30px auto;">
 	<form method="get">
-		<input class="select" type="search" name="productCode" placeholder="제품코드" style="width:300px;">
+		<input class="select" type="search" name="productCode" placeholder="상품코드" style="width:300px;">
 		<button>검색</button>
 	</form>
 	<form method="post">

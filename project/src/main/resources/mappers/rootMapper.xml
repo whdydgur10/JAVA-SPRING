@@ -138,42 +138,39 @@
   		select subCategory from category where mainCategory = #{category.mainCategory} and middleCategory = #{category.middleCategory} group by subCategory
   	</select>
   	<insert id="insertEnrollment">
-  		insert into productenrollment(productCode, discount, categoryNum, finalPrice, discountPercent) values(#{enrollment.productCode}, #{enrollment.discount}, #{enrollment.categoryNum}, #{enrollment.finalPrice}, #{enrollment.discountPercent})
+  		insert into proejct.productenrollment(productCode, discount, categoryNum, finalPrice, discountPercent) values(#{enrollment.productCode}, #{enrollment.discount}, #{enrollment.categoryNum}, #{enrollment.finalPrice}, #{enrollment.discountPercent})
   	</insert>
   	<select id="getCategoryNum" resultType="int">
   		select categoryNum from category where mainCategory = #{category.mainCategory} and middleCategory = #{category.middleCategory} and subCategory = #{category.subCategory}
   	</select>
-  	<select id="getEnrollmentNum" resultType="int">
-  		select num from productenrollment where productNum = #{productNum}
-  	</select>
   	<select id="getProductenrollment" resultType="kr.green.project.vo.ProductenrollmentVo">
-  		select * from productenrollment where num = #{num}
+  		select * from proejct.productenrollment where num = #{num}
   	</select>
   	<select id="getEnrollmentString" resultType="kr.green.project.vo.ProductenrollmentVo">
-  		select * from productenrollment where productCode = #{productCode}
+  		select * from proejct.productenrollment where productCode = #{productCode}
   	</select>
   	<select id="getOptionSizeColor" resultType="kr.green.project.vo.OptionVo">
   		select size, productCode, sizeNum, amount from project.option where productCode = #{productCode} and color = #{color} order by sizeNum
   	</select>
-  	<update id="updateTitle">
-  		update productenrollment set mainTitle = #{enrollment.mainTitle}, subTitle = #{enrollment.subTitle} where num = #{enrollmentNum}
+  	<update id="insertTitle">
+  		update proejct.productenrollment set mainTitle = #{enrollment.mainTitle}, subTitle = #{enrollment.subTitle}, isDel = 'N' where num = #{enrollmentNum}
   	</update>
   	<insert id="insertThumnailImage">
-  		insert into thumbnail(enrollmentNum, thumbnailImage) values(#{enrollmentNum}, #{fileName})
+  		insert into proejct.thumbnail(enrollmentNum, thumbnailImage) values(#{enrollmentNum}, #{fileName})
   	</insert>
   	<insert id="insertContentImage">
-  		insert into contentimage(enrollmentNum, contentImage) values(#{enrollmentNum}, #{fileName})
+  		insert into proejct.contentimage(enrollmentNum, contentImage) values(#{enrollmentNum}, #{fileName})
   	</insert>
   	<insert id="insertContentremark">
-  		insert into contentremark(contentElasticity, contentLining, contentSeethrough, contentThickness, contentWeight, contentDry, contentRemarkText, enrollmentNum) 
+  		insert into proejct.contentremark(contentElasticity, contentLining, contentSeethrough, contentThickness, contentWeight, contentDry, contentRemarkText, enrollmentNum) 
   			values(#{remark.contentElasticity}, #{remark.contentLining}, #{remark.contentSeethrough}, #{remark.contentThickness}, #{remark.contentWeight}, #{remark.contentDry}, #{remark.contentRemarkText}, #{enrollmentNum})
   	</insert>
   	<insert id="insertContentsize">
-  		insert into contentsize(contentSize, contentLength, contentShoulder, contentChest, contentSleeve, enrollmentNum)
+  		insert into proejct.contentsize(contentSize, contentLength, contentShoulder, contentChest, contentSleeve, enrollmentNum)
   			values(#{size.contentSize}, #{size.contentLength}, #{size.contentShoulder}, #{size.contentChest}, #{size.contentSleeve}, #{enrollmentNum})
   	</insert>
   	<insert id="insertContentSizeText">
-  		insert into contentsizetext(enrollmentNum, contentSizeText) values(#{enrollmentNum}, #{contentSizeText})
+  		insert into proejct.contentsizetext(enrollmentNum, contentSizeText) values(#{enrollmentNum}, #{contentSizeText})
   	</insert>
   	<update id="updateImage">
   		update ${table} set 
@@ -204,10 +201,10 @@
   	</select>
   	<delete id="deleteImage">
   		delete from <if test="table eq 'thumbnail'">
-  						 thumbnail
+  						 proejct.thumbnail
   					</if>
   					<if test="table eq 'contentimage'">
-  						contentimage
+  						proejct.contentimage
   					</if>
   				where 
   					<if test="table eq 'thumbnail'">
@@ -217,4 +214,25 @@
   						contentImageNum = #{imageNum}
   					</if>
   	</delete>
+  	<update id="updateContentsize">
+  		update proejct.contentsize set contentChest = #{contentChest}, contentLength = #{contentLength}, contentShoulder = #{contentShoulder}, contentSleeve = #{contentSleeve}
+  				where enrollmentNum = #{enrollmentNum} and contentSize = #{contentSize}
+  	</update>
+  	<update id="updateContentSizeText">
+  		update proejct.contentsizetext set contentSizeText = #{contentSizeText} where enrollmentNum = #{enrollmentNum}
+  	</update>
+  	<update id="updateContentremark">
+  		update proejct.contentremark set contentElasticity = #{contentremark.contentElasticity}, contentLining = #{contentremark.contentLining}, contentSeethrough = #{contentremark.contentSeethrough}, contentThickness = #{contentremark.contentThickness},
+  		 contentWeight = #{contentremark.contentWeight}, contentDry = #{contentremark.contentDry}, contentRemarkText = #{contentremark.contentRemarkText} where enrollmentNum = #{enrollmentNum}
+  	</update>
+  	<select id="getIsEnrollment" resultType="kr.green.project.vo.ProductenrollmentVo">
+  		select * from project.productenrollment where productCode = #{productCode} and isDel = 'N'
+  	</select>
+  	<update id="deleteEnroll">
+  		update proejct.productenrollment set isDel = 'Y' where num = #{enrollNum}
+  	</update>
+  	<update id="updateEnrollment">
+  		update proejct.productenrollment set mainTitle = #{enroll.mainTitle}, subTitle = #{enroll.subTitle}, discount = #{enroll.discount}, categoryNum = #{enroll.categoryNum}, finalPrice = #{enroll.finalPrice}
+  		,discountPercent = #{enroll.discountPercent}, isDel = 'N' where productCode = #{enroll.productCode}
+  	</update>
   </mapper>

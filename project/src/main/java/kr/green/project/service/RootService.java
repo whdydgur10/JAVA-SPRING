@@ -10,7 +10,6 @@ import kr.green.project.pagination.RootCri;
 import kr.green.project.pagination.RootPage;
 import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.ContentremarkVo;
-import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
@@ -72,7 +71,7 @@ public interface RootService {
 
 	void insertContentSizeText(int enrollmentNum, String contentSizeText);
 
-	void updateTitle(int enrollmentNum, String mainTitle, String subTitle);
+	void insertTitle(int enrollmentNum, String mainTitle, String subTitle);
 
 	void updateImage(MultipartFile fileData, String img, String code, int imageNum, String table)
 			throws IOException, Exception;
@@ -80,6 +79,19 @@ public interface RootService {
 	String getImage(int imageNum, String table);
 
 	void deleteImage(String img, int imageNum, String table);
+
+	void updateContentsize(int enrollmentNum, String[] contentShoulder, String[] contentChest, String[] contentSleeve,
+			String[] contentSize, String[] contentLength);
+
+	void updateContentSizeText(int enrollmentNum, String contentSizeText);
+
+	void updateContentremark(int enrollmentNum, ContentremarkVo contentremark);
+
+	String searchEnroll(String productCode);
+
+	void deleteEnroll(String enrollNum);
+
+	void updateEnrollment(ProductenrollmentVo enroll);
 	
 
 }

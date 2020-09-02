@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.green.project.dao.InformationDao;
 import kr.green.project.dao.RootDao;
 import kr.green.project.dto.ProductOptionDto;
 import kr.green.project.pagination.RootCri;
@@ -25,6 +26,8 @@ public class RootServiceImp implements RootService {
 	
 	@Autowired
 	RootDao rootDao;
+	@Autowired
+	InformationDao infoDao;
 	private String uploadPath = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\";
 	
 	@Override
@@ -55,7 +58,7 @@ public class RootServiceImp implements RootService {
 						else if(s.equals("FREE") || s.equals("free"))
 							option.setSizeNum(9);
 						else
-							option.setSizeNum(0);
+							option.setSizeNum(Integer.parseInt(s));
 						option.setSize(s);
 						if(cnt > 9 && num == 0)
 							code = "0" + Integer.toString(cnt);
@@ -179,10 +182,6 @@ public class RootServiceImp implements RootService {
 	public void insertEnrollment(ProductenrollmentVo enrollment) {
 		ProductVo product = rootDao.getProductCode(enrollment.getProductCode());
 		enrollment.setFinalPrice(product.getPrice() - enrollment.getDiscount());
-		System.out.println(product);
-		System.out.println(enrollment);
-		System.out.println(product.getPrice() - enrollment.getDiscount());
-		System.out.println(enrollment.getFinalPrice());
 		enrollment.setDiscountPercent((int)((double)(enrollment.getDiscount()) / (double)product.getPrice() * 100));
 		rootDao.insertEnrollment(enrollment);
 	}
@@ -205,7 +204,7 @@ public class RootServiceImp implements RootService {
 
 	@Override
 	public ProductenrollmentVo getEnrollmentString(String productCode) {
-		return rootDao.getEnrollmentString(productCode);
+		return rootDao.getEnrollment(productCode);
 	}
 
 	@Override
@@ -219,14 +218,14 @@ public class RootServiceImp implements RootService {
 	}
 
 	@Override
-	public void updateTitle(int enrollmentNum, String mainTitle, String subTitle) {
+	public void insertTitle(int enrollmentNum, String mainTitle, String subTitle) {
 		ProductenrollmentVo enrollment = rootDao.getProductenrollment(enrollmentNum);
 		ProductVo product = rootDao.getProductCode(enrollment.getProductCode());
 		enrollment.setMainTitle(mainTitle);
 		enrollment.setSubTitle(subTitle);
 		if(subTitle.equals(""))
 			enrollment.setSubTitle(product.getName());
-		rootDao.updateTitle(enrollment, enrollmentNum);
+		rootDao.insertTitle(enrollment, enrollmentNum);
 	}
 
 	@Override
@@ -289,4 +288,60 @@ public class RootServiceImp implements RootService {
 	    delete.deleteFile();
 		rootDao.deleteImage(imageNum, table);
 	}
-}
+
+	@Override
+	public void updateContentsize(int enrollmentNum, String[] contentShoulder, String[] contentChest,
+			String[] contentSleeve, String[] contentSize, String[] contentLength) {
+		for(int i = 0; i < contentShoulder.length; i++) {
+			rootDao.updateContentsize(enrollmentNum, contentChest[i], contentLength[i], contentShoulder[i], contentSize[i], contentSleeve[i]);
+		}
+		
+	}
+
+	@Override
+	public void updateContentSizeText(int enrollmentNum, String contentSizeText) {
+		rootDao.updateContentSizeText(enrollmentNum, contentSizeText);
+	}
+
+	@Override
+	public void updateContentremark(int enrollmentNum, ContentremarkVo contentremark) {
+		rootDao.updateContentremark(enrollmentNum, contentremark);
+	}
+
+	@Override
+	public String searchEnroll(String productCode) {
+		String list;
+		ProductenrollmentVo enroll = rootDao.getIsEnrollment(productCode);
+		if(enroll != null) {
+			ProductVo product = rootDao.getProductCode(productCode);
+			CategoryVo category = infoDao.getCategory(enroll.getCategoryNum());
+			String gender = "남성";
+			if(category.getMainCategory().equals("M"))
+				gender = "남성";
+			else if(category.getMainCategory().equals("W"))
+				gender = "여성";
+			else if(category.getMainCategory().equals("MW"))
+				gender = "공용";
+			String str1 = "<label for=\"mainTitle\">등록글 제목</label><span id=\"mainTitle\">" + enroll.getMainTitle();
+			String str2 = "</span><label for=\"productName\">상품 이름</label><span id=\"productName\">" + product.getName();
+			String str3 = "</span><label for=\"type\">분류</label><span id=\"type\">" + gender + "/" + category.getMiddleCategory() + "/" + category.getSubCategory() + "</span>";
+			String str4 = "<input type=\"hidden\" id=\"enrollNum\" value=\""+ enroll.getNum() +"\">";
+			list = str1 + str2 + str3 + str4;
+			return list;
+		}
+		return null;
+	}
+
+	@Override
+	public void deleteEnroll(String enrollNum) {
+		rootDao.deleteEnroll(enrollNum);
+	}
+
+	@Override
+	public void updateEnrollment(ProductenrollmentVo enroll) {
+		ProductVo product = rootDao.getProductCode(enroll.getProductCode());
+		enroll.setFinalPrice(product.getPrice() - enroll.getDiscount());
+		enroll.setDiscountPercent((int)((double)(enroll.getDiscount()) / (double)product.getPrice() * 100));
+		rootDao.updateEnrollment(enroll);
+	}
+} 

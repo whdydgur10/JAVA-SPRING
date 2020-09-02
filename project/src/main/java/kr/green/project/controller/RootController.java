@@ -39,14 +39,10 @@ public class RootController {
 	@RequestMapping(value= "/root/page", method = RequestMethod.GET)
 	public ModelAndView rootGet(ModelAndView mv, HttpServletRequest h){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-//		if(user == null)
-//			mv.setViewName("redirect:/");
-//		else {
-//			if(user.getAuth() == 0) 
-//				mv.setViewName("redirect:/");
-//			else
-				mv.setViewName("/root/page");
-//		}
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else
+			mv.setViewName("/root/page");
 	    return mv;
 	}
 	
@@ -62,14 +58,10 @@ public class RootController {
 	@RequestMapping(value= "/root/product/register", method = RequestMethod.GET)
 	public ModelAndView rootProductRegisterGet(ModelAndView mv, HttpServletRequest h){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-//		if(user == null)
-//			mv.setViewName("redirect:/");
-//		else {
-//			if(user.getAuth() == 0) 
-//				mv.setViewName("redirect:/");
-//			else
-				mv.setViewName("/root/product/register");
-//		}
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else
+			mv.setViewName("/root/product/register");
 	    return mv;
 	}
 	
@@ -91,21 +83,17 @@ public class RootController {
 	@RequestMapping(value= "/root/product/amount", method = RequestMethod.GET)
 	public ModelAndView rootProductAmountGet(ModelAndView mv, HttpServletRequest h, String productCode, RootCri rootCri, String group, String order){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-//		if(user == null)
-//			mv.setViewName("redirect:/");
-//		else {
-//			if(user.getAuth() == 0) 
-//				mv.setViewName("redirect:/");
-//			else {
-				mv.addObject("rootPage", roots.getRootPage(productCode, rootCri));
-				mv.addObject("group", group);
-				mv.addObject("order", order);
-				mv.addObject("productCode", productCode);
-				mv.addObject("productCode", productCode);
-				mv.addObject("productList", roots.getProductOptionList(productCode, rootCri));
-				mv.setViewName("/root/product/amount");
-//			}
-//		}
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			mv.addObject("rootPage", roots.getRootPage(productCode, rootCri));
+			mv.addObject("group", group);
+			mv.addObject("order", order);
+			mv.addObject("productCode", productCode);
+			mv.addObject("productCode", productCode);
+			mv.addObject("productList", roots.getProductOptionList(productCode, rootCri));
+			mv.setViewName("/root/product/amount");
+		}
 	    return mv;
 	}
 	
@@ -119,18 +107,14 @@ public class RootController {
 	@RequestMapping(value= "/root/product/update", method = RequestMethod.GET)
 	public ModelAndView rootProductUpdateGet(ModelAndView mv, HttpServletRequest h, String productCode){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-//		if(user == null)
-//			mv.setViewName("redirect:/");
-//		else {
-//			if(user.getAuth() == 0) 
-//				mv.setViewName("redirect:/");
-//			else {
-				mv.addObject("size", roots.getOptionSize(productCode));
-				mv.addObject("color", roots.getOptionColor(productCode));
-				mv.addObject("product", roots.getProduct(productCode));
-				mv.setViewName("/root/product/update");
-//			}
-//		}
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			mv.addObject("size", roots.getOptionSize(productCode));
+			mv.addObject("color", roots.getOptionColor(productCode));
+			mv.addObject("product", roots.getProduct(productCode));
+			mv.setViewName("/root/product/update");
+		}
 	    return mv;
 	}
 	
@@ -166,16 +150,12 @@ public class RootController {
 	@RequestMapping(value= "/root/product/enrollment", method = RequestMethod.GET)
 	public ModelAndView rootProductEnrollmentGet(ModelAndView mv, HttpServletRequest h, String productCode){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-//		if(user == null)
-//			mv.setViewName("redirect:/");
-//		else {
-//			if(user.getAuth() == 0) 
-//				mv.setViewName("redirect:/");
-//			else {
-				mv.addObject("product", roots.getProduct(productCode));
-				mv.setViewName("/root/product/enrollment");
-//			}
-//		}
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			mv.addObject("product", roots.getProduct(productCode));
+			mv.setViewName("/root/product/enrollment");
+		}
 	    return mv;
 	}
 	
@@ -189,9 +169,9 @@ public class RootController {
 	
 	@RequestMapping("/enrollment/middleCategory")
 	@ResponseBody
-	public Map<Object, Object> enrollmentMiddleCategory(@RequestBody String category){
+	public Map<Object, Object> enrollmentMiddleCategory(@RequestBody String mainCategory){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
-	    map.put("middleCategory", roots.getMiddleCategoryList(category));
+	    map.put("middleCategory", roots.getMiddleCategoryList(mainCategory));
 	    return map;
 	}
 	
@@ -222,19 +202,15 @@ public class RootController {
 	@RequestMapping(value= "/root/product/enrollmentContent", method = RequestMethod.GET)
 	public ModelAndView rootProductEnrollmentContentGet(ModelAndView mv, HttpServletRequest h, String productCode){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-//		if(user == null)
-//			mv.setViewName("redirect:/");
-//		else {
-//			if(user.getAuth() == 0) 
-//				mv.setViewName("redirect:/");
-//			else {
-				mv.addObject("enrollment", roots.getEnrollmentString(productCode));
-				mv.addObject("product", roots.getProduct(productCode));
-				mv.addObject("colorList", roots.getOptionColor(productCode));
-				mv.addObject("sizeList", roots.getOptionSize(productCode));
-				mv.setViewName("/root/product/enrollmentContent");
-//			}
-//		}
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			mv.addObject("enrollment", roots.getEnrollmentString(productCode));
+			mv.addObject("product", roots.getProduct(productCode));
+			mv.addObject("colorList", roots.getOptionColor(productCode));
+			mv.addObject("sizeList", roots.getOptionSize(productCode));
+			mv.setViewName("/root/product/enrollmentContent");
+		}
 	    return mv;
 	}
 	
@@ -299,31 +275,27 @@ public class RootController {
 	public ModelAndView rootProductEnrollmentContentPost(ModelAndView mv, HttpServletRequest h,String productCode, MultipartFile[] thumbnailImage, MultipartFile[] contentImage, ContentremarkVo contentremark, int enrollmentNum, String contentSizeText, String[] contentSize, String[] contentLength
 			,	String[] contentShoulder, String[] contentChest, String[] contentSleeve, String mainTitle, String subTitle) throws IOException, Exception{
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-//		if(user == null)
-//			mv.setViewName("redirect:/");
-//		else {
-//			if(user.getAuth() == 0) 
-//				mv.setViewName("redirect:/");
-//			else {
-				for(MultipartFile tmp : thumbnailImage) {
-					if(!(tmp.getOriginalFilename() == "")) {
-						String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
-						roots.insertThumnailImage(enrollmentNum, fileName);
-					}
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			for(MultipartFile tmp : thumbnailImage) {
+				if(!(tmp.getOriginalFilename() == "")) {
+					String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+					roots.insertThumnailImage(enrollmentNum, fileName);
 				}
-				roots.insertContentsize(enrollmentNum, contentShoulder, contentChest, contentSleeve, contentSize, contentLength);
-				roots.insertContentSizeText(enrollmentNum, contentSizeText);
-				roots.insertContentremark(enrollmentNum, contentremark);
-				for(MultipartFile tmp : contentImage) {
-					if(!(tmp.getOriginalFilename() == "")) {
-						String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
-						roots.insertContentImage(enrollmentNum, fileName);
-					}
+			}
+			roots.insertContentsize(enrollmentNum, contentShoulder, contentChest, contentSleeve, contentSize, contentLength);
+			roots.insertContentSizeText(enrollmentNum, contentSizeText);
+			roots.insertContentremark(enrollmentNum, contentremark);
+			for(MultipartFile tmp : contentImage) {
+				if(!(tmp.getOriginalFilename() == "")) {
+					String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+					roots.insertContentImage(enrollmentNum, fileName);
 				}
-				roots.updateTitle(enrollmentNum, mainTitle, subTitle);
-				mv.setViewName("redirect:/root/page");
-////			}
-//		}
+			}
+			roots.insertTitle(enrollmentNum, mainTitle, subTitle);
+			mv.setViewName("redirect:/root/page");
+		}
 	    return mv;
 	}
 	
@@ -331,26 +303,22 @@ public class RootController {
 	public ModelAndView rootProductEnrollmentUpdateGet(ModelAndView mv, HttpServletRequest h, String productCode){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
 		ProductenrollmentVo enrollment = roots.getEnrollmentString(productCode);
-//		if(user == null)
-//			mv.setViewName("redirect:/");
-//		else {
-//			if(user.getAuth() == 0) 
-//				mv.setViewName("redirect:/");
-//			else {
-				if(enrollment != null) {
-					mv.addObject("enrollment", enrollment);
-					mv.addObject("product", roots.getProduct(productCode));
-					mv.addObject("colorList", roots.getOptionColor(productCode));
-					mv.addObject("sizeList", pros.getContentSize(enrollment.getNum()));
-					mv.addObject("remark", pros.getContentRemark(enrollment.getNum()));
-					mv.addObject("sizeText", pros.getContentSizeText(enrollment.getNum()));
-					mv.addObject("thumbnail", pros.getThumbnailImage(enrollment.getNum()));
-					mv.addObject("image", pros.getContentImage(enrollment.getNum()));
-					mv.setViewName("/root/product/enrollmentUpdate");
-				}else
-					mv.setViewName("/root/product/enrollmentUpdate");
-//			}
-//		}
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			if(enrollment != null) {
+				mv.addObject("enrollment", enrollment);
+				mv.addObject("product", roots.getProduct(productCode));
+				mv.addObject("colorList", roots.getOptionColor(productCode));
+				mv.addObject("sizeList", pros.getContentSize(enrollment.getNum()));
+				mv.addObject("remark", pros.getContentRemark(enrollment.getNum()));
+				mv.addObject("sizeText", pros.getContentSizeText(enrollment.getNum()));
+				mv.addObject("thumbnail", pros.getThumbnailImage(enrollment.getNum()));
+				mv.addObject("image", pros.getContentImage(enrollment.getNum()));
+				mv.setViewName("/root/product/enrollmentUpdate");
+			}else
+				mv.setViewName("/root/product/enrollmentUpdate");
+		}
 	    return mv;
 	}
 	
@@ -374,33 +342,46 @@ public class RootController {
 //	html에 map.put으로 정보를 주려면 @ResponseBody / @RequestBody가 있어야함
 	@RequestMapping(value= "/root/product/enrollmentUpdate", method = RequestMethod.POST)
 	public ModelAndView rootProductEnrollmentUpdatePost(ModelAndView mv, HttpServletRequest h,String productCode, MultipartFile[] thumbnailImage, MultipartFile[] contentImage, ContentremarkVo contentremark, int enrollmentNum, String contentSizeText, String[] contentSize, String[] contentLength
-			,	String[] contentShoulder, String[] contentChest, String[] contentSleeve, String mainTitle, String subTitle) throws IOException, Exception{
+			,	String[] contentShoulder, String[] contentChest, String[] contentSleeve, ProductenrollmentVo enroll) throws IOException, Exception{
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-//		if(user == null)
-//			mv.setViewName("redirect:/");
-//		else {
-//			if(user.getAuth() == 0) 
-//				mv.setViewName("redirect:/");
-//			else {
-				for(MultipartFile tmp : thumbnailImage) {
-					if(!(tmp.getOriginalFilename() == "")) {
-						String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
-						roots.insertThumnailImage(enrollmentNum, fileName);
-					}
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			for(MultipartFile tmp : thumbnailImage) {
+				if(!(tmp.getOriginalFilename() == "")) {
+					String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+					roots.insertThumnailImage(enrollmentNum, fileName);
 				}
-				roots.insertContentsize(enrollmentNum, contentShoulder, contentChest, contentSleeve, contentSize, contentLength);
-				roots.insertContentSizeText(enrollmentNum, contentSizeText);
-				roots.insertContentremark(enrollmentNum, contentremark);
-				for(MultipartFile tmp : contentImage) {
-					if(!(tmp.getOriginalFilename() == "")) {
-						String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
-						roots.insertContentImage(enrollmentNum, fileName);
-					}
+			}
+			roots.updateContentsize(enrollmentNum, contentShoulder, contentChest, contentSleeve, contentSize, contentLength);
+			roots.updateContentSizeText(enrollmentNum, contentSizeText);
+			roots.updateContentremark(enrollmentNum, contentremark);
+			for(MultipartFile tmp : contentImage) {
+				if(!(tmp.getOriginalFilename() == "")) {
+					String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+					roots.insertContentImage(enrollmentNum, fileName);
 				}
-				roots.updateTitle(enrollmentNum, mainTitle, subTitle);
-				mv.setViewName("redirect:/root/page");
-////			}
-//		}
+			}
+			System.out.println(enroll);
+			roots.updateEnrollment(enroll);
+			mv.setViewName("redirect:/root/page");
+		}
 	    return mv;
+	}
+	
+	@RequestMapping("/root/enrollCheck")
+	@ResponseBody 
+	public  Map<Object, Object> rootEnrollCheck(@RequestBody String productCode){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    map.put("inform",roots.searchEnroll(productCode));
+	    return map;
+	}
+	
+	@RequestMapping("/root/deleteEnroll")
+	@ResponseBody 
+	public  Map<Object, Object> rootDeleteEnroll(@RequestBody String enrollNum){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.deleteEnroll(enrollNum);
+	    return map;
 	}
 }

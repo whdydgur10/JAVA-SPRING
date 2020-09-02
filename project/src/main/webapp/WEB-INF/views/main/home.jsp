@@ -18,7 +18,7 @@
 </style>
 <div class="productContainer" style="width:1400px;height:800px;border:1px solid black;margin:20px auto;">
 	<c:forEach var="product" items="${list}">
-		<a href="<%=request.getContextPath()%>/product/detail?mainCategory=${cri.mainCategory}&middleCategory=${cri.middleCategory}&subCategory=${cri.subCategory}&search=${cri.search}&productCode=${product.productCode}" class="product" style="width:200px;text-align:center;margin-left:50px;">
+		<a href="<%=request.getContextPath()%>/product/detail?mainCategory=${cri.mainCategory}&productCode=${product.productCode}" class="product" style="width:200px;text-align:center;margin-left:50px;">
 			<img src="<%=request.getContextPath()%>/resources/img/${product.thumbnailImage}" style="width:200px;height:200px;">
 			<span>${product.mainTitle}</span><br>
 			<span>${product.stringFinalPrice}원</span>

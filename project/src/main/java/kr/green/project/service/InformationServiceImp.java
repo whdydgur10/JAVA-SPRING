@@ -9,13 +9,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.green.project.dao.InformationDao;
+import kr.green.project.dao.ProductDao;
+import kr.green.project.dao.RootDao;
 import kr.green.project.dao.UserDao;
 import kr.green.project.dto.LevelPointDto;
+import kr.green.project.dto.ShopEnrollProOptionThumbDto;
 import kr.green.project.dto.UserInformDto;
 import kr.green.project.vo.AddressVo;
+import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
+import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.ShoppingbasketVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;
 
@@ -26,6 +32,10 @@ public class InformationServiceImp implements InformationService {
 	UserDao userDao;
 	@Autowired
 	InformationDao infoDao;
+	@Autowired
+	RootDao rootDao;
+	@Autowired
+	ProductDao proDao;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
@@ -173,6 +183,37 @@ public class InformationServiceImp implements InformationService {
 	@Override
 	public ArrayList<VaginalVo> getVaginalList(String id) {
 		return infoDao.getVaginalList(id);
+	}
+
+	@Override
+	public ArrayList<ShopEnrollProOptionThumbDto> getShoppingBasketList(String id) {
+		ArrayList<ShoppingbasketVo> list = infoDao.getShoppingBasketList(id);
+		ArrayList<ShopEnrollProOptionThumbDto> list2 = new ArrayList<ShopEnrollProOptionThumbDto>();
+		for(ShoppingbasketVo tmp : list) {
+			ShopEnrollProOptionThumbDto shop = infoDao.getShopEnrollProOptionThumbDto(tmp.getEnrollNum(), tmp.getOptionCode());
+			ProductenrollmentVo enroll = rootDao.getProductenrollment(tmp.getEnrollNum());
+			CategoryVo category = infoDao.getCategory(enroll.getCategoryNum());
+			shop.setShoppingNum(tmp.getShoppingNum());
+			shop.setPurchase(tmp.getPurchase());
+			shop.setMainCategory(category.getMainCategory());
+			list2.add(shop);
+		}
+		return list2;
+	}
+
+	@Override
+	public ShopEnrollProOptionThumbDto getShopEnrollProOptionThumb(int shoppingNum) {
+		ShoppingbasketVo shop = infoDao.getShoppingBasket(shoppingNum);
+		ShopEnrollProOptionThumbDto shop2 = infoDao.getShopEnrollProOptionThumbDto(shop.getEnrollNum(), shop.getOptionCode());
+		shop2.setPurchase(shop.getPurchase());
+		return shop2;
+	}
+
+	@Override
+	public void deleteShoppingBasket(int shoppingNum) {
+		ShoppingbasketVo shop = infoDao.getShoppingBasket(shoppingNum);
+		infoDao.deleteShoppingBasket(shoppingNum);
+		proDao.updateIncOptionPurchase(shop.getOptionCode(), shop.getPurchase());
 	}
 
 	

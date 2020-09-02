@@ -26,12 +26,12 @@
 	.mainBox{
 		font-size: 28px;
 	}
-	select{
+	search{
 		font-size: 15px;
 		width:100%;
 		height:30px;
 	}
-	.productBox, .setProductBoxHead button{
+	.productBox, .setProductBoxHead button, .setProductBoxHead label{
 		font-size: 15px;
 	}
 	.deleteProduct{
@@ -177,8 +177,8 @@
 </style>
 <div class="detailConteiner" style="width:1450px;margin:20px auto;">
 	<form method="get">
-		<input class="select" type="search" name="productCode" placeholder="제품코드" style="width:300px;" value="${product.code }">
-		<button>검색</button>
+		<input class="search" type="search" name="productCode" placeholder="상품코드" style="width:300px;" value="${product.code }">
+		<button class="btn-search">검색</button>
 	</form>
 	<form method="post" class="form" enctype="multipart/form-data" id="fo">
 		<div class="mainBox" style="width:1100px;float:left;">
@@ -229,27 +229,47 @@
 					<input type="hidden" class="thumbnaildata">
 				</div>
 			</div>
-				<div class="setProductBox" style="width:500px;float:left;padding-left:100px;">
-					<div class="setProductBoxHead">
-					<span>${enrollment.subTitle}</span>
-					<span style="font-size:20px;">${product.code}</span>
-						<hr><br>
-						<c:if test="${enrollment.discount == 0}"><span style="color:red;">${product.stringPrice}원</span></c:if>
-						<c:if test="${enrollment.discount != 0}"><span style="color:red;">${enrollment.stringFinalPrice}원</span><span style="color:gray;text-decoration:line-through;margin-left:10px;">${product.stringPrice}원</span><span class="discount" style="font-size:15px;float:right;margin-top:10px;">${enrollment.discountPercent}% 할인</span></c:if>
-						<hr>
-						<span style="font-size:15px;margin-bottom:15px;display:inline-block;">옵션선택</span>
-						<br>
-						<select name="color" id="color">
-							<option value="" selected>색상</option>
-							<c:forEach var="option" items="${colorList}">
-								<option value="${option.color}"<c:if test="${option.allAmount == 0}">disabled="disabled"</c:if>>${option.color}<c:if test="${option.allAmount == 0}">(품절)</c:if></option>
-							</c:forEach>
+			<div class="setProductBox" style="width:500px;float:left;padding-left:100px;">
+				<div class="setProductBoxHead">
+				<input type="text" name="subTitle" value="${enrollment.subTitle}">
+				<span style="font-size:20px;">${product.code}</span>
+					<hr><br>
+					<c:if test="${enrollment.discount == 0}"><span style="color:red;">${product.stringPrice}원</span></c:if>
+					<c:if test="${enrollment.discount != 0}"><span style="color:red;">${enrollment.stringFinalPrice}원</span><span style="color:gray;text-decoration:line-through;margin-left:10px;">${product.stringPrice}원</span><span class="discount" style="font-size:15px;float:right;margin-top:10px;">${enrollment.discountPercent}% 할인</span></c:if>
+					<hr>
+					<div class="form-group">
+						<label for="code">상품코드</label>
+						<input type="text" class="form-control code" id="code" value="${product.code}" readonly>
+					</div>
+					<div class="form-group">
+						<label for="name">상품이름</label>
+						<input type="text" class="form-control name" id="name" value="${product.name}" readonly>
+					</div>
+					<div class="form-group">
+						<label for="price">상품가격</label>
+						<input type="text" class="form-control price" id="price" value="${product.price}" readonly>
+					</div>
+					<div class="form-group">
+						<label for="price">할인</label>
+						<input type="text" class="form-control discount" id="discount" value="0" name="discount">
+					</div>
+					<div class="form-group">
+						<label for="mainCategory">성별카테고리</label>
+						<input type="text" class="form-control mainCategory" id="mainCategory" name="mainCategory" value="${product.gender}" readonly>
+					</div>
+					<div class="form-group">
+						<label for="middleCategory">상위카테고리</label>
+						<select class="form-control middleCategory" id="middleCategory" name="middleCategory">
+						   	<option value="" selected>선택</option>
 						</select>
-						<select name="size" id="size" disabled="disabled">
-							<option value="" selected>사이즈</option>
+					</div>
+					<div class="form-group">
+						<label for="subCategory">하위카테고리</label>
+						<select class="form-control subCategory" id="subCategory" name="subCategory">
+						    <option value="" selected>선택</option>
 						</select>
-					<div class="allPriceBox" style="margin-bottom:15px;"><span style="font-size:15px;">총 상품금액 : <span class="allPrice" style="font-size:25px;color:red;">0</span></span></div>
-					<button class="linkShoppingBasket" type="button" <c:if test="${user == null}">disabled</c:if>>장바구니</button><button class="linkPurchaseList" type="button" <c:if test="${user == null}">disabled</c:if>>구매하기</button>
+					</div>
+						<input type="hidden" name="categoryNum" class="categoryNum" id="categoryNum">
 				</div>
 			</div>
 			<div class="informationBox" style="width:100%;float:left;">
@@ -347,8 +367,7 @@
 					</c:forEach>
 					<button class="addImage" type="button" style="width:100px;height:30px;position:absolute;bottom:0;right:0;">추가하기</button>
 				</div>
-				<button type="button" class="btn-submit" style="height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:150px;text-align:center;background-color:rgb(33,51,87);color:white;margin-left:500px;">변경하기</button>
-				<button type="submit" hidden=""></button>
+				<button type="submit" class="btn-submit" style="height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:150px;text-align:center;background-color:rgb(33,51,87);color:white;margin-left:500px;">변경하기</button>
 			</div>
 		</div>
 	</form>
@@ -358,7 +377,7 @@
 	var codeL = [];
 	var colorL = [];
 	var sizeL = [];
-	var code = $('.select').val();
+	var code = $('.search').val();
 	var color;
 	var size;
 	var i;
@@ -367,9 +386,86 @@
 	var index;
 	var purchase;
 	var img;
+	var mainCategory;
+	var middleCategory;
+	$('#mainTitle').hover(function(){
+		mainCategory = $('#mainCategory').val();
+		if(mainCategory != "")
+			$.ajax({
+				async:true,
+				type:'POST',
+				data:mainCategory,
+				url:"<%=request.getContextPath()%>/enrollment/middleCategory",
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+					$('#middleCategory').empty();
+					$('#middleCategory').append('<option value="" selected>선택</option>');
+				    for(var i = 0; i < data['middleCategory'].length; i++){
+					    $('#middleCategory').append('<option value="' + data['middleCategory'][i] + '">' + data['middleCategory'][i] + '</option>');
+					}
+			    }
+			});
+	})
+	$('.btn-search').hover(function(){
+		mainCategory = $('#mainCategory').val();
+		if(mainCategory != "")
+			$.ajax({
+				async:true,
+				type:'POST',
+				data:mainCategory,
+				url:"<%=request.getContextPath()%>/enrollment/middleCategory",
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+					$('#middleCategory').empty();
+					$('#middleCategory').append('<option value="" selected>선택</option>');
+				    for(var i = 0; i < data['middleCategory'].length; i++){
+					    $('#middleCategory').append('<option value="' + data['middleCategory'][i] + '">' + data['middleCategory'][i] + '</option>');
+					}
+			    }
+			});
+	})
+	$('#middleCategory').click(function(){
+		mainCategory = $('#mainCategory').val();
+		middleCategory = $('#middleCategory').val();
+		list = {"mainCategory":mainCategory, "middleCategory":middleCategory};
+		$.ajax({
+			async:true,
+			type:'POST',
+			data:JSON.stringify(list),
+			url:"<%=request.getContextPath()%>/enrollment/subCategory",
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function(data){
+				$('#subCategory').empty();
+				$('#subCategory').append('<option value="" selected>선택</option>');
+			    for(i = 0; i < data['subCategory'].length; i++){
+				    $('#subCategory').append('<option value="' + data['subCategory'][i] + '">' + data['subCategory'][i] + '</option>');
+				}
+		    }
+		});
+	})
+	$('#subCategory').change(function(){
+		mainCategory = $('#mainCategory').val();
+		middleCategory = $('#middleCategory').val();
+		subCategory = $('#subCategory').val();
+		list = {"mainCategory":mainCategory, "middleCategory":middleCategory, "subCategory":subCategory};
+		$.ajax({
+			async:true,
+			type:'POST',
+			data:JSON.stringify(list),
+			url:"<%=request.getContextPath()%>/enrollment/categoryNum",
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function(data){
+				$('.categoryNum').val(data['categoryNum']);
+		    }
+		});
+	})
 	$('.imageInformBox .btn-del').click(function(){
 		$(this).prev().prev().removeAttr('src');
-		<%-- var frm = document.getElementById('fo');
+		var frm = document.getElementById('fo');
 		var fileData = new FormData(frm);
 		var imageNum = $(this).prev().val();
 		fileData.append('img', img);
@@ -385,17 +481,17 @@
 		    processData:false,
 			success : function(data){
 		    }
-		}) --%>
+		})
 		$(this).parent().remove();
 	})
 	$('.subThumnailBox .btn-del').click(function(){
 		$(this).prev().prev().removeAttr('src');
-		<%-- var frm = document.getElementById('fo');
+		var frm = document.getElementById('fo');
 		var fileData = new FormData(frm);
 		var imageNum = $(this).prev().val();
 		fileData.append('img', img);
 		fileData.append('imageNum', imageNum);
-		fileData.append('table', 'contentimage');
+		fileData.append('table', 'thumbnail');
 		$.ajax({
 		    url:"<%=request.getContextPath()%>/enrollment/deleteImage",
 		    type:'POST',
@@ -406,7 +502,7 @@
 		    processData:false,
 			success : function(data){
 		    }
-		}) --%>
+		})
 	})
 	$('.update').hover(function(){
 		var str = $(this).next('img').attr('src');
@@ -494,19 +590,20 @@
 		})
 	}
 	addImage($('.addImage'));
-	$.ajax({
-		async:true,
-		type:'POST',
-		data:code,
-		url:"<%=request.getContextPath()%>/enrollment/colorBox",
-		dataType:"json",
-		contentType:"application/json; charset=UTF-8",
-		success : function(data){
-			for(i = 0; i < data['color'].length;i++){
-				$('.colorInformBox').append(data['color'][i]);
-			}
-	    }
-	});
+	if($('.search').val() != '')
+		$.ajax({
+			async:true,
+			type:'POST',
+			data:code,
+			url:"<%=request.getContextPath()%>/enrollment/colorBox",
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function(data){
+				for(i = 0; i < data['color'].length;i++){
+					$('.colorInformBox').append(data['color'][i]);
+				}
+		    }
+		});
 	function allPrice(){
 		allPurchase = 0;
 		for(i = 0; i < $('.productBox').length; i++){

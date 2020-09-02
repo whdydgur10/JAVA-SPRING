@@ -4,9 +4,8 @@
 <title>판매글 작성</title>
 <div style="width:600px;margin:30px auto;">
 	<form method="get">
-		<input class="select" type="search" name="productCode" placeholder="제품코드" style="width:300px;">
-		<button type="button" class="search">검색</button>
-		<button hidden="" class="getSubmit">검색</button>
+		<input class="search" type="search" name="productCode" placeholder="제품코드" style="width:300px;">
+		<button type="button" class="btn-search">검색</button>
 	</form>
 	<form method="post">
 		<div class="form-group">
@@ -71,12 +70,31 @@
 		});
 	})
 	$('.search').hover(function(){
-		var category = $('#mainCategory').val();
-		if(category != "")
+		var mainCategory = $('#mainCategory').val();
+		if(mainCategory != "")
 			$.ajax({
 				async:true,
 				type:'POST',
-				data:category,
+				data:mainCategory,
+				url:"<%=request.getContextPath()%>/enrollment/middleCategory",
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+					$('#middleCategory').empty();
+					$('#middleCategory').append('<option value="" selected>선택</option>');
+				    for(var i = 0; i < data['middleCategory'].length; i++){
+					    $('#middleCategory').append('<option value="' + data['middleCategory'][i] + '">' + data['middleCategory'][i] + '</option>');
+					}
+			    }
+			});
+	})
+	$('.btn-search').hover(function(){
+		var mainCategory = $('#mainCategory').val();
+		if(mainCategory != "")
+			$.ajax({
+				async:true,
+				type:'POST',
+				data:mainCategory,
 				url:"<%=request.getContextPath()%>/enrollment/middleCategory",
 				dataType:"json",
 				contentType:"application/json; charset=UTF-8",

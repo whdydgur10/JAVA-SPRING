@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.green.project.dto.LevelPointDto;
+import kr.green.project.dto.ShopEnrollProOptionThumbDto;
 import kr.green.project.dto.UserInformDto;
 import kr.green.project.vo.AddressVo;
 import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
 import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.ShoppingbasketVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;
 
@@ -58,5 +60,11 @@ public interface InformationService {
 	ArrayList<PurchaseVo> getPurchaseList(String id);
 
 	ArrayList<VaginalVo> getVaginalList(String id);
+
+	ArrayList<ShopEnrollProOptionThumbDto> getShoppingBasketList(String id);
+
+	ShopEnrollProOptionThumbDto getShopEnrollProOptionThumb(int shoppingNum);
+
+	void deleteShoppingBasket(int shoppingNum);
 
 }

@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.green.project.dto.LevelPointDto;
+import kr.green.project.dto.ShopEnrollProOptionThumbDto;
 import kr.green.project.vo.AddressVo;
+import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
 import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.ShoppingbasketVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;
 
@@ -68,6 +71,14 @@ public interface InformationDao {
 
 	ArrayList<VaginalVo> getVaginalList(@Param("id")String id);
 
-	
+	ArrayList<ShoppingbasketVo> getShoppingBasketList(String id);
+
+	ShopEnrollProOptionThumbDto getShopEnrollProOptionThumbDto(@Param("enrollNum")int enrollNum, @Param("optionCode")String optionCode);
+
+	CategoryVo getCategory(@Param("categoryNum")int categoryNum);
+
+	ShoppingbasketVo getShoppingBasket(@Param("shoppingNum")int shoppingNum);
+
+	void deleteShoppingBasket(@Param("shoppingNum")int shoppingNum);
 
 }

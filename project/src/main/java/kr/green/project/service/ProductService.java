@@ -28,5 +28,9 @@ public interface ProductService {
 	ProductPage getProductPage(ProductCri cri);
 
 	void insertShoppingBasket(String id, String enrollmentNum, String[] optionCode, String[] purchase);
+
+	void insertPurchase(String id);
+
+	void insertPurchaseListBasket(String id, int[] shoppingNum, int[] purchase);
 	
 }

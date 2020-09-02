@@ -58,6 +58,8 @@
 	        <mapping path="/vaginal/register"/>
 	        <mapping path="/vaginal/secret"/>
 	        <mapping path="/information/*"/>
+	        <mapping path="/root/page"/>
+	        <mapping path="/root/product/*"/>
 	        <beans:ref bean="authInterceptor"/>
 	    </interceptor>
 	    <interceptor>

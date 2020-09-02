@@ -16,6 +16,8 @@ import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.ContentsizetextVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.ThumbnailVo;
 
 @Service
@@ -74,7 +76,24 @@ public class ProductServiceImp implements ProductService {
 		String today = dateForm.format(new Date());
 		for(int i = 0; i < optionCode.length; i++) {
 			proDao.insertShoppingBasket(id, enrollmentNum, optionCode[i], purchase[i], today);
-			proDao.updateOptionPurchase(optionCode[i], purchase[i]);
+			proDao.updateDecOptionPurchase(optionCode[i], purchase[i]);
+		}
+	}
+
+	@Override
+	public void insertPurchase(String id) {
+		proDao.insertPurchase(id);
+	}
+
+	@Override
+	public void insertPurchaseListBasket(String id, int[] shoppingNum, int[] purchase) {
+		PurchaselistVo list = new PurchaselistVo();
+		int purchaseNum = proDao.getPurchaseNum(id);
+		for(int i = 0; i < shoppingNum.length; i++) {
+			list.setPurchaseNum(purchaseNum);
+			list.setShoppingNum(shoppingNum[i]);
+			list.setPurchase(purchase[i]);
+			proDao.insertPurchaseListBasket(list);
 		}
 	}
 

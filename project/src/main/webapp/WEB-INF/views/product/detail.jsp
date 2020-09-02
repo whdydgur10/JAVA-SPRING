@@ -87,6 +87,15 @@
 		right:0;
 		top: 0;
 	}
+	.goTop{
+		width:300px;
+		display: none;
+		position: fixed;
+		right:12%;
+		bottom:70px;
+		text-align: center;
+		cursor: pointer;
+	}
 	.white{
 	background-color: white;
 	}
@@ -172,7 +181,7 @@
         padding: 20px;
         border: 1px solid #888;
         width: 30%; /* Could be more or less, depending on screen size */
-        height: 120px;                     
+        min-height: 120px;                     
     }
     /* The Close Button */
     .close {
@@ -362,6 +371,7 @@
 				</a>
 			</div>
 		</div>
+		<a class="goTop"><i class="far fa-hand-pointer">맨 위로</i></a>
 	</div>
 </div>
 <!-- The Modal -->
@@ -370,8 +380,10 @@
     <!-- Modal content -->
     <div class="modal-content">
         <span class="close" onclick="close()">&times;</span>
-        <p>장바구니에 담겼습니다.</p>                                                           
-        <p>상품들을 더 보시겠습니까?</p>
+        <div style="padding-bottom:20px;">
+        	<p>장바구니에 담겼습니다.</p>                                                           
+        	<p>상품들을 더 보시겠습니까?</p>
+        </div>
         <button type="button" id="yes">예</button>
     	<button type="button" id="no">아니오</button>
 	</div>
@@ -401,7 +413,6 @@
 	</script>
 </c:if>
 <script>
-//Get the modal
 	var modal = document.getElementById('myModal');
 	var span = document.getElementsByClassName("close")[0];          
 	span.onclick = function() {
@@ -451,13 +462,23 @@
 		log(height);
 	});
 	function log(str){
-	    if(str > (allHeight - 760)) {
-		    $('.adBox').css({'position':'absolute','right':'0','top':allHeight - 800});
-	    }else if(str > 60)
-	    	$('.adBox').css({'position':'fixed','right':'12%','top':'130px'});
-	    else if(str < 60)
+	    if(str > (allHeight - 800)) {
+		    $('.adBox').css({'position':'absolute','right':'0','top':allHeight - 900});
+		    $('.goTop').css({'position':'absolute','right':'0','bottom':-(allHeight -1000)});
+	    }else if(str > 150){
+	    	$('.adBox').css({'position':'fixed','right':'12%','top':'50px'});
+	    	$('.goTop').css({'position':'fixed','right':'12%','bottom':'70px'});
+	    	$('.goTop').css('display','inline-block');
+		}
+	    else if(str < 240){
 	    	$('.adBox').css({'position':'absolute','right':'0','top':'0'});
+	    	$('.goTop').css('display','none');
+		}
+	    	
 	}
+	$('.goTop').click(function() {
+        $('html, body').animate({scrollTop : 0}, 400);
+    });
 	var allPurchase;
 	var codeL = [];
 	var colorL = [];
@@ -470,19 +491,20 @@
 	var list2;
 	var index;
 	var purchase;
-	$.ajax({
-		async:true,
-		type:'POST',
-		data:code,
-		url:"<%=request.getContextPath()%>/enrollment/colorBox",
-		dataType:"json",
-		contentType:"application/json; charset=UTF-8",
-		success : function(data){
-			for(i = 0; i < data['color'].length;i++){
-				$('.colorInformBox').append(data['color'][i]);
-			}
-	    }
-	});
+	if($('#code').val() != '')
+		$.ajax({
+			async:true,
+			type:'POST',
+			data:code,
+			url:"<%=request.getContextPath()%>/enrollment/colorBox",
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function(data){
+				for(i = 0; i < data['color'].length;i++){
+					$('.colorInformBox').append(data['color'][i]);
+				}
+		    }
+		});
 	function allPrice(){
 		allPurchase = 0;
 		for(i = 0; i < $('.productBox').length; i++){

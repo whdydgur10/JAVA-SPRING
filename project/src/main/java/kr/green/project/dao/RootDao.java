@@ -55,11 +55,9 @@ public interface RootDao {
 
 	ProductenrollmentVo getProductenrollment(@Param("num")int num);
 
-	ProductenrollmentVo getEnrollmentString(@Param("productCode")String productCode);
-
 	ArrayList<OptionVo> getOptionSizeColor(@Param("productCode")String productCode, @Param("color")String color);
 
-	void updateTitle(@Param("enrollment")ProductenrollmentVo enrollment, @Param("enrollmentNum")int enrollmentNum);
+	void insertTitle(@Param("enrollment")ProductenrollmentVo enrollment, @Param("enrollmentNum")int enrollmentNum);
 
 	void insertThumnailImage(@Param("enrollmentNum")int enrollmentNum, @Param("fileName")String fileName);
 
@@ -76,5 +74,18 @@ public interface RootDao {
 	String getImage(@Param("imageNum")int imageNum, @Param("table")String table);
 
 	void deleteImage(@Param("imageNum")int imageNum, @Param("table")String table);
+
+	void updateContentsize(@Param("enrollmentNum")int enrollmentNum, @Param("contentChest")String contentChest, @Param("contentLength")String contentLength, 
+			@Param("contentShoulder")String contentShoulder, @Param("contentSize")String contentSize, @Param("contentSleeve")String contentSleeve);
+
+	void updateContentSizeText(@Param("enrollmentNum")int enrollmentNum, @Param("contentSizeText")String contentSizeText);
+
+	void updateContentremark(@Param("enrollmentNum")int enrollmentNum, @Param("contentremark")ContentremarkVo contentremark);
+
+	ProductenrollmentVo getIsEnrollment(@Param("productCode")String productCode);
+
+	void deleteEnroll(@Param("enrollNum")String enrollNum);
+
+	void updateEnrollment(@Param("enroll")ProductenrollmentVo enroll);
 
 }
