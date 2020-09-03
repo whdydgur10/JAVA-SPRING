@@ -37,7 +37,6 @@ public class DateCount {
 			long diffDays = diff / (24 * 60 * 60 * 1000);
 			if(diffDays > 7)
 				infoDao.deleteShoppingBasket(tmp.getShoppingNum());
-			System.out.println(diffDays);
 		}
 	}
 }

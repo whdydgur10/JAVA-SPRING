@@ -71,18 +71,19 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public void insertShoppingBasket(String id, String enrollmentNum, String[] optionCode, String[] purchase) {
+	public void insertShoppingBasket(String id, int enrollNum, String optionCode, int purchase) {
 		SimpleDateFormat  dateForm = new SimpleDateFormat("yyyy-MM-dd");
 		String today = dateForm.format(new Date());
-		for(int i = 0; i < optionCode.length; i++) {
-			proDao.insertShoppingBasket(id, enrollmentNum, optionCode[i], purchase[i], today);
-			proDao.updateDecOptionPurchase(optionCode[i], purchase[i]);
-		}
+		proDao.insertShoppingBasket(id, enrollNum, optionCode, purchase, today);
+		proDao.updateDecOptionPurchase(optionCode, purchase);
 	}
 
 	@Override
 	public void insertPurchase(String id) {
-		proDao.insertPurchase(id);
+		PurchaseVo pu = new PurchaseVo();
+		pu.setUserId(id);
+		pu.setOrderDate(new Date());
+		proDao.insertPurchase(pu);
 	}
 
 	@Override
@@ -95,6 +96,29 @@ public class ProductServiceImp implements ProductService {
 			list.setPurchase(purchase[i]);
 			proDao.insertPurchaseListBasket(list);
 		}
+	}
+
+	@Override
+	public void insertPurchaseList(String id, PurchaselistVo purchase) {
+		int purchaseNum = proDao.getPurchaseNum(id);
+		proDao.insertPurchaseListOrder(purchaseNum, purchase);
+		proDao.updateDecOptionPurchase(purchase.getOptionCode(), purchase.getPurchase());
+	}
+
+	@Override
+	public PurchaseVo getPurchase(String id) {
+		int num = proDao.getPurchaseNum(id);
+		return proDao.getPurchaseTonum(num);
+	}
+
+	@Override
+	public ArrayList<PurchaselistVo> getPurchaseList(int num) {
+		return proDao.getPurchaselist(num);
+	}
+
+	@Override
+	public PurchaseVo getPurchase(int purchaseNum) {
+		return proDao.getPurchaseTonum(purchaseNum);
 	}
 
 	

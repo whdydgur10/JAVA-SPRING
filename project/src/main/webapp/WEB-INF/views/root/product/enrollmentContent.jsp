@@ -88,6 +88,9 @@
 		text-align:center;
 		margin-bottom: 20px;
 	}
+	.sizeInformBox input{
+		height:30px;
+	}
 </style>
 <div class="mainBox" style="width:1100px;margin:20px auto;">
 	<form method="post" enctype="multipart/form-data">

@@ -190,8 +190,8 @@ public class InformationController {
 	public ModelAndView shoppingBasketInformationpost(ModelAndView mv, HttpServletRequest h, int[] shoppingNum, int[] purchase){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
 		if(shoppingNum !=null) {
-			pros.insertPurchase(user.getId());
-			pros.insertPurchaseListBasket(user.getId(),shoppingNum, purchase);
+//			pros.insertPurchase(user.getId());
+//			pros.insertPurchaseListBasket(user.getId(),shoppingNum, purchase);
 			mv.setViewName("redirect:/product/order");
 		}else
 			mv.setViewName("redirect:/information/shoppingBasket");

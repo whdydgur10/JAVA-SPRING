@@ -18,6 +18,8 @@ import kr.green.project.service.ProductService;
 import kr.green.project.service.RootService;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.UserVo;
 
 @Controller
@@ -52,34 +54,49 @@ public class ProductController {
 	    map.put("optionCode", op.getOptionCode());
 	    return map;
 	}
-
 	
-	@RequestMapping(value= "/product/detail", method = RequestMethod.POST)
-	public ModelAndView productDtailPost(ModelAndView mv, HttpServletRequest h, String enrollmentNum, String[] optionCode, String[] purchase, String where, ProductCri cri){
-		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		if(optionCode.length == 0)
-			mv.setViewName("/product/detail");
-		else if(where.equals("list")) {
-//			구매목록과 구매리스트와 구매로 보내기
-			mv.setViewName("redirect:/product/purchase");	
-		}
-		else {
-			pros.insertShoppingBasket(user.getId(), enrollmentNum, optionCode, purchase);
-			if(where.equals("goBasket")) {
-				mv.setViewName("/product/shoppingBasket");
-			}
-			else if(where.equals("noBasket")) {
-				mv.setViewName("redirect:/");
-			}
-		}
-	    return mv;
+	@RequestMapping("/insertPurchase")
+	public Map<Object, Object> insertPurchase(HttpServletRequest h){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user = (UserVo)h.getSession().getAttribute("user");
+	    pros.insertPurchase(user.getId());
+	    return map;
 	}
 	
+	@RequestMapping("/insertPurchaseList")
+	@ResponseBody
+	public Map<Object, Object> insertPurchaseList(@RequestBody PurchaselistVo purchase, HttpServletRequest h){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user = (UserVo)h.getSession().getAttribute("user");
+	    pros.insertPurchaseList(user.getId(), purchase);
+	    return map;
+	}
+//	jsp와 정보를 주고받을 때는 @~~Body를 이용해야하고 자체적으로 정보를 사용할 때는 없앤다.
+	
+	@RequestMapping("/insertShoppingBasket")
+	@ResponseBody
+	public Map<Object, Object> insertShoppingBasket(@RequestBody PurchaselistVo purchase, HttpServletRequest h){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user = (UserVo)h.getSession().getAttribute("user");
+	    pros.insertShoppingBasket(user.getId(), purchase.getEnrollNum(), purchase.getOptionCode(), purchase.getPurchase());
+	    return map;
+	}
+	
+//	@RequestBody는 하나만
+	
 	@RequestMapping(value= "/product/order", method = RequestMethod.GET)
-	public ModelAndView productOrderGet(ModelAndView mv, HttpServletRequest h){
+	public ModelAndView productOrderGet(ModelAndView mv, HttpServletRequest h, ProductCri cri, PurchaseVo purchase){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		mv.addObject("", "");
-		mv.addObject("", "");
+		mv.addObject("cri", cri);
+		if(purchase == null) {
+			purchase = pros.getPurchase(user.getId());
+			mv.addObject("purchase", purchase);
+			mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
+		}else {
+			purchase = pros.getPurchase(purchase.getNum());
+			mv.addObject("purchase", purchase);
+			mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
+		}
 //		내려줄 정보는 장바구니나 바로 구매를 통해 나온 리스트, 개인 사용가능 쿠폰, 사용가능 포인트, 배송지 정보
 		mv.setViewName("/product/order");
 	    return mv;

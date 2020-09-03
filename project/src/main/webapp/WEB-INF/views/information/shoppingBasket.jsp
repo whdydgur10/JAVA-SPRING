@@ -48,7 +48,7 @@
 										</a>
 										<input type="hidden" name="purchase" value="${list.purchase}">
 									</td>
-									<td style="width:130px;">${list.stringFinalPrice}</td>
+									<td style="width:130px;">${list.stringFinalPrice}원</td>
 									<td ><button class="btn-del" style="border:none;background:transparent;">X</button></td>
 								</tr>
 							</c:forEach>
@@ -69,12 +69,22 @@
 	$('thead input[type=checkbox]').click(function(){
 		check = $(this).prop('checked');
 		if(check == true){
-			$('tbody input[type=checkbox]').click();
-			$('tbody input[type=checkbox]').attr('name','shoppingNum');
+			for(i = 0; i < $('tbody input[type=checkbox]').length; i++){
+				index = $('tbody input[type=checkbox]')[i];
+				if($(index).prop('checked') == false){
+					$(index).click();
+					$(index).attr('name','shoppingNum');
+				}
+			}
 		}	
 		else if(check == false){
-			$('tbody input[type=checkbox]').prop('checked',false);
-			$('tbody input[type=checkbox]').removeAttr('name','shoppingNum');
+			for(i = 0; i < $('tbody input[type=checkbox]').length; i++){
+				index = $('tbody input[type=checkbox]')[i];
+				if($(index).prop('checked') == true){
+					$(index).prop('checked',false);
+					$(index).removeAttr('name','shoppingNum');
+				}
+			}
 			list = [];
 		}
 	})

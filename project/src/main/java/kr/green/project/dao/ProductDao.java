@@ -38,16 +38,22 @@ public interface ProductDao {
 
 	ArrayList<ShoppingbasketVo> getShoppingBasketList();
 
-	void insertShoppingBasket(@Param("userId")String id, @Param("enrollNum")String enrollmentNum, @Param("optionCode")String optionCode, @Param("purchase")String purchase, @Param("today")String today);
+	void insertShoppingBasket(@Param("userId")String id, @Param("enrollNum")int enrollNum, @Param("optionCode")String optionCode, @Param("purchase")int purchase, @Param("today")String today);
 
-	void updateDecOptionPurchase(@Param("optionCode")String optionCode, @Param("purchase")String purchase);
+	void updateDecOptionPurchase(@Param("optionCode")String optionCode, @Param("purchase")int purchase);
 
 	void updateIncOptionPurchase(@Param("optionCode")String optionCode, @Param("purchase")int purchase);
 
-	void insertPurchase(@Param("id")String id);
+	void insertPurchase(@Param("pu")PurchaseVo pu);
 
 	int getPurchaseNum(@Param("id")String id);
 
 	void insertPurchaseListBasket(@Param("list")PurchaselistVo list);
+
+	void insertPurchaseListOrder(@Param("purchaseNum")int purchaseNum, @Param("purchase")PurchaselistVo purchase);
+
+	PurchaseVo getPurchaseTonum(@Param("num")int num);
+
+	ArrayList<PurchaselistVo> getPurchaselist(@Param("num")int num);
 
 }

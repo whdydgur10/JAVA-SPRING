@@ -11,6 +11,7 @@ import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
 import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.ShoppingbasketVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;
@@ -80,5 +81,9 @@ public interface InformationDao {
 	ShoppingbasketVo getShoppingBasket(@Param("shoppingNum")int shoppingNum);
 
 	void deleteShoppingBasket(@Param("shoppingNum")int shoppingNum);
+
+	ArrayList<PurchaselistVo> getPurchaseListTonum(@Param("purchaseNum")int num);
+
+	String getEnrollmentMainTitle(@Param("enrollNum")int enrollNum);
 
 }

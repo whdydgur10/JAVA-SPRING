@@ -8,6 +8,7 @@ public class PurchaselistVo {
 	private int purchase;
 	private char isCancel;
 	private int shoppingNum;
+	private String optionCode;
 //	구매리스트번호 / 구매주문서번호 / 등록글번호 / 구매량 / 취소여부 / 장바구니번호
 	public int getListNum() {
 		return listNum;
@@ -46,10 +47,17 @@ public class PurchaselistVo {
 	public void setShoppingNum(int shoppingNum) {
 		this.shoppingNum = shoppingNum;
 	}
+	public String getOptionCode() {
+		return optionCode;
+	}
+	public void setOptionCode(String optionCode) {
+		this.optionCode = optionCode;
+	}
 	@Override
 	public String toString() {
-		return "purchaselistVo [listNum=" + listNum + ", purchaseNum=" + purchaseNum + ", enrollNum=" + enrollNum
-				+ ", purchase=" + purchase + ", isCancel=" + isCancel + ", shoppingNum=" + shoppingNum + "]";
+		return "PurchaselistVo [listNum=" + listNum + ", purchaseNum=" + purchaseNum + ", enrollNum=" + enrollNum
+				+ ", purchase=" + purchase + ", isCancel=" + isCancel + ", shoppingNum=" + shoppingNum + ", optionCode="
+				+ optionCode + "]";
 	}
 	
 }

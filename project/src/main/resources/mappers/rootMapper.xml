@@ -138,35 +138,35 @@
   		select subCategory from category where mainCategory = #{category.mainCategory} and middleCategory = #{category.middleCategory} group by subCategory
   	</select>
   	<insert id="insertEnrollment">
-  		insert into proejct.productenrollment(productCode, discount, categoryNum, finalPrice, discountPercent) values(#{enrollment.productCode}, #{enrollment.discount}, #{enrollment.categoryNum}, #{enrollment.finalPrice}, #{enrollment.discountPercent})
+  		insert into project.productenrollment(productCode, discount, categoryNum, finalPrice, discountPercent) values(#{enrollment.productCode}, #{enrollment.discount}, #{enrollment.categoryNum}, #{enrollment.finalPrice}, #{enrollment.discountPercent})
   	</insert>
   	<select id="getCategoryNum" resultType="int">
   		select categoryNum from category where mainCategory = #{category.mainCategory} and middleCategory = #{category.middleCategory} and subCategory = #{category.subCategory}
   	</select>
   	<select id="getProductenrollment" resultType="kr.green.project.vo.ProductenrollmentVo">
-  		select * from proejct.productenrollment where num = #{num}
+  		select * from project.productenrollment where num = #{num}
   	</select>
   	<select id="getEnrollmentString" resultType="kr.green.project.vo.ProductenrollmentVo">
-  		select * from proejct.productenrollment where productCode = #{productCode}
+  		select * from project.productenrollment where productCode = #{productCode}
   	</select>
   	<select id="getOptionSizeColor" resultType="kr.green.project.vo.OptionVo">
   		select size, productCode, sizeNum, amount from project.option where productCode = #{productCode} and color = #{color} order by sizeNum
   	</select>
   	<update id="insertTitle">
-  		update proejct.productenrollment set mainTitle = #{enrollment.mainTitle}, subTitle = #{enrollment.subTitle}, isDel = 'N' where num = #{enrollmentNum}
+  		update project.productenrollment set mainTitle = #{enrollment.mainTitle}, subTitle = #{enrollment.subTitle}, isDel = 'N' where num = #{enrollmentNum}
   	</update>
   	<insert id="insertThumnailImage">
-  		insert into proejct.thumbnail(enrollmentNum, thumbnailImage) values(#{enrollmentNum}, #{fileName})
+  		insert into project.thumbnail(enrollmentNum, thumbnailImage) values(#{enrollmentNum}, #{fileName})
   	</insert>
   	<insert id="insertContentImage">
-  		insert into proejct.contentimage(enrollmentNum, contentImage) values(#{enrollmentNum}, #{fileName})
+  		insert into project.contentimage(enrollmentNum, contentImage) values(#{enrollmentNum}, #{fileName})
   	</insert>
   	<insert id="insertContentremark">
-  		insert into proejct.contentremark(contentElasticity, contentLining, contentSeethrough, contentThickness, contentWeight, contentDry, contentRemarkText, enrollmentNum) 
+  		insert into project.contentremark(contentElasticity, contentLining, contentSeethrough, contentThickness, contentWeight, contentDry, contentRemarkText, enrollmentNum) 
   			values(#{remark.contentElasticity}, #{remark.contentLining}, #{remark.contentSeethrough}, #{remark.contentThickness}, #{remark.contentWeight}, #{remark.contentDry}, #{remark.contentRemarkText}, #{enrollmentNum})
   	</insert>
   	<insert id="insertContentsize">
-  		insert into proejct.contentsize(contentSize, contentLength, contentShoulder, contentChest, contentSleeve, enrollmentNum)
+  		insert into project.contentsize(contentSize, contentLength, contentShoulder, contentChest, contentSleeve, enrollmentNum)
   			values(#{size.contentSize}, #{size.contentLength}, #{size.contentShoulder}, #{size.contentChest}, #{size.contentSleeve}, #{enrollmentNum})
   	</insert>
   	<insert id="insertContentSizeText">

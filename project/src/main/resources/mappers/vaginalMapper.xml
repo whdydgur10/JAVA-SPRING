@@ -4,14 +4,14 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.project.dao.VaginalDao">
 	<select id="getVaginalList" resultType="kr.green.project.dto.UserVaginalDto">
-		select * from proejct.vaginal
+		select * from project.vaginal
 					join (select * from user) as user
 					where vaginal.userId = user.id
 					order by num desc
 					limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getUserVaginal" resultType="kr.green.project.dto.UserVaginalDto">
-		select * from proejct.vaginal 
+		select * from project.vaginal 
 						join (select * from user) as user
 						on vaginal.userId = user.id
 						where num = #{num}
@@ -20,24 +20,24 @@
 		select * from answer where vaginalNum = #{num}
 	</select>
 	<update id="increaseView">
-		update proejct.vaginal set view = view + 1 where num = #{num}
+		update project.vaginal set view = view + 1 where num = #{num}
 	</update>
 	<insert id="insertVaginal">
-		insert into proejct.vaginal(num, title, registerDate, isSecret, userId, content, registerNum) values(#{vaginal.num}, #{vaginal.title}, #{vaginal.registerDate}, #{vaginal.isSecret}, #{id}, #{vaginal.content}, #{vaginal.registerNum})
+		insert into project.vaginal(num, title, registerDate, isSecret, userId, content, registerNum) values(#{vaginal.num}, #{vaginal.title}, #{vaginal.registerDate}, #{vaginal.isSecret}, #{id}, #{vaginal.content}, #{vaginal.registerNum})
 	</insert>
 	<select id="countVaginalAuth" resultType="int">
-		select count(*) from vaginal
+		select count(*) from project.vaginal
 							join (select * from user) as user
 							on vaginal.userId = user.id
 							where user.auth = 0
 	</select>
 	<select id="countVaginalA" resultType="int">
-		select count(*) from vaginal
+		select count(*) from project.vaginal
 							join (select * from user) as user
 							on vaginal.userId = user.id
 							where user.auth = 1
 	</select>
 	<select id="countVaginal" resultType="int">
-		select count(*) from proejct.vaginal
+		select count(*) from project.vaginal
 	</select>
 </mapper>

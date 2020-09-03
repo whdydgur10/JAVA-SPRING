@@ -13,6 +13,7 @@ import kr.green.project.dao.ProductDao;
 import kr.green.project.dao.RootDao;
 import kr.green.project.dao.UserDao;
 import kr.green.project.dto.LevelPointDto;
+import kr.green.project.dto.PurchaseDto;
 import kr.green.project.dto.ShopEnrollProOptionThumbDto;
 import kr.green.project.dto.UserInformDto;
 import kr.green.project.vo.AddressVo;
@@ -21,6 +22,7 @@ import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
 import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.ShoppingbasketVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;
@@ -176,10 +178,26 @@ public class InformationServiceImp implements InformationService {
 	}
 
 	@Override
-	public ArrayList<PurchaseVo> getPurchaseList(String id) {
-		return infoDao.getPurchaseList(id);
+	public ArrayList<PurchaseDto> getPurchaseList(String id) {
+		
+		ArrayList<PurchaseDto> pudList = new ArrayList<PurchaseDto>();
+		ArrayList<PurchaseVo> pu = infoDao.getPurchaseList(id);
+		String str = " ";
+		if(pu != null) {
+			for(PurchaseVo tmp : pu) {
+				ArrayList<PurchaselistVo> puList = infoDao.getPurchaseListTonum(tmp.getNum());
+				if(puList != null)
+					for(PurchaselistVo pv : puList) {
+						int enrollNum = pv.getEnrollNum();
+						str = str + infoDao.getEnrollmentMainTitle(enrollNum);
+					}
+				PurchaseDto pud = new PurchaseDto(tmp.getNum(), tmp.getUserId(), tmp.getDeposit(), tmp.getDepositDate(), tmp.getIsPoint(), tmp.getIsCoupon(), tmp.getSituation(), tmp.getIsConfirm(), tmp.getConfirmDate(), tmp.getPrice(), tmp.getDiscountPrice()
+						, tmp.getDeliveryPrice(), tmp.getUsePoint(), tmp.getOrderDate(), tmp.getIsDel(), str);
+				pudList.add(pud);	
+			}
+		}
+		return pudList;
 	}
-
 	@Override
 	public ArrayList<VaginalVo> getVaginalList(String id) {
 		return infoDao.getVaginalList(id);

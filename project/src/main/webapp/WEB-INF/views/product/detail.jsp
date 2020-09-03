@@ -233,10 +233,9 @@
 		<form method="post" style="margin-top:20px;">
 			<div class="setProductBox" style="width:500px;float:left;padding-left:100px;">
 				<div class="setProductBoxHead">
-				<span>${enrollment.subTitle}</span>
+				<h3>${enrollment.subTitle}</h3>
 				<span style="font-size:20px;">${product.code}</span>
 				<input type="hidden" id="code" value="${product.code}" >
-				<input type="hidden" id="code" name="enrollmentNum" value="${enrollment.num}" >
 					<hr><br>
 					<c:if test="${enrollment.discount == 0}"><span style="color:red;">${product.stringPrice}원</span></c:if>
 					<c:if test="${enrollment.discount != 0}"><span style="color:red;">${enrollment.stringFinalPrice}원</span><span style="color:gray;text-decoration:line-through;margin-left:10px;">${product.stringPrice}원</span><span class="discount" style="font-size:15px;float:right;margin-top:10px;">${enrollment.discountPercent}% 할인</span></c:if>
@@ -253,16 +252,14 @@
 						<option value="" selected>사이즈</option>
 					</select>
 					<div class="allPriceBox" style="margin-bottom:15px;"><span>총 상품금액 : <span class="allPrice" style="font-size:25px;color:red;">0</span></span></div>
-					<button type="button" class="linkShoppingBasket">장바구니</button><button class="linkPurchaseList" type="button">구매하기</button>
-					<button type="submit" hidden="" class="btn-submit"></button>
-					<input type="hidden" class="linkWhere" name="where">
+					<button type="button" class="linkShoppingBasket">장바구니</button><a class="linkPurchaseList" href="<%=request.getContextPath()%>/product/order?mainCategory=${cri.mainCategory}">구매하기</a>
 				</div>
 			</div>
 		</form>
 		<div class="informationBox" style="width:100%;float:left;">
 			<h1 style="text-align:center;">상품정보</h1>
 			<div class="sizeInformBox">
-				<h3>사이즈</h3><input type="hidden" id="enrollmentNum" name="enrollmentNum" value="${enrollment.num }">
+				<h3>사이즈</h3><input type="hidden" id="enrollNum" name="enrollmentNum" value="${enrollment.num }">
 				<table class="table">
 					<thead>
 						<tr>
@@ -384,8 +381,8 @@
         	<p>장바구니에 담겼습니다.</p>                                                           
         	<p>상품들을 더 보시겠습니까?</p>
         </div>
-        <button type="button" id="yes">예</button>
-    	<button type="button" id="no">아니오</button>
+        <a href="<%=request.getContextPath()%>/?mainCategory=${cri.mainCategory}" id="yes">예</a>
+    	<a href="<%=request.getContextPath()%>/information/shoppingBasket" id="no">아니오</a>
 	</div>
 </div>
 <c:if test="${user == null}">
@@ -395,51 +392,85 @@
 		})
 		$('.linkPurchaseList').click(function(){
 			alert('로그인 후 이용해주세요.');
+			return false;
 		})
 	</script>
 </c:if>
 <c:if test="${user != null}">
 	<script>
 		$('.linkShoppingBasket').click(function(){
-			modal.style.display = "block";
+			if($('.allPrice').text() != 0){
+				modal.style.display = "block";
+				for(i = 0; i < optionCodeL.length; i++){
+					list = {"enrollNum":enrollNum, "optionCode":optionCodeL[i], "purchase":purchaseL[i]};
+					$.ajax({
+						async:true,
+						type:'POST',
+						data:JSON.stringify(list),
+						url:"<%=request.getContextPath()%>/insertShoppingBasket",
+						dataType:"json",
+						contentType:"application/json; charset=UTF-8",
+						success : function(data){
+					    }
+					});
+				}
+			}else{
+				alert('상품을 선택해주세요.');
+			}
 		})
 		$('.linkPurchaseList').click(function(){
 			if($('.allPrice').text() != 0){
-				$('.linkWhere').val('list');
-				$('.btn-submit').click();
-			}else
+				$.ajax({
+					async:false,
+					/*true 동시 할당, false 순차 할당  */
+					type:'POST',
+					url:"<%=request.getContextPath()%>/insertPurchase",
+					dataType:"json",
+					contentType:"application/json; charset=UTF-8",
+					success : function(data){
+				    }
+				});
+				for(i = 0; i < optionCodeL.length; i++){
+					list = {"enrollNum":enrollNum, "optionCode":optionCodeL[i], "purchase":purchaseL[i]};
+					$.ajax({
+						async:true,
+						type:'POST',
+						data:JSON.stringify(list),
+						url:"<%=request.getContextPath()%>/insertPurchaseList",
+						dataType:"json",
+						contentType:"application/json; charset=UTF-8",
+						success : function(data){
+					    }
+					});
+				}
+			}else{
 				alert('상품을 선택해주세요.');
+				return false;
+			}
 		})
 	</script>
 </c:if>
 <script>
+	
 	var modal = document.getElementById('myModal');
 	var span = document.getElementsByClassName("close")[0];          
 	span.onclick = function() {
 	    modal.style.display = "none";
 	}
 
-	function yes_close(obj){
+	/* function yes_close(obj){
 	    obj.click(function(){
 	    	modal.style.display = "none";
-	    	if($('.allPrice').text() != 0){
-	    		$('.linkWhere').val('noBasket');
-				$('.btn-submit').click();
-			}else
-				alert('상품을 선택해주세요.');
+	    	
 	    })
 	}
     
 	function no_close(obj){
 	    obj.click(function(){
 	    	modal.style.display = "none";
-	    	if($('.allPrice').text() != 0){
-	    		$('.linkWhere').val('goBasket');
-				$('.btn-submit').click();
-			}else
-				alert('상품을 선택해주세요.');
+	    	
 	    })
-	}
+	} */
 	
 	window.onclick = function(event) {
         if (event.target == modal) {
@@ -447,8 +478,8 @@
         }
     }
 
-	yes_close($('#yes'));
-	no_close($('#no'));
+	/* yes_close($('#yes'));
+	no_close($('#no')); */
 
 	setInterval(function(){
 	    $('.adImageBox').children().first().animate({'margin-left':'-300px'},1,function(){
@@ -483,6 +514,8 @@
 	var codeL = [];
 	var colorL = [];
 	var sizeL = [];
+	var optionCodeL = [];
+	var purchaseL = [];
 	var code = $('#code').val();
 	var color;
 	var size;
@@ -491,6 +524,8 @@
 	var list2;
 	var index;
 	var purchase;
+	var optionCode;
+	var enrollNum = $('#enrollNum').val();
 	if($('#code').val() != '')
 		$.ajax({
 			async:true,
@@ -559,6 +594,7 @@
 				contentType:"application/json; charset=UTF-8",
 				success : function(data){
 					$('.productBox').last().children('.optionCode').val(data['optionCode']);
+					optionCodeL.push(data['optionCode']);
 			    }
 			});
 			$('#color').val("");
@@ -567,6 +603,7 @@
 			codeL.push(code);
 			colorL.push(color);
 			sizeL.push(size);
+			purchaseL.push($('.purchase').val());
 			deleteBox($('.productBox').last().children('.deleteProduct'));
 			decPurchase($('.productBox').last().find('.decrease'));
 			incPurchase($('.productBox').last().find('.increase'));
@@ -582,6 +619,8 @@
 					codeL.splice(i, 1);
 					colorL.splice(i, 1);
 					sizeL.splice(i, 1);
+					optionCodeL.splice(i, 1);
+					purchaseL.splice(i, 1);
 					$(this).parent().remove();
 					allPrice();
 					break;
@@ -591,13 +630,18 @@
 	}
 	function decPurchase(obj){
 		obj.click(function(){
+			optionCode = $(this).parents().children('.optionCode').val();
 			purchase = parseInt($(this).parent().children('.showPurchase').text());
 			if (purchase <= 1)
 				return false;
-			else{
+			else{optionCode
 				purchase = purchase - 1;
 				$(this).parent().children('.showPurchase').text(purchase);
 				$(this).parent().children('.purchase').val(purchase);
+				for(i = 0; i < optionCodeL.length; i++){
+					if(optionCode == optionCodeL[i])
+						purchaseL.splice(i, 1, purchase);
+				}
 				list = {"productCode":code, "purchase":purchase};
 				$.ajax({
 					async:true,
@@ -616,6 +660,7 @@
 	}
 	function incPurchase(obj){
 		obj.click(function(){
+			optionCode = $(this).parents().children('.optionCode').val();
 			purchase = parseInt($(this).parent().children('.showPurchase').text());
 			color = obj.parents('.productBox').children('.color').val();
 			size = obj.parents('.productBox').children('.size').val();
@@ -630,6 +675,10 @@
 				success : function(data){
 					if(data['more'] == true){
 						purchase = purchase + 1;
+						for(i = 0; i < optionCodeL.length; i++){
+							if(optionCode == optionCodeL[i])
+								purchaseL.splice(i, 1, purchase);
+						}
 						obj.parent().children('.showPurchase').text(purchase);
 						obj.parent().children('.purchase').val(purchase);
 						list2 = {"productCode":code, "purchase":purchase};

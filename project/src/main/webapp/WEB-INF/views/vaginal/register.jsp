@@ -6,7 +6,7 @@
 	<c:if test="${user.auth == 0}">
 		<div class="form-group">
 			<label for="secret">공개글</label>
-			<input type="radio" id="secret" name="isSecret" value="Y">
+			<input type="radio" id="secret" name="isSecret" value="Y" checked>
 			<label for="secret">비밀글</label>
 			<input type="radio" id="secret" name="isSecret" value="Y">
 		</div>

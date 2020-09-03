@@ -9,6 +9,8 @@ import kr.green.project.vo.ContentimageVo;
 import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.ContentsizetextVo;
+import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.ThumbnailVo;
 
 public interface ProductService {
@@ -27,10 +29,18 @@ public interface ProductService {
 
 	ProductPage getProductPage(ProductCri cri);
 
-	void insertShoppingBasket(String id, String enrollmentNum, String[] optionCode, String[] purchase);
+	void insertShoppingBasket(String id, int enrollNum, String optionCode, int purchase);
 
 	void insertPurchase(String id);
 
 	void insertPurchaseListBasket(String id, int[] shoppingNum, int[] purchase);
+
+	void insertPurchaseList(String id, PurchaselistVo purchase);
+
+	PurchaseVo getPurchase(String id);
+
+	ArrayList<PurchaselistVo> getPurchaseList(int num);
+
+	PurchaseVo getPurchase(int purchaseNum);
 	
 }

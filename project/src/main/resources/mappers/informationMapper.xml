@@ -10,12 +10,10 @@
 		select count(*) from coupon where userId = #{id}
 	</select>
 	<select id="getPurchaseListNum" resultType="int">
-		select count(*) from purchaseList
-							join (select * from purchase where userId = #{id}) as pc
-							where purchaseNum = pc.num
+		select count(*) from purchase where userId = #{id}
 	</select>
 	<select id="getVaginalNum" resultType="int">
-		select count(*) from proejct.vaginal where userId = #{id}
+		select count(*) from project.vaginal where userId = #{id}
 	</select>
 	<select id="getShoppingBasketNum" resultType="int">
 		select count(*) from shoppingBasket where userId = #{id} and isPurchase = 'N'
@@ -88,13 +86,13 @@
 		select * from purchase where userId = #{id} order by num DESC
 	</select>
 	<select id="getVaginalList" resultType="kr.green.project.vo.VaginalVo">
-		select * from proejct.vaginal where userId = #{id} order by num DESC
+		select * from project.vaginal where userId = #{id} order by num DESC
 	</select>
 	<select id="getShoppingBasketList" resultType="kr.green.project.vo.ShoppingbasketVo">
-		select * from proejct.shoppingbasket where userId = #{id} and isPurchase = 'N' order by shoppingNum desc
+		select * from project.shoppingbasket where userId = #{id} and isPurchase = 'N' order by shoppingNum desc
 	</select>
 	<select id="getShopEnrollProOptionThumbDto" resultType="kr.green.project.dto.ShopEnrollProOptionThumbDto">
-		select * from proejct.productenrollment
+		select * from project.productenrollment
 				join(select min(thumbnailNum), thumbnailImage from thumbnail where enrollmentNum = ${enrollNum}) as thumb
                 join(select size, color from project.option where optionCode = #{optionCode}) as op
                 where productenrollment.num = ${enrollNum};
@@ -103,9 +101,15 @@
 		select * from category where categoryNum = #{categoryNum}
 	</select>
 	<select id="getShoppingBasket" resultType="kr.green.project.vo.ShoppingbasketVo">
-		select * from proejct.shoppingbasket where shoppingNum = #{shoppingNum}
+		select * from project.shoppingbasket where shoppingNum = #{shoppingNum}
 	</select>
 	<update id="deleteShoppingBasket">
-		update proejct.shoppingbasket set isPurchase = 'Y' where shoppingNum = #{shoppingNum}
+		update project.shoppingbasket set isPurchase = 'Y' where shoppingNum = #{shoppingNum}
 	</update>
+	<select id="getPurchaseListTonum" resultType="kr.green.project.vo.PurchaselistVo">
+		select * from project.purchaselist where purchaseNum = #{purchaseNum}
+	</select>
+	<select id="getEnrollmentMainTitle" resultType="String">
+		select mainTitle from project.productenrollment where num = #{enrollNum}
+	</select>
 </mapper>

@@ -20,6 +20,7 @@ public class PurchaseVo {
 	private int deliveryPrice;
 	private int usePoint;
 	private Date orderDate;
+	private char isDel;
 //	구매번호 / 회원아이디 / 입금여부 / 입금남은날 / 포인트사용여부 / 쿠폰사용여부 / 물품발송상황 / 확정여부 / 확정남은날 / 총금액 / 할인금 / 배송비 / 사용한 포인트 / 주문날짜
 	public int getNum() {
 		return num;
@@ -40,6 +41,8 @@ public class PurchaseVo {
 		this.deposit = deposit;
 	}
 	public String getDepositDate() {
+		if(depositDate == null)
+			return "";
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String to = transFormat.format(depositDate);
 		return to;
@@ -80,6 +83,8 @@ public class PurchaseVo {
 		this.isConfirm = isConfirm;
 	}
 	public String getConfirmDate() {
+		if(confirmDate == null)
+			return "";
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String to = transFormat.format(confirmDate);
 		return to;
@@ -120,6 +125,8 @@ public class PurchaseVo {
 		this.usePoint = usePoint;
 	}
 	public String getOrderDate() {
+		if(orderDate == null)
+			return "";
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String to = transFormat.format(orderDate);
 		return to;
@@ -135,12 +142,19 @@ public class PurchaseVo {
 			e.printStackTrace();
 		}
 	}
+	public char getIsDel() {
+		return isDel;
+	}
+	public void setIsDel(char isDel) {
+		this.isDel = isDel;
+	}
 	@Override
 	public String toString() {
 		return "PurchaseVo [num=" + num + ", userId=" + userId + ", deposit=" + deposit + ", depositDate=" + depositDate
 				+ ", isPoint=" + isPoint + ", isCoupon=" + isCoupon + ", situation=" + situation + ", isConfirm="
 				+ isConfirm + ", confirmDate=" + confirmDate + ", price=" + price + ", discountPrice=" + discountPrice
-				+ ", deliveryPrice=" + deliveryPrice + ", usePoint=" + usePoint + ", orderDate=" + orderDate + "]";
+				+ ", deliveryPrice=" + deliveryPrice + ", usePoint=" + usePoint + ", orderDate=" + orderDate
+				+ ", isDel=" + isDel + "]";
 	}
 	
 	public int getPricePoint() {
