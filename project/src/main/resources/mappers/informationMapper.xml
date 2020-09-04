@@ -112,4 +112,10 @@
 	<select id="getEnrollmentMainTitle" resultType="String">
 		select mainTitle from project.productenrollment where num = #{enrollNum}
 	</select>
+	<select id="getPointPercent" resultType="double">
+		select point from level 
+				join point
+                on level.level = point.level
+                where userId = #{id};
+	</select>
 </mapper>

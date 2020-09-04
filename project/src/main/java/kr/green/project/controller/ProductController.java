@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.project.pagination.ProductCri;
+import kr.green.project.service.InformationService;
 import kr.green.project.service.ProductService;
 import kr.green.project.service.RootService;
 import kr.green.project.vo.OptionVo;
@@ -29,6 +30,8 @@ public class ProductController {
 	ProductService pros;
 	@Autowired
 	RootService roots;
+	@Autowired
+	InformationService infos;
 	
 	@RequestMapping(value= "/product/detail", method = RequestMethod.GET)
 	public ModelAndView productDtailGet(ModelAndView mv, String productCode, ProductCri cri){
@@ -88,17 +91,62 @@ public class ProductController {
 	public ModelAndView productOrderGet(ModelAndView mv, HttpServletRequest h, ProductCri cri, PurchaseVo purchase){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
 		mv.addObject("cri", cri);
-		if(purchase == null) {
+		if(purchase.getNum() == 0) {
 			purchase = pros.getPurchase(user.getId());
-			mv.addObject("purchase", purchase);
-			mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
+			if(!purchase.getUserId().equals(user.getId()))
+				mv.setViewName("redirect:/");
+			else {
+				mv.addObject("purchase", purchase);
+				mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
+				mv.setViewName("/product/order");
+			}
 		}else {
 			purchase = pros.getPurchase(purchase.getNum());
-			mv.addObject("purchase", purchase);
-			mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
+			if(!purchase.getUserId().equals(user.getId()))
+				mv.setViewName("redirect:/");
+			else {
+				mv.addObject("purchase", purchase);
+				mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
+				mv.setViewName("/product/order");
+			}
 		}
 //		내려줄 정보는 장바구니나 바로 구매를 통해 나온 리스트, 개인 사용가능 쿠폰, 사용가능 포인트, 배송지 정보
-		mv.setViewName("/product/order");
 	    return mv;
+	}
+	
+	@RequestMapping("/purchasePrice")
+	@ResponseBody
+	public Map<Object, Object> purchasePrice(@RequestBody int purchaseNum){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    int price = pros.getPurchasePrice(purchaseNum);
+	    map.put("price", String.format("%,d", price));
+	    return map;
+	}
+	
+	@RequestMapping("/deliveryPrice")
+	@ResponseBody
+	public Map<Object, Object> deliveryPrice(@RequestBody int purchaseNum){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    int price = pros.getDeliveryPrice(purchaseNum);
+	    map.put("price", String.format("%,d", price));
+	    return map;
+	}
+	
+	@RequestMapping("/couponCount")
+	@ResponseBody
+	public Map<Object, Object> couponCount(HttpServletRequest h){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user = (UserVo)h.getSession().getAttribute("user");
+	    map.put("count", infos.getCouponNum(user.getId()));
+	    return map;
+	}
+	
+	@RequestMapping("/pointPercent")
+	@ResponseBody
+	public Map<Object, Object> pointPercent(HttpServletRequest h){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user = (UserVo)h.getSession().getAttribute("user");
+	    map.put("point", infos.getPointPercent(user.getId()));
+	    return map;
 	}
 }

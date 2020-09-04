@@ -7,10 +7,14 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.green.project.dao.InformationDao;
 import kr.green.project.dao.ProductDao;
+import kr.green.project.dao.RootDao;
 import kr.green.project.dto.EnrollmentThumbnailDto;
+import kr.green.project.dto.ShopEnrollProOptionThumbDto;
 import kr.green.project.pagination.ProductCri;
 import kr.green.project.pagination.ProductPage;
+import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.ContentimageVo;
 import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.ContentsizeVo;
@@ -25,6 +29,10 @@ public class ProductServiceImp implements ProductService {
 
 	@Autowired
 	ProductDao proDao;
+	@Autowired
+	RootDao rootDao;
+	@Autowired
+	InformationDao infoDao;
 	
 	
 	@Override
@@ -87,18 +95,6 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public void insertPurchaseListBasket(String id, int[] shoppingNum, int[] purchase) {
-		PurchaselistVo list = new PurchaselistVo();
-		int purchaseNum = proDao.getPurchaseNum(id);
-		for(int i = 0; i < shoppingNum.length; i++) {
-			list.setPurchaseNum(purchaseNum);
-			list.setShoppingNum(shoppingNum[i]);
-			list.setPurchase(purchase[i]);
-			proDao.insertPurchaseListBasket(list);
-		}
-	}
-
-	@Override
 	public void insertPurchaseList(String id, PurchaselistVo purchase) {
 		int purchaseNum = proDao.getPurchaseNum(id);
 		proDao.insertPurchaseListOrder(purchaseNum, purchase);
@@ -112,14 +108,50 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<PurchaselistVo> getPurchaseList(int num) {
-		return proDao.getPurchaselist(num);
-	}
-
-	@Override
 	public PurchaseVo getPurchase(int purchaseNum) {
 		return proDao.getPurchaseTonum(purchaseNum);
 	}
+	
+	@Override
+	public ArrayList<ShopEnrollProOptionThumbDto> getPurchaseList(int purchaseNum) {
+		ArrayList<PurchaselistVo> list = proDao.getPurchaseList(purchaseNum);
+		ArrayList<ShopEnrollProOptionThumbDto> list2 = new ArrayList<ShopEnrollProOptionThumbDto>();
+		for(PurchaselistVo tmp : list) {
+			ShopEnrollProOptionThumbDto shop = infoDao.getShopEnrollProOptionThumbDto(tmp.getEnrollNum(), tmp.getOptionCode());
+			ProductenrollmentVo enroll = rootDao.getProductenrollment(tmp.getEnrollNum());
+			CategoryVo category = infoDao.getCategory(enroll.getCategoryNum());
+			shop.setShoppingNum(tmp.getShoppingNum());
+			shop.setPurchase(tmp.getPurchase());
+			shop.setMainCategory(category.getMainCategory());
+			shop.setOptionCode(tmp.getOptionCode());
+			shop.setEnrollNum(tmp.getEnrollNum());
+			list2.add(shop);
+		}
+		return list2;
+	}
+
+	@Override
+	public int getPurchasePrice(int purchaseNum) {
+		ArrayList<PurchaselistVo> list = proDao.getPurchaseList(purchaseNum);
+		int res = 0;
+		for(PurchaselistVo tmp : list) {
+			ProductenrollmentVo enroll = rootDao.getProductenrollment(tmp.getEnrollNum());
+			int price = enroll.getFinalPrice() * tmp.getPurchase();
+			res = res + price;
+		}
+		int deli = 0;
+		if(res < 50000)
+			deli = 2500;
+		proDao.updatePurchasePrice(res, purchaseNum, deli);
+		return res;
+	}
+
+	@Override
+	public int getDeliveryPrice(int purchaseNum) {
+		return proDao.getDeliveryPrice(purchaseNum);
+	}
+
+	
 
 	
 }

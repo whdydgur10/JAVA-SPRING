@@ -179,7 +179,6 @@ public class InformationServiceImp implements InformationService {
 
 	@Override
 	public ArrayList<PurchaseDto> getPurchaseList(String id) {
-		
 		ArrayList<PurchaseDto> pudList = new ArrayList<PurchaseDto>();
 		ArrayList<PurchaseVo> pu = infoDao.getPurchaseList(id);
 		String str = " ";
@@ -214,6 +213,8 @@ public class InformationServiceImp implements InformationService {
 			shop.setShoppingNum(tmp.getShoppingNum());
 			shop.setPurchase(tmp.getPurchase());
 			shop.setMainCategory(category.getMainCategory());
+			shop.setOptionCode(tmp.getOptionCode());
+			shop.setEnrollNum(tmp.getEnrollNum());
 			list2.add(shop);
 		}
 		return list2;
@@ -234,5 +235,20 @@ public class InformationServiceImp implements InformationService {
 		proDao.updateIncOptionPurchase(shop.getOptionCode(), shop.getPurchase());
 	}
 
-	
+	@Override
+	public void insertPurchaseListBasket(String id, PurchaselistVo purchase) {
+		int purchaseNum = proDao.getPurchaseNum(id);
+		infoDao.deleteShoppingBasket(purchase.getShoppingNum());
+		proDao.insertPurchaseListBasket(purchaseNum, purchase);
+	}
+
+	@Override
+	public int getCouponNum(String id) {
+		return infoDao.getCouponNum(id);
+	}
+
+	@Override
+	public Double getPointPercent(String id) {
+		return infoDao.getPointPercent(id);
+	}
 }

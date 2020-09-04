@@ -86,4 +86,6 @@ public interface InformationDao {
 
 	String getEnrollmentMainTitle(@Param("enrollNum")int enrollNum);
 
+	Double getPointPercent(@Param("id")String id);
+
 }

@@ -12,6 +12,7 @@ import kr.green.project.vo.AddressVo;
 import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
 import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;
 
@@ -66,5 +67,11 @@ public interface InformationService {
 	ShopEnrollProOptionThumbDto getShopEnrollProOptionThumb(int shoppingNum);
 
 	void deleteShoppingBasket(int shoppingNum);
+
+	void insertPurchaseListBasket(String id, PurchaselistVo purchase);
+
+	int getCouponNum(String id);
+
+	Double getPointPercent(String id);
 
 }

@@ -60,6 +60,7 @@
 	        <mapping path="/information/*"/>
 	        <mapping path="/root/page"/>
 	        <mapping path="/root/product/*"/>
+	        <mapping path="/product/order"/>
 	        <beans:ref bean="authInterceptor"/>
 	    </interceptor>
 	    <interceptor>

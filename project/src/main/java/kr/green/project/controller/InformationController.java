@@ -18,6 +18,7 @@ import kr.green.project.service.InformationService;
 import kr.green.project.service.ProductService;
 import kr.green.project.service.UserService;
 import kr.green.project.vo.AddressVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.UserVo;
 
 @Controller
@@ -186,18 +187,6 @@ public class InformationController {
 	    return mv;
 	}
 	
-	@RequestMapping(value= "/information/shoppingBasket", method = RequestMethod.POST)
-	public ModelAndView shoppingBasketInformationpost(ModelAndView mv, HttpServletRequest h, int[] shoppingNum, int[] purchase){
-		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		if(shoppingNum !=null) {
-//			pros.insertPurchase(user.getId());
-//			pros.insertPurchaseListBasket(user.getId(),shoppingNum, purchase);
-			mv.setViewName("redirect:/product/order");
-		}else
-			mv.setViewName("redirect:/information/shoppingBasket");
-	    return mv;
-	}
-	
 	@RequestMapping("/shoppingBasket/allPrice")
 	@ResponseBody
 	public Map<Object, Object> shoppingBasketAllPrice(@RequestBody int[] list){
@@ -216,6 +205,15 @@ public class InformationController {
 	public Map<Object, Object> shoppingBasketDelete(@RequestBody int num){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    infos.deleteShoppingBasket(num);
+	    return map;
+	}
+	
+	@RequestMapping("/insertPurchaseListShopping")
+	@ResponseBody
+	public Map<Object, Object> insertPurchaseList(@RequestBody PurchaselistVo purchase, HttpServletRequest h){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user = (UserVo)h.getSession().getAttribute("user");
+	    infos.insertPurchaseListBasket(user.getId(), purchase);
 	    return map;
 	}
 }

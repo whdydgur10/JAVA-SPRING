@@ -46,7 +46,9 @@
 										<img src="<%=request.getContextPath()%>/resources/img/${list.thumbnailImage}" style="width:50px;height:50px;">
 										<span>${list.mainTitle} 옵션 : (${list.color}, ${list.size} / ${list.purchase}개)</span><br>
 										</a>
-										<input type="hidden" name="purchase" value="${list.purchase}">
+										<input type="hidden" class="purchase" value="${list.purchase}">
+										<input type="hidden" class="optionCode" value="${list.optionCode}">
+										<input type="hidden" class="enrollNum" value="${list.enrollNum}">
 									</td>
 									<td style="width:130px;">${list.stringFinalPrice}원</td>
 									<td ><button class="btn-del" style="border:none;background:transparent;">X</button></td>
@@ -57,7 +59,8 @@
 				</table>
 			</div>
 		</div>
-	<button type="submit" class="btn-submit" style="opacity:0.5;height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:250px;text-align:center;background-color:rgb(33,51,87);color:white;margin-left:300px;margin-top:30px;" disabled="disabled"><span class="allPrice">0</span>원 구매하기</button>
+	<a href="<%=request.getContextPath()%>/product/order?mainCategory=${user.gender}" class="btn-submit" style="opacity:0.5;height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:250px;text-align:center;background-color:rgb(33,51,87);color:white;margin-left:300px;margin-top:30px;cursor:default;"><span class="allPrice">0</span>원 구매하기</a>
+	<span style="font-size:12px;opacity: 0.7;">(5만원 미만 주문은 배송료가 붙습니다.)</span>
 	</div>
 </form>
 <script>
@@ -66,6 +69,10 @@
 	var i;
 	var index;
 	var num;
+	var shoppingNum = [];
+	var purchase = [];
+	var optionCode =[];
+	var enrollNum =[];
 	$('thead input[type=checkbox]').click(function(){
 		check = $(this).prop('checked');
 		if(check == true){
@@ -86,6 +93,10 @@
 				}
 			}
 			list = [];
+			shoppingNum = [];
+			purchase = [];
+			optionCode = [];
+			enrollNum =[];
 		}
 	})
 	$('tbody input[type=checkbox]').click(function(){
@@ -94,13 +105,22 @@
 		if(check == true){
 			$(this).attr('name','shoppingNum');
 			list.push(num);
+			shoppingNum.push(num);
+			purchase.push($(this).parents('tr').find('.purchase').val());
+			optionCode.push($(this).parents('tr').find('.optionCode').val());
+			enrollNum.push($(this).parents('tr').find('.enrollNum').val());
 		}
 			
 		else if(check == false){
 			$(this).removeAttr('name','shoppingNum');
 			for(i = 0; i < list.length; i++){
-				if(list[i] == num)
+				if(list[i] == num){
 					list.splice(i, 1);
+					shoppingNum.splice(i, 1);
+					purchase.splice(i, 1);
+					optionCode.splice(i, 1);
+					enrollNum.splice(i, 1);
+				}
 			}
 		}
 		if($('tbody input[type=checkbox]').length - 1 == list.length)
@@ -118,15 +138,16 @@
 			contentType:"application/json; charset=UTF-8",
 			success : function(data){
 				$('.allPrice').text(data['allPrice']);
-				if(data['allPrice'] == 0){
-					$('.btn-submit').attr('disabled','disabled');
-					$('.btn-submit').css('opacity','0.5');
-				}else{
-					$('.btn-submit').removeAttr('disabled');
-					$('.btn-submit').css('opacity','1');
-				}
+				if(data['allPrice'] == 0)
+					$('.btn-submit').css({'opacity':'0.5','cursor':'default'});
+				else
+					$('.btn-submit').css({'opacity':'1','cursor':'pointer'});
 		    }
 		});
+	})
+	$('.btn-submit').click(function(){
+		if($('.allPrice').text() == 0)
+			return false;
 	})
 	function delBasket(obj){
 		obj.click(function(){
@@ -143,8 +164,13 @@
 			    }
 			});
 			for(i = 0; i < list.length; i++){
-				if(list[i] == num)
+				if(list[i] == num){
 					list.splice(i, 1);
+					shoppingNum.splice(i, 1);
+					purchase.splice(i, 1);
+					optionCode.splice(i, 1);
+					enrollNum.splice(i, 1);
+				}
 			}
 			$.ajax({
 				async:true,
@@ -155,18 +181,46 @@
 				contentType:"application/json; charset=UTF-8",
 				success : function(data){
 					$('.allPrice').text(data['allPrice']);
-					if(data['allPrice'] == 0){
-						$('.btn-submit').attr('disabled','disabled');
-						$('.btn-submit').css('opacity','0.5');
-					}else{
-						$('.btn-submit').removeAttr('disabled');
-						$('.btn-submit').css('opacity','1');
-					}
+					if(data['allPrice'] == 0)
+						$('.btn-submit').css({'opacity':'0.5','cursor':'default'});
+					else
+						$('.btn-submit').css({'opacity':'1','cursor':'pointer'});
 			    }
 			});
 			if($('tbody input[type=checkbox]').length == 0)
 				$('thead input[type=checkbox]').prop('checked',false);
 		})
+		
 	}
 	delBasket($('.btn-del'));
+	$('.btn-submit').click(function(){
+		console.log(optionCode);
+		if($('.allPrice').text() == 0)
+			return false;
+		else{
+			$.ajax({
+				async:false,
+				/*true 동시 할당, false 순차 할당  */
+				type:'POST',
+				url:"<%=request.getContextPath()%>/insertPurchase",
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+			    }
+			});
+			for(i = 0; i < shoppingNum.length; i++){
+				list = {"shoppingNum":shoppingNum[i], "optionCode":optionCode[i], "purchase":purchase[i], "enrollNum":enrollNum[i]};
+				$.ajax({
+					async:true,
+					type:'POST',
+					data:JSON.stringify(list),
+					url:"<%=request.getContextPath()%>/insertPurchaseListShopping",
+					dataType:"json",
+					contentType:"application/json; charset=UTF-8",
+					success : function(data){
+				    }
+				});
+			}
+		}
+	})
 </script>

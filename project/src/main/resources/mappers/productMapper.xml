@@ -77,7 +77,7 @@
 		select max(num) from purchase where userId = #{id}
 	</select>
 	<insert id="insertPurchaseListBasket">
-		insert into project.purchaselist(purchaseNum, purchase, shoppingNum, optionCode) values(#{list.purchaseNum}, #{list.purchase}, #{list.shoppingNum}, #{list.optionCode})
+		insert into project.purchaselist(purchaseNum, purchase, shoppingNum, optionCode) values(#{purchaseNum}, #{purchase.purchase}, #{purchase.shoppingNum}, #{purchase.optionCode})
 	</insert>
 	<insert id="insertPurchaseListOrder">
 		insert into project.purchaseList(purchaseNum, enrollNum, purchase, optionCode) value(#{purchaseNum}, #{purchase.enrollNum}, #{purchase.purchase}, #{purchase.optionCode})
@@ -85,7 +85,13 @@
 	<select id="getPurchaseTonum" resultType="kr.green.project.vo.PurchaseVo">
 		select * from purchase where num = #{num}
 	</select>
-	<select id="getPurchaselist" resultType="kr.green.project.vo.PurchaselistVo">
-		select * from purchaselist where purchaseNum = #{num} and isCancel = 'N'
+	<select id="getPurchaseList" resultType="kr.green.project.vo.PurchaselistVo">
+		select * from purchaselist where purchaseNum = #{purchaseNum}
+	</select>
+	<update id="updatePurchasePrice">
+		update purchase set price = #{price}, deliveryPrice = #{delibery} where num = #{purchaseNum}
+	</update>
+	<select id="getDeliveryPrice" resultType="int">
+		select deliveryPrice from purchase where num = #{purchaseNum}
 	</select>
 </mapper>

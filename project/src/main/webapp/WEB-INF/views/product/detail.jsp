@@ -96,6 +96,10 @@
 		text-align: center;
 		cursor: pointer;
 	}
+	.linkPurchaseList:hover{
+		text-decoration: none;
+		color:white;
+	}
 	.white{
 	background-color: white;
 	}
@@ -197,11 +201,15 @@
         text-decoration: none;
         cursor: pointer;
     }
-    .modal-content button{
+    .modal-content a{
        	width: 100px;
        	background-color: transparent;
        	position: absolute;
        	bottom:20px;
+       	display: inline-block;
+       	text-align: center;
+       	background-color: rgb(33,51,87);
+		color: white;
     }
 	.modal-content button:hover{
 		background-color: rgb(33,51,87);
@@ -240,7 +248,7 @@
 					<c:if test="${enrollment.discount == 0}"><span style="color:red;">${product.stringPrice}원</span></c:if>
 					<c:if test="${enrollment.discount != 0}"><span style="color:red;">${enrollment.stringFinalPrice}원</span><span style="color:gray;text-decoration:line-through;margin-left:10px;">${product.stringPrice}원</span><span class="discount" style="font-size:15px;float:right;margin-top:10px;">${enrollment.discountPercent}% 할인</span></c:if>
 					<hr>
-					<span style="font-size:15px;margin-bottom:15px;display:inline-block;">옵션선택</span>
+					<span style="font-size:15px;margin-bottom:15px;display:inline-block;">옵션선택<span style="font-size:12px;opacity: 0.7;">(5만원 미만 주문은 배송료가 붙습니다.)</span></span>
 					<br>
 					<select name="color" id="color">
 						<option value="" selected>색상</option>
@@ -632,8 +640,10 @@
 		obj.click(function(){
 			optionCode = $(this).parents().children('.optionCode').val();
 			purchase = parseInt($(this).parent().children('.showPurchase').text());
-			if (purchase <= 1)
+			if (purchase <= 1){
+				alert("최소 수량입니다.");
 				return false;
+			}
 			else{optionCode
 				purchase = purchase - 1;
 				$(this).parent().children('.showPurchase').text(purchase);
@@ -694,8 +704,11 @@
 								allPrice();
 						    }
 						});
-					}else
+					}else{
+						alert("현 재고 최대 수량입니다.");
 						return false;
+					}
+						
 			    }
 			});
 		})

@@ -3,6 +3,7 @@ package kr.green.project.service;
 import java.util.ArrayList;
 
 import kr.green.project.dto.EnrollmentThumbnailDto;
+import kr.green.project.dto.ShopEnrollProOptionThumbDto;
 import kr.green.project.pagination.ProductCri;
 import kr.green.project.pagination.ProductPage;
 import kr.green.project.vo.ContentimageVo;
@@ -33,14 +34,16 @@ public interface ProductService {
 
 	void insertPurchase(String id);
 
-	void insertPurchaseListBasket(String id, int[] shoppingNum, int[] purchase);
-
 	void insertPurchaseList(String id, PurchaselistVo purchase);
 
 	PurchaseVo getPurchase(String id);
 
-	ArrayList<PurchaselistVo> getPurchaseList(int num);
+	ArrayList<ShopEnrollProOptionThumbDto> getPurchaseList(int num);
 
 	PurchaseVo getPurchase(int purchaseNum);
+
+	int getPurchasePrice(int purchaseNum);
+
+	int getDeliveryPrice(int purchaseNum);
 	
 }

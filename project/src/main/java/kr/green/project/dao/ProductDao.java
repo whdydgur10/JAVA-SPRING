@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.green.project.dto.EnrollmentThumbnailDto;
+import kr.green.project.dto.ShopEnrollProOptionThumbDto;
 import kr.green.project.pagination.ProductCri;
 import kr.green.project.vo.ContentimageVo;
 import kr.green.project.vo.ContentremarkVo;
@@ -48,12 +49,16 @@ public interface ProductDao {
 
 	int getPurchaseNum(@Param("id")String id);
 
-	void insertPurchaseListBasket(@Param("list")PurchaselistVo list);
+	void insertPurchaseListBasket(@Param("purchaseNum")int purchaseNum, @Param("purchase")PurchaselistVo purchase);
 
 	void insertPurchaseListOrder(@Param("purchaseNum")int purchaseNum, @Param("purchase")PurchaselistVo purchase);
 
 	PurchaseVo getPurchaseTonum(@Param("num")int num);
 
-	ArrayList<PurchaselistVo> getPurchaselist(@Param("num")int num);
+	ArrayList<PurchaselistVo> getPurchaseList(@Param("purchaseNum")int purchaseNum);
+
+	void updatePurchasePrice(@Param("price")int price, @Param("purchaseNum")int purchaseNum, @Param("delibery")int deli);
+
+	int getDeliveryPrice(@Param("purchaseNum")int purchaseNum);
 
 }
