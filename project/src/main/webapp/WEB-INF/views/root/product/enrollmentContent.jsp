@@ -259,7 +259,7 @@
 				required : true
 			},
 			thumbnailImage: {
-				required : ""
+				required : true
 			},
 			contentLength: {
 				required : true

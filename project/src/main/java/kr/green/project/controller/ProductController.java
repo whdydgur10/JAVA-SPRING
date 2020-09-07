@@ -98,6 +98,8 @@ public class ProductController {
 			else {
 				mv.addObject("purchase", purchase);
 				mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
+				mv.addObject("couponlist", infos.getCouponList(user.getId()));
+				mv.addObject("addresslist", infos.getaddressList(h));
 				mv.setViewName("/product/order");
 			}
 		}else {
@@ -107,6 +109,8 @@ public class ProductController {
 			else {
 				mv.addObject("purchase", purchase);
 				mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
+				mv.addObject("couponlist", infos.getCouponList(user.getId()));
+				mv.addObject("addresslist", infos.getaddressList(h));
 				mv.setViewName("/product/order");
 			}
 		}
@@ -149,4 +153,6 @@ public class ProductController {
 	    map.put("point", infos.getPointPercent(user.getId()));
 	    return map;
 	}
+	
+	
 }

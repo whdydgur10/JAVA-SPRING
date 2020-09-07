@@ -51,21 +51,19 @@
         text-decoration: none;
         cursor: pointer;
     }
-    .modal-content button{
-       	width: 100px;
-       	background-color: transparent;
-       	position: absolute;
-       	bottom:20px;
-    }
-	.modal-content button:hover{
+   .modal button{
 		background-color: rgb(33,51,87);
 		color: white;
 	}
-	#yes{
-		left: 20%;
+	#yes, #no{
+		width: 100px;
 	}
 	#no{
-		right: 20%;
+	margin-left: 40px;
+	}
+	.modal-content button:hover{
+		background-color: rgb(33,51,87);
+		color: white;
 	}
 </style>
 
@@ -122,8 +120,10 @@
       <div class="modal-content">
         <span class="close" onclick="close()">&times;</span>                                                               
         <p>삭제하시겠습니까?</p>
-        <button type="button" id="yes">예</button>
-        <button type="button" id="no">아니오</button>
+        <div style="margin:0 auto">
+			<button type="button" id="yes">예</button>
+			<button type="button" id="no">아니오</button>
+		</div>
       </div>
     </div>
 <script>

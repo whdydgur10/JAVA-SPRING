@@ -73,14 +73,9 @@
 	}
 	#yes, #no{
 		width: 100px;
-		position: absolute;
-       	bottom:20px;
-	}
-	#yes{
-		left: 20%;
 	}
 	#no{
-		right: 20%;
+	margin-left: 40px;
 	}
 	.search{
 		width: 20%;
@@ -125,8 +120,10 @@
 			<input type="text" id="productCode" style="width:75%;margin-right:5%;padding-left:5px;"><button type="button" class="search">검색</button>
 		</div>
 		<div class="enrollmentInform" style="margin-bottom:50px;"></div>
-		<button type="button" id="yes">예</button>
-		<button type="button" id="no">아니오</button>
+		<div style="margin:0 auto">
+			<button type="button" id="yes">예</button>
+			<button type="button" id="no">아니오</button>
+		</div>
 	</div>
 </div>
 <script>

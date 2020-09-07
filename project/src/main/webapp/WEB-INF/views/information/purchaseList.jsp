@@ -14,7 +14,7 @@
 						<th>구매내역</th>
 						<th style="width:130px;">구매금액</th>
 						<th style="width:150px;">주문날짜</th>
-						<th style="width:100px;">입금여부</th>
+						<th style="width:100px;">결제여부</th>
 						<th style="width:150px;">배송상태</th>
 					</tr>
 				</thead>
@@ -28,7 +28,10 @@
 						<c:forEach var="list" items="${purchaseList}" varStatus="status">
 							<tr>
 								<td >${purchaseList.size() - status.count + 1}</td>
-								<td><a href="<%=request.getContextPath() %>/product/purchase?purchaseNum=${list.num}" style="overflow:hidden;text-overflow: ellipsis;white-space: nowrap;width:230px;display:inline-block;">${list.mainTitle }</a></td>
+								<td>
+									<c:if test="${list.deposit == 'N'}"><a href="<%=request.getContextPath() %>/product/order?purchaseNum=${list.num}&mainCategory=${user.gender}" style="overflow:hidden;text-overflow: ellipsis;white-space: nowrap;width:230px;display:inline-block;">${list.mainTitle }</a></c:if>
+									<c:if test="${list.deposit == 'Y'}"><span style="overflow:hidden;text-overflow: ellipsis;white-space: nowrap;width:230px;display:inline-block;">${list.mainTitle }</span></c:if>
+								</td>
 								<td>${list.stringPrice}</td>
 								<td>${list.orderDate}</td>
 								<td>${list.deposit}</td>

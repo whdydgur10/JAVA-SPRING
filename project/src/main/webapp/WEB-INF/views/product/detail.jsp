@@ -176,7 +176,6 @@
         background-color: rgb(0,0,0); /* Fallback color */
         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     }
-    
     /* Modal Content/Box */
     .modal-content {
       	position:relative;
@@ -186,6 +185,15 @@
         border: 1px solid #888;
         width: 30%; /* Could be more or less, depending on screen size */
         min-height: 120px;                     
+    }
+     .modal-image {
+      	position:relative;
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 1000px; /* Could be more or less, depending on screen size */
+        min-height: 1000px;                     
     }
     /* The Close Button */
     .close {
@@ -393,6 +401,12 @@
     	<a href="<%=request.getContextPath()%>/information/shoppingBasket" id="no">아니오</a>
 	</div>
 </div>
+<div class="modal image">
+	<div class="modal-image">
+        <span class="close" onclick="close()">&times;</span>
+        <image>
+	</div>
+</div>
 <c:if test="${user == null}">
 	<script>
 		$('.linkShoppingBasket').click(function(){
@@ -459,7 +473,10 @@
 	</script>
 </c:if>
 <script>
-	
+	var i
+	$('image').click(function(){
+		
+	})
 	var modal = document.getElementById('myModal');
 	var span = document.getElementsByClassName("close")[0];          
 	span.onclick = function() {

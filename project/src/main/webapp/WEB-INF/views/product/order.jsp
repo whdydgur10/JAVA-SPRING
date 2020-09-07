@@ -10,7 +10,7 @@
 	td{
 		vertical-align: baseline !important;
 	}
-	.orderConteiner:after {
+	.orderConteiner:after, .payment:after {
 		clear: both;
 		content: '';
 		display: block;
@@ -26,10 +26,114 @@
 		width:150px;
 		text-align:right;
 	}
+	/* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+	/* Modal Content/Box */
+    .modal-content {
+      	position:relative;
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%; /* Could be more or less, depending on screen size */
+        min-height: 120px;                     
+    }
+    /* The Close Button */
+    .close {
+       	position:absolute;
+        color: #aaa;
+        right:20px;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .modal-content a, .modal-content button{
+       	width: 100px;
+       	background-color: transparent;
+       	bottom:20px;
+       	display: inline-block;
+       	text-align: center;
+       	background-color: rgb(33,51,87);
+		color: white;
+    }
+	.modal-content button:hover{
+		background-color: rgb(33,51,87);
+		color: white;
+	}
+	.informBox{
+		width:450px;
+		display:inline-block;
+	}
+	.deliberyBox{
+		height: calc(1.5em + .75rem + 2px);
+	    padding: .375rem .75rem;
+	    font-size: 1rem;
+	    font-weight: 400;
+	    line-height: 1.5;
+	    color: #495057;
+	    background-color: #fff;
+	    background-clip: padding-box;
+	    border: 1px solid #ced4da;
+	    border-radius: .25rem;
+	    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+	    display: inline-block;
+	    width:300px;
+	}
+	.deliberyBox:focus {
+		color: #495057;
+	    background-color: #fff;
+	    border-color: #80bdff;
+	    outline: 0;
+	    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+	}
+	.form-group>label{
+		width:100px;
+	}
+	button{
+		background-color: rgb(33,51,87);
+		color: white;
+	}
+	#isAddress>.modal-content{
+		width:600px;
+	}
+	.address>label{
+		width:100px;
+	}
+	.payment>div{
+		width:150px;
+		float:left;
+	}
+	.payment input{
+		display:inline-block;
+		width:16px;
+		height:16px;
+	}
+	.payment label{
+		font-size:20px;
+	}
+	hr{
+		margin-bottom:40px;
+	}
 </style>
-<div class="orderConteiner" style="width:1000px;margin:20px auto;height:800px;">
+<div class="orderConteiner" style="width:1000px;margin:20px auto;">
 	<h3>주문하기</h3><br>
-	<input type="hidden" class="purchaseNum" value="${purchase.num}">
+	<input type="hidden" class="purchaseNum" name="purchaseNum" value="${purchase.num}">
 	<h4>주문 상품 내역</h4>
 	<div style="width:100%;box-shadow: 2px 2px 2px 2px;margin-top:20px;">
 		<div style="width:100%;">
@@ -60,34 +164,301 @@
 			</table>
 		</div>
 	</div>
-	<div style="float:left;width:600px;position: relative;">
-		<h4>쿠폰</h4>
-		<div style="width:450px;display:inline-block;">
-			<span class="isUseCoupon">보유</span> 쿠폰 : 
-			<span class="couponCount"></span>
-			<hr>
+	<div style="margin-top:50px;">
+		<div style="float:left;width:600px;position: relative;">
+			<h4>쿠폰</h4>
+			<div class="informBox">
+				<input type="hidden" class="useCouponNum" name="couponNum"> 
+				<span class="isUseCoupon">보유</span> 쿠폰 : 
+				<span class="couponCount"></span>
+				<hr>
+			</div>
+			<button class="removeCoupon" type="button" style="position: absolute;right:150px;border:none;background-color: transparent;display:none;">X</button>
+			<button class="useCoupon" type="button" style="position: absolute;right:20px;background-color: rgb(33,51,87);color: white;height:40px;">쿠폰 사용하기</button>
+			<h4>적립금</h4>
+			<div class="informBox">
+				<span>보유</span> 적립금 : <span class="userPoint">${user.point}</span>
+				<input type="text" style="width:300px;margin-left:20px;text-align:right;" class="usePoint" value="0">
+				<button class="userAll" type="button" style="position: absolute;right:50px;height:40px;">모두 사용</button>
+				<p style="font-size:12px;margin-top:5px;">※쿠폰과 적립금은 중복사용이 불가능합니다.</p>
+				<hr>
+			</div>
+			<h4>배송지</h4>
+			<div class="informBox" style="width:600px;">
+				<div class="form-group">
+				    <label for="code">주문자</label>
+					  <input type="text" class="deliberyBox" value="${user.name}" name="name">
+				</div>
+				<div class="form-group">
+					<label for="code">연락처</label>
+					<input type="text" class="deliberyBox" value="${user.phone}" name="phone">
+				</div>
+				<c:forEach var="address" items="${addresslist}">
+					<c:if test="${address.isMain == 'Y'.charAt(0)}">
+						<div class="form-group">
+						    <label for="code">우편번호</label>
+						    <input type="text" class="deliberyBox" value="${address.code}" name="addressCode" id="addressCode" disabled readonly style="background-color: #f1f3f6;width:200px;">
+							<button class="searchAddress" style="height:38px;margin-left:10px;">주소검색</button>
+						</div>
+						<div class="form-group">
+						    <label for="code">주소</label>
+						    <input type="text" class="deliberyBox" value="${address.address}" name="address" id="address" disabled readonly style="background-color: #f1f3f6;width:450px;">
+						</div>
+						<div class="form-group">
+						    <label for="code">상세주소</label>
+						    <input type="text" class="deliberyBox" value="${address.detail}" name="detail" id="detail" style="width:450px;">
+						</div>
+						<div class="form-group">
+						    <label for="code">배송요청사항</label>
+						    <input type="text" class="deliberyBox" style="width:450px;">
+						</div>
+					</c:if>
+				</c:forEach>
+				<c:if test="${addresslist.size() == 0}">
+					<div class="form-group">
+						<label for="code">우편번호</label>
+						<input type="text" class="deliberyBox" value="${address.code}" name="addressCode" id="addressCode" disabled readonly style="background-color: #f1f3f6;width:200px;">
+						<button class="newAddress" style="height:38px;margin-left:10px;">주소검색</button>
+					</div>
+					<div class="form-group">
+						<label for="code">주소</label>
+						<input type="text" class="deliberyBox" value="${address.address}" name="address" id="address" disabled readonly style="background-color: #f1f3f6;width:450px;">
+					</div>
+					<div class="form-group">
+						<label for="code">상세주소</label>
+						<input type="text" class="deliberyBox" value="${address.detail}" name="detail" id="detail" style="width:450px;">
+					</div>
+					<div class="form-group">
+						<label for="code">배송요청사항</label>
+						<input type="text" class="deliberyBox" style="width:450px;">
+					</div>
+				</c:if>
+				<hr>
+			</div>
+			<h4>결제방법</h4>
+			<div class="payment">
+				<div>
+					<input id="card" type="radio">
+					<label for="card">카드결제</label>
+				</div>
+				<div>
+					<input id="account" type="radio">
+					<label for="account">가상계좌</label>
+				</div>
+				<div>
+					<input id="naver" type="radio">
+					<label for="naver">네이버페이</label>
+				</div>
+				<div>
+					<input id="kakao" type="radio">
+					<label for="kakao">카카오페이</label>
+				</div>
+				<div>
+					<input id="payco" type="radio">
+					<label for="payco">페이코</label>
+				</div>
+				<div>
+					<input id="phone" type="radio">
+					<label for="phone">핸드폰결제</label>
+				</div>	
+			</div>
 		</div>
-		<button class="useCoupon" type="button" style="position: absolute;right:20px;background-color: rgb(33,51,87);color: white;height:40px;">쿠폰 사용하기</button>
-		<h4>적립금</h4>
-		<div style="width:450px;display:inline-block;">
-			<span class="isUseCoupon">보유</span> 적립금 : <span class="userPoint">${user.point}</span>
-			<input type="text" style="width:300px;margin-left:20px;text-align:right;" class="usePoint">
+		<div style="float:right;width:300px;position:sticky;display:block;top:20px;">
+			<h4>결제금액</h4>
+			<span class="left">상품 금액</span><span class="productPrice right"></span>
+			<span class="left">쿠폰 금액</span><span class="couponPrice right">0원</span>
+			<span class="left">적립금 금액</span><span class="pointPrice right">0원</span>
+			<span class="left">배송비 금액</span><span class="deliveryPrice right"></span>
 			<hr>
+			<span class="left" style="color:red;font-size:20px;opacity:1;">최종 결제 금액</span><span id="finalPrice" class="right"></span>
+			<span class="left" style="color:blue;opacity:1;">예상 적립금</span><span id="givePoint" class="right"></span>
+			<button class="goPayment" type="button" style="height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:100%;text-align:center;background-color:rgb(33,51,87);color:white;margin-top:20px;font-size:23px;opacity:0.7;" disabled>결제하기</button>
 		</div>
-		<button class="userAll" type="button" style="position: absolute;right:50px;background-color: rgb(33,51,87);color: white;height:40px;">모두 사용</button>
 	</div>
-	<div style="float:right;width:300px;">
-		<h4>결제금액</h4>
-		<span class="left">상품 금액</span><span class="productPrice right"></span>
-		<span class="left">쿠폰 금액</span><span class="couponPrice right">0원</span>
-		<span class="left">적립금 금액</span><span class="pointPrice right">0원</span>
-		<span class="left">배송비 금액</span><span class="deliveryPrice right"></span>
-		<hr>
-		<span class="left" style="color:red;font-size:20px;opacity:1;">최종 결제 금액</span><span id="finalPrice" class="right"></span>
-		<span class="left" style="color:blue;opacity:1;">예상 적립금</span><span id="givePoint" class="right"></span>
+</div>
+<div class="modal" id="isCoupon">
+    <div class="modal-content">
+        <span class="close" onclick="close()">&times;</span>
+        <div style="padding-bottom:20px;">
+        	<p>※쿠폰과 적립금은 중복사용이 불가능 합니다.</p>                                                           
+        </div>
+        <div style="margin:0 auto">
+        	<button type="button" id="use">사용하기</button>
+        </div>
+	</div>
+</div>
+<div class="modal" id="useCoupon">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <c:forEach var="coupon" items="${couponlist}">
+        	<div class="coupon">
+        		<input type="radio">
+        		<input type="hidden" class="couponNum" value="${coupon.num}">
+        		<span class="couponName">${coupon.name}</span>
+        		<span class="couponDis">${coupon.discount}<span>원</span></span>
+        		<hr>
+        	</div>
+        </c:forEach>
+        <div style="text-align: right;">
+    		<button type="button" id="choiceCoupon">선택</button>
+    	</div>
+	</div>
+</div>
+<div class="modal" id="isAddress">
+    <div class="modal-content">
+        <span class="close" onclick="close()">&times;</span>
+        <c:forEach var="address" items="${addresslist}">
+        	<div class="address" style="margin-bottom:20px;">
+	        	<input type="radio" <c:if test = "${address.isMain == 'Y'.charAt(0)}">checked</c:if>><br>
+				<label for="code">우편번호</label>
+				<input type="text" class="deliberyBox addressCode" value="${address.code}" disabled readonly style="background-color: #f1f3f6;"><br>
+				<label for="code">주소</label>
+				<input type="text" class="deliberyBox address" value="${address.address}" disabled readonly style="background-color: #f1f3f6;width:450px;"><br>
+				<label for="code">상세주소</label>
+				<input type="text" class="deliberyBox detail" value="${address.detail}" style="width:450px;">
+        	</div>
+		</c:forEach>
+       	<div style="text-align: right;">
+       		<button type="button" class="newAddress" style="margin-right:5px;">다른 주소</button>
+    		<button type="button" id="choiceAddress">선택</button>
+    	</div>
 	</div>
 </div>
 <script>
+	$('.payment input[type=radio]').click(function(){
+		$('.payment').find('input[type=radio]').prop('checked',false);
+		$(this).prop('checked',true);
+		$('.goPayment').removeAttr('disabled');
+		$('.goPayment').css('opacity','1');
+	})
+	$('.newAddress').click(function(){
+		isAddress.css('display','none');
+	    getPost();
+	})                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+	function getPost() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            var addr = '';
+	            var extraAddr = '';
+	            if (data.userSelectedType === 'R') {
+	                addr = data.roadAddress;
+	            } else {
+	                addr = data.jibunAddress;
+	            }
+	            if(data.userSelectedType === 'R'){
+	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                    extraAddr += data.bname;
+	                }
+	                if(data.buildingName !== '' && data.apartment === 'Y'){
+	                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                }
+	                if(extraAddr !== ''){
+	                    extraAddr = ' (' + extraAddr + ')';
+	                }
+	                $('.form-group #detail').val(extraAddr);
+	            } else {
+	                $('.form-group #detail').val('');
+	            }
+	            
+	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	            $('.form-group #addressCode').val(data.zonecode);
+	            $('.form-group #address').val(addr);
+	            // 커서를 상세주소 필드로 이동한다.
+	            $('.form-group #detail').focus();
+	        }
+	    }).open();
+	}
+	var isAddress = $('#isAddress');
+	var addressCode;
+	var address;
+	var detail;
+	$('.searchAddress').click(function(e){
+		isAddress.css('display','block');
+		e.stopPropagation();
+	})
+	$('#isAddress input[type=radio]').click(function(){
+		$('.address').children('input[type=radio]').prop('checked',false);
+		$(this).prop('checked',true);
+	})
+	$('#choiceAddress').click(function(){
+		for(i = 0; i < $('.address').length; i++){
+			index = $('.address')[i];
+			if($(index).children('input[type=radio]').prop('checked') == true){
+				addressCode = $(index).children('.addressCode').val();
+				address = $(index).children('.address').val();
+				detail = $(index).children('.detail').val();
+			}		
+		}
+		$('.form-group #addressCode').val(addressCode);
+		$('.form-group #address').val(address);
+		$('.form-group #detail').val(detail);
+		isAddress.css('display','none');
+	})
+	var couponNum;
+	var couponName;
+	$('#choiceCoupon').click(function(){
+		for(i = 0; i < $('.coupon').length; i++){
+			index = $('.coupon')[i];
+			if($(index).children('input[type=radio]').prop('checked') == true){
+				couponName = $(index).children('.couponName').text();
+				coupon = $(index).children('.couponDis').text();
+				$('.useCouponNum').val($(index).children('.couponNum').val());
+			}		
+		}
+		$('.isUseCoupon').text('사용');
+		useCoupon.css('display','none');
+		$('.couponCount').text(couponName);
+		$('.couponPrice').text(coupon);
+		$('#finalPrice').text(calc(product, coupon, point, delibery) + '원');
+		$('.removeCoupon').css('display','inline-block');
+		resetPoint();
+	})
+	$('.coupon input[type=radio]').click(function(){
+		$('.coupon').children('input[type=radio]').prop('checked',false);
+		$(this).prop('checked',true);
+	})
+	var isCoupon = $('#isCoupon');
+	var useCoupon = $('#useCoupon');
+	function resetCoupon(){
+		$('.isUseCoupon').text('보유');
+		$('.useCouponNum').val('');
+		$('.couponCount').text(couponNum);
+		coupon = '0원';
+		$('.couponPrice').text(coupon);
+		$('#finalPrice').text(calc(product, coupon, point, delibery) + '원');
+	}
+	function resetPoint(){
+		$('.usePoint').val('0');
+		$('.pointPrice').text('0원');
+		point = $('.pointPrice').text();
+		$('#finalPrice').text(calc(product, coupon, point, delibery) + '원');
+	}
+	$('.removeCoupon').click(function(){
+		resetCoupon();
+		$(this).css('display','none');
+	})
+	$('.useCoupon').click(function(e){
+		isCoupon.css('display','block');
+		e.stopPropagation();
+	})
+	$('.close').click(function(e){
+		$(this).parents('.modal').css('display','none');
+		e.stopPropagation();
+	})
+	$('#use').click(function(e){
+		$(this).parents('.modal').css('display','none');
+		useCoupon.css('display','block');	
+		
+		e.stopPropagation();
+	})
+	$('body').click(function(e){
+		var target = $(e.target).parents('.modal').length;
+		if(target == 0){
+			isCoupon.css('display','none');
+			useCoupon.css('display','none');
+			isAddress.css('display','none');
+		}
+	})
 	var i;
 	var finalPrice = 0;
 	var index;
@@ -142,7 +513,8 @@
 		dataType:"json",
 		contentType:"application/json; charset=UTF-8",
 		success : function(data){
-			$('.couponCount').text(data['count']);
+			$('.couponCount').text(data['count'] + '개');
+			couponNum = data['count'] + '개';
 			if(data['count'] == 0){
 				$('.useCoupon').css({'opacity':'0.5','cursor':'default'});
 				$('.useCoupon').click(function(){
@@ -157,10 +529,21 @@
 		usePoint = $('.usePoint').val();
 		$('.pointPrice').text(toStr(usePoint) + '원');
 		point = $('.pointPrice').text();
-		$('#finalPrice').text(calc(product, coupon, point, delibery));
+		$('.removeCoupon').css('display','none');
+		resetCoupon();
+		$('#finalPrice').text(calc(product, coupon, point, delibery) + '원');
 	})
+	$('.usePoint').keypress(function(event){
+            if(event.keyCode >= 48 && event.keyCode <= 57){
+                return true;
+            }else{
+                return false;
+            }
+        })
 	$('.usePoint').change(function(){
 		var userPoint = Number($('.userPoint').text());
+		if($(this).val() == '')
+			$(this).val('0');
 		if($(this).val() > userPoint){
 			$(this).val(userPoint);
 			usePoint = $('.usePoint').val();	
@@ -168,7 +551,9 @@
 			usePoint = $('.usePoint').val();
 		$('.pointPrice').text(toStr(usePoint) + '원');
 		point = $('.pointPrice').text();
-		$('#finalPrice').text(calc(product, coupon, point, delibery));
+		$('.removeCoupon').css('display','none');
+		resetCoupon();
+		$('#finalPrice').text(calc(product, coupon, point, delibery) + '원');
 	})
 	function toStr(obj){
 	    var len, num, str;  
@@ -203,4 +588,48 @@
 		$('#givePoint').text(toStr(d)+ '원');
 		return toStr(finalPrice);
 	}
+	$("form").validate({
+	    rules: {
+	        name: {
+	            required : true
+	        },
+	        phone: {
+	            required : true
+	        },
+	        addressCode: {
+	            required : true
+	        },
+	        address: {
+	            required : true
+	        },
+	        detail: {
+	            required : true
+	        }
+	    },
+	    messages : {
+	    	name: {
+	    		required : ""
+	        },
+	        phone: {
+	        	required : ""
+	        },
+	        addressCode: {
+	        	required : ""
+	        },
+	        address: {
+	        	required : ""
+	        },
+	        detail: {
+	        	required : ""
+	        }
+	    }
+	});
+	$.validator.addMethod(
+		"regex",
+		function(value, element, regexp) {
+			var re = new RegExp(regexp);
+			return this.optional(element) || re.test(value);
+		},
+		"Please check your input."
+	);
 </script>
