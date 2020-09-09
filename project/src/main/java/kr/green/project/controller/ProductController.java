@@ -17,6 +17,8 @@ import kr.green.project.pagination.ProductCri;
 import kr.green.project.service.InformationService;
 import kr.green.project.service.ProductService;
 import kr.green.project.service.RootService;
+import kr.green.project.vo.AddressVo;
+import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.PurchaseVo;
@@ -93,7 +95,7 @@ public class ProductController {
 		mv.addObject("cri", cri);
 		if(purchase.getNum() == 0) {
 			purchase = pros.getPurchase(user.getId());
-			if(!purchase.getUserId().equals(user.getId()))
+			if(!purchase.getUserId().equals(user.getId()) || purchase.getIsDel() == 'Y')
 				mv.setViewName("redirect:/");
 			else {
 				mv.addObject("purchase", purchase);
@@ -104,7 +106,7 @@ public class ProductController {
 			}
 		}else {
 			purchase = pros.getPurchase(purchase.getNum());
-			if(!purchase.getUserId().equals(user.getId()))
+			if(!purchase.getUserId().equals(user.getId()) || purchase.getIsDel() == 'Y')
 				mv.setViewName("redirect:/");
 			else {
 				mv.addObject("purchase", purchase);
@@ -154,5 +156,49 @@ public class ProductController {
 	    return map;
 	}
 	
+	@RequestMapping("/address")
+	@ResponseBody
+	public Map<Object, Object> address(@RequestBody AddressVo address, HttpServletRequest h){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user = (UserVo)h.getSession().getAttribute("user");
+	    address.setIsTemp('Y');
+	    address.setIsMain('N');
+	    infos.insertAddress(user, address);
+	    map.put("addressNum",infos.getAddressNum(user.getId()));
+	    return map;
+	}
 	
+	@RequestMapping("/purchase/coupon")
+	public Map<Object, Object> purchaseCoupon(@RequestBody PurchaseVo purchase){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    purchase.setIsPoint('N');
+	    pros.updatePurchase(purchase);
+	    return map;
+	}
+	
+	@RequestMapping("/purchase/useCoupon")
+	public Map<Object, Object> purchaseUseCoupon(@RequestBody CouponVo coupon){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    infos.updateCoupon(coupon);
+	    return map;
+	}
+	
+	@RequestMapping("/purchase/point")
+	public Map<Object, Object> purchasePoint(@RequestBody PurchaseVo purchase, HttpServletRequest h){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user = (UserVo)h.getSession().getAttribute("user");
+	    purchase.setIsCoupon('N');
+	    pros.updatePurchase(purchase);
+	    user.setPoint(user.getPoint() - purchase.getUsePoint());
+	    infos.updateDecUserPoint(user);
+	    return map;
+	}
+	@RequestMapping("/purchase")
+	public Map<Object, Object> purchase(@RequestBody PurchaseVo purchase){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    purchase.setIsCoupon('N');
+	    purchase.setIsPoint('N');
+	    pros.updatePurchase(purchase);
+	    return map;
+	}
 }

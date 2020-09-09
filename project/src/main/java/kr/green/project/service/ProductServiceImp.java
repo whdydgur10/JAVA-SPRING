@@ -151,7 +151,9 @@ public class ProductServiceImp implements ProductService {
 		return proDao.getDeliveryPrice(purchaseNum);
 	}
 
-	
+	@Override
+	public void updatePurchase(PurchaseVo purchase) {
+		proDao.updatePurchase(purchase);
+	}
 
-	
 }

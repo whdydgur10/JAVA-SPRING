@@ -43,7 +43,7 @@
 									</td>
 									<td style="width:620px;">
 										<a href="<%=request.getContextPath()%>/product/detail?mainCategory=${list.mainCategory}&productCode=${list.productCode}" style="height:50px;display:inline-block;">
-										<img src="<%=request.getContextPath()%>/resources/img/${list.thumbnailImage}" style="width:50px;height:50px;">
+										<img src="<%=request.getContextPath()%>/resources/img/enrollment/${list.thumbnailImage}" style="width:50px;height:50px;">
 										<span>${list.mainTitle} 옵션 : (${list.color}, ${list.size} / ${list.purchase}개)</span><br>
 										</a>
 										<input type="hidden" class="purchase" value="${list.purchase}">

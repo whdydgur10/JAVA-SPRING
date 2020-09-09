@@ -1,13 +1,10 @@
 package kr.green.project.utils;
 
 import java.io.File;
-import java.text.DecimalFormat;
-import java.util.Calendar;
-import java.util.UUID;
 
 import org.springframework.util.FileCopyUtils;
 
-public class UploadFileUtils {
+public class UploadFile {
 
 	public static String uploadFile(String uploadPath, String originalName, byte[] 	
 			fileData, String code)throws Exception{

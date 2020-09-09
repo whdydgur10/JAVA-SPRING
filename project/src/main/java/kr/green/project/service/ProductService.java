@@ -45,5 +45,7 @@ public interface ProductService {
 	int getPurchasePrice(int purchaseNum);
 
 	int getDeliveryPrice(int purchaseNum);
+
+	void updatePurchase(PurchaseVo purchase);
 	
 }

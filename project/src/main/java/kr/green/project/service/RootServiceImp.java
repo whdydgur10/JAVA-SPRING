@@ -13,7 +13,7 @@ import kr.green.project.dto.ProductOptionDto;
 import kr.green.project.pagination.RootCri;
 import kr.green.project.pagination.RootPage;
 import kr.green.project.utils.DeleteFile;
-import kr.green.project.utils.UploadFileUtils;
+import kr.green.project.utils.UploadFile;
 import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.ContentsizeVo;
@@ -28,7 +28,7 @@ public class RootServiceImp implements RootService {
 	RootDao rootDao;
 	@Autowired
 	InformationDao infoDao;
-	private String uploadPath = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\";
+	private String uploadPathEnroll = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\enrollment";
 	
 	@Override
 	public void insertProduct(ProductVo product, String[] size, String[] color) {
@@ -271,7 +271,7 @@ public class RootServiceImp implements RootService {
 	    String path = delete.getFilePath();
 	    delete.setFilePath(path + img);
 	    delete.deleteFile();
-	    String fileName = UploadFileUtils.uploadFile(uploadPath, fileData.getOriginalFilename(),fileData.getBytes(), code);
+	    String fileName = UploadFile.uploadFile(uploadPathEnroll, fileData.getOriginalFilename(),fileData.getBytes(), code);
 	    rootDao.updateImage(imageNum, fileName, table);
 	}
 

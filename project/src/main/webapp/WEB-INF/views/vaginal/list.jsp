@@ -41,6 +41,6 @@
   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/vaginal/list?page=${pageMaker.criteria.page + 1}">다음</a></li>
   	</c:if>
 </ul>
-<div>
-	<a href="<%=request.getContextPath()%>/vaginal/register" style="height:50px;display:inline-block;line-height:50px;border-top:1px solid black;border-left:1px solid black;width:150px;text-align:center;float:right;background-color:rgb(33,51,87);color:white;">문의글 작성하기</a>
+<div style="text-align:right;">
+	<a href="<%=request.getContextPath()%>/vaginal/register" style="height:50px;display:inline-block;line-height:50px;border-top:1px solid black;border-left:1px solid black;width:150px;text-align:center;background-color:rgb(33,51,87);color:white;">문의글 작성하기</a>
 </div>

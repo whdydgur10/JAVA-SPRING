@@ -61,4 +61,10 @@ public interface ProductDao {
 
 	int getDeliveryPrice(@Param("purchaseNum")int purchaseNum);
 
+	void updatePurchase(@Param("purchase")PurchaseVo purchase);
+
+	ArrayList<PurchaseVo> getPurchaseListAccount();
+
+	void deletePurchase(@Param("num")int num);
+
 }

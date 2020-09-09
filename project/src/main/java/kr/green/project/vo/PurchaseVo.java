@@ -16,12 +16,14 @@ public class PurchaseVo {
 	private char isConfirm;
 	private Date confirmDate;
 	private int price;
-	private int discountPrice;
+	private int givePoint;
 	private int deliveryPrice;
 	private int usePoint;
 	private Date orderDate;
 	private char isDel;
-//	구매번호 / 회원아이디 / 입금여부 / 입금남은날 / 포인트사용여부 / 쿠폰사용여부 / 물품발송상황 / 확정여부 / 확정남은날 / 총금액 / 할인금 / 배송비 / 사용한 포인트 / 주문날짜
+	private String payment;
+	private int addressNum;
+//	구매번호 / 회원아이디 / 결제여부 / 계좌입금남은날 / 포인트사용여부 / 쿠폰사용여부 / 물품발송상황 / 확정여부 / 확정남은날 / 총금액 / 할인금 / 배송비 / 사용한 포인트 / 주문날짜
 	public int getNum() {
 		return num;
 	}
@@ -106,11 +108,11 @@ public class PurchaseVo {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public int getDiscountPrice() {
-		return discountPrice;
+	public int getGivePoint() {
+		return givePoint;
 	}
-	public void setDiscountPrice(int discountPrice) {
-		this.discountPrice = discountPrice;
+	public void setGivePoint(int givePoint) {
+		this.givePoint = givePoint;
 	}
 	public int getDeliveryPrice() {
 		return deliveryPrice;
@@ -148,13 +150,25 @@ public class PurchaseVo {
 	public void setIsDel(char isDel) {
 		this.isDel = isDel;
 	}
+	public String getPayment() {
+		return payment;
+	}
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+	public int getAddressNum() {
+		return addressNum;
+	}
+	public void setAddressNum(int addressNum) {
+		this.addressNum = addressNum;
+	}
 	@Override
 	public String toString() {
 		return "PurchaseVo [num=" + num + ", userId=" + userId + ", deposit=" + deposit + ", depositDate=" + depositDate
 				+ ", isPoint=" + isPoint + ", isCoupon=" + isCoupon + ", situation=" + situation + ", isConfirm="
-				+ isConfirm + ", confirmDate=" + confirmDate + ", price=" + price + ", discountPrice=" + discountPrice
+				+ isConfirm + ", confirmDate=" + confirmDate + ", price=" + price + ", givePoint=" + givePoint
 				+ ", deliveryPrice=" + deliveryPrice + ", usePoint=" + usePoint + ", orderDate=" + orderDate
-				+ ", isDel=" + isDel + "]";
+				+ ", isDel=" + isDel + ", payment=" + payment + ", addressNum=" + addressNum + "]";
 	}
 	
 	public int getPricePoint() {

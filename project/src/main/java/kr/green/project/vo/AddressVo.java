@@ -8,6 +8,7 @@ public class AddressVo {
 	private String code;
 	private String address;
 	private String detail;
+	private char isTemp;
 //	주소지 번호 / 주소내용 / 회원아이디 / 기본배송지 설정
 	public int getNum() {
 		return num;
@@ -45,10 +46,16 @@ public class AddressVo {
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
+	public char getIsTemp() {
+		return isTemp;
+	}
+	public void setIsTemp(char isTemp) {
+		this.isTemp = isTemp;
+	}
 	@Override
 	public String toString() {
 		return "AddressVo [num=" + num + ", userId=" + userId + ", isMain=" + isMain + ", code=" + code + ", address="
-				+ address + ", detail=" + detail + "]";
+				+ address + ", detail=" + detail + ", isTemp=" + isTemp + "]";
 	}
 	
 }

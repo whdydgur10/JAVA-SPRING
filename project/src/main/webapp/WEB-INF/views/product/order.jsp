@@ -168,7 +168,7 @@
 		<div style="float:left;width:600px;position: relative;">
 			<h4>쿠폰</h4>
 			<div class="informBox">
-				<input type="hidden" class="useCouponNum" name="couponNum"> 
+				<input type="hidden" class="useCouponNum"> 
 				<span class="isUseCoupon">보유</span> 쿠폰 : 
 				<span class="couponCount"></span>
 				<hr>
@@ -187,14 +187,15 @@
 			<div class="informBox" style="width:600px;">
 				<div class="form-group">
 				    <label for="code">주문자</label>
-					  <input type="text" class="deliberyBox" value="${user.name}" name="name">
+					  <input type="text" class="deliberyBox" value="${user.name}" id="name">
 				</div>
 				<div class="form-group">
 					<label for="code">연락처</label>
-					<input type="text" class="deliberyBox" value="${user.phone}" name="phone">
+					<input type="text" class="deliberyBox" value="${user.phone}" id="phone">
 				</div>
 				<c:forEach var="address" items="${addresslist}">
 					<c:if test="${address.isMain == 'Y'.charAt(0)}">
+						<input type="hidden" id="addressNum" value="${address.num}"> 
 						<div class="form-group">
 						    <label for="code">우편번호</label>
 						    <input type="text" class="deliberyBox" value="${address.code}" name="addressCode" id="addressCode" disabled readonly style="background-color: #f1f3f6;width:200px;">
@@ -215,6 +216,7 @@
 					</c:if>
 				</c:forEach>
 				<c:if test="${addresslist.size() == 0}">
+					<input type="hidden" id="addressNum" value="${address.num}"> 
 					<div class="form-group">
 						<label for="code">우편번호</label>
 						<input type="text" class="deliberyBox" value="${address.code}" name="addressCode" id="addressCode" disabled readonly style="background-color: #f1f3f6;width:200px;">
@@ -238,42 +240,43 @@
 			<h4>결제방법</h4>
 			<div class="payment">
 				<div>
-					<input id="card" type="radio">
+					<input id="card" type="radio" value="card">
 					<label for="card">카드결제</label>
 				</div>
 				<div>
-					<input id="account" type="radio">
+					<input id="account" type="radio" value="account">
 					<label for="account">가상계좌</label>
 				</div>
 				<div>
-					<input id="naver" type="radio">
+					<input id="naver" type="radio" value="naver">
 					<label for="naver">네이버페이</label>
 				</div>
 				<div>
-					<input id="kakao" type="radio">
+					<input id="kakao" type="radio" value="kakao">
 					<label for="kakao">카카오페이</label>
 				</div>
 				<div>
-					<input id="payco" type="radio">
+					<input id="payco" type="radio" value="payco">
 					<label for="payco">페이코</label>
 				</div>
 				<div>
-					<input id="phone" type="radio">
+					<input id="phone" type="radio" value="phone">
 					<label for="phone">핸드폰결제</label>
 				</div>	
 			</div>
+			<span style="font-size:12px;">※계좌이체에 경우 주문 후 5일안에 입금해야합니다.</span>
 		</div>
-		<div style="float:right;width:300px;position:sticky;display:block;top:20px;">
-			<h4>결제금액</h4>
-			<span class="left">상품 금액</span><span class="productPrice right"></span>
-			<span class="left">쿠폰 금액</span><span class="couponPrice right">0원</span>
-			<span class="left">적립금 금액</span><span class="pointPrice right">0원</span>
-			<span class="left">배송비 금액</span><span class="deliveryPrice right"></span>
-			<hr>
-			<span class="left" style="color:red;font-size:20px;opacity:1;">최종 결제 금액</span><span id="finalPrice" class="right"></span>
-			<span class="left" style="color:blue;opacity:1;">예상 적립금</span><span id="givePoint" class="right"></span>
-			<button class="goPayment" type="button" style="height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:100%;text-align:center;background-color:rgb(33,51,87);color:white;margin-top:20px;font-size:23px;opacity:0.7;" disabled>결제하기</button>
-		</div>
+	</div>
+	<div style="float:right;width:300px;position:sticky;top:200px;">
+		<h4>결제금액</h4>
+		<span class="left">상품 금액</span><span class="productPrice right"></span>
+		<span class="left">쿠폰 금액</span><span class="couponPrice right">0원</span>
+		<span class="left">적립금 금액</span><span class="pointPrice right">0원</span>
+		<span class="left">배송비 금액</span><span class="deliveryPrice right"></span>
+		<hr>
+		<span class="left" style="color:red;font-size:20px;opacity:1;">최종 결제 금액</span><span id="finalPrice" class="right"></span>
+		<span class="left" style="color:blue;opacity:1;">예상 적립금</span><span id="givePoint" class="right"></span>
+		<button class="goPayment" type="button" style="height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:100%;text-align:center;background-color:rgb(33,51,87);color:white;margin-top:20px;font-size:23px;opacity:0.7;" disabled>결제하기</button>
 	</div>
 </div>
 <div class="modal" id="isCoupon">
@@ -309,6 +312,7 @@
         <span class="close" onclick="close()">&times;</span>
         <c:forEach var="address" items="${addresslist}">
         	<div class="address" style="margin-bottom:20px;">
+        		<input type="hidden" class="addressNum" value="${address.num}"> 
 	        	<input type="radio" <c:if test = "${address.isMain == 'Y'.charAt(0)}">checked</c:if>><br>
 				<label for="code">우편번호</label>
 				<input type="text" class="deliberyBox addressCode" value="${address.code}" disabled readonly style="background-color: #f1f3f6;"><br>
@@ -318,23 +322,146 @@
 				<input type="text" class="deliberyBox detail" value="${address.detail}" style="width:450px;">
         	</div>
 		</c:forEach>
-       	<div style="text-align: right;">
-       		<button type="button" class="newAddress" style="margin-right:5px;">다른 주소</button>
+       	<div>
+       		<span style="font-size:12px;margin-right:80px;">※주소지 설정은 내정보-계정에서 설정해주세요.</span>
+       		<button type="button" class="newAddress" style="margin-right:5px;">임시 주소</button>
     		<button type="button" id="choiceAddress">선택</button>
     	</div>
 	</div>
 </div>
+<c:if test="${purchase.deposit == 'Y'}">
+	<div class="modal" id="alreadyPayment" style="display:block;text-align:center;">
+	    <div class="modal-content">
+	        <span>이미 결제가 완료된 상품 주문입니다.</span>
+	        <a href="javascript:history.back();" style="margin:0 auto;margin-top:30px;">뒤로가기</a>
+		</div>
+	</div>
+</c:if>
 <script>
+	var len, num, str;
+	var productP, couponP, pointP, deliberyP, res;
+	var useCouponNum;
+	var payment;
+	var givePoint;
+	var isAddress = $('#isAddress');
+	var addressNum;
+	var addressCode;
+	var address;
+	var detail;
+	var couponNum;
+	var couponName;
+	var isCoupon = $('#isCoupon');
+	var useCoupon = $('#useCoupon');
+	var i;
+	var finalPrice = 0;
+	var index;
+	var purchaseNum = $('.purchaseNum').val();
+	var product;
+	var coupon = $('.couponPrice').text();
+	var point = $('.pointPrice').text();
+	var delibery;
+	var finalPrice;
+	var usePoint;
+	var pointPer;
+	$('.goPayment').click(function(){
+		if($('#name').val() == '')
+			return false;
+		else if($('#phone').val() == '')
+			return false;
+		else if($('#addressCode').val() == '')
+			return false;
+		else{
+			addressNum = $('#addressNum').val();
+			addressCode = $('#addressCode').val();
+			address = $('#address').val();
+			detail = $('#detail').val();
+			list = {"code":addressCode, "address":address, "detail":detail};
+			useCouponNum = $('.useCouponNum').val();
+			console.log(addressNum);
+			console.log(pointP);
+			if(addressNum == '')
+				$.ajax({
+					async:false,
+					type:'POST',
+					data:JSON.stringify(list),
+					url:"<%=request.getContextPath()%>/address",
+					dataType:"json",
+					contentType:"application/json; charset=UTF-8",
+					success : function(data){
+						addressNum = data['addressNum'];
+				    }
+				});
+			
+			if(useCouponNum != ''){
+				list = {"num":purchaseNum, "isCoupon":'Y',"price":finalPrice,"givePoint":givePoint, "payment":payment, "addressNum":addressNum};
+				$.ajax({
+					async:true,
+					type:'POST',
+					data:JSON.stringify(list),
+					url:"<%=request.getContextPath()%>/purchase/coupon",
+					dataType:"json",
+					contentType:"application/json; charset=UTF-8",
+					success : function(data){
+						
+				    }
+				});
+				list = {"purchaseNum":purchaseNum, "num":useCouponNum};
+				$.ajax({
+					async:true,
+					type:'POST',
+					data:JSON.stringify(list),
+					url:"<%=request.getContextPath()%>/purchase/useCoupon",
+					dataType:"json",
+					contentType:"application/json; charset=UTF-8",
+					success : function(data){
+						
+				    }
+				});
+			}
+			else if(pointP != 0){
+				list = {"num":purchaseNum, "isPoint":'Y', "price":finalPrice, "givePoint":givePoint, "payment":payment, "addressNum":addressNum, "usePoint":pointP};
+				$.ajax({
+					async:true,
+					type:'POST',
+					data:JSON.stringify(list),
+					url:"<%=request.getContextPath()%>/purchase/point",
+					dataType:"json",
+					contentType:"application/json; charset=UTF-8",
+					success : function(data){
+						
+				    }
+				});
+			}else{
+				list = {"num":purchaseNum, "price":finalPrice, "givePoint":givePoint, "payment":payment, "addressNum":addressNum, "usePoint":pointP};
+				$.ajax({
+					async:true,
+					type:'POST',
+					data:JSON.stringify(list),
+					url:"<%=request.getContextPath()%>/purchase",
+					dataType:"json",
+					contentType:"application/json; charset=UTF-8",
+					success : function(data){
+						
+				    }
+				});
+			}
+				
+		}
+	})
+	
 	$('.payment input[type=radio]').click(function(){
 		$('.payment').find('input[type=radio]').prop('checked',false);
 		$(this).prop('checked',true);
+		payment = $(this).val();
 		$('.goPayment').removeAttr('disabled');
 		$('.goPayment').css('opacity','1');
 	})
+	
 	$('.newAddress').click(function(){
 		isAddress.css('display','none');
 	    getPost();
-	})                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+	})
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 	function getPost() {
 	    new daum.Postcode({
 	        oncomplete: function(data) {
@@ -361,6 +488,7 @@
 	            }
 	            
 	            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	            $('#addressNum').val('');
 	            $('.form-group #addressCode').val(data.zonecode);
 	            $('.form-group #address').val(addr);
 	            // 커서를 상세주소 필드로 이동한다.
@@ -368,34 +496,34 @@
 	        }
 	    }).open();
 	}
-	var isAddress = $('#isAddress');
-	var addressCode;
-	var address;
-	var detail;
+	
 	$('.searchAddress').click(function(e){
 		isAddress.css('display','block');
 		e.stopPropagation();
 	})
+	
 	$('#isAddress input[type=radio]').click(function(){
 		$('.address').children('input[type=radio]').prop('checked',false);
 		$(this).prop('checked',true);
 	})
+	
 	$('#choiceAddress').click(function(){
 		for(i = 0; i < $('.address').length; i++){
 			index = $('.address')[i];
 			if($(index).children('input[type=radio]').prop('checked') == true){
+				addressNum = $(index).children('.addressNum').val();
 				addressCode = $(index).children('.addressCode').val();
 				address = $(index).children('.address').val();
 				detail = $(index).children('.detail').val();
 			}		
 		}
+		$('#addressNum').val(addressNum);
 		$('.form-group #addressCode').val(addressCode);
 		$('.form-group #address').val(address);
 		$('.form-group #detail').val(detail);
 		isAddress.css('display','none');
 	})
-	var couponNum;
-	var couponName;
+	
 	$('#choiceCoupon').click(function(){
 		for(i = 0; i < $('.coupon').length; i++){
 			index = $('.coupon')[i];
@@ -413,12 +541,12 @@
 		$('.removeCoupon').css('display','inline-block');
 		resetPoint();
 	})
+	
 	$('.coupon input[type=radio]').click(function(){
 		$('.coupon').children('input[type=radio]').prop('checked',false);
 		$(this).prop('checked',true);
 	})
-	var isCoupon = $('#isCoupon');
-	var useCoupon = $('#useCoupon');
+	
 	function resetCoupon(){
 		$('.isUseCoupon').text('보유');
 		$('.useCouponNum').val('');
@@ -427,30 +555,36 @@
 		$('.couponPrice').text(coupon);
 		$('#finalPrice').text(calc(product, coupon, point, delibery) + '원');
 	}
+	
 	function resetPoint(){
 		$('.usePoint').val('0');
 		$('.pointPrice').text('0원');
 		point = $('.pointPrice').text();
 		$('#finalPrice').text(calc(product, coupon, point, delibery) + '원');
 	}
+	
 	$('.removeCoupon').click(function(){
 		resetCoupon();
 		$(this).css('display','none');
 	})
+	
 	$('.useCoupon').click(function(e){
 		isCoupon.css('display','block');
 		e.stopPropagation();
 	})
+	
 	$('.close').click(function(e){
 		$(this).parents('.modal').css('display','none');
 		e.stopPropagation();
 	})
+	
 	$('#use').click(function(e){
 		$(this).parents('.modal').css('display','none');
 		useCoupon.css('display','block');	
 		
 		e.stopPropagation();
 	})
+	
 	$('body').click(function(e){
 		var target = $(e.target).parents('.modal').length;
 		if(target == 0){
@@ -459,17 +593,7 @@
 			isAddress.css('display','none');
 		}
 	})
-	var i;
-	var finalPrice = 0;
-	var index;
-	var purchaseNum = $('.purchaseNum').val();
-	var product;
-	var coupon = $('.couponPrice').text();
-	var point = $('.pointPrice').text();
-	var delibery;
-	var finalPrice;
-	var usePoint;
-	var pointPer;
+	
 	$.ajax({
 		async:false,
 		type:'POST',
@@ -482,6 +606,7 @@
 			product = $('.productPrice').text();
 	    }
 	});
+	
 	$.ajax({
 		async:false,
 		type:'POST',
@@ -495,6 +620,7 @@
 			$('#finalPrice').text(calc(product, coupon, point, delibery)+ '원');
 	    }
 	});
+	
 	$.ajax({
 		async:true,
 		type:'POST',
@@ -506,6 +632,7 @@
 			$('#givePoint').text(toStr(((toInt($('#finalPrice').text())* pointPer).toFixed()))+ '원');
 		}	
 	});
+	
 	$.ajax({
 		async:true,
 		type:'POST',
@@ -524,6 +651,7 @@
 				$('.useCoupon').css({'opacity':'1','cursor':'pointer'});
 	    }
 	});
+	
 	$('.userAll').click(function(){
 		$('.usePoint').val($('.userPoint').text());
 		usePoint = $('.usePoint').val();
@@ -533,6 +661,7 @@
 		resetCoupon();
 		$('#finalPrice').text(calc(product, coupon, point, delibery) + '원');
 	})
+	
 	$('.usePoint').keypress(function(event){
             if(event.keyCode >= 48 && event.keyCode <= 57){
                 return true;
@@ -540,6 +669,7 @@
                 return false;
             }
         })
+        
 	$('.usePoint').change(function(){
 		var userPoint = Number($('.userPoint').text());
 		if($(this).val() == '')
@@ -555,8 +685,8 @@
 		resetCoupon();
 		$('#finalPrice').text(calc(product, coupon, point, delibery) + '원');
 	})
+	
 	function toStr(obj){
-	    var len, num, str;  
 	    obj = obj + "";  
 	    num = obj.length % 3 ;
 	    len = obj.length;  
@@ -568,14 +698,15 @@
 	    }
 	    return str;
 	}
+	
 	function toInt(str)
 	{
 		str = str.substring(0, str.length-1);
 		num = parseInt(str.replace(/,/g,""));
 		return num; 
 	}
+	
 	function calc(product, coupon, point, delibery){
-		var productP, couponP, pointP, deliberyP, res;
 		productP = toInt(product);
 		couponP = toInt(coupon);
 		pointP = toInt(point);
@@ -585,51 +716,8 @@
 		var b = (Math.pow(10,2));
 		var c = Math.floor(finalPrice / 100*b)/b;
 		var d = c.toFixed(0);
+		givePoint = d;
 		$('#givePoint').text(toStr(d)+ '원');
 		return toStr(finalPrice);
 	}
-	$("form").validate({
-	    rules: {
-	        name: {
-	            required : true
-	        },
-	        phone: {
-	            required : true
-	        },
-	        addressCode: {
-	            required : true
-	        },
-	        address: {
-	            required : true
-	        },
-	        detail: {
-	            required : true
-	        }
-	    },
-	    messages : {
-	    	name: {
-	    		required : ""
-	        },
-	        phone: {
-	        	required : ""
-	        },
-	        addressCode: {
-	        	required : ""
-	        },
-	        address: {
-	        	required : ""
-	        },
-	        detail: {
-	        	required : ""
-	        }
-	    }
-	});
-	$.validator.addMethod(
-		"regex",
-		function(value, element, regexp) {
-			var re = new RegExp(regexp);
-			return this.optional(element) || re.test(value);
-		},
-		"Please check your input."
-	);
 </script>

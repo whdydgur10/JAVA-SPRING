@@ -1,5 +1,6 @@
 package kr.green.project.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,18 +8,25 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.project.dao.VaginalDao;
 import kr.green.project.dto.UserVaginalDto;
 import kr.green.project.pagination.Criteria;
 import kr.green.project.pagination.PageMaker;
+import kr.green.project.utils.UploadFile;
 import kr.green.project.vo.AnswerVo;
+import kr.green.project.vo.AnswerfileVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;
+import kr.green.project.vo.VaginalfileVo;
 
 @Service
 public class VaginalServiceImp implements VaginalService {
 
+	private String uploadPathVaginal = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\vaginal\\";
+	private String uploadPathAnswer = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\answer\\";
+	
 	@Autowired
 	VaginalDao vagiDao;
 	
@@ -65,6 +73,44 @@ public class VaginalServiceImp implements VaginalService {
 		pageMaker.setCriteria(cri);
 		pageMaker.setTotalCount(vagiDao.countVaginal());
 		return pageMaker;
+	}
+
+	@Override
+	public void insertVaginalFile(MultipartFile[] file, String id) throws IOException, Exception {
+		int num = vagiDao.getLateVaginalNum(id);
+		for(MultipartFile tmp : file) {
+			if(!tmp.getOriginalFilename().equals("")) {
+				String fileName = UploadFile.uploadFile(uploadPathVaginal, tmp.getOriginalFilename(),tmp.getBytes(), Integer.toString(num));
+				vagiDao.insertVaginalFile(num, fileName);
+			}
+		}
+	}
+
+	@Override
+	public ArrayList<VaginalfileVo> getVaginalFile(int num) {
+		return vagiDao.getVaginalFile(num);
+	}
+
+	@Override
+	public void insertAnswer(AnswerVo answer, MultipartFile[] file) throws IOException, Exception {
+		answer.setAnswerDate(new Date());
+		vagiDao.insertAnswer(answer);
+		int num = vagiDao.getLateAnswerNum();
+		for(MultipartFile tmp : file) {
+			if(!tmp.getOriginalFilename().equals("")) {
+				String fileName = UploadFile.uploadFile(uploadPathAnswer, tmp.getOriginalFilename(),tmp.getBytes(), Integer.toString(num));
+				vagiDao.insertAnswerFile(num, fileName);
+			}
+		}
+	}
+
+	@Override
+	public ArrayList<AnswerfileVo> getAnswerFile(int num) {
+		AnswerVo answer = vagiDao.getAnswer(num);
+		if(answer != null)
+			return vagiDao.getAnswerFile(answer.getNum());
+		else
+			return null;
 	}
 
 }

@@ -7,10 +7,10 @@
 		select level from level where userId = #{id}
 	</select>
 	<select id="getCouponNum" resultType="int">
-		select count(*) from coupon where userId = #{id}
+		select count(*) from coupon where userId = #{id} and purchaseNum is null
 	</select>
 	<select id="getPurchaseListNum" resultType="int">
-		select count(*) from purchase where userId = #{id}
+		select count(*) from purchase where userId = #{id} and isDel = 'N'
 	</select>
 	<select id="getVaginalNum" resultType="int">
 		select count(*) from project.vaginal where userId = #{id}
@@ -22,16 +22,16 @@
 		select count(*) from review where userId = #{id}
 	</select>
 	<select id="getMainAddress" resultType="kr.green.project.vo.AddressVo">
-		select * from address where userId = #{id} and isMain = 'Y'
+		select * from address where userId = #{id} and isMain = 'Y' and isTemp = 'N'
 	</select>
 	<select id="getSubAddressList" resultType="kr.green.project.vo.AddressVo">
-		select * from address where userId = #{id} and isMain = 'N'
+		select * from address where userId = #{id} and isMain = 'N' and isTemp = 'N'
 	</select>
 	<select id="getaddressList" resultType="kr.green.project.vo.AddressVo">
-		select * from address where userId = #{id}
+		select * from address where userId = #{id} and isTemp = 'N'
 	</select>
 	<insert id="insertAddress">
-		insert into address(userId, code, address, detail, isMain) values(#{user.id}, #{address.code}, #{address.address}, #{address.detail}, #{address.isMain})
+		insert into address(userId, code, address, detail, isMain, isTemp) values(#{user.id}, #{address.code}, #{address.address}, #{address.detail}, #{address.isMain}, #{address.isTemp})
 	</insert>
 	<update id="updateIsSub">
 		update address set isMain = 'N' where userId = #{id} and isMain = 'Y'
@@ -65,7 +65,7 @@
 		select * from purchase where userId = #{id} and situation = '상품 도착' order by num DESC
 	</select>
 	<select id="getUsePointPurchase" resultType="kr.green.project.vo.PurchaseVo">
-		select * from purchase where userId = #{id} and situation = '상품 도착' and isPoint = 'Y' order by num DESC
+		select * from purchase where userId = #{id} and isConfirm = 'Y' and isPoint = 'Y' order by num DESC
 	</select>
 	<select id="getCouponList" resultType="kr.green.project.vo.CouponVo">
 		select * from coupon where userId = #{id} and purchaseNum is null
@@ -83,7 +83,7 @@
 		select * from coupon where userId = #{id} and code = #{code}
 	</select>
 	<select id="getPurchaseList" resultType="kr.green.project.vo.PurchaseVo">
-		select * from purchase where userId = #{id} order by num DESC
+		select * from purchase where userId = #{id} and isDel = 'N' order by num DESC
 	</select>
 	<select id="getVaginalList" resultType="kr.green.project.vo.VaginalVo">
 		select * from project.vaginal where userId = #{id} order by num DESC
@@ -118,4 +118,13 @@
                 on level.level = point.level
                 where userId = #{id};
 	</select>
+	<update id="updateCoupon">
+		update coupon set purchaseNum = #{coupon.purchaseNum} where num = #{coupon.num}
+	</update>
+	<select id="getAddressNum" resultType="int">
+		select max(num) from address where userId = #{id}
+	</select>
+	<update id="updateDecUserPoint">
+		update user set point = #{user.point} where id = #{user.id}
+	</update>
 </mapper>

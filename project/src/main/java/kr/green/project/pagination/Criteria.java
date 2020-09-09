@@ -9,7 +9,7 @@ public class Criteria {
 	
 	public Criteria() {
 		this.page = 1;
-		this.perPageNum = 10;
+		this.perPageNum = 30;
 		this.type = "all";
 		this.search = "";
 	}
@@ -27,8 +27,8 @@ public class Criteria {
 		return perPageNum;
 	}
 	public void setPerPageNum(int perPageNum) {
-		if(perPageNum < 10) {
-			this.perPageNum = 10;
+		if(perPageNum < 30) {
+			this.perPageNum = 30;
 		}
 		else
 			this.perPageNum = perPageNum;

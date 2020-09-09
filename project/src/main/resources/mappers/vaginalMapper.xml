@@ -40,4 +40,28 @@
 	<select id="countVaginal" resultType="int">
 		select count(*) from project.vaginal
 	</select>
+	<insert id="insertVaginalFile">
+		insert vaginalFile(image, vaginalNum) values(#{fileName}, #{num})
+	</insert>
+	<select id="getLateVaginalNum" resultType="int">
+		select max(num) from project.vaginal where userId = #{id}
+	</select>
+	<select id="getVaginalFile" resultType="kr.green.project.vo.VaginalfileVo">
+		select * from project.vaginalfile where vaginalNum = #{num}
+	</select>
+	<insert id="insertAnswer">
+		insert into answer(userId, vaginalNum, content, answerDate) values(#{answer.userId}, #{answer.vaginalNum}, #{answer.content}, #{answer.answerDate})
+	</insert>
+	<select id="getLateAnswerNum" resultType="int">
+		select max(num) from answer
+	</select>
+	<select id="getAnswerFile" resultType="kr.green.project.vo.AnswerfileVo">
+		select * from project.answerfile where answerNum = #{num}
+	</select>
+	<select id="getAnswerNum" resultType="int">
+		select num from answer where vaginalNum = #{num}
+	</select>
+	<insert id="insertAnswerFile">
+		insert into project.answerfile(image, answerNum) values(#{fileName}, #{num})
+	</insert>
 </mapper>

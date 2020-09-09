@@ -82,7 +82,7 @@
 	}
 	.adBox{
 		width:300px;
-		height:800px;
+		height:700px;
 		position:absolute;
 		right:0;
 		top: 0;
@@ -167,7 +167,7 @@
     .modal {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
+        z-index: 20; /* Sit on top */
         left: 0;
         top: 0;
         width: 100%; /* Full width */
@@ -189,11 +189,10 @@
      .modal-image {
       	position:relative;
         background-color: #fefefe;
-        margin: 15% auto; /* 15% from the top and centered */
-        padding: 20px;
+        margin: 1% auto; /* 15% from the top and centered */
         border: 1px solid #888;
-        width: 1000px; /* Could be more or less, depending on screen size */
-        min-height: 1000px;                     
+        width:900px;
+        height:900px;
     }
     /* The Close Button */
     .close {
@@ -236,14 +235,14 @@
 		<hr>
 		<hr>
 		<div class="thumnailBox" style="width:600px;float:left;margin-bottom:20px;">
-			<img style="width:600px;height:600px;" src="<c:if test="${thumbnail[0].thumbnailImage != null}"><%=request.getContextPath()%>/resources/img/${thumbnail[0].thumbnailImage}</c:if><c:if test="${thumbnail[0].thumbnailImage == null}"><%=request.getContextPath()%>/resources/img/썸네일 준비중.png</c:if>">
+			<img style="width:600px;height:600px;" src="<c:if test="${thumbnail[0].thumbnailImage != null}"><%=request.getContextPath()%>/resources/img/enrollment/${thumbnail[0].thumbnailImage}</c:if><c:if test="${thumbnail[0].thumbnailImage == null}"><%=request.getContextPath()%>/resources/img/썸네일 준비중.png</c:if>">
 			<div class="subThumnailBox" style="width:100%;">
-				<c:if test="${thumbnail[1].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/${thumbnail[1].thumbnailImage}"></c:if>
-				<c:if test="${thumbnail[2].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/${thumbnail[2].thumbnailImage}"></c:if>
-				<c:if test="${thumbnail[3].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/${thumbnail[3].thumbnailImage}"></c:if>
-				<c:if test="${thumbnail[4].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/${thumbnail[4].thumbnailImage}"></c:if>
-				<c:if test="${thumbnail[5].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/${thumbnail[5].thumbnailImage}"></c:if>
-				<c:if test="${thumbnail[6].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/${thumbnail[6].thumbnailImage}"></c:if>
+				<c:if test="${thumbnail[1].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/enrollment/${thumbnail[1].thumbnailImage}"></c:if>
+				<c:if test="${thumbnail[2].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/enrollment/${thumbnail[2].thumbnailImage}"></c:if>
+				<c:if test="${thumbnail[3].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/enrollment/${thumbnail[3].thumbnailImage}"></c:if>
+				<c:if test="${thumbnail[4].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/enrollment/${thumbnail[4].thumbnailImage}"></c:if>
+				<c:if test="${thumbnail[5].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/enrollment/${thumbnail[5].thumbnailImage}"></c:if>
+				<c:if test="${thumbnail[6].thumbnailImage != null}"><img src="<%=request.getContextPath()%>/resources/img/enrollment/${thumbnail[6].thumbnailImage}"></c:if>
 			</div>
 		</div>
 		<form method="post" style="margin-top:20px;">
@@ -362,29 +361,31 @@
 			</div>
 			<div class="imageInformBox" style="position:relative;padding-bottom:30px;">
 				<c:forEach var="content" items="${image}">
-					<img style="width:800px;height:800px;margin-bottom:30px;" src="<%=request.getContextPath()%>/resources/img/${content.contentImage}">
+					<img style="width:800px;height:800px;margin-bottom:30px;" src="<%=request.getContextPath()%>/resources/img/enrollment/${content.contentImage}">
 				</c:forEach>
 			</div>
 		</div>
 	</div>
-	<div style="width:300px;height:100%;float:left;margin-left:50px;position:relative;">
-		<div class="adBox" style="overflow:hidden;">
-			<div class="adImageBox" style="width:400%;">
-				<a href="#">
-					<img style="width:25%;height:100%;background:aqua; ">
-				</a>
-				<a href="#">
-					<img style="width:25%;height:100%;background:black; ">
-				</a>
-				<a href="#">
-					<img style="width:25%;height:100%;background:blue; ">
-				</a>
-				<a href="#">
-					<img style="width:25%;height:100%;background:fuchsia; ">
-				</a>
+	<div style="width:300px;height:100%;float:left;margin-left:50px;position:sticky;top:200px;">
+		<div style="position:relative;height:700px;">
+			<div class="adBox" style="overflow:hidden;">
+				<div class="adImageBox" style="width:400%;;">
+					<a href="#">
+						<img style="width:25%;height:100%;background:aqua; ">
+					</a>
+					<a href="#">
+						<img style="width:25%;height:100%;background:black; ">
+					</a>
+					<a href="#">
+						<img style="width:25%;height:100%;background:blue; ">
+					</a>
+					<a href="#">
+						<img style="width:25%;height:100%;background:fuchsia; ">
+					</a>
+				</div>
 			</div>
+			<a class="goTop" style="position:absolute;bottom:-30px;right:0;"><i class="far fa-hand-pointer">맨 위로</i></a>
 		</div>
-		<a class="goTop"><i class="far fa-hand-pointer">맨 위로</i></a>
 	</div>
 </div>
 <!-- The Modal -->
@@ -401,10 +402,9 @@
     	<a href="<%=request.getContextPath()%>/information/shoppingBasket" id="no">아니오</a>
 	</div>
 </div>
-<div class="modal image">
+<div id="image" class="modal">
 	<div class="modal-image">
-        <span class="close" onclick="close()">&times;</span>
-        <image>
+        <img style="width:900px;height:900px;">
 	</div>
 </div>
 <c:if test="${user == null}">
@@ -474,38 +474,27 @@
 </c:if>
 <script>
 	var i
-	$('image').click(function(){
-		
+	$('.mainBox img').click(function(e){
+		image.style.display = "block";
+		$('#image img').attr('src',$(this).attr('src'))
+		e.stopPropagation();
 	})
 	var modal = document.getElementById('myModal');
+	var image =document.getElementById('image');
 	var span = document.getElementsByClassName("close")[0];          
 	span.onclick = function() {
 	    modal.style.display = "none";
 	}
 
-	/* function yes_close(obj){
-	    obj.click(function(){
-	    	modal.style.display = "none";
-	    	
-	    })
-	}
-    
-	function no_close(obj){
-	    obj.click(function(){
-	    	modal.style.display = "none";
-	    	
-	    })
-	} */
-	
 	window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
+        if (event.target == image) {
+        	image.style.display = "none";
+        }
     }
-
-	/* yes_close($('#yes'));
-	no_close($('#no')); */
-
+	
 	setInterval(function(){
 	    $('.adImageBox').children().first().animate({'margin-left':'-300px'},1,function(){
 	        $('.adImageBox').children().first().detach().appendTo('.adImageBox');
@@ -518,19 +507,12 @@
 		log(height);
 	});
 	function log(str){
-	    if(str > (allHeight - 800)) {
-		    $('.adBox').css({'position':'absolute','right':'0','top':allHeight - 900});
-		    $('.goTop').css({'position':'absolute','right':'0','bottom':-(allHeight -1000)});
-	    }else if(str > 150){
-	    	$('.adBox').css({'position':'fixed','right':'12%','top':'50px'});
-	    	$('.goTop').css({'position':'fixed','right':'12%','bottom':'70px'});
+	    if(str > 150){
 	    	$('.goTop').css('display','inline-block');
 		}
 	    else if(str < 240){
-	    	$('.adBox').css({'position':'absolute','right':'0','top':'0'});
 	    	$('.goTop').css('display','none');
 		}
-	    	
 	}
 	$('.goTop').click(function() {
         $('html, body').animate({scrollTop : 0}, 400);

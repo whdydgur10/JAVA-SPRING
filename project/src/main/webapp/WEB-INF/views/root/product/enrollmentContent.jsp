@@ -91,6 +91,10 @@
 	.sizeInformBox input{
 		height:30px;
 	}
+	.error{
+		color: black;
+		font-size: 40px;
+	}
 </style>
 <div class="mainBox" style="width:1100px;margin:20px auto;">
 	<form method="post" enctype="multipart/form-data">
@@ -560,7 +564,6 @@
 	image($("input[type=file]"));
 	function image(obj){
 		obj.change(function(e){
-			console.log($(this).val());
 	        if($(this).val() != ""){
 	        	var files = e.target.files;
 	            var arr =Array.prototype.slice.call(files);

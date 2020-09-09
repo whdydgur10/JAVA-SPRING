@@ -72,6 +72,7 @@ public class InformationController {
 	@RequestMapping(value= "/information/account/address", method = RequestMethod.POST)
 	public ModelAndView accountInformationAddressPost(ModelAndView mv, HttpServletRequest h, AddressVo address){
 		UserVo user = (UserVo) h.getSession().getAttribute("user");
+		address.setIsTemp('N');
 		if(!address.getAddress().equals(""))
 			infos.insertAddress(user, address);
 		mv.setViewName("redirect:/information/account");

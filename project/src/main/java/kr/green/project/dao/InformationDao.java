@@ -88,4 +88,10 @@ public interface InformationDao {
 
 	Double getPointPercent(@Param("id")String id);
 
+	int getAddressNum(@Param("id")String id);
+
+	void updateCoupon(@Param("coupon")CouponVo coupon);
+
+	void updateDecUserPoint(@Param("user")UserVo user);
+
 }

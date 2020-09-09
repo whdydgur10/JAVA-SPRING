@@ -190,7 +190,7 @@ public class InformationServiceImp implements InformationService {
 						int enrollNum = pv.getEnrollNum();
 						str = str + infoDao.getEnrollmentMainTitle(enrollNum);
 					}
-				PurchaseDto pud = new PurchaseDto(tmp.getNum(), tmp.getUserId(), tmp.getDeposit(), tmp.getDepositDate(), tmp.getIsPoint(), tmp.getIsCoupon(), tmp.getSituation(), tmp.getIsConfirm(), tmp.getConfirmDate(), tmp.getPrice(), tmp.getDiscountPrice()
+				PurchaseDto pud = new PurchaseDto(tmp.getNum(), tmp.getUserId(), tmp.getDeposit(), tmp.getDepositDate(), tmp.getIsPoint(), tmp.getIsCoupon(), tmp.getSituation(), tmp.getIsConfirm(), tmp.getConfirmDate(), tmp.getPrice(), tmp.getGivePoint()
 						, tmp.getDeliveryPrice(), tmp.getUsePoint(), tmp.getOrderDate(), tmp.getIsDel(), str);
 				pudList.add(pud);	
 			}
@@ -250,5 +250,21 @@ public class InformationServiceImp implements InformationService {
 	@Override
 	public Double getPointPercent(String id) {
 		return infoDao.getPointPercent(id);
+	}
+
+	@Override
+	public int getAddressNum(String id) {
+		return infoDao.getAddressNum(id);
+	}
+
+	@Override
+	public void updateCoupon(CouponVo coupon) {
+		infoDao.updateCoupon(coupon);
+	}
+
+	@Override
+	public void updateDecUserPoint(UserVo user) {
+		infoDao.updateDecUserPoint(user);
+		
 	}
 }

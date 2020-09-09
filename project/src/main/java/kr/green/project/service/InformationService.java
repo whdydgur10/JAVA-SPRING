@@ -74,4 +74,10 @@ public interface InformationService {
 
 	Double getPointPercent(String id);
 
+	int getAddressNum(String id);
+
+	void updateCoupon(CouponVo coupon);
+
+	void updateDecUserPoint(UserVo user);
+
 }

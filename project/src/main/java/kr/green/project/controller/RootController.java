@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.green.project.pagination.RootCri;
 import kr.green.project.service.ProductService;
 import kr.green.project.service.RootService;
-import kr.green.project.utils.UploadFileUtils;
+import kr.green.project.utils.UploadFile;
 import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.OptionVo;
@@ -34,7 +34,7 @@ public class RootController {
 	RootService roots;
 	@Autowired
 	ProductService pros;
-	private String uploadPath = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\";
+	private String uploadPath = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\enrollment\\";
 	
 	@RequestMapping(value= "/root/page", method = RequestMethod.GET)
 	public ModelAndView rootGet(ModelAndView mv, HttpServletRequest h){
@@ -280,7 +280,7 @@ public class RootController {
 		else {
 			for(MultipartFile tmp : thumbnailImage) {
 				if(!(tmp.getOriginalFilename() == "")) {
-					String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+					String fileName = UploadFile.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
 					roots.insertThumnailImage(enrollmentNum, fileName);
 				}
 			}
@@ -289,7 +289,7 @@ public class RootController {
 			roots.insertContentremark(enrollmentNum, contentremark);
 			for(MultipartFile tmp : contentImage) {
 				if(!(tmp.getOriginalFilename() == "")) {
-					String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+					String fileName = UploadFile.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
 					roots.insertContentImage(enrollmentNum, fileName);
 				}
 			}
@@ -349,7 +349,7 @@ public class RootController {
 		else {
 			for(MultipartFile tmp : thumbnailImage) {
 				if(!(tmp.getOriginalFilename() == "")) {
-					String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+					String fileName = UploadFile.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
 					roots.insertThumnailImage(enrollmentNum, fileName);
 				}
 			}
@@ -358,7 +358,7 @@ public class RootController {
 			roots.updateContentremark(enrollmentNum, contentremark);
 			for(MultipartFile tmp : contentImage) {
 				if(!(tmp.getOriginalFilename() == "")) {
-					String fileName = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
+					String fileName = UploadFile.uploadFile(uploadPath, tmp.getOriginalFilename(),tmp.getBytes(), productCode);
 					roots.insertContentImage(enrollmentNum, fileName);
 				}
 			}

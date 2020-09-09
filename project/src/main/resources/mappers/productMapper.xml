@@ -29,11 +29,11 @@
 																</if>
 							) as category
 							on productenrollment.categoryNum = category.categoryNum
+							where isDel = 'N'
 							<if test="cri.search.length != 0">
 								and productenrollment.mainTitle like concat ('%',#{cri.search},'%')
 								or productenrollment.subTitle like concat ('%',#{cri.search},'%')
 							</if>
-							where isDel = 'N'
 							limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="countProductEnrollment" resultType="int">
@@ -94,4 +94,14 @@
 	<select id="getDeliveryPrice" resultType="int">
 		select deliveryPrice from purchase where num = #{purchaseNum}
 	</select>
+	<update id="updatePurchase">
+		update purchase set isPoint = #{purchase.isPoint}, isCoupon = #{purchase.isCoupon}, price = #{purchase.price}, givePoint = #{purchase.givePoint}, usePoint = #{purchase.usePoint}
+			,payment = #{purchase.payment}, addressNum = #{purchase.addressNum} where num = #{purchase.num}
+	</update>
+	<select id="getPurchaseListAccount" resultType="kr.green.project.vo.PurchaseVo">
+		select * from purchase where deposit = 'N' and payment = 'account' and isDel = 'N';
+	</select>
+	<update id="deletePurchase">
+		update purchase set isDel = 'Y' where num = #{num}
+	</update>
 </mapper>

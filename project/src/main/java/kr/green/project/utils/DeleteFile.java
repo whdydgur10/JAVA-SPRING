@@ -4,7 +4,7 @@ import java.io.File;
 
 public class DeleteFile {
 
-	private String filePath = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\";
+	private String filePath = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\enrollment\\";
 	
 	public String getFilePath() {
 		return filePath;

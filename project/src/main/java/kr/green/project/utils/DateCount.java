@@ -11,11 +11,14 @@ import org.springframework.stereotype.Component;
 
 import kr.green.project.dao.InformationDao;
 import kr.green.project.dao.ProductDao;
+import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.ShoppingbasketVo;
 
 @Component
 public class DateCount {
 
+	
 	@Autowired
 	ProductDao proDao;
 	@Autowired
@@ -35,8 +38,25 @@ public class DateCount {
 			long diff = todate_date.getTime() - data_date.getTime();
 			// 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
 			long diffDays = diff / (24 * 60 * 60 * 1000);
-			if(diffDays > 7)
+			if(diffDays > 7) {
 				infoDao.deleteShoppingBasket(tmp.getShoppingNum());
+				proDao.updateIncOptionPurchase(tmp.getOptionCode(), tmp.getPurchase());
+			}
+				
+		}
+		ArrayList<PurchaseVo> purchaseList = proDao.getPurchaseListAccount();
+		for(PurchaseVo tmp : purchaseList) {
+			Date data_date = dateForm.parse(tmp.getOrderDate());
+			long diff = todate_date.getTime() - data_date.getTime();
+			// 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
+			long diffDays = diff / (24 * 60 * 60 * 1000);
+			if(diffDays > 5) {
+				ArrayList<PurchaselistVo> list = proDao.getPurchaseList(tmp.getNum());
+				for(PurchaselistVo l : list) {
+					proDao.updateIncOptionPurchase(l.getOptionCode(), l.getPurchase());
+				}
+				proDao.deletePurchase(tmp.getNum());
+			}
 		}
 	}
 }
