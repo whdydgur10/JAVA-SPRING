@@ -1,5 +1,6 @@
 package kr.green.project.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import kr.green.project.pagination.ProductCri;
 import kr.green.project.service.InformationService;
 import kr.green.project.service.ProductService;
 import kr.green.project.service.RootService;
+import kr.green.project.service.reviewService;
 import kr.green.project.vo.AddressVo;
 import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.OptionVo;
@@ -34,11 +36,13 @@ public class ProductController {
 	RootService roots;
 	@Autowired
 	InformationService infos;
+	@Autowired
+	reviewService res;
 	
 	@RequestMapping(value= "/product/detail", method = RequestMethod.GET)
-	public ModelAndView productDtailGet(ModelAndView mv, String productCode, ProductCri cri){
+	public ModelAndView productDtailGet(ModelAndView mv, String productCode, ProductCri pri){
 		ProductenrollmentVo enrollment = roots.getEnrollmentString(productCode);
-		mv.addObject("cri", cri);
+		mv.addObject("pri", pri);
 		mv.addObject("enrollment", enrollment);
 		mv.addObject("product", roots.getProduct(productCode));
 		mv.addObject("colorList", roots.getOptionColor(productCode));
@@ -200,5 +204,27 @@ public class ProductController {
 	    purchase.setIsPoint('N');
 	    pros.updatePurchase(purchase);
 	    return map;
+	}
+	
+	@RequestMapping(value= "/product/return", method = RequestMethod.GET)
+	public ModelAndView productReturnGet(ModelAndView mv, ProductCri pri, int purchaseNum, HttpServletRequest h){
+		mv.addObject("pri", pri);
+		mv.setViewName("/product/return");
+	    return mv;
+	}
+	
+	@RequestMapping(value= "/product/cancel", method = RequestMethod.GET)
+	public ModelAndView productCancelGet(ModelAndView mv, ProductCri pri, int purchaseNum, HttpServletRequest h){
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		PurchaseVo purchase = res.getPurchaseTonum(purchaseNum);
+		mv.addObject("pri", pri);
+		if(purchase.getUserId().equals(user.getId())) {
+			mv.addObject("purchase", purchase);
+			mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
+			mv.setViewName("/product/cancel");
+		}
+		else 
+			mv.setViewName("redirect:/information/purchaseList");
+	    return mv;
 	}
 }

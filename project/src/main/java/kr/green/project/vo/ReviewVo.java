@@ -7,8 +7,7 @@ public class ReviewVo {
 	private String title;
 	private String content;
 	private int grade;
-	private int listNum;
-//	후기번호 / 회원아이디 / 제목 / 내용 / 별점 / 구매내역
+//	후기번호 / 회원아이디 / 제목 / 내용 / 별점 
 	public int getNum() {
 		return num;
 	}
@@ -39,16 +38,10 @@ public class ReviewVo {
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-	public int getListNum() {
-		return listNum;
-	}
-	public void setListNum(int listNum) {
-		this.listNum = listNum;
-	}
 	@Override
 	public String toString() {
 		return "ReviewVo [num=" + num + ", userId=" + userId + ", title=" + title + ", content=" + content + ", grade="
-				+ grade + ", listNum=" + listNum + "]";
+				+ grade + "]";
 	}
 	
 }

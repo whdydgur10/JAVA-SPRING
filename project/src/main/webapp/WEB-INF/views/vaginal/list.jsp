@@ -3,7 +3,14 @@
     pageEncoding="UTF-8"%>
 <title>문의사항</title>
 <div>
-	<h2 style="margin-left:20px;">문의게시판</h2>
+	<h2 style="margin-left:20px;width:200px;display:inline-block;">문의게시판</h2>
+	<span style="float:right;">
+		<form method="get" action="<%=request.getContextPath()%>/vaginal/list">
+			<input type="text" name="search" style="outline:none;width:250px;" autocomplete="off" value="${cri.search}">
+			<button type="button" class="btn-search" style="outline: none;">게시글 검색</button>
+			<button type="submit" class="search" hidden=""></button>
+		</form>
+	</span>
 </div>
 <table class="table table-hover" style="text-align:center;">
 	<thead>

@@ -221,6 +221,7 @@
   	<update id="updateContentSizeText">
   		update proejct.contentsizetext set contentSizeText = #{contentSizeText} where enrollmentNum = #{enrollmentNum}
   	</update>
+  	
   	<update id="updateContentremark">
   		update proejct.contentremark set contentElasticity = #{contentremark.contentElasticity}, contentLining = #{contentremark.contentLining}, contentSeethrough = #{contentremark.contentSeethrough}, contentThickness = #{contentremark.contentThickness},
   		 contentWeight = #{contentremark.contentWeight}, contentDry = #{contentremark.contentDry}, contentRemarkText = #{contentremark.contentRemarkText} where enrollmentNum = #{enrollmentNum}

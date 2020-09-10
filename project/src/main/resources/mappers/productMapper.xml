@@ -20,36 +20,36 @@
 	</select>
 	<select id="getProductEnrollmentList" resultType="kr.green.project.vo.ProductenrollmentVo">
 		select * from project.productenrollment 
-							join (select categoryNum from category where mainCategory = #{cri.mainCategory}
-																<if test="cri.middleCategory.length != 0">
-																and middleCategory = #{cri.middleCategory}
+							join (select categoryNum from category where mainCategory = #{pri.mainCategory}
+																<if test="pri.middleCategory.length != 0">
+																and middleCategory = #{pri.middleCategory}
 																</if>
-																<if test="cri.subCategory.length != 0">
-																and subCategory = #{cri.subCategory}
+																<if test="pri.subCategory.length != 0">
+																and subCategory = #{pri.subCategory}
 																</if>
 							) as category
 							on productenrollment.categoryNum = category.categoryNum
 							where isDel = 'N'
-							<if test="cri.search.length != 0">
-								and productenrollment.mainTitle like concat ('%',#{cri.search},'%')
-								or productenrollment.subTitle like concat ('%',#{cri.search},'%')
+							<if test="pri.search.length != 0">
+								and productenrollment.mainTitle like concat ('%',#{pri.search},'%')
+								or productenrollment.subTitle like concat ('%',#{pri.search},'%')
 							</if>
-							limit #{cri.pageStart}, #{cri.perPageNum}
+							limit #{pri.pageStart}, #{pri.perPageNum}
 	</select>
 	<select id="countProductEnrollment" resultType="int">
 		select count(*) from project.productenrollment 
-							join (select categoryNum from category where mainCategory = #{cri.mainCategory}
-																<if test="cri.middleCategory.length != 0">
-																and middleCategory = #{cri.middleCategory}
+							join (select categoryNum from category where mainCategory = #{pri.mainCategory}
+																<if test="pri.middleCategory.length != 0">
+																and middleCategory = #{pri.middleCategory}
 																</if>
-																<if test="cri.subCategory.length != 0">
-																and subCategory = #{cri.subCategory}
+																<if test="pri.subCategory.length != 0">
+																and subCategory = #{pri.subCategory}
 																</if>
 							) as category
 							on productenrollment.categoryNum = category.categoryNum
-							<if test="cri.search.length != 0">
-								and productenrollment.mainTitle like concat ('%',#{cri.search},'%')
-								or productenrollment.subTitle like concat ('%',#{cri.search},'%')
+							<if test="pri.search.length != 0">
+								and productenrollment.mainTitle like concat ('%',#{pri.search},'%')
+								or productenrollment.subTitle like concat ('%',#{pri.search},'%')
 							</if>
 							where isDel = 'N'
 	</select>
@@ -74,7 +74,7 @@
 		insert into purchase(userId, orderDate) values(#{pu.userId}, #{pu.orderDate})
 	</insert>
 	<select id="getPurchaseNum" resultType="int">
-		select max(num) from purchase where userId = #{id}
+		select max(num) from purchase where userId = #{id} and isDel = 'N'
 	</select>
 	<insert id="insertPurchaseListBasket">
 		insert into project.purchaselist(purchaseNum, purchase, shoppingNum, optionCode) values(#{purchaseNum}, #{purchase.purchase}, #{purchase.shoppingNum}, #{purchase.optionCode})
@@ -83,10 +83,10 @@
 		insert into project.purchaseList(purchaseNum, enrollNum, purchase, optionCode) value(#{purchaseNum}, #{purchase.enrollNum}, #{purchase.purchase}, #{purchase.optionCode})
 	</insert>
 	<select id="getPurchaseTonum" resultType="kr.green.project.vo.PurchaseVo">
-		select * from purchase where num = #{num}
+		select * from purchase where num = #{num} and isDel = 'N'
 	</select>
 	<select id="getPurchaseList" resultType="kr.green.project.vo.PurchaselistVo">
-		select * from purchaselist where purchaseNum = #{purchaseNum}
+		select * from purchaselist where purchaseNum = #{purchaseNum} and isCancel = 'N'
 	</select>
 	<update id="updatePurchasePrice">
 		update purchase set price = #{price}, deliveryPrice = #{delibery} where num = #{purchaseNum}

@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/header.css">
-<script src="<%=request.getContextPath()%>/resources/js/menu.js"></script>
+<spript src="<%=request.getContextPath()%>/resources/js/menu.js"></spript>
 <style>
 	.subContainer>div{
 		position:absolute;
@@ -18,24 +18,24 @@
 	<div style="position:fixed;top:120px;left:0;right:0;z-index:10;">
 		<div style="background-color:rgb(33,51,87);box-shadow: 5px 0px 2px 2px;height:50px;position:relative;">
 			<form method="get" action="<%=request.getContextPath()%>/">
-				<input type="hidden" class="mainCategory" name="mainCategory" value="${cri.mainCategory}">
-				<input type="hidden" class="middleCategory" name="middleCategory" value="${cri.middleCategory}">
-				<input type="hidden" class="subCategory" name="subCategory" value="${cri.subCategory}">
+				<input type="hidden" class="mainCategory" name="mainCategory" value="${pri.mainCategory}">
+				<input type="hidden" class="middleCategory" name="middleCategory" value="${pri.middleCategory}">
+				<input type="hidden" class="subCategory" name="subCategory" value="${pri.subCategory}">
 				<div class="menuContainer" style="height:100%;width:1400px;margin:0 auto;">
 					<div class="btn-gender" style="float:left;font-size: 25px;line-height:50px;">
-						<a href="#" class="M <c:if test="${cri.mainCategory == 'M'}">select</c:if>"  style="" data-target=".MMenu">남성</a>
-					    <a href="#" class="W <c:if test="${cri.mainCategory == 'W'}">select</c:if>" style="" data-target=".WMenu">여성</a>
-						<a href="#" class="MW <c:if test="${cri.mainCategory == 'MW'}">select</c:if>" style="" data-target=".MWMenu">공용</a>
+						<a href="#" class="M <c:if test="${pri.mainCategory == 'M'}">select</c:if>"  style="" data-target=".MMenu">남성</a>
+					    <a href="#" class="W <c:if test="${pri.mainCategory == 'W'}">select</c:if>" style="" data-target=".WMenu">여성</a>
+						<a href="#" class="MW <c:if test="${pri.mainCategory == 'MW'}">select</c:if>" style="" data-target=".MWMenu">공용</a>
 					</div>
 					<div class="navContainer">
-						<nav class="MMenu <c:if test="${cri.mainCategory != 'M'}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
+						<nav class="MMenu <c:if test="${pri.mainCategory != 'M'}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
 							<a href="#" data-target=".subMMenu>.outer">아우터</a>
 							<a href="#" data-target=".subMMenu>.top">상의</a>
 							<a href="#" data-target=".subMMenu>.bottom">하의</a>
 							<a href="#" data-target=".subMMenu>.shose">신발</a>
 							<a href="#" data-target=".subMMenu>.etc">etc</a>
 						</nav>
-						<nav class="WMenu <c:if test="${cri.mainCategory != 'W'}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:60px;margin-right:60px;">
+						<nav class="WMenu <c:if test="${pri.mainCategory != 'W'}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:60px;margin-right:60px;">
 							<a href="#" data-target=".subWMenu>.outer">아우터</a>
 							<a href="#" data-target=".subWMenu>.onepiece">원피스</a>
 							<a href="#" data-target=".subWMenu>.top">상의</a>
@@ -44,7 +44,7 @@
 							<a href="#" data-target=".subWMenu>.shose">신발</a>
 							<a href="#" data-target=".subWMenu>.etc">etc</a>
 						</nav>
-						<nav class="MWMenu <c:if test="${cri.mainCategory != 'MW'}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
+						<nav class="MWMenu <c:if test="${pri.mainCategory != 'MW'}">display-none</c:if>" style="float:left;font-size: 35px;line-height:50px;margin-left:120px;margin-right:120px;">
 							<a href="#" data-target=".subMWMenu>.outer">아우터</a>
 							<a href="#" data-target=".subMWMenu>.top">상의</a>
 							<a href="#" data-target=".subMWMenu>.bottom">하의</a>
@@ -53,7 +53,7 @@
 						</nav>
 					</div>
 					<div class="searchBox" style="float:right;margin-top:10px;">
-						<input type="text" name="search" style="outline:none;width:250px;" autocomplete="off" value="${cri.search}">
+						<input type="text" name="search" style="outline:none;width:250px;" autocomplete="off" value="${pri.search}">
 						<button type="button" class="btn-search" style="outline: none;">검색</button>
 						<button type="submit" class="search" hidden=""></button>
 					</div>

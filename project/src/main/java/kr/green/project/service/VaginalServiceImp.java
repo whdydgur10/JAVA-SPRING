@@ -71,7 +71,7 @@ public class VaginalServiceImp implements VaginalService {
 	public PageMaker getPageMaker(Criteria cri) {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCriteria(cri);
-		pageMaker.setTotalCount(vagiDao.countVaginal());
+		pageMaker.setTotalCount(vagiDao.countVaginal(cri));
 		return pageMaker;
 	}
 
@@ -95,6 +95,7 @@ public class VaginalServiceImp implements VaginalService {
 	public void insertAnswer(AnswerVo answer, MultipartFile[] file) throws IOException, Exception {
 		answer.setAnswerDate(new Date());
 		vagiDao.insertAnswer(answer);
+		vagiDao.updateVaginalAnswer(answer.getVaginalNum());
 		int num = vagiDao.getLateAnswerNum();
 		for(MultipartFile tmp : file) {
 			if(!tmp.getOriginalFilename().equals("")) {

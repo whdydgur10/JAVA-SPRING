@@ -48,13 +48,13 @@
 					where level.level = point.level and level.userId = #{id}
 	</select>
 	<select id="getPurchasePrice" resultType="String">
-		select sum(price) from purchase where userId = #{id}
+		select sum(price) from purchase where userId = #{id} and isDel = 'N'
 	</select>
 	<select id="getPointList" resultType="kr.green.project.vo.PointVo">
 		select * from point
 	</select>
 	<select id="getUsePoint" resultType="String">
-		select sum(usePoint) from purchase where userId = #{id}
+		select sum(usePoint) from purchase where userId = #{id} and isDel = 'N'
 	</select>
 	<select id="getNeedPrice" resultType="String">
 		select needPrice from point
@@ -62,10 +62,10 @@
 							where point.level = level.level
 	</select>
 	<select id="getPurchase" resultType="kr.green.project.vo.PurchaseVo">
-		select * from purchase where userId = #{id} and situation = '상품 도착' order by num DESC
+		select * from purchase where userId = #{id} and situation = '상품 도착' and isDel = 'N' order by num DESC
 	</select>
 	<select id="getUsePointPurchase" resultType="kr.green.project.vo.PurchaseVo">
-		select * from purchase where userId = #{id} and isConfirm = 'Y' and isPoint = 'Y' order by num DESC
+		select * from purchase where userId = #{id} and isConfirm = 'Y' and isPoint = 'Y' and isDel = 'N' order by num DESC
 	</select>
 	<select id="getCouponList" resultType="kr.green.project.vo.CouponVo">
 		select * from coupon where userId = #{id} and purchaseNum is null
@@ -107,7 +107,7 @@
 		update project.shoppingbasket set isPurchase = 'Y' where shoppingNum = #{shoppingNum}
 	</update>
 	<select id="getPurchaseListTonum" resultType="kr.green.project.vo.PurchaselistVo">
-		select * from project.purchaselist where purchaseNum = #{purchaseNum}
+		select * from project.purchaselist where purchaseNum = #{purchaseNum} and isCancel = 'N'
 	</select>
 	<select id="getEnrollmentMainTitle" resultType="String">
 		select mainTitle from project.productenrollment where num = #{enrollNum}

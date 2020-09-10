@@ -332,7 +332,7 @@
 <c:if test="${purchase.deposit == 'Y'}">
 	<div class="modal" id="alreadyPayment" style="display:block;text-align:center;">
 	    <div class="modal-content">
-	        <span>이미 결제가 완료된 상품 주문입니다.</span>
+	        <span>이미 결제가 완료된 주문 상품입니다.</span>
 	        <a href="javascript:history.back();" style="margin:0 auto;margin-top:30px;">뒤로가기</a>
 		</div>
 	</div>

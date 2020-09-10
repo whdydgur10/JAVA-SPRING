@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.project.dao.ReviewDao">
+	<select id="getPurchaselistReview" resultType="kr.green.project.vo.PurchaselistVo">
+		select * from project.purchaselist where purchaseNum = #{purchaseNum} and isCancel = 'N' and reviewNum is null
+	</select>
+</mapper>

@@ -61,6 +61,9 @@
 	        <mapping path="/root/page"/>
 	        <mapping path="/root/product/*"/>
 	        <mapping path="/product/order"/>
+	        <mapping path="/product/cancel"/>
+	        <mapping path="/product/return"/>
+	        <mapping path="/review/*"/>
 	        <beans:ref bean="authInterceptor"/>
 	    </interceptor>
 	    <interceptor>

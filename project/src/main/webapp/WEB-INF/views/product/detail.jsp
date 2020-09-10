@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <title>${product.code}</title>
 <style>
-	.mainBox:after, .subThumnailBox:after, .allPriceBox:after, .detailConteiner:after{
+	.mainBox:after, .subThumnailBox:after, .allPriceBox:after, .detailConteiner:after, .selectMenu:after{
 		clear: both;
 		content: '';
 		display: block;
@@ -228,6 +228,15 @@
 	#no{
 		right: 20%;
 	}
+	.selectMenu>div{
+		float:left;
+		border-bottom:2px solid black;
+		cursor: default;
+	}
+	.select{
+		background-color: rgb(33,51,87);
+		color:white;
+	}
 </style>
 <div class="detailConteiner" style="width:1450px;margin:20px auto;">
 	<div class="mainBox" style="width:1100px;float:left;">
@@ -267,102 +276,112 @@
 						<option value="" selected>사이즈</option>
 					</select>
 					<div class="allPriceBox" style="margin-bottom:15px;"><span>총 상품금액 : <span class="allPrice" style="font-size:25px;color:red;">0</span></span></div>
-					<button type="button" class="linkShoppingBasket">장바구니</button><a class="linkPurchaseList" href="<%=request.getContextPath()%>/product/order?mainCategory=${cri.mainCategory}">구매하기</a>
+					<button type="button" class="linkShoppingBasket">장바구니</button><a class="linkPurchaseList" href="<%=request.getContextPath()%>/product/order?mainCategory=${pri.mainCategory}">구매하기</a>
 				</div>
 			</div>
 		</form>
-		<div class="informationBox" style="width:100%;float:left;">
-			<h1 style="text-align:center;">상품정보</h1>
-			<div class="sizeInformBox">
-				<h3>사이즈</h3><input type="hidden" id="enrollNum" name="enrollmentNum" value="${enrollment.num }">
-				<table class="table">
-					<thead>
-						<tr>
-							<th style="width:10%;">사이즈</th>
-							<th style="width:22.5%;">총장</th>
-							<th style="width:22.5%;">어깨너비</th>
-							<th style="width:22.5%;">가슴단면</th>
-							<th style="width:22.5%;">소매길이</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="option" items="${sizeList}">
+		<div style="width:100%;float:left;">
+			<div class="selectMenu" style="margin:0 auto;text-align: center;width:800px;">
+				<div style="display:inline-block;width:240px;height:53px;border-bottom:2px solid black;"></div>
+				<div style="display:inline-block;width:160px;height:53px;" class="info select">상품정보</div>
+				<div style="display:inline-block;width:160px;height:53px;border-bottom:2px solid black;" class="rev">상품후기</div>
+				<div style="display:inline-block;width:240px;height:53px;border-bottom:2px solid black;"></div>
+			</div>
+			<div class="reviewBox display-none" style="height:100px;">
+			
+			</div>
+			<div class="informationBox" >
+				<div class="sizeInformBox">
+					<h3>사이즈</h3><input type="hidden" id="enrollNum" name="enrollmentNum" value="${enrollment.num }">
+					<table class="table">
+						<thead>
 							<tr>
-								<td><span>${option.contentSize}</span>
-								<td><span>${option.contentLength}</span></td>
-								<td><span>${option.contentShoulder}</span></td>
-								<td><span>${option.contentChest}</span></td>
-								<td><span>${option.contentSleeve}</span></td>
+								<th style="width:10%;">사이즈</th>
+								<th style="width:22.5%;">총장</th>
+								<th style="width:22.5%;">어깨너비</th>
+								<th style="width:22.5%;">가슴단면</th>
+								<th style="width:22.5%;">소매길이</th>
 							</tr>
-						</c:forEach>
-						<tr>
-							<td colspan="5" style="text-align: right;">단위 : cm</td>
-						</tr>
-					</tbody>
-				</table>
-				<textarea readonly>${sizeText.contentSizeText}</textarea>
-			</div>
-			<div class="remarkInformBox">
-				<h3>참고사항</h3>
-				<table class="table">
-					<tbody>
-						<tr>
-							<td>신축성 (elasticity)</td>
-							<td style="<c:if test="${remark.contentElasticity == 'good'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>좋음</span></td>
-							<td style="<c:if test="${remark.contentElasticity == 'normal'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>보통</span></td>
-							<td style="<c:if test="${remark.contentElasticity == 'no'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>없음</span></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>안감 (lining)</td>
-							<td style="<c:if test="${remark.contentLining == 'yes'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>있음</span></td>
-							<td style="<c:if test="${remark.contentLining == 'no'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>없음</span></td>
-							<td style="<c:if test="${remark.contentLining == 'fleece'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>기모</span></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>비침 (see-through)</td>
-							<td style="<c:if test="${remark.contentSeethrough == 'yes'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>있음</span></td>
-							<td style="<c:if test="${remark.contentSeethrough == 'little'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>약간</span></td>
-							<td style="<c:if test="${remark.contentSeethrough == 'bright'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>약간(밝은색만)</span></td>
-							<td style="<c:if test="${remark.contentSeethrough == 'no'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>없음, 안비침</span></td>
-						</tr>
-						<tr>
-							<td>두께 (thickness)</td>
-							<td style="<c:if test="${remark.contentThickness == 'thick'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>두꺼움</span></td>
-							<td style="<c:if test="${remark.contentThickness == 'normal'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>보통</span></td>
-							<td style="<c:if test="${remark.contentThickness == 'little'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>약간얇음</span></td>
-							<td style="<c:if test="${remark.contentThickness == 'thin'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>얇음</span></td>
-						</tr>
-						<tr>
-							<td>무게감(weight)</td>
-							<td style="<c:if test="${remark.contentWeight == 'heavy'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>무거움</span></td>
-							<td style="<c:if test="${remark.contentWeight == 'suitable'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>적당함</span></td>
-							<td style="<c:if test="${remark.contentWeight == 'light'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>가벼움</span></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>세탁방법 (dry)</td>
-							<td style="<c:if test="${remark.contentDry == 'dry'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>드라이클리닝</span></td>
-							<td style="<c:if test="${remark.contentDry == 'wash'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>단독세탁</span></td>
-							<td style="<c:if test="${remark.contentDry == 'dryWash'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>드라이,단독세탁</span></td>
-							<td style="<c:if test="${remark.contentDry == 'cold'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>찬물손세탁</span></td>
-						</tr>
-						<tr>
-							<td colspan="5"></td>
-						</tr>
-					</tbody>
-				</table>
-				<textarea readonly >${remark.contentRemarkText}
-				</textarea>
-			</div>
-			<div class="colorInformBox">
-				<h3>색상표</h3>
-			</div>
-			<div class="imageInformBox" style="position:relative;padding-bottom:30px;">
-				<c:forEach var="content" items="${image}">
-					<img style="width:800px;height:800px;margin-bottom:30px;" src="<%=request.getContextPath()%>/resources/img/enrollment/${content.contentImage}">
-				</c:forEach>
+						</thead>
+						<tbody>
+							<c:forEach var="option" items="${sizeList}">
+								<tr>
+									<td><span>${option.contentSize}</span>
+									<td><span>${option.contentLength}</span></td>
+									<td><span>${option.contentShoulder}</span></td>
+									<td><span>${option.contentChest}</span></td>
+									<td><span>${option.contentSleeve}</span></td>
+								</tr>
+							</c:forEach>
+							<tr>
+								<td colspan="5" style="text-align: right;">단위 : cm</td>
+							</tr>
+						</tbody>
+					</table>
+					<textarea readonly>${sizeText.contentSizeText}</textarea>
+				</div>
+				<div class="remarkInformBox">
+					<h3>참고사항</h3>
+					<table class="table">
+						<tbody>
+							<tr>
+								<td>신축성 (elasticity)</td>
+								<td style="<c:if test="${remark.contentElasticity == 'good'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>좋음</span></td>
+								<td style="<c:if test="${remark.contentElasticity == 'normal'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>보통</span></td>
+								<td style="<c:if test="${remark.contentElasticity == 'no'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>없음</span></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>안감 (lining)</td>
+								<td style="<c:if test="${remark.contentLining == 'yes'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>있음</span></td>
+								<td style="<c:if test="${remark.contentLining == 'no'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>없음</span></td>
+								<td style="<c:if test="${remark.contentLining == 'fleece'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>기모</span></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>비침 (see-through)</td>
+								<td style="<c:if test="${remark.contentSeethrough == 'yes'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>있음</span></td>
+								<td style="<c:if test="${remark.contentSeethrough == 'little'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>약간</span></td>
+								<td style="<c:if test="${remark.contentSeethrough == 'bright'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>약간(밝은색만)</span></td>
+								<td style="<c:if test="${remark.contentSeethrough == 'no'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>없음, 안비침</span></td>
+							</tr>
+							<tr>
+								<td>두께 (thickness)</td>
+								<td style="<c:if test="${remark.contentThickness == 'thick'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>두꺼움</span></td>
+								<td style="<c:if test="${remark.contentThickness == 'normal'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>보통</span></td>
+								<td style="<c:if test="${remark.contentThickness == 'little'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>약간얇음</span></td>
+								<td style="<c:if test="${remark.contentThickness == 'thin'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>얇음</span></td>
+							</tr>
+							<tr>
+								<td>무게감(weight)</td>
+								<td style="<c:if test="${remark.contentWeight == 'heavy'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>무거움</span></td>
+								<td style="<c:if test="${remark.contentWeight == 'suitable'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>적당함</span></td>
+								<td style="<c:if test="${remark.contentWeight == 'light'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>가벼움</span></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>세탁방법 (dry)</td>
+								<td style="<c:if test="${remark.contentDry == 'dry'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>드라이클리닝</span></td>
+								<td style="<c:if test="${remark.contentDry == 'wash'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>단독세탁</span></td>
+								<td style="<c:if test="${remark.contentDry == 'dryWash'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>드라이,단독세탁</span></td>
+								<td style="<c:if test="${remark.contentDry == 'cold'}">background-color:rgb(33,51,87);color:white;</c:if>"><span>찬물손세탁</span></td>
+							</tr>
+							<tr>
+								<td colspan="5"></td>
+							</tr>
+						</tbody>
+					</table>
+					<textarea readonly >${remark.contentRemarkText}
+					</textarea>
+				</div>
+				<div class="colorInformBox">
+					<h3>색상표</h3>
+				</div>
+				<div class="imageInformBox" style="position:relative;padding-bottom:30px;">
+					<c:forEach var="content" items="${image}">
+						<img style="width:800px;height:800px;margin-bottom:30px;" src="<%=request.getContextPath()%>/resources/img/enrollment/${content.contentImage}">
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -398,7 +417,7 @@
         	<p>장바구니에 담겼습니다.</p>                                                           
         	<p>상품들을 더 보시겠습니까?</p>
         </div>
-        <a href="<%=request.getContextPath()%>/?mainCategory=${cri.mainCategory}" id="yes">예</a>
+        <a href="<%=request.getContextPath()%>/?mainCategory=${pri.mainCategory}" id="yes">예</a>
     	<a href="<%=request.getContextPath()%>/information/shoppingBasket" id="no">아니오</a>
 	</div>
 </div>
@@ -408,7 +427,7 @@
 	</div>
 </div>
 <c:if test="${user == null}">
-	<script>
+	<spript>
 		$('.linkShoppingBasket').click(function(){
 			alert('로그인 후 이용해주세요.');
 		})
@@ -416,10 +435,10 @@
 			alert('로그인 후 이용해주세요.');
 			return false;
 		})
-	</script>
+	</spript>
 </c:if>
 <c:if test="${user != null}">
-	<script>
+	<spript>
 		$('.linkShoppingBasket').click(function(){
 			if($('.allPrice').text() != 0){
 				modal.style.display = "block";
@@ -470,9 +489,21 @@
 				return false;
 			}
 		})
-	</script>
+	</spript>
 </c:if>
 <script>
+	$('.info').click(function(){
+		$(this).addClass('select');
+		$('.rev').removeClass('select');
+		$('.informationBox').removeClass('display-none');
+		$('.reviewBox').addClass('display-none');
+	})
+	$('.rev').click(function(){
+		$(this).addClass('select');
+		$('.info').removeClass('select');
+		$('.reviewBox').removeClass('display-none');
+		$('.informationBox').addClass('display-none');
+	})
 	var i
 	$('.mainBox img').click(function(e){
 		image.style.display = "block";

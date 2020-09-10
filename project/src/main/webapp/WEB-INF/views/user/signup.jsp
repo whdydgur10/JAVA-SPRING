@@ -39,6 +39,9 @@
 	h3{
 		margin:0;
 	}
+	.vali{
+		color:red;
+	}
 </style>
 <div style="background-color:rgb(33,51,87)">
 	<div style="text-align:center;width:1200px;font-size:50px;margin:0 auto;font-weight:bold;color:white;">빠숑 회원가입 하기!<span style="font-size:40px">!</span><span style="font-size:30px">!</span></div>
@@ -47,25 +50,22 @@
 <div class="signupContainer" style="width:1200px;min-height:800px;margin:0 auto 20px;">
 	<form method="post">
 		<div class="idBox box">
-			<h4>아이디</h4>
+			<h4><span class="vali">*</span>아이디</h4>
 			<input type="text" name="id" class="id" id="id">
 			<label for="id" id="id-check" class="check"></label>
 			<button type="button" class="idCheck">중복 체크</button>
 		</div>
 		<div class="pwBox box">
-			<h4>비밀번호</h4>
+			<h4><span class="vali">*</span>비밀번호</h4>
 			<input type="password" name="pw" class="pw" id="pw">
-			<label for="pw" id="pw-error" class="error"></label>
 		</div>
 		<div class="pw2Box box">
-			<h4>비밀번호 확인</h4>
+			<h4><span class="vali">*</span>비밀번호 확인</h4>
 			<input type="password" name="pw2" class="pw2" id="pw2">
-			<label for="pw2" id="pw2-error" class="error"></label>
 		</div>
 		<div class="nameBox box">
-			<h4>이름</h4>
+			<h4><span class="vali">*</span>이름</h4>
 			<input type="text" name="name" class="name" id="name">
-			<label for="name" id="name-error" class="error"></label>
 		</div>
 		<div class="genderBox box">
 			<h4>성별</h4>
@@ -74,7 +74,6 @@
 				<option value="M">남성</option>
 				<option value="W">여성</option>
 			</select>
-			<label for="gender" id="gender-error" class="error"></label>
 		</div>
 		<div class="birthdayBox box">
 			<h4>생년월일</h4>
@@ -91,44 +90,79 @@
 			</select>
 			일
 			<input type="hidden" name="birthday" class="birthday">
-			<label for="year" id="year-error" class="error"></label>
-			<label for="month" id="month-error" class="error"></label>
-			<label for="day" id="day-error" class="error"></label>
 		</div>
 		<div class="phoneBox box">
-			<h4>전화번호</h4>
-			<input type="text" class="num1" name="num1" maxlength="3">
+			<h4><span class="vali">*</span>전화번호</h4>
+			<input type="text" class="num1" maxlength="3">
 			-
-			<input type="text" class="num2" name="num2" maxlength="4">
+			<input type="text" class="num2" maxlength="4">
 			-
-			<input type="text" class="num3" name="num3" maxlength="4">
-			<input type="hidden" name="phone" class="phone">
-			<label for="num1" id="num1-error" class="error"></label>
-			<label for="num2" id="num2-error" class="error"></label>
-			<label for="num3" id="num3-error" class="error"></label>
+			<input type="text" class="num3" maxlength="4">
+			<input type="hidden" name="phone" id="phone" class="phone">
 			<div class="certification" style="margin-top:5px;">
-				<input type="text" name="num4" class="num4" disabled="disabled" placeholder="인증번호 입력" style="width: 250px;text-align:center;">
+				<input type="text" class="num4" name="num4" disabled="disabled" placeholder="인증번호 입력" style="width: 250px;text-align:center;">
+				<input type="hidden" class="num5" name="num5" >
 				<button class="btn-certification" type="button" style="float:right;width:130px;">인증번호 받기</button>
 			</div>
 		</div>
 		<div class="emailBox">
-			<h4>이메일</h4><h4 style="opacity: 0.7;font-size:15px;">(선택)</h4>
+			<h4><span class="vali">*</span>이메일</h4>
 			<div class="emailBox2">
 				<input type="text" name="emailId" class="emailId">@
 				<select name="emailSite" class="emailSite">
 					<option value="" selected>선택</option>
 				</select>
 			</div>
-			<input type="hidden" name="email" class="email">
+			<input type="hidden" name="email" class="email" id="email">
 		</div>
 		<div class="footer" style="text-align:center;">
-			<button class="btn-signup" type="submit" disabled="disabled" style="margin-right:15px;"><h3>가입하기</h3></button>
+			<button class="btn-signup" type="button" disabled="disabled" style="margin-right:15px;"><h3>가입하기</h3></button>
 			<a href="<%=request.getContextPath()%>/" style="margin-left:15px;"><button type="button"><h3>취소할래</h3></button></a>
+			<button type="submit" class="submit-signup" hidden=""></button>
 		</div>
 	</form>
 </div>
 <script>
 	$(function(){
+		$('.btn-certification').hover(function(){
+			var num1 = $('.num1').val();
+			var num2 = $('.num2').val();
+			var num3 = $('.num3').val();
+			if(num1 != '' && num2 != '' && num3 != '')
+				$('.phone').val(num1 + num2 + num3);
+		})
+		
+		$('.btn-certification').click(function(){
+			$(this).prev().removeAttr('disabled');
+			var phone = $('.phone').val();
+			$.ajax({
+				async:true,
+				type:'POST',
+				data:phone,
+				url:"<%=request.getContextPath()%>/phoneCheck",
+				dataType:"json",
+				contentType:"application/json; charset=UTF-8",
+				success : function(data){
+				    $('.num5').val(data['num']);
+			    }
+			});
+		})
+		
+		$('.num4').change(function(){
+			if($('.num5').val() != $(this).val())
+				alert('인증번호가 일치하지 않습니다.');
+		})
+		
+		$('.btn-signup').hover(function(){
+			var email = $('.emailId').val() + $('.emailSite').val();
+			$('.email').val(email);
+		})
+		
+		$('.btn-signup').click(function(){
+			if($('.phone').val() != '' && $('.email').val() != '' && $('.num5').val() == $('.num4').val() && $('.num4').val() != '')
+				$('.submit-signup').click();
+		})
+		
 		$('.phoneBox input').keypress(function(event){
             if(event.keyCode >= 48 && event.keyCode <= 57){
                 return true;
@@ -136,6 +170,7 @@
                 return false;
             }
         })
+        
 		var startYear = 1930;
 		var endYear = 2020;
 		var month = 12;
@@ -149,6 +184,7 @@
 			else
 				$('.month').append('<option value="'+ i +'">' + i + '</option>');
 		}
+		
 		$('.month').click(function(){
 			if($('.month').val() == 1 || $('.month').val() == 3 || $('.month').val() == 5 || $('.month').val() == 7 || $('.month').val() == 8 || $('.month').val() == 10 || $('.month').val() == 12)
 		        day = 31;
@@ -165,21 +201,16 @@
 		        	$('.day').append('<option value="'+i+'">'+i+'</option>');
 		    }
 		})
+		
 		var emailSite = ['naver.com','kakao.com','gmail.com','yahoo.com','daum.net'];
 		for(var i = 0; i < emailSite.length; i++) {
 			$('.emailSite').append('<option value="@' + emailSite[i] + '">' + emailSite[i] +'</option>');
 		}
-		$('.btn-certification').click(function(){
-			$(this).prev().removeAttr('disabled');
-		})
+		
 		$("form").validate({
 			submitHandler: function(form) {
-				var email = $('.emailId').val() + $('.emailSite').val();
-				$('.email').val(email);
 				var birthday = $('.year').val() + $('.month').val() + $('.day').val();
 				$('.birthday').val(birthday);
-				var phone = $('.num1').val() + '-' + $('.num2').val() + '-' + $('.num3').val();
-				$('.phone').val(phone);
 			   	$(form).submit();
 			},
 		    rules: {
@@ -196,20 +227,12 @@
 		        name: {
 		            required : true
 		        },
-		        gender: {
+		        num4: {
+		            required : true,
+		            equalTo : num5
+		        },
+		        email: {
 		            required : true
-		        },
-		        num1: {
-		            required : true,
-		            minlength : 2
-		        },
-		        num2: {
-		            required : true,
-		            minlength : 3
-		        },
-		        num3: {
-		            required : true,
-		            minlength : 4
 		        }
 		    },
 		    messages : {
@@ -226,23 +249,16 @@
 		        name: {
 		            required : "필수 입력입니다"
 		        },
-		        gender: {
-		       		required : "필수 입력입니다"
+		        num4: {
+		            required : "전화번호 인증이 필요합니다.",
+		            equalTo : "인증번호가 일치하지 않습니다."
 		        },
-			    num1: {
-		            required : "필수 입력입니다",
-		            minlength : "다시한번 확인해주세요"  
-		        },
-		        num2: {
-		            required : "필수 입력입니다",
-		            minlength : "다시한번 확인해주세요"
-		        },
-		        num3: {
-		            required : "필수 입력입니다",
-		            minlength : "다시한번 확인해주세요"
+		        email: {
+		            required : "필수 입력입니다"
 		        }
 		    }
 		});
+		
 		var id;
 		var yesId = null;
 		$('.idCheck').click(function(){
@@ -267,6 +283,7 @@
 			    }
 			});
 		})
+		
 		$('.id').change(function(){
 			id = $('.id').val();
 			if(id == ''){
@@ -276,6 +293,7 @@
 				$('button[type=submit]').attr('disabled','disabled');
 		})
 	})
+	
 	$.validator.addMethod(
 		"regex",
 		function(value, element, regexp) {

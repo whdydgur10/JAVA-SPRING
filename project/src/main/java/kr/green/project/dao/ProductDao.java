@@ -29,11 +29,11 @@ public interface ProductDao {
 
 	ArrayList<ContentimageVo> getContentImage(@Param("num")int num);
 
-	ArrayList<ProductenrollmentVo> getProductEnrollmentList(@Param("cri")ProductCri cri);
+	ArrayList<ProductenrollmentVo> getProductEnrollmentList(@Param("pri")ProductCri pri);
 
-	int countProductEnrollment(@Param("cri")ProductCri cri);
+	int countProductEnrollment(@Param("pri")ProductCri pri);
 
-	int getCategoryNum(@Param("cri")ProductCri cri);
+	int getCategoryNum(@Param("pri")ProductCri pri);
 
 	ArrayList<EnrollmentThumbnailDto> getEnrollmentThumbnailList(@Param("enroll")ProductenrollmentVo tmp);
 

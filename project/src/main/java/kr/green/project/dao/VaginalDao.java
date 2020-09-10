@@ -25,7 +25,7 @@ public interface VaginalDao {
 
 	int countVaginalAuth();
 
-	int countVaginal();
+	int countVaginal(@Param("cri")Criteria cri);
 
 	int countVaginalA();
 
@@ -44,5 +44,7 @@ public interface VaginalDao {
 	int getAnswerNum(@Param("num")int num);
 
 	void insertAnswerFile(@Param("num")int num, @Param("fileName")String fileName);
+
+	void updateVaginalAnswer(@Param("num")int vaginalNum);
 
 }

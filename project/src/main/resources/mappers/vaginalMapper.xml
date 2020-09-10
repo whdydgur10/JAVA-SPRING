@@ -6,7 +6,11 @@
 	<select id="getVaginalList" resultType="kr.green.project.dto.UserVaginalDto">
 		select * from project.vaginal
 					join (select * from user) as user
-					where vaginal.userId = user.id
+					on vaginal.userId = user.id
+					<if test="cri.search.length != 0">
+						where vaginal.title like concat ('%',#{cri.search},'%')
+						or vaginal.content like concat ('%',#{cri.search},'%')
+					</if>
 					order by num desc
 					limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
@@ -39,6 +43,10 @@
 	</select>
 	<select id="countVaginal" resultType="int">
 		select count(*) from project.vaginal
+					<if test="cri.search.length != 0">
+						where vaginal.title like concat ('%',#{cri.search},'%')
+						or vaginal.content like concat ('%',#{cri.search},'%')
+					</if>
 	</select>
 	<insert id="insertVaginalFile">
 		insert vaginalFile(image, vaginalNum) values(#{fileName}, #{num})
@@ -64,4 +72,7 @@
 	<insert id="insertAnswerFile">
 		insert into project.answerfile(image, answerNum) values(#{fileName}, #{num})
 	</insert>
+	<update id="updateVaginalAnswer">
+		update project.vaginal set isAnswer = 'Y' where num = #{num}
+	</update>
 </mapper>

@@ -60,7 +60,7 @@
 				<tbody >
 					<c:if test="${useCouponList.size() == 0}">
 						<tr>
-							<td colspan="3">외아직사용않함</td>
+							<td colspan="3">사용한 쿠폰이 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:if test="${useCouponList.size() != 0}">

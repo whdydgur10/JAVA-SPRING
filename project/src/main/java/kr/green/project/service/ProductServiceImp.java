@@ -61,8 +61,8 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ArrayList<EnrollmentThumbnailDto> getProductEnrollmentList(ProductCri cri) {
-		ArrayList<ProductenrollmentVo> enrollment = proDao.getProductEnrollmentList(cri);
+	public ArrayList<EnrollmentThumbnailDto> getProductEnrollmentList(ProductCri pri) {
+		ArrayList<ProductenrollmentVo> enrollment = proDao.getProductEnrollmentList(pri);
 		ArrayList<EnrollmentThumbnailDto> list = new ArrayList<EnrollmentThumbnailDto>();
 		for(ProductenrollmentVo tmp : enrollment) {
 			list.addAll(proDao.getEnrollmentThumbnailList(tmp));
@@ -71,10 +71,10 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public ProductPage getProductPage(ProductCri cri) {
+	public ProductPage getProductPage(ProductCri pri) {
 		ProductPage pageMaker = new ProductPage();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(proDao.countProductEnrollment(cri));
+		pageMaker.setCri(pri);
+		pageMaker.setTotalCount(proDao.countProductEnrollment(pri));
 		return pageMaker;
 	}
 

@@ -30,7 +30,6 @@
     <definition name=".vaginal" template="/WEB-INF/views/layout/vaginalLayout.jsp">
         <put-attribute name="title" value="" />
         <put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
-        <put-attribute name="middle" value="" />
         <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
     </definition>
     

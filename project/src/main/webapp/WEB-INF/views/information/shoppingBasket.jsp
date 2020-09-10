@@ -16,7 +16,7 @@
 </style>
 <form method="post">
 	<div class="shoppingBasket">
-		<h4>장바구니<span style="opacity: 0.7;font-size:15px;">(담은 물건은 7일간만 유지됩니다.)</span></h4>
+		<h4>장바구니<span style="opacity: 0.7;font-size:15px;">※담긴 물건은 7일간만 유지됩니다.</span></h4>
 		<hr>
 		<div style="width:100%;height:500px;box-shadow: 2px 2px 2px 2px;margin-top:20px;">
 			<div style="width:100%;height:500px;overflow:auto;">
@@ -59,8 +59,10 @@
 				</table>
 			</div>
 		</div>
-	<a href="<%=request.getContextPath()%>/product/order?mainCategory=${user.gender}" class="btn-submit" style="opacity:0.5;height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:250px;text-align:center;background-color:rgb(33,51,87);color:white;margin-left:300px;margin-top:30px;cursor:default;"><span class="allPrice">0</span>원 구매하기</a>
-	<span style="font-size:12px;opacity: 0.7;">(5만원 미만 주문은 배송료가 붙습니다.)</span>
+		<div style="text-align: center;">
+			<a href="<%=request.getContextPath()%>/product/order?mainCategory=${user.gender}" class="btn-submit" style="opacity:0.5;height:50px;display:inline-block;line-height:50px;border-left:1px solid black;width:250px;text-align:center;background-color:rgb(33,51,87);color:white;margin-top:30px;cursor:default;"><span class="allPrice">0</span>원 구매하기</a><br>
+			<span style="font-size:12px;opacity: 0.7;">※5만원 미만 주문은 배송료가 붙습니다.</span>
+		</div>
 	</div>
 </form>
 <script>

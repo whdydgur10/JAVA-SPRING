@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.project.dto.UserVaginalDto;
 import kr.green.project.pagination.Criteria;
+import kr.green.project.pagination.ProductCri;
 import kr.green.project.service.VaginalService;
 import kr.green.project.vo.AnswerVo;
 import kr.green.project.vo.UserVo;
@@ -28,6 +29,7 @@ public class VaginalController {
 	public ModelAndView vaginalListGet(ModelAndView mv, Criteria cri){
 		mv.addObject("vaginalList", vagis.getVaginalList(cri));
 		mv.addObject("pageMaker", vagis.getPageMaker(cri));
+		mv.addObject("cri", cri);
 	    mv.setViewName("/vaginal/list");
 	    return mv;
 	}
