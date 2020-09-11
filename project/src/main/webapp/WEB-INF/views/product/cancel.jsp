@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <title>상품 취소</title>
 ${purchaselist}
-<div class="cancelContainer" style="width:1400px;margin:20px auto;">
+<div class="cancelContainer" style="width:800px;margin:20px auto;">
 	<form method="post" enctype="multipart/form-data">
 		<div class="form-group">
 		    <label for="purchaselist">환불 상품</label>

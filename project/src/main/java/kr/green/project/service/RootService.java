@@ -1,6 +1,7 @@
 package kr.green.project.service;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +14,7 @@ import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.UserVo;
 
 public interface RootService {
 
@@ -92,6 +94,10 @@ public interface RootService {
 	void deleteEnroll(String enrollNum);
 
 	void updateEnrollment(ProductenrollmentVo enroll);
+
+	boolean isEnrollmentContent(String code);
+
+	ArrayList<UserVo> getUserList(RootCri rri) throws ParseException;
 	
 
 }

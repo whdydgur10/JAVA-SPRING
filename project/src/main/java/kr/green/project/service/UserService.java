@@ -16,5 +16,11 @@ public interface UserService {
 
 	void deleteUser(String id);
 
+	UserVo getUserTophone(UserVo user);
+
+	UserVo getUserToid(String list);
+
+	void newPw(String list, String newPw);
+
 	
 }

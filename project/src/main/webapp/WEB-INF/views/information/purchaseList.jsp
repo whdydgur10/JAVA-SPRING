@@ -38,6 +38,7 @@
 								<td>${list.deposit}</td>
 								<td>${list.situation}</td>
 								<td><c:if test="${list.isConfirm == 'Y'.charAt(0)}"><a href="<%=request.getContextPath()%>/review/register?mainCategory=${user.gender}&purchaseNum=${list.num}">후기작성</a></c:if>
+									<c:if test="${list.isConfirm == 'N'.charAt(0) && list.situation == '상품 도착'}"><a type="button">확정</a></c:if>
 									<c:if test="${list.isConfirm == 'N'.charAt(0) && list.situation != '상품 준비중'}"><a href="<%=request.getContextPath()%>/product/return?mainCategory=${user.gender}&purchaseNum=${list.num}">반품/교환</a></c:if>
 									<c:if test="${list.situation == '상품 준비중'}"><a href="<%=request.getContextPath()%>/product/cancel?mainCategory=${user.gender}&purchaseNum=${list.num}">취소/환불</a></c:if>
 								</td>

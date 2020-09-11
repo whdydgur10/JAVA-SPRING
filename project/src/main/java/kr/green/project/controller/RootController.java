@@ -1,7 +1,9 @@
 package kr.green.project.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -164,6 +166,14 @@ public class RootController {
 	public Map<Object, Object> enrollmentCodecheck(@RequestBody String code){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    map.put("codeCheck", roots.isEnrollmentProduct(code));
+	    return map;
+	}
+	
+	@RequestMapping("/enrollment/contentCheck")
+	@ResponseBody
+	public Map<Object, Object> enrollmentContentCheck(@RequestBody String code){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    map.put("contentCheck", roots.isEnrollmentContent(code));
 	    return map;
 	}
 	
@@ -382,6 +392,50 @@ public class RootController {
 	public  Map<Object, Object> rootDeleteEnroll(@RequestBody String enrollNum){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    roots.deleteEnroll(enrollNum);
+	    return map;
+	}
+	
+	@RequestMapping(value= "/root/product/consumerList", method = RequestMethod.GET)
+	public ModelAndView rootProductConsumerListGet(ModelAndView mv, HttpServletRequest h, RootCri rri) throws ParseException{
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			System.out.println(rri);
+			mv.addObject("rri", rri);
+			mv.addObject("userList", roots.getUserList(rri));
+			mv.setViewName("/root/product/consumerList");
+		}
+	    return mv;
+	}
+	
+	@RequestMapping("/consumerList")
+	@ResponseBody 
+	public  Map<Object, Object> consumerList(@RequestBody RootCri rri) throws ParseException{
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    ArrayList<UserVo> list = roots.getUserList(rri);
+	    ArrayList<String> user = new ArrayList<String>();
+	    String str = "";
+	    String nul = "";
+	    for(UserVo tmp : list) {
+	    	if(tmp.getBirthday() != null) {
+	    		str = "<tr><td><a>" + tmp.getId() + "</a></td><td>" + tmp.getName() + "</td><td>" + tmp.getPhone() + "</td><td>" + tmp.getBirthday() + "</td><td>" + tmp.getGender() + "</td><td>" + tmp.getEmail() + "</td><td>" + tmp.getPoint() + "<td></td></tr>";
+	    		if(tmp.getIsDelDate() != null) {
+	    			str = str + tmp.getIsDel() + "<td></td>" + tmp.getIsDelDate() + "<td>";
+	    		}else {
+	    			str = str + tmp.getIsDel() + "<td></td>" + nul + "<td>";
+	    		}
+	    	}else {
+	    		str = "<tr><td><a>" + tmp.getId() + "</a></td><td>" + tmp.getName() + "</td><td>" + tmp.getPhone() + "</td><td>" + nul + "</td><td>" + tmp.getGender() + "</td><td>" + tmp.getEmail() + "</td><td>" + tmp.getPoint() + "<td></td></tr>";
+	    		if(tmp.getIsDelDate() != null) {
+	    			str = str + tmp.getIsDel() + "<td></td>" + tmp.getIsDelDate() + "<td>";
+	    		}else {
+	    			str = str + tmp.getIsDel() + "<td></td>" + nul + "<td>";
+	    		}
+	    	}	
+	    	user.add(str);
+	    }
+	    map.put("list", user);
 	    return map;
 	}
 }

@@ -24,4 +24,10 @@
 	<update id="deleteUser">
 		update user set isDel = 'Y', isDelDate = #{date} where id =#{id}
 	</update>
+	<select id="getUserTophone" resultType="kr.green.project.vo.UserVo">
+		select * from user where name = #{user.name} and phone = #{user.phone}
+	</select>
+	<update id="newPw">
+		update user set pw = #{pw} where id = #{id}
+	</update>
 </mapper>

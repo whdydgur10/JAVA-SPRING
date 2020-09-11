@@ -12,6 +12,7 @@ import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.UserVo;
 
 public interface RootDao {
 
@@ -87,5 +88,9 @@ public interface RootDao {
 	void deleteEnroll(@Param("enrollNum")String enrollNum);
 
 	void updateEnrollment(@Param("enroll")ProductenrollmentVo enroll);
+
+	String isEnrollmentContent(@Param("productCode")String code);
+
+	ArrayList<UserVo> getUserList(@Param("rri")RootCri rri);
 
 }

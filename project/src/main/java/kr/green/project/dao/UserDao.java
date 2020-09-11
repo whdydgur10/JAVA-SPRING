@@ -22,5 +22,9 @@ public interface UserDao {
 
 	void deleteUser(@Param("id")String id, @Param("date")Date date);
 
+	UserVo getUserTophone(@Param("user")UserVo user);
+
+	void newPw(@Param("id")String list, @Param("pw")String newPw);
+
 	
 }

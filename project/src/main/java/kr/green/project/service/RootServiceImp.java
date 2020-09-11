@@ -1,7 +1,10 @@
 package kr.green.project.service;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,7 @@ import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.UserVo;
 
 @Service
 public class RootServiceImp implements RootService {
@@ -344,4 +348,18 @@ public class RootServiceImp implements RootService {
 		enroll.setDiscountPercent((int)((double)(enroll.getDiscount()) / (double)product.getPrice() * 100));
 		rootDao.updateEnrollment(enroll);
 	}
+
+	@Override
+	public boolean isEnrollmentContent(String code) {
+		if(rootDao.isEnrollmentContent(code) != null)
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public ArrayList<UserVo> getUserList(RootCri rri) throws ParseException {
+		return rootDao.getUserList(rri);
+	}
+
 } 

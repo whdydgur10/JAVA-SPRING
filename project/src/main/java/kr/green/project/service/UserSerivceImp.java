@@ -2,9 +2,15 @@ package kr.green.project.service;
 
 import java.util.Date;
 
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.green.project.dao.UserDao;
 import kr.green.project.vo.UserVo;
@@ -16,6 +22,8 @@ public class UserSerivceImp implements UserService {
 	UserDao userDao;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@Override
 	public void insertUser(UserVo user) {
@@ -58,5 +66,18 @@ public class UserSerivceImp implements UserService {
 		
 	}
 
+	@Override
+	public UserVo getUserTophone(UserVo user) {
+		return userDao.getUserTophone(user);
+	}
 
+	@Override
+	public UserVo getUserToid(String list) {
+		return userDao.getUserId(list);
+	}
+
+	@Override
+	public void newPw(String list, String newPw) {
+		userDao.newPw(list, passwordEncoder.encode(newPw));
+	}
 }

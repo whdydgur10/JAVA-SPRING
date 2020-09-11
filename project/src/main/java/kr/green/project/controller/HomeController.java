@@ -3,12 +3,15 @@ package kr.green.project.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,7 @@ import kr.green.project.service.InformationService;
 import kr.green.project.service.ProductService;
 import kr.green.project.service.UserService;
 import kr.green.project.utils.Coolsms;
+import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.UserVo;
 
 @Controller
@@ -32,6 +36,8 @@ public class HomeController {
 	InformationService infos;
 	@Autowired
 	ProductService pros;
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -135,16 +141,85 @@ public class HomeController {
 	
 	@RequestMapping(value= "/user/signin", method = RequestMethod.POST)
 	public ModelAndView signinPost(ModelAndView mv, UserVo user){
-		if(user != null) {
-			UserVo user2 = userService.getUser(user);
-			if(user2 != null) {
-				mv.addObject("user", user2);
-				mv.setViewName("redirect:/");
-			}else
-				mv.setViewName("redirect:/user/signin");
-		}else
-			mv.setViewName("redirect:/user/signin");
+		UserVo user2 = userService.getUser(user);
+		mv.addObject("user", user2);
+		mv.setViewName("redirect:/");
 	    return mv;
+//	    정보를 보내주면서 http서버에 저장시킨다.
+	}
+	
+	@RequestMapping("/signin")
+	@ResponseBody
+	public Map<Object, Object> signin(@RequestBody UserVo user){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user2 = userService.getUser(user);
+	    if(userService.isUserId(user.getId()) == false) 
+	    	map.put("id",false);
+	    else  if(user2 == null) 
+	    	map.put("pw",false);
+	    else 
+	    	map.put("pw", true);
+	    return map;
+	}
+	
+	@RequestMapping("/searchId")
+	@ResponseBody
+	public Map<Object, Object> searchId(@RequestBody UserVo user){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user2 = userService.getUserTophone(user);
+	    
+	    if(user2 == null) 
+	    	map.put("user",null);
+	    else
+	    	map.put("user",user2.getId());
+	    return map;
+	}
+	
+	@RequestMapping("/searchPw")
+	@ResponseBody
+	public Map<Object, Object> searchPw(@RequestBody String list){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    UserVo user = userService.getUserToid(list);
+	    System.out.println(user);
+	    if(user == null)
+	    	map.put("id",false);
+	    else {
+	    	map.put("id",true);
+	    	String setfrom = "fassong125@gmail.com";         
+		    String tomail  = user.getEmail();     // 받는 사람 이메일
+		    String title   = "(주)빠숑 임시 비밀번호 발신";      // 제목
+		    int ran = 13;
+		    String newPw = "";
+		    for(int i = 0; i < ran; i++) {
+		    	int r = (int)(Math.random() * 62);
+		    	char ch;
+		    	if(r <= 9) {
+		    		ch = (char)('0'+r);
+		    	}else if(r <= 35) {
+		    		ch = (char)('a'+(r-10));
+		    	}else {
+		    		ch = (char)('A'+(r-36));
+		    	}
+		    	newPw += ch;
+		    }
+		    userService.newPw(list, newPw);
+		    //비밀번호 찾기 랜덤비밀번호 보내기
+		    try {
+		        MimeMessage message = mailSender.createMimeMessage();
+		        MimeMessageHelper messageHelper 
+		            = new MimeMessageHelper(message, true, "UTF-8");
+
+		        messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+		        messageHelper.setTo(tomail);     // 받는사람 이메일
+		        messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+		        messageHelper.setText("임시 비밀번호는"+ newPw + "입니다. 로그인 후 비밀번호를 변경해주세요.",true);  // 메일 내용 true html태그 사용할때 필요
+
+		        mailSender.send(message);
+		    } catch(Exception e){
+		        System.out.println(e);
+		    }
+	    }
+	    return map;
 	}
 	
 	@RequestMapping(value= "/user/signout", method = RequestMethod.GET)

@@ -15,10 +15,9 @@ public class UserVo {
 	private int auth;
 	private String email;
 	private int point;
-	private String coupon;
 	private String isDel;
 	private Date isDelDate;
-//	아이디 / 비밀번호 / 이름 / 연락처 / 생년월일 / 성별 / 권한 / 이메일 / 포인트 / 쿠폰 / 삭제여부 / 삭제기간
+//	아이디 / 비밀번호 / 이름 / 연락처 / 생년월일 / 성별 / 권한 / 이메일 / 포인트  / 삭제여부 / 삭제기간
 	public String getId() {
 		return id;
 	}
@@ -73,12 +72,6 @@ public class UserVo {
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	public String getCoupon() {
-		return coupon;
-	}
-	public void setCoupon(String coupon) {
-		this.coupon = coupon;
-	}
 	public String getIsDel() {
 		return isDel;
 	}
@@ -104,8 +97,8 @@ public class UserVo {
 	@Override
 	public String toString() {
 		return "UserVo [id=" + id + ", pw=" + pw + ", name=" + name + ", phone=" + phone + ", birthday=" + birthday
-				+ ", gender=" + gender + ", auth=" + auth + ", email=" + email + ", point=" + point + ", coupon="
-				+ coupon + ", isDel=" + isDel + ", isDelDate=" + isDelDate + "]";
+				+ ", gender=" + gender + ", auth=" + auth + ", email=" + email + ", point=" + point + ", isDel=" + isDel
+				+ ", isDelDate=" + isDelDate + "]";
 	}
 	
 	public String getStringPoint() {

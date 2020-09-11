@@ -236,4 +236,70 @@
   		update proejct.productenrollment set mainTitle = #{enroll.mainTitle}, subTitle = #{enroll.subTitle}, discount = #{enroll.discount}, categoryNum = #{enroll.categoryNum}, finalPrice = #{enroll.finalPrice}
   		,discountPercent = #{enroll.discountPercent}, isDel = 'N' where productCode = #{enroll.productCode}
   	</update>
+  	<select id="isEnrollmentContent" resultType="String">
+  		select mainTitle from productenrollment where productCode = #{productCode}
+  	</select>
+  	<select id="getUserList" resultType="kr.green.project.vo.UserVo">
+  		select * from user 	<if test="rri.search != null">
+			  					where id like concat('%',#{rri.search},'%')
+			  					or name like concat('%',#{rri.search},'%')
+			  					or phone like concat('%',#{rri.search},'%')
+			  					or birthday like concat('%',#{rri.search},'%')
+			  					or email like concat('%',#{rri.search},'%')
+			  				</if>
+			  				<if test="rri.type == '아이디desc'">
+			  				order by id desc
+			  				</if>
+			  				<if test="rri.type == '아이디asc'">
+			  				order by id asc
+			  				</if>
+			  				<if test="rri.type == '이름desc'">
+			  				order by name desc
+			  				</if>
+			  				<if test="rri.type == '이름asc'">
+			  				order by name asc
+			  				</if>
+			  				<if test="rri.type == '전화번호desc'">
+			  				order by phone desc
+			  				</if>
+			  				<if test="rri.type == '전화번호asc'">
+			  				order by phone asc
+			  				</if>
+			  				<if test="rri.type == '생년월일desc'">
+			  				order by birthday desc
+			  				</if>
+			  				<if test="rri.type == '생년월일asc'">
+			  				order by birthday asc
+			  				</if>
+			  				<if test="rri.type == '성별desc'">
+			  				order by gender desc
+			  				</if>
+			  				<if test="rri.type == '성별asc'">
+			  				order by gender asc
+			  				</if>
+			  				<if test="rri.type == '이메일desc'">
+			  				order by email desc
+			  				</if>
+			  				<if test="rri.type == '이메일asc'">
+			  				order by email asc
+			  				</if>
+			  				<if test="rri.type == '포인트desc'">
+			  				order by point desc
+			  				</if>
+			  				<if test="rri.type == '포인트asc'">
+			  				order by point asc
+			  				</if>
+			  				<if test="rri.type == '삭제여부desc'">
+			  				order by isDel desc
+			  				</if>
+			  				<if test="rri.type == '삭제여부asc'">
+			  				order by isDel asc
+			  				</if>
+			  				<if test="rri.type == '삭제일desc'">
+			  				order by isDelDate desc
+			  				</if>
+			  				<if test="rri.type == '삭제일asc'">
+			  				order by isDelDate asc
+			  				</if>
+  	</select>
   </mapper>

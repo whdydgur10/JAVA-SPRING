@@ -581,7 +581,6 @@
 	$('#use').click(function(e){
 		$(this).parents('.modal').css('display','none');
 		useCoupon.css('display','block');	
-		
 		e.stopPropagation();
 	})
 	

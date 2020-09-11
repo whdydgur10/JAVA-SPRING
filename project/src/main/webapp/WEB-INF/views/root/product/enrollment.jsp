@@ -3,9 +3,14 @@
     pageEncoding="UTF-8"%>
 <title>판매글 작성</title>
 <div style="width:600px;margin:30px auto;">
-	<form method="get">
+	<form method="get" action="<%=request.getContextPath()%>/root/product/enrollment">
 		<input class="search" type="search" name="productCode" placeholder="제품코드" style="width:300px;">
 		<button type="button" class="btn-search">검색</button>
+		<button type="submit" class="getSubmit" hidden=""></button>
+	</form>
+	<form method="get" action="<%=request.getContextPath()%>/root/product/enrollmentContent">
+		<input class="productCode" type="hidden" name="productCode">
+		<button type="submit" class="linkContent" hidden=""></button>
 	</form>
 	<form method="post">
 		<div class="form-group">
@@ -46,8 +51,9 @@
 	</form>
 </div>
 <script>
-	$('.search').click(function(){
-		var code = $('.select').val();
+	$('.btn-search').click(function(){
+		var code = $('.search').val();
+		$('.productCode').val(code);
 		$.ajax({
 			async:true,
 			type:'POST',
@@ -60,7 +66,22 @@
 				    alert('등록되지 않은 상품코드입니다.');
 			    }
 			    else if(data['codeCheck'] == 0) {
-			        alert('이미 등록되어있는 상품코드입니다.');
+			        $.ajax({
+						async:true,
+						type:'POST',
+						data:code,
+						url:"<%=request.getContextPath()%>/enrollment/contentCheck",
+						dataType:"json",
+						contentType:"application/json; charset=UTF-8",
+						success : function(data){
+						    if(!data['contentCheck']) {
+							    alert('등록글 화면으로 이동합니다.');
+							    $('.linkContent').click();
+						    }
+						    else 
+						    	alert('이미 등록되어있는 상품코드입니다.');
+					    }
+					});
 			    }
 			    else if(data['codeCheck'] == 2){
 					$('.getSubmit').click();
@@ -69,7 +90,7 @@
 		    }
 		});
 	})
-	$('.search').hover(function(){
+	$('.btn-search').hover(function(){
 		var mainCategory = $('#mainCategory').val();
 		if(mainCategory != "")
 			$.ajax({
