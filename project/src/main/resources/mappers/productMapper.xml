@@ -104,4 +104,7 @@
 	<update id="deletePurchase">
 		update purchase set isDel = 'Y' where num = #{num}
 	</update>
+	<select id="getEnrollNum" resultType="int">
+		select enrollNum from shoppingbasket where shoppingNum = #{shoppingNum}
+	</select>
 </mapper>

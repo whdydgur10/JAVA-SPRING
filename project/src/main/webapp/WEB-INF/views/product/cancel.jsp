@@ -6,7 +6,7 @@ ${purchaselist}
 <div class="cancelContainer" style="width:800px;margin:20px auto;">
 	<form method="post" enctype="multipart/form-data">
 		<div class="form-group">
-		    <label for="purchaselist">환불 상품</label>
+		    <label for="purchaselist"><c:if test="${purchase.deposit == 'N'}">취소</c:if><c:if test="${purchase.deposit == 'Y'}">환불</c:if> 상품</label>
 		    <select id="purchaselist">
 		    	<option value="">선택</option>
 		    	<c:forEach var="purchase" items="${purchaselist}">
@@ -14,7 +14,7 @@ ${purchaselist}
 		    	</c:forEach>
 		    </select>
 		</div>
-		<label for="reason">환불 사유</label>
+		<label for="reason"><c:if test="${purchase.deposit == 'N'}">취소</c:if><c:if test="${purchase.deposit == 'Y'}">환불</c:if> 사유</label>
 		<select id="purchaselist">
 			<option value="">선택</option>
 			<option>단순 변심</option>

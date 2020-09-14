@@ -98,6 +98,8 @@ public interface RootService {
 	boolean isEnrollmentContent(String code);
 
 	ArrayList<UserVo> getUserList(RootCri rri) throws ParseException;
+
+	void updateConsumer(UserVo user);
 	
 
 }

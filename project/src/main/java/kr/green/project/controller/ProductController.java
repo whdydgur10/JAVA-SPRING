@@ -1,6 +1,5 @@
 package kr.green.project.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,8 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.green.project.pagination.ProductCri;
 import kr.green.project.service.InformationService;
 import kr.green.project.service.ProductService;
+import kr.green.project.service.ReviewService;
 import kr.green.project.service.RootService;
-import kr.green.project.service.reviewService;
 import kr.green.project.vo.AddressVo;
 import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.OptionVo;
@@ -37,7 +36,7 @@ public class ProductController {
 	@Autowired
 	InformationService infos;
 	@Autowired
-	reviewService res;
+	ReviewService res;
 	
 	@RequestMapping(value= "/product/detail", method = RequestMethod.GET)
 	public ModelAndView productDtailGet(ModelAndView mv, String productCode, ProductCri pri){
@@ -51,6 +50,8 @@ public class ProductController {
 		mv.addObject("sizeText", pros.getContentSizeText(enrollment.getNum()));
 		mv.addObject("thumbnail", pros.getThumbnailImage(enrollment.getNum()));
 		mv.addObject("image", pros.getContentImage(enrollment.getNum()));
+		mv.addObject("review", res.getReview(enrollment.getNum(),pri));
+		mv.addObject("pageMaker", res.getProductPage(pri, enrollment.getNum()));
 		mv.setViewName("/product/detail");
 	    return mv;
 	}
@@ -102,6 +103,8 @@ public class ProductController {
 			if(!purchase.getUserId().equals(user.getId()) || purchase.getIsDel() == 'Y')
 				mv.setViewName("redirect:/");
 			else {
+				System.out.println(purchase);
+				System.out.println(pros.getPurchaseList(purchase.getNum()));
 				mv.addObject("purchase", purchase);
 				mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
 				mv.addObject("couponlist", infos.getCouponList(user.getId()));

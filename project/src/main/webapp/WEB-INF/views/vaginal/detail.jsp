@@ -32,6 +32,13 @@
 	.error{
 		font-size: 1rem;
 	}
+	img{
+		cursor: pointer;
+		opacity: 0.9;
+	}
+	img:hover {
+		opacity: 1;
+	}
 </style>
 <div class="form-group">
     <label for="title"><c:if test="${vaginal.auth == 1}">공지제목</c:if><c:if test="${vaginal.auth == 0}">문의제목</c:if></label>

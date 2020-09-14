@@ -67,4 +67,6 @@ public interface ProductDao {
 
 	void deletePurchase(@Param("num")int num);
 
+	int getEnrollNum(@Param("shoppingNum")int shoppingNum);
+
 }

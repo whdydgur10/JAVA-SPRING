@@ -3,7 +3,44 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.project.dao.ReviewDao">
-	<select id="getPurchaselistReview" resultType="kr.green.project.vo.PurchaselistVo">
-		select * from project.purchaselist where purchaseNum = #{purchaseNum} and isCancel = 'N' and reviewNum is null
+	<select id="getPurchaselistReview" resultType="kr.green.project.dto.PurchaselistEnrollDto">
+		select * from project.purchaselist 
+				join project.productenrollment
+                on purchaselist.enrollNum = productenrollment.num
+				where purchaseNum = #{purchaseNum} and isCancel = 'N' and reviewNum is null
+	</select>
+	<insert id="insertReview">
+		insert into review(userId, title, content, grade, enrollNum) value(#{id}, #{review.title}, #{review.content}, #{review.grade}, #{review.enrollNum});
+	</insert>
+	<select id="getReviewNum" resultType="int">
+		select max(num) from review where userId = #{id}
+	</select>
+	<insert id="insertReviewFile">
+		insert into reviewfile(image, reviewNum) values(#{fileName}, #{num})
+	</insert>
+	<update id="updatePurchaselistReview">
+		update purchaselist set reviewNum = #{num} where listNum = #{listNum}
+	</update>
+	<select id="getReview" resultType="kr.green.project.vo.ReviewVo">
+		select * from review where enrollNum = #{enrollNum}
+	</select>
+	<select id="getReviewCount" resultType="int">
+		select count(*) from review where enrollNum = #{enrollNum}
+	</select>
+	<select id="getReviewOption" resultType="kr.green.project.dto.ReviewPurchaseOptionDto">
+		select * from review
+				join project.purchaselist
+	            on review.num = purchaselist.reviewNum
+	            join (select * from project.option where project.option.optionCode = #{optionCode}) as op
+	            on purchaselist.optionCode = op.optionCode
+	            where review.enrollNum = #{num}
+	            order by review.num desc
+				limit #{pri.pageStart}, #{pri.perPageNum}
+	</select>
+	<select id="getOptionCodeTolist" resultType="String">
+		select optionCode from project.purchaselist where reviewNum = #{num}
+	</select>
+	<select id="getReviewfile" resultType="String">
+		select image from project.reviewfile where reviewNum = #{num}
 	</select>
 </mapper>

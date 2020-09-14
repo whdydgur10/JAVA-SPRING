@@ -401,7 +401,6 @@ public class RootController {
 		if(user.getAuth() == 0) 
 			mv.setViewName("redirect:/");
 		else {
-			System.out.println(rri);
 			mv.addObject("rri", rri);
 			mv.addObject("userList", roots.getUserList(rri));
 			mv.setViewName("/root/product/consumerList");
@@ -415,27 +414,37 @@ public class RootController {
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    ArrayList<UserVo> list = roots.getUserList(rri);
 	    ArrayList<String> user = new ArrayList<String>();
-	    String str = "";
+	    String str = null;
 	    String nul = "";
 	    for(UserVo tmp : list) {
-	    	if(tmp.getBirthday() != null) {
-	    		str = "<tr><td><a>" + tmp.getId() + "</a></td><td>" + tmp.getName() + "</td><td>" + tmp.getPhone() + "</td><td>" + tmp.getBirthday() + "</td><td>" + tmp.getGender() + "</td><td>" + tmp.getEmail() + "</td><td>" + tmp.getPoint() + "<td></td></tr>";
-	    		if(tmp.getIsDelDate() != null) {
-	    			str = str + tmp.getIsDel() + "<td></td>" + tmp.getIsDelDate() + "<td>";
-	    		}else {
-	    			str = str + tmp.getIsDel() + "<td></td>" + nul + "<td>";
-	    		}
-	    	}else {
-	    		str = "<tr><td><a>" + tmp.getId() + "</a></td><td>" + tmp.getName() + "</td><td>" + tmp.getPhone() + "</td><td>" + nul + "</td><td>" + tmp.getGender() + "</td><td>" + tmp.getEmail() + "</td><td>" + tmp.getPoint() + "<td></td></tr>";
-	    		if(tmp.getIsDelDate() != null) {
-	    			str = str + tmp.getIsDel() + "<td></td>" + tmp.getIsDelDate() + "<td>";
-	    		}else {
-	    			str = str + tmp.getIsDel() + "<td></td>" + nul + "<td>";
-	    		}
+	    	if(tmp.getAuth() != 1) {
+	    		if(!tmp.getBirthday().equals("")) {
+		    		str = "<tr><td><a>" + tmp.getId() + "</a></td><td>" + tmp.getName() + "</td><td>" + tmp.getPhone() + "</td><td>" + tmp.getBirthday() + "</td><td>" + tmp.getGender() + "</td><td>" + tmp.getEmail() + "</td><td>" + tmp.getPoint() + "</td><td><select class=\"isDel\"><option selected>";
+		    		if(tmp.getIsDel().equals("Y")) {
+		    			str = str + tmp.getIsDel() + "</option><option>N</option></td><td>" + tmp.getIsDelDate() + "</td><td><input type=\"text\" class=\"comment\" value=\"" + tmp.getComment() + "\"></td></tr>";
+		    		}else {
+		    			str = str + tmp.getIsDel() + "</option><option>Y</option></td><td>" + nul + "</td><td><input type=\"text\" class=\"comment\" value=\"" + tmp.getComment() + "\"></td></tr>";
+		    		}
+		    	}else {
+		    		str = "<tr><td><a>" + tmp.getId() + "</a></td><td>" + tmp.getName() + "</td><td>" + tmp.getPhone() + "</td><td>" + nul + "</td><td>" + tmp.getGender() + "</td><td>" + tmp.getEmail() + "</td><td>" + tmp.getPoint() + "<td/><td><select class=\"isDel\"><option selected>";
+		    		if(tmp.getIsDel().equals("Y")) {
+		    			str = str + tmp.getIsDel() + "</option><option>N</option></td><td>" + tmp.getIsDelDate() + "</td><td><input type=\"text\" class=\"comment\" value=\"" + tmp.getComment() + "\"></td></tr>";
+		    		}else {
+		    			str = str + tmp.getIsDel() + "</option><option>Y</option></td><td>" + nul + "</td><td><input type=\"text\" class=\"comment\" value=\"" + tmp.getComment() + "\"></td></tr>";
+		    		}
+		    	}
+		    	user.add(str);
 	    	}	
-	    	user.add(str);
 	    }
 	    map.put("list", user);
+	    return map;
+	}
+	
+	@RequestMapping("/changeConsumer")
+	@ResponseBody 
+	public  Map<Object, Object> changeConsumer(@RequestBody UserVo user){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.updateConsumer(user);
 	    return map;
 	}
 }

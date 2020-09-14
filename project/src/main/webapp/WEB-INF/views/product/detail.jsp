@@ -67,7 +67,7 @@
 		width:800px;
 		margin:20px auto;
 	}
-	textarea{
+	.content{
 		width:100%;
 		height:200px;
 		resize:none;
@@ -99,69 +99,6 @@
 	.linkPurchaseList:hover{
 		text-decoration: none;
 		color:white;
-	}
-	.white{
-	background-color: white;
-	}
-	.red{
-		background-color: red;
-	}
-	.orange{
-		background-color: orange;
-	}
-	.black{
-		background-color: black;
-	}
-	.green{
-		background-color: green;
-	}
-	.pink{
-		background-color: pink;
-	}
-	.blue{
-		background-color: blue;
-	}
-	.yellow{
-		background-color: yellow;
-	}
-	.beige{
-		background-color: beige;
-	}
-	.khaki{
-		background-color: #8f784b;
-	}
-	.gray{
-		background-color: gray;
-	}
-	.ivory{
-		background-color: ivory;
-	}
-	.oatmeal{
-		background-color: #f4eddc;
-	}
-	.bluegreen{
-		background-color: #0d98ba;
-	}
-	.mint{
-		background-color: #aaf0d1;
-	}
-	.sky{
-		background-color: #87ceeb;
-	}
-	.cobalt{
-		background-color: #0047ab;
-	}
-	.hotpink{
-		background-color: #ff69b4;
-	}
-	.pink{
-		background-color: pink;
-	}
-	.purple{
-		background-color: purple;
-	}
-	.lightpurple{
-		background-color: #b19cd9;
 	}
 	/* The Modal (background) */
     .modal {
@@ -237,6 +174,31 @@
 		background-color: rgb(33,51,87);
 		color:white;
 	}
+	img{
+		cursor: pointer;
+		opacity: 0.9;
+	}
+	img:hover {
+		opacity: 1;
+	}
+	.fas{
+		color: red;
+	}
+	i{
+		margin-right:2px;
+	}
+	.reviewHead>span{
+		display:inline-block;
+		height: 40px;
+		line-height: 40px;
+	}
+	.reviewContent{
+		width:100%;
+		resize:none;
+		outline:none;
+		opacity:0.7;
+		border:none;
+	}
 </style>
 <div class="detailConteiner" style="width:1450px;margin:20px auto;">
 	<div class="mainBox" style="width:1100px;float:left;">
@@ -284,11 +246,43 @@
 			<div class="selectMenu" style="margin:0 auto;text-align: center;width:800px;">
 				<div style="display:inline-block;width:240px;height:53px;border-bottom:2px solid black;"></div>
 				<div style="display:inline-block;width:160px;height:53px;" class="info select">상품정보</div>
-				<div style="display:inline-block;width:160px;height:53px;border-bottom:2px solid black;" class="rev">상품후기</div>
+				<div style="display:inline-block;width:160px;height:53px;border-bottom:2px solid black;" class="rev">상품후기(${pageMaker.totalCount})</div>
 				<div style="display:inline-block;width:240px;height:53px;border-bottom:2px solid black;"></div>
 			</div>
-			<div class="reviewBox display-none" style="height:100px;">
-			
+			<div class="reviewBox display-none" style="font-size:16px;width:800px;margin:0 auto;">
+				<c:if test="${review.size() == 0}">
+					<div style="text-align: center;">작성된 리뷰가 없습니다.</div>
+				</c:if>
+				<c:forEach var="list" items="${review}">
+					<div>
+						<span style="font-size:24px;display:inline-block;height:40px;line-height:40px;">${list.title}</span><span style="opacity: 0.7;font-size:16px;margin-left:10px;">구매옵션 : ${list.size} / ${list.color}</span>
+						<div class="reviewHead" style="float:right;">
+							<span style="margin-right:30px;">작성자 : ${list.userId}</span>
+							<input type="hidden" value="${list.grade}" class="grade">
+							<span>평점 : <i></i><i></i><i></i><i></i><i></i></span>
+						</div>
+						<textarea class="reviewContent" readonly>${list.content}</textarea>
+						<div class="reviewImage">
+							<c:forEach var="image" items="${list.image}">
+								<img style="width:50px;height:50px;" src="<%=request.getContextPath()%>/resources/img/review/${image}">
+							</c:forEach>
+							
+						</div>
+						<hr>
+					</div>
+					${list}
+				</c:forEach>
+				<ul class="pagination justify-content-center">
+					<c:if test="${pageMaker.cri.page != 1}">
+						<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/product/detail?mainCategory=${pri.mainCategory}&productCode=${product.code}&page=${pageMaker.cri.page - 1}">이전</a></li>
+					</c:if>
+				  	<c:forEach var="index" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+				  		<li class="page-item <c:if test="${pageMaker.cri.page == index}">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/product/detail?mainCategory=${pri.mainCategory}&productCode=${product.code}&page=${index}">${index}</a></li>
+				  	</c:forEach>
+				  	<c:if test="${pageMaker.endPage != pageMaker.cri.page}">
+				  		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/product/detail?mainCategory=${pri.mainCategory}&productCode=${product.code}&page=${pageMaker.cri.page + 1}">다음</a></li>
+				  	</c:if>
+				</ul>
 			</div>
 			<div class="informationBox" >
 				<div class="sizeInformBox">
@@ -318,7 +312,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<textarea readonly>${sizeText.contentSizeText}</textarea>
+					<textarea class="content" readonly>${sizeText.contentSizeText}</textarea>
 				</div>
 				<div class="remarkInformBox">
 					<h3>참고사항</h3>
@@ -371,7 +365,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<textarea readonly >${remark.contentRemarkText}
+					<textarea class="content" readonly >${remark.contentRemarkText}
 					</textarea>
 				</div>
 				<div class="colorInformBox">
@@ -427,7 +421,7 @@
 	</div>
 </div>
 <c:if test="${user == null}">
-	<spript>
+	<script>
 		$('.linkShoppingBasket').click(function(){
 			alert('로그인 후 이용해주세요.');
 		})
@@ -435,10 +429,10 @@
 			alert('로그인 후 이용해주세요.');
 			return false;
 		})
-	</spript>
+	</script>
 </c:if>
 <c:if test="${user != null}">
-	<spript>
+	<script>
 		$('.linkShoppingBasket').click(function(){
 			if($('.allPrice').text() != 0){
 				modal.style.display = "block";
@@ -489,7 +483,7 @@
 				return false;
 			}
 		})
-	</spript>
+	</script>
 </c:if>
 <script>
 	$('.info').click(function(){
@@ -766,4 +760,16 @@
 		}else
 			$('#size').attr('disabled','disbaled');
 	})
+	for(i = 0; i < $('.reviewHead').length; i++){
+		index = $('.reviewHead')[i];
+		var grade = $(index).children('.grade').val();
+		for(var j = 0; j < 5; j++){
+			var star = $(index).find('i')[j];
+			if(j <= grade - 1)
+				$(star).addClass('fas fa-star');
+			else
+				$(star).addClass('far fa-star');
+		}
+	}
+	autosize($('.reviewContent'));
 </script>

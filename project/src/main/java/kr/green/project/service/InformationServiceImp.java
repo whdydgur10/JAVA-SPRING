@@ -238,6 +238,7 @@ public class InformationServiceImp implements InformationService {
 	@Override
 	public void insertPurchaseListBasket(String id, PurchaselistVo purchase) {
 		int purchaseNum = proDao.getPurchaseNum(id);
+		purchase.setEnrollNum(proDao.getEnrollNum(purchase.getShoppingNum()));
 		infoDao.deleteShoppingBasket(purchase.getShoppingNum());
 		proDao.insertPurchaseListBasket(purchaseNum, purchase);
 	}

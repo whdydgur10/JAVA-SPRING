@@ -93,4 +93,6 @@ public interface RootDao {
 
 	ArrayList<UserVo> getUserList(@Param("rri")RootCri rri);
 
+	void updateConsumer(@Param("user")UserVo user);
+
 }

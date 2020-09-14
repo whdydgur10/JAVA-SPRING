@@ -6,6 +6,10 @@
 		background-color: rgb(33,51,87) !important;
 		color:white !important;
 	}
+	table input{
+		border: none;
+		border-bottom: 1px solid black;
+	}
 </style>
 <div class="consumerContainer">
 	<div>
@@ -27,21 +31,31 @@
 				<th>포인트</th>
 				<th>삭제여부</th>
 				<th>삭제일</th>
+				<th>특이사항</th>
 			</tr>
 		</thead>
 		<tbody class="ll">
 			<c:forEach var="list" items="${userList}">
-				<tr>
-					<td><a>${list.id}</a></td>
-					<td>${list.name}</td>
-					<td>${list.phone}</td>
-					<td><c:if test="${list.birthday != null}">${list.birthday}</c:if></td>
-					<td>${list.gender}</td>
-					<td>${list.email}</td>
-					<td>${list.point}</td>
-					<td>${list.isDel}</td>
-					<td <c:if test="${list.isDel == 'Y'}">${list.isDelDate}</c:if>></td>
-				</tr>
+				<c:if test="${list.auth != 1}">
+					<tr>
+						<td><a class="id">${list.id}</a></td>
+						<td>${list.name}</td>
+						<td>${list.phone}</td>
+						<td>${list.birthday}</td>
+						<td>${list.gender}</td>
+						<td>${list.email}</td>
+						<td>${list.point}</td>
+						<td>
+							<select class="isDel">
+								<option selected>${list.isDel}</option>
+								<c:if test="${list.isDel == 'Y'}"><option>N</option></c:if>
+								<c:if test="${list.isDel == 'N'}"><option>Y</option></c:if>
+							</select>
+						</td>
+						<td><c:if test="${list.isDel == 'Y'}">${list.isDelDate}</c:if></td>
+						<td><input type="text" class="comment" value="${list.comment}"></td>
+					</tr>
+				</c:if>
 			</c:forEach>
 		</tbody>
 	</table>
@@ -58,12 +72,47 @@
 				num = 'asc';
 		text = $(this).text();
 		list = {"type":text+num, "search":$('.search').val()}
-		console.log($('.search').val());
 		$.ajax({
 			async:true,
 			type:'POST',
 			data:JSON.stringify(list),
 			url:"<%=request.getContextPath()%>/consumerList",
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function(data){
+			    if(data['list'] != null){
+					$('.ll').empty();
+					for(var i = 0; i < data['list'].length; i++)
+						$('.ll').append(data['list'][i]);
+				}
+		    }
+		});
+	})
+	$('.isDel').change(function(){
+		list = {"id":$(this).parents('tr').find('.id').text(), "isDel":$(this).val()};
+		$.ajax({
+			async:true,
+			type:'POST',
+			data:JSON.stringify(list),
+			url:"<%=request.getContextPath()%>/changeConsumer",
+			dataType:"json",
+			contentType:"application/json; charset=UTF-8",
+			success : function(data){
+			    if(data['list'] != null){
+					$('.ll').empty();
+					for(var i = 0; i < data['list'].length; i++)
+						$('.ll').append(data['list'][i]);
+				}
+		    }
+		});
+	})
+	$('.comment').change(function(){
+		list = {"id":$(this).parents('tr').find('.id').text(), "comment":$(this).val()};
+		$.ajax({
+			async:true,
+			type:'POST',
+			data:JSON.stringify(list),
+			url:"<%=request.getContextPath()%>/changeConsumer",
 			dataType:"json",
 			contentType:"application/json; charset=UTF-8",
 			success : function(data){

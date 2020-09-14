@@ -362,4 +362,12 @@ public class RootServiceImp implements RootService {
 		return rootDao.getUserList(rri);
 	}
 
+	@Override
+	public void updateConsumer(UserVo user) {
+		if(user.getIsDel() != null)
+			if(user.getIsDel().equals("Y"))
+				user.setIsDelDate(new Date());
+		rootDao.updateConsumer(user);
+	}
+
 } 
