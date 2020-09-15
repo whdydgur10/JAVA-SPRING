@@ -1,6 +1,7 @@
 package kr.green.project.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -93,5 +94,9 @@ public interface InformationDao {
 	void updateCoupon(@Param("coupon")CouponVo coupon);
 
 	void updateDecUserPoint(@Param("user")UserVo user);
+
+	int getPoint(@Param("id")String id);
+
+	void updatePurchaseConfirm(@Param("num")int num, @Param("date")Date date);
 
 }

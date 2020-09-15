@@ -337,4 +337,9 @@
   			</if>
   			where id = #{user.id}
   	</update>
+  	<select id="getPurchaseListDelivery" resultType="kr.green.project.vo.PurchaseVo">
+  		select * from purchase 
+  				order by situation desc
+  				limit #{rri.pageStart}, #{rri.perPageNum}
+  	</select>
   </mapper>

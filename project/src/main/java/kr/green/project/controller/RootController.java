@@ -372,7 +372,6 @@ public class RootController {
 					roots.insertContentImage(enrollmentNum, fileName);
 				}
 			}
-			System.out.println(enroll);
 			roots.updateEnrollment(enroll);
 			mv.setViewName("redirect:/root/page");
 		}
@@ -446,5 +445,30 @@ public class RootController {
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    roots.updateConsumer(user);
 	    return map;
+	}
+	
+	@RequestMapping(value= "/root/product/consumerInform", method = RequestMethod.GET)
+	public ModelAndView rootProductConsumerInformGet(ModelAndView mv, HttpServletRequest h, String id){
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			System.out.println(id);
+			mv.setViewName("/root/product/consumerInform");
+		}
+	    return mv;
+	}
+	
+	@RequestMapping(value= "/root/product/delivery", method = RequestMethod.GET)
+	public ModelAndView rootProductDeliveryGet(ModelAndView mv, HttpServletRequest h, RootCri rri) throws ParseException{
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			mv.addObject("rri", rri);
+			mv.addObject("purchaselist", roots.getPurchaseListDelivery(rri));
+			mv.setViewName("/root/product/delivery");
+		}
+	    return mv;
 	}
 }

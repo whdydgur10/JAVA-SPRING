@@ -270,7 +270,6 @@
 						</div>
 						<hr>
 					</div>
-					${list}
 				</c:forEach>
 				<ul class="pagination justify-content-center">
 					<c:if test="${pageMaker.cri.page != 1}">

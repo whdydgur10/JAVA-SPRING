@@ -42,7 +42,7 @@
 		적립률 <input type="text" value="${level.point * 100}%" readonly><br>
 		누적 사용 금액 <input type="text" value="${purchase}원" readonly><br>
 		다음 레벨까지 필요한 금액 <input type="text" value="${remain}원" readonly><br>
-		현재 적립금 <input type="text" value="${user.point}point" readonly><br>
+		현재 적립금 <input type="text" value="${point}point" readonly><br>
 		사용한 적립금 <input type="text" value="${usePoint}point" readonly>
 	</div>
 	<div class="showPoint" style="float:right;width:450px;height:240px;">
@@ -105,7 +105,7 @@
 				<tbody >
 					<c:if test="${usePointList.size() == 0}">
 						<tr>
-							<td colspan="5">적립 내역이 없습니다.</td>
+							<td colspan="5">사용 내역이 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:if test="${usePointList.size() != 0}">

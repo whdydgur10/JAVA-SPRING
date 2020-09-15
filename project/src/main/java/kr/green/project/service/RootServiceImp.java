@@ -23,6 +23,7 @@ import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.UserVo;
 
 @Service
@@ -368,6 +369,11 @@ public class RootServiceImp implements RootService {
 			if(user.getIsDel().equals("Y"))
 				user.setIsDelDate(new Date());
 		rootDao.updateConsumer(user);
+	}
+
+	@Override
+	public ArrayList<PurchaselistVo> getPurchaseListDelivery(RootCri rri) {
+		return rootDao.getPurchaseListDelivery(rri);
 	}
 
 } 

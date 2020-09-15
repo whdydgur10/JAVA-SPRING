@@ -38,7 +38,7 @@
 			<c:forEach var="list" items="${userList}">
 				<c:if test="${list.auth != 1}">
 					<tr>
-						<td><a class="id">${list.id}</a></td>
+						<td><a href="<%=request.getContextPath()%>/root/product/consumerInform?id=${list.id}" class="id">${list.id}</a></td>
 						<td>${list.name}</td>
 						<td>${list.phone}</td>
 						<td>${list.birthday}</td>

@@ -23,6 +23,7 @@ public class PurchaseVo {
 	private char isDel;
 	private String payment;
 	private int addressNum;
+	private String invoice;
 //	구매번호 / 회원아이디 / 결제여부 / 계좌입금남은날 / 포인트사용여부 / 쿠폰사용여부 / 물품발송상황 / 확정여부 / 확정남은날 / 총금액 / 할인금 / 배송비 / 사용한 포인트 / 주문날짜
 	public int getNum() {
 		return num;
@@ -162,13 +163,20 @@ public class PurchaseVo {
 	public void setAddressNum(int addressNum) {
 		this.addressNum = addressNum;
 	}
+	public String getInvoice() {
+		return invoice;
+	}
+	public void setInvoice(String invoice) {
+		this.invoice = invoice;
+	}
 	@Override
 	public String toString() {
 		return "PurchaseVo [num=" + num + ", userId=" + userId + ", deposit=" + deposit + ", depositDate=" + depositDate
 				+ ", isPoint=" + isPoint + ", isCoupon=" + isCoupon + ", situation=" + situation + ", isConfirm="
 				+ isConfirm + ", confirmDate=" + confirmDate + ", price=" + price + ", givePoint=" + givePoint
 				+ ", deliveryPrice=" + deliveryPrice + ", usePoint=" + usePoint + ", orderDate=" + orderDate
-				+ ", isDel=" + isDel + ", payment=" + payment + ", addressNum=" + addressNum + "]";
+				+ ", isDel=" + isDel + ", payment=" + payment + ", addressNum=" + addressNum + ", invoice=" + invoice
+				+ "]";
 	}
 	
 	public int getPricePoint() {

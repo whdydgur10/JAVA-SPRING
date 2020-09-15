@@ -80,4 +80,8 @@ public interface InformationService {
 
 	void updateDecUserPoint(UserVo user);
 
+	int getPoint(String id);
+
+	void updatePurchaseConfirm(int num);
+
 }

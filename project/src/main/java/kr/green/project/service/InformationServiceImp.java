@@ -1,6 +1,7 @@
 package kr.green.project.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -191,8 +192,8 @@ public class InformationServiceImp implements InformationService {
 						str = str + infoDao.getEnrollmentMainTitle(enrollNum);
 					}
 				PurchaseDto pud = new PurchaseDto(tmp.getNum(), tmp.getUserId(), tmp.getDeposit(), tmp.getDepositDate(), tmp.getIsPoint(), tmp.getIsCoupon(), tmp.getSituation(), tmp.getIsConfirm(), tmp.getConfirmDate(), tmp.getPrice(), tmp.getGivePoint()
-						, tmp.getDeliveryPrice(), tmp.getUsePoint(), tmp.getOrderDate(), tmp.getIsDel(), str);
-				pudList.add(pud);	
+						, tmp.getDeliveryPrice(), tmp.getUsePoint(), tmp.getOrderDate(), tmp.getIsDel(), str, tmp.getInvoice());
+				pudList.add(pud);
 			}
 		}
 		return pudList;
@@ -267,5 +268,16 @@ public class InformationServiceImp implements InformationService {
 	public void updateDecUserPoint(UserVo user) {
 		infoDao.updateDecUserPoint(user);
 		
+	}
+
+	@Override
+	public int getPoint(String id) {
+		return infoDao.getPoint(id);
+	}
+
+	@Override
+	public void updatePurchaseConfirm(int num) {
+		Date date = new Date();
+		infoDao.updatePurchaseConfirm(num, date);
 	}
 }

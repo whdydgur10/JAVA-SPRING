@@ -27,7 +27,7 @@ public interface ReviewDao {
 
 	String getOptionCodeTolist(@Param("num")int num);
 
-	ReviewPurchaseOptionDto getReviewOption(@Param("num")int num, @Param("optionCode")String optionCode, @Param("pri")ProductCri pri);
+	ArrayList<ReviewPurchaseOptionDto> getReviewOption(@Param("num")int num, @Param("optionCode")String optionCode, @Param("pri")ProductCri pri);
 
 	ArrayList<String> getReviewfile(@Param("num")int num);
 

@@ -40,12 +40,12 @@
 		</div>
 		<label for="gradeGroup">별점</label>
 		<div class="form-group" id="gradeGroup">
-			<i class="far fa-star"><input type="hidden" value="1"></i>
-			<i class="far fa-star"><input type="hidden" value="2"></i>
-			<i class="far fa-star"><input type="hidden" value="3"></i>
-			<i class="far fa-star"><input type="hidden" value="4"></i>
-			<i class="far fa-star"><input type="hidden" value="5"></i>
-			<input type="hidden" name="grade" class="grade">
+			<i class="fas fa-star"><input type="hidden" value="1"></i>
+			<i class="fas fa-star"><input type="hidden" value="2"></i>
+			<i class="fas fa-star"><input type="hidden" value="3"></i>
+			<i class="fas fa-star"><input type="hidden" value="4"></i>
+			<i class="fas fa-star"><input type="hidden" value="5"></i>
+			<input type="hidden" name="grade" class="grade" value="5">
 		</div>
 		<div class="form-group">
 		    <label for="content">후기 내용</label>

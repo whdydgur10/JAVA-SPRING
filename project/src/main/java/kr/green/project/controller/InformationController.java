@@ -121,6 +121,7 @@ public class InformationController {
 	public ModelAndView levelInformationGet(ModelAndView mv, HttpServletRequest h){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
 		mv.addObject("level", infos.getLevel(user.getId()));
+		mv.addObject("point", infos.getPoint(user.getId()));
 		mv.addObject("purchase", infos.getPurchasePrice(user.getId()));
 		mv.addObject("menu", "level");
 		mv.addObject("pointList", infos.getPointList());
@@ -202,7 +203,6 @@ public class InformationController {
 	}
 	
 	@RequestMapping("/shoppingBasket/delete")
-	@ResponseBody
 	public Map<Object, Object> shoppingBasketDelete(@RequestBody int num){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    infos.deleteShoppingBasket(num);
@@ -210,11 +210,18 @@ public class InformationController {
 	}
 	
 	@RequestMapping("/insertPurchaseListShopping")
-	@ResponseBody
 	public Map<Object, Object> insertPurchaseList(@RequestBody PurchaselistVo purchase, HttpServletRequest h){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    UserVo user = (UserVo)h.getSession().getAttribute("user");
 	    infos.insertPurchaseListBasket(user.getId(), purchase);
+	    return map;
+	}
+	
+	@RequestMapping("/updateConfirm")
+	@ResponseBody
+	public Map<Object, Object> updateConfirm(@RequestBody int num){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    infos.updatePurchaseConfirm(num);
 	    return map;
 	}
 }

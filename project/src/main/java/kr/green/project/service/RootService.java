@@ -14,6 +14,7 @@ import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.UserVo;
 
 public interface RootService {
@@ -100,6 +101,8 @@ public interface RootService {
 	ArrayList<UserVo> getUserList(RootCri rri) throws ParseException;
 
 	void updateConsumer(UserVo user);
+
+	ArrayList<PurchaselistVo> getPurchaseListDelivery(RootCri rri);
 	
 
 }

@@ -48,7 +48,7 @@
 					where level.level = point.level and level.userId = #{id}
 	</select>
 	<select id="getPurchasePrice" resultType="String">
-		select sum(price) from purchase where userId = #{id} and isDel = 'N'
+		select sum(price) from purchase where userId = #{id} and isDel = 'N' and isConfirm = 'Y'
 	</select>
 	<select id="getPointList" resultType="kr.green.project.vo.PointVo">
 		select * from point
@@ -62,7 +62,7 @@
 							where point.level = level.level
 	</select>
 	<select id="getPurchase" resultType="kr.green.project.vo.PurchaseVo">
-		select * from purchase where userId = #{id} and situation = '상품 도착' and isDel = 'N' order by num DESC
+		select * from purchase where userId = #{id} and isConfirm = 'Y' and isDel = 'N' order by num DESC
 	</select>
 	<select id="getUsePointPurchase" resultType="kr.green.project.vo.PurchaseVo">
 		select * from purchase where userId = #{id} and isConfirm = 'Y' and isPoint = 'Y' and isDel = 'N' order by num DESC
@@ -126,5 +126,11 @@
 	</select>
 	<update id="updateDecUserPoint">
 		update user set point = #{user.point} where id = #{user.id}
+	</update>
+	<select id="getPoint" resultType="int">
+		select point from user where id = #{id}
+	</select>
+	<update id="updatePurchaseConfirm">
+		update project.purchase set isConfirm = 'Y', confirmDate = #{date} where num = #{num}
 	</update>
 </mapper>

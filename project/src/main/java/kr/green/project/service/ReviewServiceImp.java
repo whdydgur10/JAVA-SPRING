@@ -53,9 +53,10 @@ public class ReviewServiceImp implements ReviewService {
 		ArrayList<ReviewVo> list = revDao.getReview(num);
 		ArrayList<ReviewPurchaseOptionDto> list2 = new ArrayList<ReviewPurchaseOptionDto>();
 		for(ReviewVo tmp : list) {
-			ReviewPurchaseOptionDto dto = revDao.getReviewOption(num, revDao.getOptionCodeTolist(tmp.getNum()),pri);
-			dto.setImage(revDao.getReviewfile(dto.getNum()));
-			list2.add(dto);
+			list2 = revDao.getReviewOption(num, revDao.getOptionCodeTolist(tmp.getNum()),pri);
+			for(ReviewPurchaseOptionDto t : list2) {
+				t.setImage(revDao.getReviewfile(t.getNum()));
+			}
 		}
 		return list2;
 	}

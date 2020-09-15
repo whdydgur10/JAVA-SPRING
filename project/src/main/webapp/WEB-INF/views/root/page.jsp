@@ -112,6 +112,9 @@
 		<button type="button" class="enrollmentDelete">판매글 내리기</button>
 	</div>
 	<div class="linkBox">
+		<a href="<%=request.getContextPath()%>/root/product/delivery">택배 배송현황</a>
+	</div>
+	<div class="linkBox">
 		<a href="<%=request.getContextPath()%>/root/product/consumerList">고객 정보관리</a>
 	</div>
 </div>

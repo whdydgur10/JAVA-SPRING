@@ -12,6 +12,7 @@ import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.UserVo;
 
 public interface RootDao {
@@ -94,5 +95,7 @@ public interface RootDao {
 	ArrayList<UserVo> getUserList(@Param("rri")RootCri rri);
 
 	void updateConsumer(@Param("user")UserVo user);
+
+	ArrayList<PurchaselistVo> getPurchaseListDelivery(@Param("rri")RootCri rri);
 
 }

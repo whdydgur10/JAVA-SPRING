@@ -98,13 +98,13 @@
 		update purchase set isPoint = #{purchase.isPoint}, isCoupon = #{purchase.isCoupon}, price = #{purchase.price}, givePoint = #{purchase.givePoint}, usePoint = #{purchase.usePoint}
 			,payment = #{purchase.payment}, addressNum = #{purchase.addressNum} where num = #{purchase.num}
 	</update>
-	<select id="getPurchaseListAccount" resultType="kr.green.project.vo.PurchaseVo">
-		select * from purchase where deposit = 'N' and payment = 'account' and isDel = 'N';
+	<select id="getPurchaseListDeposit" resultType="kr.green.project.vo.PurchaseVo">
+		select * from purchase where deposit = 'N' and isDel = 'N';
 	</select>
 	<update id="deletePurchase">
 		update purchase set isDel = 'Y' where num = #{num}
 	</update>
 	<select id="getEnrollNum" resultType="int">
-		select enrollNum from shoppingbasket where shoppingNum = #{shoppingNum}
+		select enrollNum from project.shoppingbasket where shoppingNum = #{shoppingNum}
 	</select>
 </mapper>

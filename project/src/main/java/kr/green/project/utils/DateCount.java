@@ -46,7 +46,7 @@ public class DateCount {
 			}
 				
 		}
-		ArrayList<PurchaseVo> purchaseList = proDao.getPurchaseListAccount();
+		ArrayList<PurchaseVo> purchaseList = proDao.getPurchaseListDeposit();
 		for(PurchaseVo tmp : purchaseList) {
 			Date data_date = dateForm.parse(tmp.getOrderDate());
 			long diff = todate_date.getTime() - data_date.getTime();
@@ -55,9 +55,9 @@ public class DateCount {
 			if(diffDays > 5) {
 				ArrayList<PurchaselistVo> list = proDao.getPurchaseList(tmp.getNum());
 				for(PurchaselistVo l : list) {
-					proDao.updateIncOptionPurchase(l.getOptionCode(), l.getPurchase());
+//					proDao.updateIncOptionPurchase(l.getOptionCode(), l.getPurchase());
 				}
-				proDao.deletePurchase(tmp.getNum());
+//				proDao.deletePurchase(tmp.getNum());
 			}
 		}
 	}
