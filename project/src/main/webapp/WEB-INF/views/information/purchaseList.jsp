@@ -37,7 +37,7 @@
 								<td>${list.orderDate}</td>
 								<td>${list.deposit}</td>
 								<td style="position:relative;" class="invoice">${list.situation}
-									<c:if test="${list.isConfirm == 'N'.charAt(0) && list.situation == '상품 배송중'}"><a href="https://www.cvsnet.co.kr/reservation-inquiry/delivery/index.do?dlvry_type=domestic&invoice_no=${list.invoice}" class="linkGS" style="position:absolute;display:none;top:-10px;left:10px;border:1px solid black;background-color:white;z-index:1;">송장번호 ${list.invoice}</a></c:if>
+									<c:if test="${list.isConfirm == 'N'.charAt(0) && list.situation == '상품 배송중'}"><a href="https://www.cjlogistics.com/ko/tool/parcel/tracking?paramInvcNo=${list.invoice}" class="linkCJ" style="position:absolute;display:none;top:-10px;left:10px;border:1px solid black;background-color:white;z-index:1;">송장번호 <span>${list.invoice}</span></a></c:if>
 								</td>
 								<td><c:if test="${list.isConfirm == 'Y'.charAt(0)}"><a href="<%=request.getContextPath()%>/review/register?mainCategory=${user.gender}&purchaseNum=${list.num}">후기작성</a></c:if>
 									<c:if test="${list.isConfirm == 'N'.charAt(0) && list.situation == '상품 도착'}"><a href="#" type="button" class="confirm">확정</a><br><input type="hidden" value="${list.num}" class="num"></c:if>
@@ -45,7 +45,6 @@
 									<c:if test="${list.situation == '상품 준비중'}"><a href="<%=request.getContextPath()%>/product/cancel?mainCategory=${user.gender}&purchaseNum=${list.num}">취소/환불</a></c:if>
 								</td>
 							</tr>
-							
 						</c:forEach>
 					</c:if>
 				</tbody>
@@ -60,10 +59,11 @@
 	</div>
 </div>
 <script>
+	
 	$('.invoice').hover(function(){
-		$(this).children('.linkGS').css('display','inline-block');
+		$(this).children('.linkCJ').css('display','inline-block');
 	},function(){
-		$(this).children('.linkGS').css('display','none');
+		$(this).children('.linkCJ').css('display','none');
 	});
 	$('.confirm').click(function(){
 		var num = $(this).next().val();

@@ -23,6 +23,7 @@ import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.PurchaselistVo;
 import kr.green.project.vo.UserVo;
 
@@ -374,6 +375,31 @@ public class RootServiceImp implements RootService {
 	@Override
 	public ArrayList<PurchaselistVo> getPurchaseListDelivery(RootCri rri) {
 		return rootDao.getPurchaseListDelivery(rri);
+	}
+
+	@Override
+	public RootPage getRootPage(RootCri rri) {
+		RootPage page = new RootPage();
+		page.setRootCri(rri);
+		page.setTotalCount(rootDao.getCountPurchase(rri));
+		return page;
+	}
+
+	@Override
+	public void insertInvoice(PurchaseVo purchase) {
+		rootDao.insertInvoice(purchase);
+	}
+
+	@Override
+	public void updateInvoice(PurchaseVo purchase) {
+		rootDao.updateInvoice(purchase);
+	}
+
+	@Override
+	public void updateSituation(PurchaseVo purchase) {
+		if(purchase.getSituation().equals("상품 도착"))
+			purchase.setConfirmDate(new Date());
+		rootDao.updateSituation(purchase);
 	}
 
 } 

@@ -167,6 +167,11 @@
 	</div>
 </div>
 <script>
+	var cv = 2;
+</script>
+<script>
+	
+	console.log(cv);
         $(function(){
         	$('.deleteAccount button[type=button]').click(function(){
 				alert('yeh!!!!');

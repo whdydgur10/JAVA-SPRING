@@ -27,6 +27,7 @@ import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
+import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.UserVo;
 
 @Controller
@@ -467,8 +468,33 @@ public class RootController {
 		else {
 			mv.addObject("rri", rri);
 			mv.addObject("purchaselist", roots.getPurchaseListDelivery(rri));
+			mv.addObject("RootPage", roots.getRootPage(rri));
 			mv.setViewName("/root/product/delivery");
 		}
 	    return mv;
+	}
+	
+	@RequestMapping("/insertInvoice")
+	@ResponseBody
+	public  Map<Object, Object> insertInvoice(@RequestBody PurchaseVo purchase){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.insertInvoice(purchase);
+	    return map;
+	}
+	
+	@RequestMapping("/updateInvoice")
+	@ResponseBody
+	public  Map<Object, Object> updateInvoice(@RequestBody PurchaseVo purchase){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.updateInvoice(purchase);
+	    return map;
+	}
+	
+	@RequestMapping("/updateSituation")
+	@ResponseBody
+	public  Map<Object, Object> updateSituation(@RequestBody PurchaseVo purchase){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.updateSituation(purchase);
+	    return map;
 	}
 }

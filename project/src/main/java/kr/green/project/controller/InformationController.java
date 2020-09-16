@@ -185,6 +185,7 @@ public class InformationController {
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
 		mv.addObject("menu", "shoppingBasket");
 		mv.addObject("shoppingBasketList", infos.getShoppingBasketList(user.getId()));
+		System.out.println(infos.getShoppingBasketList(user.getId()));
 		mv.setViewName("/information/shoppingBasket");
 	    return mv;
 	}
@@ -224,4 +225,5 @@ public class InformationController {
 	    infos.updatePurchaseConfirm(num);
 	    return map;
 	}
+	
 }

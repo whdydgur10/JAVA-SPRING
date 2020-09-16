@@ -115,10 +115,13 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList<ShopEnrollProOptionThumbDto> getPurchaseList(int purchaseNum) {
 		ArrayList<PurchaselistVo> list = proDao.getPurchaseList(purchaseNum);
+		System.out.println("list" +list);
 		ArrayList<ShopEnrollProOptionThumbDto> list2 = new ArrayList<ShopEnrollProOptionThumbDto>();
 		for(PurchaselistVo tmp : list) {
 			ShopEnrollProOptionThumbDto shop = infoDao.getShopEnrollProOptionThumbDto(tmp.getEnrollNum(), tmp.getOptionCode());
+			System.out.println("shop"+shop);
 			ProductenrollmentVo enroll = rootDao.getProductenrollment(tmp.getEnrollNum());
+			System.out.println("enroll"+enroll);
 			CategoryVo category = infoDao.getCategory(enroll.getCategoryNum());
 			shop.setShoppingNum(tmp.getShoppingNum());
 			shop.setPurchase(tmp.getPurchase());

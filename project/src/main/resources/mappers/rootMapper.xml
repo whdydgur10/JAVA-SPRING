@@ -339,7 +339,35 @@
   	</update>
   	<select id="getPurchaseListDelivery" resultType="kr.green.project.vo.PurchaseVo">
   		select * from purchase 
-  				order by situation desc
-  				limit #{rri.pageStart}, #{rri.perPageNum}
+	  				<if test="rri.search != ''">
+	  					where invoice like concat ('%',#{rri.search},'%')
+	  				</if>
+	  				order by situation desc, num desc
+	  				limit #{rri.pageStart}, #{rri.perPageNum}	
   	</select>
+  	<select id="getCountPurchase" resultType="int">
+  		select count(*) from purchase where isDel = 'N'
+	  				<if test="rri.search != ''">
+	  					and invoice like concat ('%',#{rri.search},'%')
+	  				</if>
+	 </select>
+	 <update id="insertInvoice">
+	 	update purchase set situation = #{purchase.situation}, invoice = #{purchase.invoice} where num = #{purchase.num}
+	 </update>
+	 <update id="updateInvoice">
+	 	update purchase set invoice = #{purchase.invoice} where num = #{purchase.num}
+	 </update>
+	 <update id="updateSituation">
+	 	update purchase set situation = #{purchase.situation}
+	 						<if test="purchase.situation == '상품 준비중'">
+	 							,invoice = null
+	 						</if>
+	 						<if test="purchase.situation == '상품 도착'">
+	 							,confirmDate = #{purchase.confirmDate}
+	 						</if>
+	 						<if test="purchase.situation != '상품 도착'">
+	 							,confirmDate = null
+	 						</if>
+	 	 					where num = #{purchase.num}
+	 </update>
   </mapper>

@@ -149,7 +149,7 @@
 					<tr>
 						<td colspan="2" style="width:620px;text-align: left;">
 							<span style="height:50px;display:inline-block;">
-								<img src="<%=request.getContextPath()%>/resources/img/${list.thumbnailImage}" style="width:50px;height:50px;">
+								<img src="<%=request.getContextPath()%>/resources/img/enrollment/${list.thumbnailImage}" style="width:50px;height:50px;">
 								<span>${list.mainTitle} <span style="font-size:12px;">(색상 : ${list.color}, 사이즈 : ${list.size}, 갯수 : ${list.purchase}개)</span></span><br>
 							</span>
 							<input type="hidden" class="purchase" value="${list.purchase}">

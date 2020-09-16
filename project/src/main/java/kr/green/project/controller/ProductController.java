@@ -74,7 +74,6 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/insertPurchaseList")
-	@ResponseBody
 	public Map<Object, Object> insertPurchaseList(@RequestBody PurchaselistVo purchase, HttpServletRequest h){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    UserVo user = (UserVo)h.getSession().getAttribute("user");
@@ -84,7 +83,6 @@ public class ProductController {
 //	jsp와 정보를 주고받을 때는 @~~Body를 이용해야하고 자체적으로 정보를 사용할 때는 없앤다.
 	
 	@RequestMapping("/insertShoppingBasket")
-	@ResponseBody
 	public Map<Object, Object> insertShoppingBasket(@RequestBody PurchaselistVo purchase, HttpServletRequest h){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    UserVo user = (UserVo)h.getSession().getAttribute("user");
@@ -95,16 +93,18 @@ public class ProductController {
 //	@RequestBody는 하나만
 	
 	@RequestMapping(value= "/product/order", method = RequestMethod.GET)
-	public ModelAndView productOrderGet(ModelAndView mv, HttpServletRequest h, ProductCri cri, PurchaseVo purchase){
+	public ModelAndView productOrderGet(ModelAndView mv, HttpServletRequest h, ProductCri pri, PurchaseVo purchase){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
-		mv.addObject("cri", cri);
+		mv.addObject("pri", pri);
 		if(purchase.getNum() == 0) {
 			purchase = pros.getPurchase(user.getId());
+			System.out.println(purchase);
+			System.out.println(pros.getPurchaseList(purchase.getNum()));
+			System.out.println(infos.getCouponList(user.getId()));
+			System.out.println(infos.getaddressList(h));
 			if(!purchase.getUserId().equals(user.getId()) || purchase.getIsDel() == 'Y')
 				mv.setViewName("redirect:/");
 			else {
-				System.out.println(purchase);
-				System.out.println(pros.getPurchaseList(purchase.getNum()));
 				mv.addObject("purchase", purchase);
 				mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
 				mv.addObject("couponlist", infos.getCouponList(user.getId()));
