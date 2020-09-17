@@ -83,7 +83,7 @@
 		select * from coupon where userId = #{id} and code = #{code}
 	</select>
 	<select id="getPurchaseList" resultType="kr.green.project.vo.PurchaseVo">
-		select * from purchase where userId = #{id} and isDel = 'N' order by num DESC
+		select * from purchase where userId = #{id} and isDel = 'N' order by situation desc, deposit asc, depositDate asc, num desc;
 	</select>
 	<select id="getVaginalList" resultType="kr.green.project.vo.VaginalVo">
 		select * from project.vaginal where userId = #{id} order by num DESC
@@ -132,5 +132,11 @@
 	</select>
 	<update id="updatePurchaseConfirm">
 		update project.purchase set isConfirm = 'Y', confirmDate = #{date} where num = #{num}
+	</update>
+	<update id="updatePurchaseDelivery">
+		update project.purchase set deliveryPrice = #{deliveryPrice} where num = #{num}
+	</update>
+	<update id="updatePurchaseCancel">
+		update project.purchaselist set isCancel = #{isCancel} where listNum = #{listNum}
 	</update>
 </mapper>

@@ -14,6 +14,7 @@ public class ShopEnrollProOptionThumbDto {
 	private int shoppingNum;
 	private String optionCode;
 	private int enrollNum;
+	private int listNum;
 	public int getFinalPrice() {
 		return finalPrice;
 	}
@@ -86,15 +87,22 @@ public class ShopEnrollProOptionThumbDto {
 	public void setEnrollNum(int enrollNum) {
 		this.enrollNum = enrollNum;
 	}
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
 	@Override
 	public String toString() {
 		return "ShopEnrollProOptionThumbDto [finalPrice=" + finalPrice + ", mainTitle=" + mainTitle
 				+ ", thumbnailImage=" + thumbnailImage + ", size=" + size + ", color=" + color + ", purchase="
 				+ purchase + ", num=" + num + ", productCode=" + productCode + ", mainCategory=" + mainCategory
-				+ ", shoppingNum=" + shoppingNum + ", optionCode=" + optionCode + ", enrollNum=" + enrollNum + "]";
+				+ ", shoppingNum=" + shoppingNum + ", optionCode=" + optionCode + ", enrollNum=" + enrollNum
+				+ ", listNum=" + listNum + "]";
 	}
 	
 	public String getStringFinalPrice() {
-		return String.format("%,d", finalPrice * purchase);
+		return String.format("%,d", finalPrice);
 	}
 }

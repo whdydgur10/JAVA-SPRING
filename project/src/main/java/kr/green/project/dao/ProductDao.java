@@ -14,6 +14,7 @@ import kr.green.project.vo.ContentsizetextVo;
 import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.PurchaselistVo;
+import kr.green.project.vo.RefundVo;
 import kr.green.project.vo.ShoppingbasketVo;
 import kr.green.project.vo.ThumbnailVo;
 
@@ -68,5 +69,7 @@ public interface ProductDao {
 	void deletePurchase(@Param("num")int num);
 
 	int getEnrollNum(@Param("shoppingNum")int shoppingNum);
+
+	void insertRefund(RefundVo refund);
 
 }

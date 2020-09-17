@@ -13,6 +13,7 @@ import kr.green.project.vo.CouponVo;
 import kr.green.project.vo.PointVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.PurchaselistVo;
+import kr.green.project.vo.RefundVo;
 import kr.green.project.vo.ShoppingbasketVo;
 import kr.green.project.vo.UserVo;
 import kr.green.project.vo.VaginalVo;
@@ -98,5 +99,9 @@ public interface InformationDao {
 	int getPoint(@Param("id")String id);
 
 	void updatePurchaseConfirm(@Param("num")int num, @Param("date")Date date);
+
+	void updatePurchaseDelivery(@Param("num")int num, @Param("deliveryPrice")int deliveryPrice);
+
+	void updatePurchaseCancel(@Param("listNum")int listNum, @Param("isCancel")String isCancel);
 
 }

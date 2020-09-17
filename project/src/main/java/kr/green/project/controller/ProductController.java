@@ -24,6 +24,7 @@ import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.PurchaselistVo;
+import kr.green.project.vo.RefundVo;
 import kr.green.project.vo.UserVo;
 
 @Controller
@@ -98,10 +99,6 @@ public class ProductController {
 		mv.addObject("pri", pri);
 		if(purchase.getNum() == 0) {
 			purchase = pros.getPurchase(user.getId());
-			System.out.println(purchase);
-			System.out.println(pros.getPurchaseList(purchase.getNum()));
-			System.out.println(infos.getCouponList(user.getId()));
-			System.out.println(infos.getaddressList(h));
 			if(!purchase.getUserId().equals(user.getId()) || purchase.getIsDel() == 'Y')
 				mv.setViewName("redirect:/");
 			else {
@@ -176,6 +173,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/purchase/coupon")
+	@ResponseBody
 	public Map<Object, Object> purchaseCoupon(@RequestBody PurchaseVo purchase){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    purchase.setIsPoint('N');
@@ -184,6 +182,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/purchase/useCoupon")
+	@ResponseBody
 	public Map<Object, Object> purchaseUseCoupon(@RequestBody CouponVo coupon){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    infos.updateCoupon(coupon);
@@ -191,6 +190,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/purchase/point")
+	@ResponseBody
 	public Map<Object, Object> purchasePoint(@RequestBody PurchaseVo purchase, HttpServletRequest h){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    UserVo user = (UserVo)h.getSession().getAttribute("user");
@@ -200,6 +200,7 @@ public class ProductController {
 	    infos.updateDecUserPoint(user);
 	    return map;
 	}
+	@ResponseBody
 	@RequestMapping("/purchase")
 	public Map<Object, Object> purchase(@RequestBody PurchaseVo purchase){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
@@ -228,6 +229,13 @@ public class ProductController {
 		}
 		else 
 			mv.setViewName("redirect:/information/purchaseList");
+	    return mv;
+	}
+	
+	@RequestMapping(value= "/product/cancel", method = RequestMethod.POST)
+	public ModelAndView productCancelPost(ModelAndView mv, RefundVo refund){
+		pros.insertRefund(refund);
+		mv.setViewName("redirect:/information/purchaseList");
 	    return mv;
 	}
 }

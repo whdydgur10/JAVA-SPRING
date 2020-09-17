@@ -12,6 +12,7 @@ import kr.green.project.vo.ContentsizeVo;
 import kr.green.project.vo.ContentsizetextVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.PurchaselistVo;
+import kr.green.project.vo.RefundVo;
 import kr.green.project.vo.ThumbnailVo;
 
 public interface ProductService {
@@ -47,5 +48,7 @@ public interface ProductService {
 	int getDeliveryPrice(int purchaseNum);
 
 	void updatePurchase(PurchaseVo purchase);
+
+	void insertRefund(RefundVo refund);
 	
 }

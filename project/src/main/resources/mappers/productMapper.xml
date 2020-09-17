@@ -77,7 +77,7 @@
 		select max(num) from purchase where userId = #{id} and isDel = 'N'
 	</select>
 	<insert id="insertPurchaseListBasket">
-		insert into project.purchaselist(purchaseNum, purchase, shoppingNum, optionCode) values(#{purchaseNum}, #{purchase.purchase}, #{purchase.shoppingNum}, #{purchase.optionCode})
+		insert into project.purchaselist(purchaseNum, purchase, shoppingNum, optionCode, enrollNum) values(#{purchaseNum}, #{purchase.purchase}, #{purchase.shoppingNum}, #{purchase.optionCode}, #{purchase.enrollNum})
 	</insert>
 	<insert id="insertPurchaseListOrder">
 		insert into project.purchaseList(purchaseNum, enrollNum, purchase, optionCode) value(#{purchaseNum}, #{purchase.enrollNum}, #{purchase.purchase}, #{purchase.optionCode})
@@ -95,7 +95,7 @@
 		select deliveryPrice from purchase where num = #{purchaseNum}
 	</select>
 	<update id="updatePurchase">
-		update purchase set isPoint = #{purchase.isPoint}, isCoupon = #{purchase.isCoupon}, price = #{purchase.price}, givePoint = #{purchase.givePoint}, usePoint = #{purchase.usePoint}
+		update purchase set deposit = #{purchase.deposit}, depositDate = #{purchase.depositDate}, isPoint = #{purchase.isPoint}, isCoupon = #{purchase.isCoupon}, price = #{purchase.price}, givePoint = #{purchase.givePoint}, usePoint = #{purchase.usePoint}
 			,payment = #{purchase.payment}, addressNum = #{purchase.addressNum} where num = #{purchase.num}
 	</update>
 	<select id="getPurchaseListDeposit" resultType="kr.green.project.vo.PurchaseVo">
@@ -107,4 +107,7 @@
 	<select id="getEnrollNum" resultType="int">
 		select enrollNum from project.shoppingbasket where shoppingNum = #{shoppingNum}
 	</select>
+	<insert id="insertRefund">
+		insert into refund(listNum, userId, bankName, refundName, account, price, reason)v values(#{refund.listNum}, #{refund.userId}, #{refund.bankName}, #{refund.refundName}, #{refund.account}, #{refund.price}, #{refund.reason})
+	</insert>
 </mapper>

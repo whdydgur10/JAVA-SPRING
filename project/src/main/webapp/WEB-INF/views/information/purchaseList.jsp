@@ -30,7 +30,7 @@
 							<tr>
 								<td >${purchaseList.size() - status.count + 1}</td>
 								<td>
-									<c:if test="${list.deposit == 'N'}"><a href="<%=request.getContextPath()%>/product/order?purchaseNum=${list.num}&mainCategory=${user.gender}" style="overflow:hidden;text-overflow: ellipsis;white-space: nowrap;width:150px;display:inline-block;">${list.mainTitle }</a></c:if>
+									<c:if test="${list.deposit == 'N'}"><a href="<%=request.getContextPath()%>/product/order?num=${list.num}&mainCategory=${user.gender}" style="overflow:hidden;text-overflow: ellipsis;white-space: nowrap;width:150px;display:inline-block;">${list.mainTitle }</a></c:if>
 									<c:if test="${list.deposit == 'Y'}"><span style="overflow:hidden;text-overflow: ellipsis;white-space: nowrap;width:150px;display:inline-block;">${list.mainTitle }</span></c:if>
 								</td>
 								<td>${list.stringPrice}</td>
@@ -66,8 +66,7 @@
 		$(this).children('.linkCJ').css('display','none');
 	});
 	$('.confirm').click(function(){
-		var num = $(this).next().val();
-		var index = $(this);
+		var num = $(this).next().next().val();
 		$.ajax({
 			async:true,
 			type:'POST',

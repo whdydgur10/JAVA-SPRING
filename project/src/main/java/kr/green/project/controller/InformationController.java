@@ -1,5 +1,6 @@
 package kr.green.project.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.project.dto.PurchaseDto;
 import kr.green.project.dto.ShopEnrollProOptionThumbDto;
 import kr.green.project.service.InformationService;
 import kr.green.project.service.ProductService;
@@ -185,7 +187,6 @@ public class InformationController {
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
 		mv.addObject("menu", "shoppingBasket");
 		mv.addObject("shoppingBasketList", infos.getShoppingBasketList(user.getId()));
-		System.out.println(infos.getShoppingBasketList(user.getId()));
 		mv.setViewName("/information/shoppingBasket");
 	    return mv;
 	}

@@ -5,11 +5,12 @@ public class RefundVo {
 	private int refundNum;
 	private int listNum;
 	private String userId;
-	private String bank;
+	private String bankName;
 	private String refundName;
 	private String account;
 	private String status;
 	private int price;
+	private String reason;
 	public int getRefundNum() {
 		return refundNum;
 	}
@@ -28,11 +29,11 @@ public class RefundVo {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getBank() {
-		return bank;
+	public String getBankName() {
+		return bankName;
 	}
-	public void setBank(String bank) {
-		this.bank = bank;
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
 	}
 	public String getRefundName() {
 		return refundName;
@@ -58,10 +59,16 @@ public class RefundVo {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public String getReason() {
+		return reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 	@Override
 	public String toString() {
-		return "RefundVo [refundNum=" + refundNum + ", listNum=" + listNum + ", userId=" + userId + ", bank=" + bank
-				+ ", refundName=" + refundName + ", account=" + account + ", status=" + status + ", price=" + price
-				+ "]";
+		return "RefundVo [refundNum=" + refundNum + ", listNum=" + listNum + ", userId=" + userId + ", bankName="
+				+ bankName + ", refundName=" + refundName + ", account=" + account + ", status=" + status + ", price="
+				+ price + ", reason=" + reason + "]";
 	}
 }

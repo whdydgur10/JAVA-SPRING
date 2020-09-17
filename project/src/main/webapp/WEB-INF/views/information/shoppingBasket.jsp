@@ -213,7 +213,7 @@
 			for(i = 0; i < shoppingNum.length; i++){
 				list = {"shoppingNum":shoppingNum[i], "optionCode":optionCode[i], "purchase":purchase[i], "enrollNum":enrollNum[i]};
 				$.ajax({
-					async:true,
+					async:false,
 					type:'POST',
 					data:JSON.stringify(list),
 					url:"<%=request.getContextPath()%>/insertPurchaseListShopping",

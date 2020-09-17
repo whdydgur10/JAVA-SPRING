@@ -91,8 +91,8 @@
 		    <textarea class="form-control" id="answerContent" style="resize:none;height:300px;overflow:auto" name="content"></textarea>
 		</div>
 		<div style="text-align:right;">
-		<button type="submit" style="height:50px;display:inline-block;line-height:50px;border-top:1px solid black;border-left:1px solid black;width:150px;text-align:center;background-color:rgb(33,51,87);color:white;">답변 등록</button>
-	</div>
+			<button type="submit" style="height:50px;display:inline-block;line-height:50px;border-top:1px solid black;border-left:1px solid black;width:150px;text-align:center;background-color:rgb(33,51,87);color:white;">답변 등록</button>
+		</div>
 	</form>
 </c:if>
 <div id="image" class="modal">

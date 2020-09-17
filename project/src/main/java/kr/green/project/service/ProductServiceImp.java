@@ -22,6 +22,7 @@ import kr.green.project.vo.ContentsizetextVo;
 import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.PurchaselistVo;
+import kr.green.project.vo.RefundVo;
 import kr.green.project.vo.ThumbnailVo;
 
 @Service
@@ -115,19 +116,18 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public ArrayList<ShopEnrollProOptionThumbDto> getPurchaseList(int purchaseNum) {
 		ArrayList<PurchaselistVo> list = proDao.getPurchaseList(purchaseNum);
-		System.out.println("list" +list);
 		ArrayList<ShopEnrollProOptionThumbDto> list2 = new ArrayList<ShopEnrollProOptionThumbDto>();
 		for(PurchaselistVo tmp : list) {
 			ShopEnrollProOptionThumbDto shop = infoDao.getShopEnrollProOptionThumbDto(tmp.getEnrollNum(), tmp.getOptionCode());
-			System.out.println("shop"+shop);
 			ProductenrollmentVo enroll = rootDao.getProductenrollment(tmp.getEnrollNum());
-			System.out.println("enroll"+enroll);
 			CategoryVo category = infoDao.getCategory(enroll.getCategoryNum());
 			shop.setShoppingNum(tmp.getShoppingNum());
 			shop.setPurchase(tmp.getPurchase());
 			shop.setMainCategory(category.getMainCategory());
 			shop.setOptionCode(tmp.getOptionCode());
 			shop.setEnrollNum(tmp.getEnrollNum());
+			shop.setListNum(tmp.getListNum());
+			shop.setFinalPrice(shop.getFinalPrice() * shop.getPurchase());
 			list2.add(shop);
 		}
 		return list2;
@@ -156,7 +156,20 @@ public class ProductServiceImp implements ProductService {
 
 	@Override
 	public void updatePurchase(PurchaseVo purchase) {
+		purchase.setDeposit("N");
+		if(!purchase.getPayment().equals("account")) {
+			purchase.setDeposit("Y");
+		}
+		purchase.setDepositDate(new Date());
 		proDao.updatePurchase(purchase);
+	}
+
+	@Override
+	public void insertRefund(RefundVo refund) {
+		System.out.println(refund);
+		infoDao.updatePurchaseCancel(refund.getListNum(), "Y");
+		if(!refund.getRefundName().equals(""))
+			proDao.insertRefund(refund);
 	}
 
 }

@@ -191,11 +191,20 @@ public class InformationServiceImp implements InformationService {
 						int enrollNum = pv.getEnrollNum();
 						str = str + infoDao.getEnrollmentMainTitle(enrollNum);
 					}
+				if(tmp.getPrice() < 50000) {
+					tmp.setDeliveryPrice(2500);
+					infoDao.updatePurchaseDelivery(tmp.getNum(),tmp.getDeliveryPrice());
+				}else if(tmp.getPrice() >= 50000) {
+					tmp.setDeliveryPrice(0);
+					infoDao.updatePurchaseDelivery(tmp.getNum(),tmp.getDeliveryPrice());
+				}
 				PurchaseDto pud = new PurchaseDto(tmp.getNum(), tmp.getUserId(), tmp.getDeposit(), tmp.getDepositDate(), tmp.getIsPoint(), tmp.getIsCoupon(), tmp.getSituation(), tmp.getIsConfirm(), tmp.getConfirmDate(), tmp.getPrice(), tmp.getGivePoint()
 						, tmp.getDeliveryPrice(), tmp.getUsePoint(), tmp.getOrderDate(), tmp.getIsDel(), str, tmp.getInvoice());
 				pudList.add(pud);
+				str = "";
 			}
 		}
+		
 		return pudList;
 	}
 	@Override

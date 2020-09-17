@@ -337,6 +337,15 @@
 		</div>
 	</div>
 </c:if>
+<c:if test="${purchase.payment == 'account' && purchase.deposit == 'N'}">
+	<div class="modal" id="readyPayment" style="display:block;text-align:center;">
+	    <div class="modal-content">
+	        <span>계좌이체가 필요합니다.</span>
+	        <span>계좌번호 : 삐리리리리리비리</span>
+	        <a href="javascript:history.back();" style="margin:0 auto;margin-top:30px;">뒤로가기</a>
+		</div>
+	</div>
+</c:if>
 <script>
 	var len, num, str;
 	var productP, couponP, pointP, deliberyP, res;
@@ -364,12 +373,19 @@
 	var usePoint;
 	var pointPer;
 	$('.goPayment').click(function(){
-		if($('#name').val() == '')
+		console.log(1);
+		if($('#name').val() == ''){
+			$('#name').focus();
 			return false;
-		else if($('#phone').val() == '')
+		}
+		else if($('#phone').val() == ''){
+			$('#phone').focus();
 			return false;
-		else if($('#addressCode').val() == '')
+		}
+		else if($('#addressCode').val() == ''){
+			getPost();
 			return false;
+		}
 		else{
 			addressNum = $('#addressNum').val();
 			addressCode = $('#addressCode').val();
@@ -377,8 +393,6 @@
 			detail = $('#detail').val();
 			list = {"code":addressCode, "address":address, "detail":detail};
 			useCouponNum = $('.useCouponNum').val();
-			console.log(addressNum);
-			console.log(pointP);
 			if(addressNum == '')
 				$.ajax({
 					async:false,
@@ -395,7 +409,7 @@
 			if(useCouponNum != ''){
 				list = {"num":purchaseNum, "isCoupon":'Y',"price":finalPrice,"givePoint":givePoint, "payment":payment, "addressNum":addressNum};
 				$.ajax({
-					async:true,
+					async:false,
 					type:'POST',
 					data:JSON.stringify(list),
 					url:"<%=request.getContextPath()%>/purchase/coupon",
@@ -407,41 +421,41 @@
 				});
 				list = {"purchaseNum":purchaseNum, "num":useCouponNum};
 				$.ajax({
-					async:true,
+					async:false,
 					type:'POST',
 					data:JSON.stringify(list),
 					url:"<%=request.getContextPath()%>/purchase/useCoupon",
 					dataType:"json",
 					contentType:"application/json; charset=UTF-8",
 					success : function(data){
-						
+						location.href='<%=request.getContextPath()%>/';
 				    }
 				});
 			}
 			else if(pointP != 0){
 				list = {"num":purchaseNum, "isPoint":'Y', "price":finalPrice, "givePoint":givePoint, "payment":payment, "addressNum":addressNum, "usePoint":pointP};
 				$.ajax({
-					async:true,
+					async:false,
 					type:'POST',
 					data:JSON.stringify(list),
 					url:"<%=request.getContextPath()%>/purchase/point",
 					dataType:"json",
 					contentType:"application/json; charset=UTF-8",
 					success : function(data){
-						
+						location.href='<%=request.getContextPath()%>/';
 				    }
 				});
 			}else{
 				list = {"num":purchaseNum, "price":finalPrice, "givePoint":givePoint, "payment":payment, "addressNum":addressNum, "usePoint":pointP};
 				$.ajax({
-					async:true,
+					async:false,
 					type:'POST',
 					data:JSON.stringify(list),
 					url:"<%=request.getContextPath()%>/purchase",
 					dataType:"json",
 					contentType:"application/json; charset=UTF-8",
 					success : function(data){
-						
+						location.href='<%=request.getContextPath()%>/';
 				    }
 				});
 			}
@@ -711,6 +725,7 @@
 		pointP = toInt(point);
 		deliberyP = toInt(delibery);
 		finalPrice = productP - couponP - pointP + deliberyP;
+		console.log(finalPrice);
 		var a = (finalPrice / 100).toFixed();
 		var b = (Math.pow(10,2));
 		var c = Math.floor(finalPrice / 100*b)/b;

@@ -342,7 +342,7 @@
 	  				<if test="rri.search != ''">
 	  					where invoice like concat ('%',#{rri.search},'%')
 	  				</if>
-	  				order by situation desc, num desc
+	  				order by situation desc, deposit asc, depositDate asc, num desc
 	  				limit #{rri.pageStart}, #{rri.perPageNum}	
   	</select>
   	<select id="getCountPurchase" resultType="int">

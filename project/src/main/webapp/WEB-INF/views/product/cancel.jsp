@@ -7,20 +7,28 @@ ${purchaselist}
 	<form method="post" enctype="multipart/form-data">
 		<div class="form-group">
 		    <label for="purchaselist"><c:if test="${purchase.deposit == 'N'}">취소</c:if><c:if test="${purchase.deposit == 'Y'}">환불</c:if> 상품</label>
-		    <select id="purchaselist">
+		    <select id="purchaselist" name="listNum">
 		    	<option value="">선택</option>
 		    	<c:forEach var="purchase" items="${purchaselist}">
-		    		<option value="${purchase.num }">${purchase.mainTitle}</option>
+		    		<option value="${purchase.listNum }">${purchase.mainTitle}</option>
 		    	</c:forEach>
 		    </select>
 		</div>
 		<label for="reason"><c:if test="${purchase.deposit == 'N'}">취소</c:if><c:if test="${purchase.deposit == 'Y'}">환불</c:if> 사유</label>
-		<select id="purchaselist">
+		<select id="reason" name="reason">
 			<option value="">선택</option>
-			<option>단순 변심</option>
 		</select>
-		<div>
+		<div class="inform">
 			<h4>주문 정보</h4>
+			<c:forEach var="list" items="${purchaselist}">
+				<div class="${list.listNum} display-none form-control" style="height:64px;margin-bottom:10px;">
+					<img src="<%=request.getContextPath()%>/resources/img/enrollment/${list.thumbnailImage}" style="width:50px;height:50px;">
+					<span>${list.mainTitle} <span style="font-size:12px;">(색상 : ${list.color}, 사이즈 : ${list.size}, 갯수 : ${list.purchase}개)</span></span>
+					<input type="hidden" class="finalPrice" value="${list.finalPrice}">
+				</div>
+			</c:forEach>
+			<input type="hidden" id="price" name="price">
+			<input type="hidden" name="userId" value="${user.id}">
 		</div>
 		<c:if test="${purchase.deposit == 'Y'}">
 			<h4>계좌 정보</h4>
@@ -30,7 +38,7 @@ ${purchaselist}
 			</div>
 			<div class="form-group">
 			    <label for="name">예금주</label>
-			    <input type="text" class="form-control" id="name" name="name">
+			    <input type="text" class="form-control" id="refundName" name="refundName">
 			</div>
 			<div class="form-group">
 			    <label for="account">계좌번호</label>
@@ -45,3 +53,19 @@ ${purchaselist}
 		</c:if>
 	</form>
 </div>
+<script>
+	var reason = ['단순 변심'];
+	var i;
+	for(i = 0; i < reason.length; i++){
+		$('#reason').append('<option value="' + reason[i] + '">' + reason[i] +'</option>');
+	}
+	$('#purchaselist').change(function(){
+		var num = '.'+$(this).val();
+		if(num != ''){
+			console.log(num);
+			$('.inform').children('.form-control').addClass('display-none');
+			$('.inform').children(num).removeClass('display-none');
+			$('#price').val($('.inform').children(num).children('.finalPrice').val());
+		}
+	})
+</script>
