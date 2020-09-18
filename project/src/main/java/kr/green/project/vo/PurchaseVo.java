@@ -24,6 +24,7 @@ public class PurchaseVo {
 	private String payment;
 	private int addressNum;
 	private String invoice;
+	private String change;
 //	구매번호 / 회원아이디 / 결제여부 / 계좌입금남은날 / 포인트사용여부 / 쿠폰사용여부 / 물품발송상황 / 확정여부 / 확정남은날 / 총금액 / 할인금 / 배송비 / 사용한 포인트 / 주문날짜
 	public int getNum() {
 		return num;
@@ -169,6 +170,12 @@ public class PurchaseVo {
 	public void setInvoice(String invoice) {
 		this.invoice = invoice;
 	}
+	public String getChange() {
+		return change;
+	}
+	public void setChange(String change) {
+		this.change = change;
+	}
 	@Override
 	public String toString() {
 		return "PurchaseVo [num=" + num + ", userId=" + userId + ", deposit=" + deposit + ", depositDate=" + depositDate
@@ -176,7 +183,7 @@ public class PurchaseVo {
 				+ isConfirm + ", confirmDate=" + confirmDate + ", price=" + price + ", givePoint=" + givePoint
 				+ ", deliveryPrice=" + deliveryPrice + ", usePoint=" + usePoint + ", orderDate=" + orderDate
 				+ ", isDel=" + isDel + ", payment=" + payment + ", addressNum=" + addressNum + ", invoice=" + invoice
-				+ "]";
+				+ ", change=" + change + "]";
 	}
 	
 	public int getPricePoint() {

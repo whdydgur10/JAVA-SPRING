@@ -210,19 +210,14 @@ public class ProductController {
 	    return map;
 	}
 	
-	@RequestMapping(value= "/product/return", method = RequestMethod.GET)
-	public ModelAndView productReturnGet(ModelAndView mv, ProductCri pri, int purchaseNum, HttpServletRequest h){
-		mv.addObject("pri", pri);
-		mv.setViewName("/product/return");
-	    return mv;
-	}
-	
 	@RequestMapping(value= "/product/cancel", method = RequestMethod.GET)
 	public ModelAndView productCancelGet(ModelAndView mv, ProductCri pri, int purchaseNum, HttpServletRequest h){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
 		PurchaseVo purchase = res.getPurchaseTonum(purchaseNum);
 		mv.addObject("pri", pri);
 		if(purchase.getUserId().equals(user.getId())) {
+			System.out.println(purchase);
+			System.out.println(pros.getPurchaseList(purchase.getNum()));
 			mv.addObject("purchase", purchase);
 			mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
 			mv.setViewName("/product/cancel");
@@ -233,8 +228,15 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value= "/product/cancel", method = RequestMethod.POST)
-	public ModelAndView productCancelPost(ModelAndView mv, RefundVo refund){
-		pros.insertRefund(refund);
+	public ModelAndView productCancelPost(ModelAndView mv, RefundVo refund, int num, String type){
+		PurchaseVo purchase = res.getPurchaseTonum(num);
+		if(type.equals("반품"))
+			refund.setStat("반품 대기");
+		if(type.equals("교환")) {
+			refund.setStat("교환");
+			infos.updatePurchaseSitudation(num);
+		}
+		pros.insertRefund(refund, purchase);
 		mv.setViewName("redirect:/information/purchaseList");
 	    return mv;
 	}

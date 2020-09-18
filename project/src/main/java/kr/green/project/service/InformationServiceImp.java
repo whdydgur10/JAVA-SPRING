@@ -199,7 +199,7 @@ public class InformationServiceImp implements InformationService {
 					infoDao.updatePurchaseDelivery(tmp.getNum(),tmp.getDeliveryPrice());
 				}
 				PurchaseDto pud = new PurchaseDto(tmp.getNum(), tmp.getUserId(), tmp.getDeposit(), tmp.getDepositDate(), tmp.getIsPoint(), tmp.getIsCoupon(), tmp.getSituation(), tmp.getIsConfirm(), tmp.getConfirmDate(), tmp.getPrice(), tmp.getGivePoint()
-						, tmp.getDeliveryPrice(), tmp.getUsePoint(), tmp.getOrderDate(), tmp.getIsDel(), str, tmp.getInvoice());
+						, tmp.getDeliveryPrice(), tmp.getUsePoint(), tmp.getOrderDate(), tmp.getIsDel(), str, tmp.getInvoice(), tmp.getChange());
 				pudList.add(pud);
 				str = "";
 			}
@@ -288,5 +288,10 @@ public class InformationServiceImp implements InformationService {
 	public void updatePurchaseConfirm(int num) {
 		Date date = new Date();
 		infoDao.updatePurchaseConfirm(num, date);
+	}
+
+	@Override
+	public void updatePurchaseSitudation(int num) {
+		infoDao.updatePurchaseSitudation(num);
 	}
 }

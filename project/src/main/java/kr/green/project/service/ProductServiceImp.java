@@ -165,11 +165,20 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public void insertRefund(RefundVo refund) {
-		System.out.println(refund);
-		infoDao.updatePurchaseCancel(refund.getListNum(), "Y");
-		if(!refund.getRefundName().equals(""))
-			proDao.insertRefund(refund);
+	public void insertRefund(RefundVo refund, PurchaseVo purchase) {
+		refund.setRefundDate(new Date());
+		if(purchase.getDeposit().equals("Y")) {
+			refund.setDepositDate(purchase.getDepositDate());
+			infoDao.insertRefundDeposit(refund);
+		}else 
+			infoDao.insertRefund(refund);
+		if(!refund.getStat().equals("교환"))
+			infoDao.updatePurchaseCancel(refund.getListNum(), "Y");
+		if(infoDao.getPurchaseForCancel(purchase.getNum()) == null)
+			infoDao.deletePurchase(purchase.getNum());
+		else
+			infoDao.updatePurchasePrice(purchase.getNum(), refund.getPrice());
+		
 	}
 
 }

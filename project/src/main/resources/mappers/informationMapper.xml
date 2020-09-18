@@ -139,4 +139,24 @@
 	<update id="updatePurchaseCancel">
 		update project.purchaselist set isCancel = #{isCancel} where listNum = #{listNum}
 	</update>
+	<select id="getPurchaseForCancel" resultType="kr.green.project.vo.PurchaseVo">
+		select * from purchase
+						join (select * from project.purchaselist where isCancel = 'N' and purchaseNum = #{num}) as list
+						on purchase.num = list.purchaseNum
+	</select>
+	<update id="deletePurchase">
+		update purchase set isDel = 'Y' where num = #{num}
+	</update>
+	<update id="updatePurchasePrice">
+		update purchase set price = price - #{price} where num = #{num}
+	</update>
+	<insert id="insertRefundDeposit">
+		insert into refund(listNum, userId, bankName, refundName, account, price, reason, refundDate, depositDate, stat) values(#{refund.listNum}, #{refund.userId}, #{refund.bankName}, #{refund.refundName}, #{refund.account}, #{refund.price}, #{refund.reason}, #{refund.refundDate}, #{refund.depositDate}, #{refund.stat})
+	</insert>
+	<insert id="insertRefund">
+		insert into refund(listNum, userId, price, reason, refundDate, stat) values(#{refund.listNum}, #{refund.userId}, #{refund.price}, #{refund.reason}, #{refund.refundDate}, #{refund.stat})
+	</insert>
+	<update id="updatePurchaseSitudation">
+		update project.purchase set situation = '상품 준비중', confirmDate = null, purchase.change = '교환건', invoice = null where num = #{num}
+	</update>
 </mapper>

@@ -84,4 +84,6 @@ public interface InformationService {
 
 	void updatePurchaseConfirm(int num);
 
+	void updatePurchaseSitudation(int num);
+
 }

@@ -36,12 +36,12 @@
 								<td>${list.stringPrice}</td>
 								<td>${list.orderDate}</td>
 								<td>${list.deposit}</td>
-								<td style="position:relative;" class="invoice">${list.situation}
+								<td style="position:relative;" class="invoice">${list.situation}<c:if test="${list.change == '교환건'}"><br><span style="font-size:12px;opacity:0.7;">(교환)</span></c:if>
 									<c:if test="${list.isConfirm == 'N'.charAt(0) && list.situation == '상품 배송중'}"><a href="https://www.cjlogistics.com/ko/tool/parcel/tracking?paramInvcNo=${list.invoice}" class="linkCJ" style="position:absolute;display:none;top:-10px;left:10px;border:1px solid black;background-color:white;z-index:1;">송장번호 <span>${list.invoice}</span></a></c:if>
 								</td>
 								<td><c:if test="${list.isConfirm == 'Y'.charAt(0)}"><a href="<%=request.getContextPath()%>/review/register?mainCategory=${user.gender}&purchaseNum=${list.num}">후기작성</a></c:if>
 									<c:if test="${list.isConfirm == 'N'.charAt(0) && list.situation == '상품 도착'}"><a href="#" type="button" class="confirm">확정</a><br><input type="hidden" value="${list.num}" class="num"></c:if>
-									<c:if test="${list.isConfirm == 'N'.charAt(0) && list.situation != '상품 준비중'}"><a href="<%=request.getContextPath()%>/product/return?mainCategory=${user.gender}&purchaseNum=${list.num}">반품/교환</a></c:if>
+									<c:if test="${list.isConfirm == 'N'.charAt(0) && list.situation != '상품 준비중'}"><a href="<%=request.getContextPath()%>/product/cancel?mainCategory=${user.gender}&purchaseNum=${list.num}">반품/교환</a></c:if>
 									<c:if test="${list.situation == '상품 준비중'}"><a href="<%=request.getContextPath()%>/product/cancel?mainCategory=${user.gender}&purchaseNum=${list.num}">취소/환불</a></c:if>
 								</td>
 							</tr>

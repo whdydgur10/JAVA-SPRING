@@ -24,7 +24,6 @@ import kr.green.project.service.InformationService;
 import kr.green.project.service.ProductService;
 import kr.green.project.service.UserService;
 import kr.green.project.utils.Coolsms;
-import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.UserVo;
 
 @Controller

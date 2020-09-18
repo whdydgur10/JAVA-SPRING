@@ -107,7 +107,4 @@
 	<select id="getEnrollNum" resultType="int">
 		select enrollNum from project.shoppingbasket where shoppingNum = #{shoppingNum}
 	</select>
-	<insert id="insertRefund">
-		insert into refund(listNum, userId, bankName, refundName, account, price, reason)v values(#{refund.listNum}, #{refund.userId}, #{refund.bankName}, #{refund.refundName}, #{refund.account}, #{refund.price}, #{refund.reason})
-	</insert>
 </mapper>

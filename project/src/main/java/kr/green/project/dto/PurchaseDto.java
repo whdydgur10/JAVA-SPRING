@@ -19,12 +19,13 @@ public class PurchaseDto {
 	private char isDel;
 	private String mainTitle;
 	private String invoice;
+	private String change;
 	public int getNum() {
 		return num;
 	}
 	public PurchaseDto(int num, String userId, String deposit, String depositDate, char isPoint, char isCoupon,
 			String situation, char isConfirm, String confirmDate, int price, int discountPrice, int deliveryPrice,
-			int usePoint, String orderDate, char isDel, String mainTitle, String invoice) {
+			int usePoint, String orderDate, char isDel, String mainTitle, String invoice, String change) {
 		this.num = num;
 		this.userId = userId;
 		this.deposit = deposit;
@@ -42,6 +43,7 @@ public class PurchaseDto {
 		this.confirmDate = confirmDate;
 		this.orderDate = orderDate;
 		this.invoice = invoice;
+		this.change = change;
 	}
 	public void setNum(int num) {
 		this.num = num;
@@ -139,13 +141,20 @@ public class PurchaseDto {
 	public void setInvoice(String invoice) {
 		this.invoice = invoice;
 	}
+	public String getChange() {
+		return change;
+	}
+	public void setChange(String change) {
+		this.change = change;
+	}
 	@Override
 	public String toString() {
 		return "PurchaseDto [num=" + num + ", userId=" + userId + ", deposit=" + deposit + ", depositDate="
 				+ depositDate + ", isPoint=" + isPoint + ", isCoupon=" + isCoupon + ", situation=" + situation
 				+ ", isConfirm=" + isConfirm + ", confirmDate=" + confirmDate + ", price=" + price + ", discountPrice="
 				+ discountPrice + ", deliveryPrice=" + deliveryPrice + ", usePoint=" + usePoint + ", orderDate="
-				+ orderDate + ", isDel=" + isDel + ", mainTitle=" + mainTitle + ", invoice=" + invoice + "]";
+				+ orderDate + ", isDel=" + isDel + ", mainTitle=" + mainTitle + ", invoice=" + invoice + ", change="
+				+ change + "]";
 	}
 	public void setMainTitle(String mainTitle) {
 		this.mainTitle = mainTitle;

@@ -1,5 +1,9 @@
 package kr.green.project.vo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class RefundVo {
 
 	private int refundNum;
@@ -8,9 +12,11 @@ public class RefundVo {
 	private String bankName;
 	private String refundName;
 	private String account;
-	private String status;
+	private String stat;
 	private int price;
 	private String reason;
+	private Date refundDate;
+	private Date depositDate;
 	public int getRefundNum() {
 		return refundNum;
 	}
@@ -47,11 +53,11 @@ public class RefundVo {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-	public String getStatus() {
-		return status;
+	public String getStat() {
+		return stat;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStat(String stat) {
+		this.stat = stat;
 	}
 	public int getPrice() {
 		return price;
@@ -65,10 +71,34 @@ public class RefundVo {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
+	public Date getRefundDate() {
+		return refundDate;
+	}
+	public void setRefundDate(Date refundDate) {
+		this.refundDate = refundDate;
+	}
+	public String getDepositDate() {
+		if(depositDate == null)
+			return "";
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(depositDate);
+		return to;
+	}
+	public void setDepositDate(Date depositDate) {
+		this.depositDate = depositDate;
+	}
+	public void setDepositDate(String date) {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			depositDate = transFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public String toString() {
 		return "RefundVo [refundNum=" + refundNum + ", listNum=" + listNum + ", userId=" + userId + ", bankName="
-				+ bankName + ", refundName=" + refundName + ", account=" + account + ", status=" + status + ", price="
-				+ price + ", reason=" + reason + "]";
+				+ bankName + ", refundName=" + refundName + ", account=" + account + ", stat=" + stat + ", price="
+				+ price + ", reason=" + reason + ", refundDate=" + refundDate + ", depositDate=" + depositDate + "]";
 	}
 }

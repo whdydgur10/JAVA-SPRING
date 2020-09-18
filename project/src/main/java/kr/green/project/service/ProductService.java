@@ -49,6 +49,6 @@ public interface ProductService {
 
 	void updatePurchase(PurchaseVo purchase);
 
-	void insertRefund(RefundVo refund);
+	void insertRefund(RefundVo refund, PurchaseVo purchase);
 	
 }

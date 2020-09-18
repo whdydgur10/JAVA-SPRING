@@ -104,4 +104,15 @@ public interface InformationDao {
 
 	void updatePurchaseCancel(@Param("listNum")int listNum, @Param("isCancel")String isCancel);
 
+	PurchaseVo getPurchaseForCancel(@Param("num")int num);
+
+	void deletePurchase(@Param("num")int num);
+
+	void updatePurchasePrice(@Param("num")int num, @Param("price")int price);
+
+	void insertRefundDeposit(@Param("refund")RefundVo refund);
+
+	void insertRefund(@Param("refund")RefundVo refund);
+
+	void updatePurchaseSitudation(@Param("num")int num);
 }

@@ -70,6 +70,4 @@ public interface ProductDao {
 
 	int getEnrollNum(@Param("shoppingNum")int shoppingNum);
 
-	void insertRefund(RefundVo refund);
-
 }

@@ -30,6 +30,7 @@
 				<th>입금일자</th>
 				<th>배송상황</th>
 				<th>송장번호</th>
+				<th>비고</th>
 			</tr>
 		</thead>
 		<tbody class="ll">
@@ -41,16 +42,22 @@
 					<td>${list.deposit}</td>
 					<td><c:if test="${list.deposit == 'Y'}">${list.depositDate}</c:if></td>
 					<td>
+						<c:if test="${list.isConfirm == 'N'.charAt(0)}">
 						<select class="situation">
 							<option <c:if test="${list.situation == '상품 준비중'}">selected</c:if>>상품 준비중</option>
 							<option <c:if test="${list.situation == '상품 배송중'}">selected</c:if>>상품 배송중</option>
 							<option <c:if test="${list.situation == '상품 도착'}">selected</c:if>>상품 도착</option>
 						</select>
+						</c:if>
+						<c:if test="${list.isConfirm == 'Y'.charAt(0)}">
+							${list.situation}
+						</c:if>
 					</td>
 					<td>
-						<c:if test="${list.situation != '상품 배송중'}">${list.invoice}<input type="hidden" id="invoice" value="${list.invoice}" style="text-align:center;"></c:if>
+						<c:if test="${list.situation != '상품 배송중'}">${list.invoice}<input type="hidden" class="noInvoice" value="${list.invoice}" style="text-align:center;"></c:if>
 						<c:if test="${list.situation == '상품 배송중'}"><input type="text" class="invoice" value="${list.invoice}" style="text-align:center;"></c:if>
 					</td>
+					<td>${list.change}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -69,13 +76,12 @@
 </div>
 <script>
 	$('.situation').change(function(){
-		var invoice = $(this).parents('tr').find($('#invoice'));
+		var invoice = $(this).parents('tr').find('.noInvoice');
 		if($(this).val() == '상품 배송중'){
 			if(invoice.val() == ''){
 				alert('송장번호를 입력해주세요.');
 				$(invoice).attr('type','text');
 				$(invoice).focus();
-				
 			}else{
 				list = {"num":$(this).parents('tr').find('.num').text(), "situation":"상품 배송중"};
 				$.ajax({
@@ -121,7 +127,7 @@
 			});
 		}
 	})
-	$('#invoice').change(function(){
+	$('.noInvoice').change(function(){
 		if($(this).val() != ''){
 			list = {"num":$(this).parents('tr').find('.num').text(), "situation":"상품 배송중", "invoice":$(this).val()};
 			$.ajax({
@@ -138,6 +144,7 @@
 			});
 		}else
 			location.reload();
+		return false;
 	})
 	$('.invoice').change(function(){
 		if($(this).val() != ''){

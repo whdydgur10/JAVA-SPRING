@@ -1,5 +1,7 @@
 package kr.green.project.dto;
 
+import java.util.Date;
+
 public class ShopEnrollProOptionThumbDto {
 
 	private int finalPrice;
