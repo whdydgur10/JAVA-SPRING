@@ -14,6 +14,7 @@ import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.PurchaselistVo;
+import kr.green.project.vo.RefundVo;
 import kr.green.project.vo.UserVo;
 
 public interface RootDao {
@@ -106,5 +107,15 @@ public interface RootDao {
 	void updateInvoice(@Param("purchase")PurchaseVo purchase);
 
 	void updateSituation(@Param("purchase")PurchaseVo purchase);
+
+	ArrayList<RefundVo> getRefund(@Param("rri")RootCri rri);
+
+	int getCountRefund(@Param("rri")RootCri rri);
+
+	void updateRefund(@Param("refund")RefundVo refund);
+
+	Integer getSalesMonth(@Param("month")String month);
+
+	Integer getSalesDay(@Param("date")String date);
 
 }

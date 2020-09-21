@@ -9,7 +9,7 @@
 	하기</h1>
 	<form method="post" enctype="multipart/form-data">
 		<input type="hidden" name="num" value="${purchase.num}">
-		<input type="hidden" name="stat" value="<c:if test="${purchase.deposit == 'N'}">취소</c:if><c:if test="${purchase.deposit == 'Y'}">환불 대기</c:if>">
+		<input type="hidden" name="stat" value="<c:if test="${purchase.deposit == 'N'}">취소</c:if><c:if test="${purchase.deposit == 'Y'}">환불</c:if>">
 		<div class="form-group">
 		    <label for="purchaselist"><c:if test="${purchase.deposit == 'N'}">취소</c:if><c:if test="${purchase.deposit == 'Y'}">환불</c:if>
 		     상품</label>
@@ -120,7 +120,7 @@
 		var reason = ['단순 변심','오염','변질'];
 		$('.return').click(function(){
 			$('.type').val('반품');
-			$('input[name=stat]').val('환불 대기');
+			$('input[name=stat]').val('환불');
 			$('.sub').click();
 		})
 		$('.change').click(function(){

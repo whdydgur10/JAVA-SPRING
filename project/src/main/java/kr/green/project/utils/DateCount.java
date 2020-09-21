@@ -50,14 +50,24 @@ public class DateCount {
 		for(PurchaseVo tmp : purchaseList) {
 			Date data_date = dateForm.parse(tmp.getOrderDate());
 			long diff = todate_date.getTime() - data_date.getTime();
-			// 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
 			long diffDays = diff / (24 * 60 * 60 * 1000);
 			if(diffDays > 5) {
 				ArrayList<PurchaselistVo> list = proDao.getPurchaseList(tmp.getNum());
 				for(PurchaselistVo l : list) {
-//					proDao.updateIncOptionPurchase(l.getOptionCode(), l.getPurchase());
+					proDao.updateIncOptionPurchase(l.getOptionCode(), l.getPurchase());
 				}
-//				proDao.deletePurchase(tmp.getNum());
+				proDao.deletePurchase(tmp.getNum());
+			}
+		}
+		
+		ArrayList<PurchaseVo> purchaseList2 = proDao.getPurchaseListConfirm();
+		for(PurchaseVo tmp : purchaseList2) {
+			Date data_date = dateForm.parse(tmp.getConfirmDate());
+			long diff = todate_date.getTime() - data_date.getTime();
+			long diffDays = diff / (24 * 60 * 60 * 1000);
+			if(diffDays > 7) {
+				Date date = new Date();
+				infoDao.updatePurchaseConfirm(tmp.getNum(), date);
 			}
 		}
 	}

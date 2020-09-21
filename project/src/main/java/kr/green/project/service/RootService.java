@@ -3,6 +3,7 @@ package kr.green.project.service;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,6 +17,7 @@ import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.PurchaselistVo;
+import kr.green.project.vo.RefundVo;
 import kr.green.project.vo.UserVo;
 
 public interface RootService {
@@ -112,6 +114,16 @@ public interface RootService {
 	void updateInvoice(PurchaseVo purchase);
 
 	void updateSituation(PurchaseVo purchase);
+
+	ArrayList<RefundVo> getRefund(RootCri rri);
+
+	RootPage getRefundPage(RootCri rri);
+
+	void updateRefund(RefundVo refund);
+
+	ArrayList<Integer> getSalesMonth();
+
+	ArrayList<Integer> getSalesDay(Date newDate);
 	
 
 }

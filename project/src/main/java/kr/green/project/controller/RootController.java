@@ -2,6 +2,7 @@ package kr.green.project.controller;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.velocity.tools.config.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +30,7 @@ import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.PurchaseVo;
+import kr.green.project.vo.RefundVo;
 import kr.green.project.vo.UserVo;
 
 @Controller
@@ -495,6 +498,73 @@ public class RootController {
 	public  Map<Object, Object> updateSituation(@RequestBody PurchaseVo purchase){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    roots.updateSituation(purchase);
+	    return map;
+	}
+	
+	@RequestMapping(value= "/root/product/refund", method = RequestMethod.GET)
+	public ModelAndView rootProductRefundGet(ModelAndView mv, HttpServletRequest h, RootCri rri) throws ParseException{
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			mv.addObject("rri", rri);
+			mv.addObject("refundlist", roots.getRefund(rri));
+			mv.addObject("RootPage", roots.getRefundPage(rri));
+			mv.setViewName("/root/product/refund");
+		}
+	    return mv;
+	}
+	
+	@RequestMapping("/updateRefund")
+	@ResponseBody
+	public  Map<Object, Object> updateRefund(@RequestBody RefundVo refund){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.updateRefund(refund);
+	    return map;
+	}
+	
+	@RequestMapping(value= "/root/product/sales", method = RequestMethod.GET)
+	public ModelAndView rootProductSalesGet(ModelAndView mv, HttpServletRequest h, Date[] date) throws ParseException{
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		Date tmp = new Date();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String today;
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			if(date == null) {
+				today = transFormat.format(tmp);
+			}else
+				today = transFormat.format(date[3]);
+			mv.addObject("today", today);
+			mv.setViewName("/root/product/sales");
+		}
+	    return mv;
+	}
+	
+	@RequestMapping("/salesMonth")
+	@ResponseBody
+	public  Map<Object, Object> salesMonth(){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    map.put("month",roots.getSalesMonth());
+	    return map;
+	}
+	
+	@RequestMapping("/salesDay")
+	@ResponseBody
+	public  Map<Object, Object> salesDay(@RequestBody Date newDate){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    ArrayList<String> list = new ArrayList<String>();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String date = transFormat.format(newDate);
+		String[] tmp = (date.split("-"));
+		list.add(tmp[0]);
+		for(int i = 0; i < 7; i++) {
+			date = tmp[1] + '-' + Integer.toString(Integer.parseInt(tmp[2])+i);
+			list.add(date);
+		}
+	    map.put("day",roots.getSalesDay(newDate));
+	    map.put("date", list);
 	    return map;
 	}
 }

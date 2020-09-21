@@ -70,4 +70,6 @@ public interface ProductDao {
 
 	int getEnrollNum(@Param("shoppingNum")int shoppingNum);
 
+	ArrayList<PurchaseVo> getPurchaseListConfirm();
+
 }

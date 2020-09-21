@@ -370,4 +370,34 @@
 	 						</if>
 	 	 					where num = #{purchase.num}
 	 </update>
+	 <select id="getRefund" resultType="kr.green.project.vo.RefundVo">
+	 	select * from refund <if test="rri.search == '대기'">
+	 							where refund.stat not like concat('%','완료','%')
+	 						 </if>
+	 						 <if test="rri.search == '완료'">
+	 							where refund.stat like concat('%','완료')
+		 					</if>
+	 						order by length(refund.stat) asc
+	 						<if test="rri.search == '완료'">
+	 							,completeDate desc
+		 					</if>
+		 					, refundNum desc
+	 </select>
+	 <select id="getCountRefund" resultType="int">
+	 	select count(*) from refund <if test="rri.search == '대기'">
+			 							where refund.stat not like concat('%','완료','%')
+			 						</if>
+			 						 <if test="rri.search == '완료'">
+			 							where refund.stat like concat('%','완료')
+			 						</if>
+	 </select>
+	 <update id="updateRefund">
+	 	update refund set stat = #{refund.stat}, completeDate = #{refund.completeDate} where refundNum = #{refund.refundNum}
+	 </update>
+	 <select id="getSalesMonth" resultType="Integer">
+		select sum(price) from project.purchase where isConfirm = 'Y' and confirmDate like concat(#{month},'%')
+	</select>
+	<select id="getSalesDay" resultType="Integer">
+		select sum(price) from project.purchase where isConfirm = 'Y' and confirmDate = #{date}
+	</select>
   </mapper>

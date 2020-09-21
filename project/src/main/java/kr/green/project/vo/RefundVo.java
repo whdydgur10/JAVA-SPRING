@@ -17,6 +17,7 @@ public class RefundVo {
 	private String reason;
 	private Date refundDate;
 	private Date depositDate;
+	private Date completeDate;
 	public int getRefundNum() {
 		return refundNum;
 	}
@@ -71,11 +72,23 @@ public class RefundVo {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	public Date getRefundDate() {
-		return refundDate;
+	public String getRefundDate() {
+		if(refundDate == null)
+			return "";
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(refundDate);
+		return to;
 	}
 	public void setRefundDate(Date refundDate) {
 		this.refundDate = refundDate;
+	}
+	public void setRefundDate(String date) {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			refundDate = transFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 	public String getDepositDate() {
 		if(depositDate == null)
@@ -95,10 +108,33 @@ public class RefundVo {
 			e.printStackTrace();
 		}
 	}
+	public String getCompleteDate() {
+		if(completeDate == null)
+			return "";
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String to = transFormat.format(completeDate);
+		return to;
+	}
+	public void setCompleteDate(Date completeDate) {
+		this.completeDate = completeDate;
+	}
+	public void setCompleteDate(String date) {
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			completeDate = transFormat.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public String toString() {
 		return "RefundVo [refundNum=" + refundNum + ", listNum=" + listNum + ", userId=" + userId + ", bankName="
 				+ bankName + ", refundName=" + refundName + ", account=" + account + ", stat=" + stat + ", price="
-				+ price + ", reason=" + reason + ", refundDate=" + refundDate + ", depositDate=" + depositDate + "]";
+				+ price + ", reason=" + reason + ", refundDate=" + refundDate + ", depositDate=" + depositDate
+				+ ", completeDate=" + completeDate + "]";
+	}
+	
+	public String getStringPrice() {
+		return String.format("%,d", price);
 	}
 }

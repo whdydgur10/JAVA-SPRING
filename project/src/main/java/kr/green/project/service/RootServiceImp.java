@@ -25,6 +25,7 @@ import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
 import kr.green.project.vo.PurchaseVo;
 import kr.green.project.vo.PurchaselistVo;
+import kr.green.project.vo.RefundVo;
 import kr.green.project.vo.UserVo;
 
 @Service
@@ -105,7 +106,6 @@ public class RootServiceImp implements RootService {
 	public boolean isProductCode(ProductVo product) {
 		ProductVo product2 = rootDao.getProductCode(product.getCode());
 		if(product2 == null) {
-			System.out.println(product);
 			rootDao.insertProduct(product);
 			return true;
 		}
@@ -194,7 +194,6 @@ public class RootServiceImp implements RootService {
 
 	@Override
 	public int getEnrollmentNum(String productCode) {
-		System.out.println(productCode);
 		return rootDao.getEnrollmentNum(productCode);
 	}
 
@@ -400,6 +399,85 @@ public class RootServiceImp implements RootService {
 		if(purchase.getSituation().equals("상품 도착"))
 			purchase.setConfirmDate(new Date());
 		rootDao.updateSituation(purchase);
+	}
+
+	@Override
+	public ArrayList<RefundVo> getRefund(RootCri rri) {
+		return rootDao.getRefund(rri);
+	}
+
+	@Override
+	public RootPage getRefundPage(RootCri rri) {
+		RootPage page = new RootPage();
+		page.setRootCri(rri);
+		page.setTotalCount(rootDao.getCountRefund(rri));
+		return page;
+	}
+
+	@Override
+	public void updateRefund(RefundVo refund) {
+		refund.setCompleteDate(new Date());
+		rootDao.updateRefund(refund);
+	}
+
+	@Override
+	public ArrayList<Integer> getSalesMonth() {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		Date today = new Date();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy");
+		String to = transFormat.format(today);
+		String last = Integer.toString(Integer.parseInt(to) - 1);
+		String bar;
+		Integer income, expenditure, sales;
+		for(int i = 1; i <= 12; i++) {
+			if(i < 10)
+				bar = "-0" + i;
+			else
+				bar = "-" + i;
+			
+			for(int j = 0; j < 3; j++) {
+				String month = last + bar;
+				sales = rootDao.getSalesMonth(month);
+				if(sales == null)
+					sales = 0;
+				list.add(sales / 1000);
+			}
+			for(int j = 0; j < 3; j++) {
+				String month = to + bar;
+				sales = rootDao.getSalesMonth(month);
+				if(sales == null)
+					sales = 0;
+				list.add(sales / 1000);
+			}
+		}
+		list.add(Integer.parseInt(to));
+		return list;
+	}
+
+	@Override
+	public ArrayList<Integer> getSalesDay(Date newDate) {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String date = transFormat.format(newDate);
+		String[] tmp = (date.split("-"));
+		Integer income, expenditure, sales;
+		for(int i = 0; i < 7; i++) {
+			for(int j = 0; j < 3; j++) {
+				date = Integer.toString(Integer.parseInt(tmp[0])-1) + '-' + tmp[1] + '-' + Integer.toString(Integer.parseInt(tmp[2])+i);
+				sales = rootDao.getSalesDay(date);
+				if(sales == null)
+					sales = 0;
+				list.add(sales / 1000);
+			}
+			for(int j = 0; j < 3; j++) {
+				date = tmp[0] + '-' + tmp[1] + '-' + Integer.toString(Integer.parseInt(tmp[2])+i);
+				sales = rootDao.getSalesDay(date);
+				if(sales == null)
+					sales = 0;
+				list.add(sales / 1000);
+			}	
+		}
+		return list;
 	}
 
 } 

@@ -216,8 +216,6 @@ public class ProductController {
 		PurchaseVo purchase = res.getPurchaseTonum(purchaseNum);
 		mv.addObject("pri", pri);
 		if(purchase.getUserId().equals(user.getId())) {
-			System.out.println(purchase);
-			System.out.println(pros.getPurchaseList(purchase.getNum()));
 			mv.addObject("purchase", purchase);
 			mv.addObject("purchaselist", pros.getPurchaseList(purchase.getNum()));
 			mv.setViewName("/product/cancel");
