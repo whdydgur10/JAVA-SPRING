@@ -177,6 +177,7 @@ public class ProductController {
 	public Map<Object, Object> purchaseCoupon(@RequestBody PurchaseVo purchase){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    purchase.setIsPoint('N');
+	    System.out.println(purchase);
 	    pros.updatePurchase(purchase);
 	    return map;
 	}
@@ -197,6 +198,7 @@ public class ProductController {
 	    purchase.setIsCoupon('N');
 	    pros.updatePurchase(purchase);
 	    user.setPoint(user.getPoint() - purchase.getUsePoint());
+	    System.out.println(purchase);
 	    infos.updateDecUserPoint(user);
 	    return map;
 	}
@@ -206,6 +208,7 @@ public class ProductController {
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    purchase.setIsCoupon('N');
 	    purchase.setIsPoint('N');
+	    System.out.println(purchase);
 	    pros.updatePurchase(purchase);
 	    return map;
 	}

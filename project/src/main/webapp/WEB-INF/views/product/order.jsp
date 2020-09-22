@@ -373,7 +373,6 @@
 	var usePoint;
 	var pointPer;
 	$('.goPayment').click(function(){
-		console.log(1);
 		if($('#name').val() == ''){
 			$('#name').focus();
 			return false;
@@ -407,18 +406,6 @@
 				});
 			
 			if(useCouponNum != ''){
-				list = {"num":purchaseNum, "isCoupon":'Y',"price":finalPrice,"givePoint":givePoint, "payment":payment, "addressNum":addressNum};
-				$.ajax({
-					async:false,
-					type:'POST',
-					data:JSON.stringify(list),
-					url:"<%=request.getContextPath()%>/purchase/coupon",
-					dataType:"json",
-					contentType:"application/json; charset=UTF-8",
-					success : function(data){
-						
-				    }
-				});
 				list = {"purchaseNum":purchaseNum, "num":useCouponNum};
 				$.ajax({
 					async:false,
@@ -428,6 +415,19 @@
 					dataType:"json",
 					contentType:"application/json; charset=UTF-8",
 					success : function(data){
+						
+				    }
+				});
+				list = {"num":purchaseNum, "isCoupon":'Y',"price":finalPrice,"givePoint":givePoint, "payment":payment, "addressNum":addressNum};
+				$.ajax({
+					async:false,
+					type:'POST',
+					data:JSON.stringify(list),
+					url:"<%=request.getContextPath()%>/purchase/coupon",
+					dataType:"json",
+					contentType:"application/json; charset=UTF-8",
+					success : function(data){
+						alert('결제가 완료되었습니다.');
 						location.href='<%=request.getContextPath()%>/';
 				    }
 				});
@@ -442,6 +442,7 @@
 					dataType:"json",
 					contentType:"application/json; charset=UTF-8",
 					success : function(data){
+						alert('결제가 완료되었습니다.');
 						location.href='<%=request.getContextPath()%>/';
 				    }
 				});
@@ -455,6 +456,7 @@
 					dataType:"json",
 					contentType:"application/json; charset=UTF-8",
 					success : function(data){
+						alert('결제가 완료되었습니다.');
 						location.href='<%=request.getContextPath()%>/';
 				    }
 				});

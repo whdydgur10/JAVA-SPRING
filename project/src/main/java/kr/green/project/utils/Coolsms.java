@@ -5,14 +5,14 @@ import java.util.Properties;
 
 import org.json.simple.JSONObject;
 
-public class Coolsms extends Https {
+public class Coolsms extends submitPhone {
     final String URL = "https://api.coolsms.co.kr";
     private String sms_url = URL + "/sms/1.5/";
     private String senderid_url = URL + "/senderid/1.1/";
     private String api_key;
     private String api_secret;    
     private String timestamp;
-    private Https https = new Https();
+    private submitPhone https = new submitPhone();
     Properties properties = System.getProperties();
  
     /*

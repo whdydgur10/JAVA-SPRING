@@ -100,7 +100,7 @@ public interface RootDao {
 
 	ArrayList<PurchaselistVo> getPurchaseListDelivery(@Param("rri")RootCri rri);
 
-	int getCountPurchase(@Param("rri")RootCri rri);
+	int getCountPurchaseDelivery(@Param("rri")RootCri rri);
 
 	void insertInvoice(@Param("purchase")PurchaseVo purchase);
 
@@ -117,5 +117,11 @@ public interface RootDao {
 	Integer getSalesMonth(@Param("month")String month);
 
 	Integer getSalesDay(@Param("date")String date);
+
+	int getCountPurchaseAccount(@Param("rri")RootCri rri);
+
+	ArrayList<PurchaseVo> getPurchaseAccount(@Param("rri")RootCri rri);
+
+	void updateDeposit(@Param("purchase")PurchaseVo purchase);
 
 }

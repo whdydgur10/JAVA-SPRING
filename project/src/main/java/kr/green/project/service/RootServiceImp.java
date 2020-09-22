@@ -4,11 +4,20 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.green.project.dao.InformationDao;
 import kr.green.project.dao.RootDao;
@@ -377,10 +386,10 @@ public class RootServiceImp implements RootService {
 	}
 
 	@Override
-	public RootPage getRootPage(RootCri rri) {
+	public RootPage getDeliveryPage(RootCri rri) {
 		RootPage page = new RootPage();
 		page.setRootCri(rri);
-		page.setTotalCount(rootDao.getCountPurchase(rri));
+		page.setTotalCount(rootDao.getCountPurchaseDelivery(rri));
 		return page;
 	}
 
@@ -455,29 +464,104 @@ public class RootServiceImp implements RootService {
 	}
 
 	@Override
-	public ArrayList<Integer> getSalesDay(Date newDate) {
+	public ArrayList<Integer> getSalesDay(Date newDate) throws ParseException {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String date = transFormat.format(newDate);
-		String[] tmp = (date.split("-"));
-		Integer income, expenditure, sales;
+		Integer sales;
+		newDate = transFormat.parse(date);
 		for(int i = 0; i < 7; i++) {
-			for(int j = 0; j < 3; j++) {
-				date = Integer.toString(Integer.parseInt(tmp[0])-1) + '-' + tmp[1] + '-' + Integer.toString(Integer.parseInt(tmp[2])+i);
-				sales = rootDao.getSalesDay(date);
-				if(sales == null)
-					sales = 0;
-				list.add(sales / 1000);
-			}
-			for(int j = 0; j < 3; j++) {
-				date = tmp[0] + '-' + tmp[1] + '-' + Integer.toString(Integer.parseInt(tmp[2])+i);
-				sales = rootDao.getSalesDay(date);
-				if(sales == null)
-					sales = 0;
-				list.add(sales / 1000);
-			}	
+			Calendar cal = Calendar.getInstance(); 
+			cal.setTime(newDate);
+			cal.add(Calendar.DATE, +i);
+			cal.add(Calendar.YEAR, -1);
+			date = transFormat.format(cal.getTime());
+			sales = rootDao.getSalesDay(date);
+			if(sales == null)
+				sales = 0;
+			list.add(sales / 1000);
+			cal.add(Calendar.YEAR, +1);
+			date = transFormat.format(cal.getTime());
+			sales = rootDao.getSalesDay(date);
+			if(sales == null)
+				sales = 0;
+			list.add(sales / 1000);
 		}
 		return list;
+	}
+
+	@Override
+	public RootPage getProductAccountPage(RootCri rri) {
+		RootPage page = new RootPage();
+		page.setRootCri(rri);
+		page.setTotalCount(rootDao.getCountPurchaseAccount(rri));
+		return page;
+	}
+
+	@Override
+	public ArrayList<PurchaseVo> getPurchaseAccount(RootCri rri) {
+		return rootDao.getPurchaseAccount(rri);
+	}
+
+	@Override
+	public void updateDeposit(PurchaseVo purchase) {
+		purchase.setDepositDate(new Date());
+		rootDao.updateDeposit(purchase);
+	}
+
+	@Override
+	public void insertExpenditure(MultipartHttpServletRequest request) {
+		try {
+	        // 파일 읽어들이기
+	        MultipartFile file = null;
+	        Iterator<String> mIterator = request.getFileNames();
+	        ArrayList<String> list = new ArrayList<String>();
+	        if(mIterator.hasNext()) {
+	          file = request.getFile(mIterator.next());
+	        }
+
+	        // 엑셀파일 열기 (엑셀버전 2007 이상일때, 오픈방법)
+	        OPCPackage opcPackage = OPCPackage.open(file.getInputStream());
+	        XSSFWorkbook wb = new XSSFWorkbook(opcPackage);
+
+	        // Sheet 수
+	        int sheetNum = wb.getNumberOfSheets();
+	        // Sheet 수만큼 Loop
+	        for(int num = 0; num<sheetNum; num++) {
+	          XSSFSheet sheet = wb.getSheetAt(num);
+	          Iterator<Row> iterator = sheet.iterator();
+
+	          // Row
+	          while(iterator.hasNext()) {
+	            Row currentRow = iterator.next();
+	          	Iterator<Cell> cellIterator = currentRow.iterator();
+	            
+	            // Cell
+	            while(cellIterator.hasNext()) {
+	          		Cell currentCell = cellIterator.next();
+	    			
+	                /*
+	                	poi라이브러리에서 Cell안에 데이터를 꺼내기 위해서
+	                    셀타입에 따라 접근연산자(.)로 꺼내는 메소드가 달라지기 때문에
+	                    셀타입을 비교 후 셀데이터를 추출합니다.
+	                */
+	                if(currentCell.getCellTypeEnum() == CellType.STRING) {
+	                	list.add(currentCell.getStringCellValue());
+//	                	System.out.print(currentCell.getStringCellValue() + "\t");
+	                } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
+	                	list.add((int)currentCell.getNumericCellValue() + "\t");
+//	                	System.out.print((int)currentCell.getNumericCellValue() + "\t");
+	                }
+	          	}
+	            
+//	          	System.out.println(); // Row를 구분해주기 위한 엔터
+	          }
+	    	}
+	        System.out.println(list);
+	      } catch (Exception e) {
+	        e.printStackTrace();
+	      }
+		
 	}
 
 } 

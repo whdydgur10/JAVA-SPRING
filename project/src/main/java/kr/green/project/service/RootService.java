@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.green.project.dto.ProductOptionDto;
 import kr.green.project.pagination.RootCri;
@@ -107,7 +108,7 @@ public interface RootService {
 
 	ArrayList<PurchaselistVo> getPurchaseListDelivery(RootCri rri);
 
-	RootPage getRootPage(RootCri rri);
+	RootPage getDeliveryPage(RootCri rri);
 
 	void insertInvoice(PurchaseVo purchase);
 
@@ -123,7 +124,15 @@ public interface RootService {
 
 	ArrayList<Integer> getSalesMonth();
 
-	ArrayList<Integer> getSalesDay(Date newDate);
+	ArrayList<Integer> getSalesDay(Date newDate) throws ParseException;
+
+	RootPage getProductAccountPage(RootCri rri);
+
+	ArrayList<PurchaseVo> getPurchaseAccount(RootCri rri);
+
+	void updateDeposit(PurchaseVo purchase);
+
+	void insertExpenditure(MultipartHttpServletRequest request);
 	
 
 }

@@ -170,8 +170,6 @@
 	var cv = 2;
 </script>
 <script>
-	
-	console.log(cv);
         $(function(){
         	$('.deleteAccount button[type=button]').click(function(){
 				alert('yeh!!!!');
@@ -204,10 +202,13 @@
                     return false;
                 }
             })
-            $('body').click(function(){
-            	$('.viewAddress').removeClass('display-none');
-                $('.createAddress').addClass('display-none');
-                $('.link-address').removeClass('display-none');
+            $('body').click(function(e){
+            	var target = $(e.target).parents('.createAddress').length;
+                if(target != 1){
+                	$('.viewAddress').removeClass('display-none');
+                    $('.createAddress').addClass('display-none');
+                    $('.link-address').removeClass('display-none');
+                }
             })
             $('.closeCreate').click(function(e){
             	$('.viewAddress').removeClass('display-none');

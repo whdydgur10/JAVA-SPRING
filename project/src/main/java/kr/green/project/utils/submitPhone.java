@@ -19,7 +19,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-public class Https {
+public class submitPhone {
 
 	public JSONObject postRequest(String url_string, HashMap<String, String> params) {
         JSONObject obj = new JSONObject();

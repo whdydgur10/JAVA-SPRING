@@ -338,14 +338,14 @@
   			where id = #{user.id}
   	</update>
   	<select id="getPurchaseListDelivery" resultType="kr.green.project.vo.PurchaseVo">
-  		select * from purchase 
+  		select * from purchase where isDel = 'N'
 	  				<if test="rri.search != ''">
-	  					where invoice like concat ('%',#{rri.search},'%')
+	  					 and invoice like concat ('%',#{rri.search},'%')
 	  				</if>
 	  				order by situation desc, deposit asc, depositDate asc, num desc
 	  				limit #{rri.pageStart}, #{rri.perPageNum}	
   	</select>
-  	<select id="getCountPurchase" resultType="int">
+  	<select id="getCountPurchaseDelivery" resultType="int">
   		select count(*) from purchase where isDel = 'N'
 	  				<if test="rri.search != ''">
 	  					and invoice like concat ('%',#{rri.search},'%')
@@ -400,4 +400,15 @@
 	<select id="getSalesDay" resultType="Integer">
 		select sum(price) from project.purchase where isConfirm = 'Y' and confirmDate = #{date}
 	</select>
+	<select id="getCountPurchaseAccount" resultType="int">
+		select count(*) from purchase where payment = 'account' and isDel = 'N'
+	</select>
+	<select id="getPurchaseAccount" resultType="kr.green.project.vo.PurchaseVo">
+		select * from purchase where payment = 'account' and isDel = 'N'
+											order by orderDate desc, deposit asc, depositDate desc, num desc
+											limit #{rri.pageStart}, #{rri.perPageNum}
+	</select>
+	<update id="updateDeposit">
+		update purchase set deposit = #{purchase.deposit}, depositDate = #{purchase.depositDate} where num = #{purchase.num}
+	</update>
   </mapper>

@@ -4,13 +4,20 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.velocity.tools.config.Data;
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.project.pagination.RootCri;
@@ -471,7 +479,7 @@ public class RootController {
 		else {
 			mv.addObject("rri", rri);
 			mv.addObject("purchaselist", roots.getPurchaseListDelivery(rri));
-			mv.addObject("RootPage", roots.getRootPage(rri));
+			mv.addObject("RootPage", roots.getDeliveryPage(rri));
 			mv.setViewName("/root/product/delivery");
 		}
 	    return mv;
@@ -552,19 +560,63 @@ public class RootController {
 	
 	@RequestMapping("/salesDay")
 	@ResponseBody
-	public  Map<Object, Object> salesDay(@RequestBody Date newDate){
+	public  Map<Object, Object> salesDay(@RequestBody Date newDate) throws ParseException{
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    ArrayList<String> list = new ArrayList<String>();
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String date = transFormat.format(newDate);
-		String[] tmp = (date.split("-"));
-		list.add(tmp[0]);
+	    SimpleDateFormat md = new SimpleDateFormat("MM-dd");
+		SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
+		String[] tmp = (ymd.format(newDate).split("-"));
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(newDate);
 		for(int i = 0; i < 7; i++) {
-			date = tmp[1] + '-' + Integer.toString(Integer.parseInt(tmp[2])+i);
+			String date = md.format(cal.getTime());
+			cal.add(Calendar.DATE, +1);
 			list.add(date);
 		}
+		list.add(tmp[0]);
 	    map.put("day",roots.getSalesDay(newDate));
 	    map.put("date", list);
+	    return map;
+	}
+	
+	@RequestMapping(value= "/root/product/account", method = RequestMethod.GET)
+	public ModelAndView rootProductAccountGet(ModelAndView mv, HttpServletRequest h) throws ParseException{
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		RootCri rri = new RootCri();
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			mv.addObject("account", roots.getPurchaseAccount(rri));
+			mv.addObject("rootPage", roots.getProductAccountPage(rri));
+			mv.setViewName("/root/product/account");
+		}
+	    return mv;
+	}
+	
+	@RequestMapping("/updateDeposit")
+	@ResponseBody
+	public  Map<Object, Object> updateDeposit(@RequestBody PurchaseVo purchase){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.updateDeposit(purchase);
+	    return map;
+	}
+	
+	@RequestMapping(value= "/root/product/expenditure", method = RequestMethod.GET)
+	public ModelAndView rootProductExpenditureGet(ModelAndView mv, HttpServletRequest h){
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			mv.setViewName("/root/product/expenditure");
+		}
+	    return mv;
+	}
+
+	@RequestMapping("/testFile")
+	@ResponseBody
+	public  Map<Object, Object> testFile(MultipartHttpServletRequest request){
+	    Map<Object, Object> map = new HashMap<Object, Object>();
+	    roots.insertExpenditure(request);
 	    return map;
 	}
 }

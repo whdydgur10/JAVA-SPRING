@@ -57,12 +57,14 @@
 	var today = $('.today').val();
 	var dayList;
     dayList = (today.split("-"));
+    var oldDate = new Date(2020,7,01);
 	var date = new Date(dayList[0], dayList[1]-1, dayList[2]);
+	var a = (date - oldDate)/(24 * 60 * 60 * 1000)
 	date.setDate(date.getDate());
 	var newDate = new Date(dayList[0], dayList[1]-1, dayList[2]);
 	newDate.setDate(newDate.getDate() - 3);
 	var i;
-	for(i = 0; i < 100; i++){
+	for(i = 0; i <= a; i++){
 		year = date.getFullYear();
 		month = date.getMonth()+1;
 		day = date.getDate();
@@ -86,17 +88,17 @@
 			google.charts.setOnLoadCallback(drawVisualization);
 			function drawVisualization(){
 				var data = google.visualization.arrayToDataTable([
-					[list, '작년매출', '작년지출', '작년수익','-------------', '매출', '지출', '수익'],
-					[d[1], s[0], s[1], s[2], 0, s[3], s[4], s[5]],
-					[d[2], s[6], s[7], s[8], 0, s[9], s[10], s[11]],
-					[d[3], s[12], s[13], s[14], 0, s[15], s[16], s[17]],
-					[d[4], s[18], s[19], s[20], 0, s[21], s[22], s[23]],
-					[d[5], s[24], s[25], s[26], 0, s[27], s[28], s[29]],
-					[d[6], s[30], s[31], s[32], 0, s[33], s[34], s[35]],
-					[d[7], s[36], s[37], s[38], 0, s[39], s[40], s[41]]
+					[list, '작년수익','-------------','수익'],
+					[d[0], s[0], 0, s[1]],
+					[d[1], s[2], 0, s[3]],
+					[d[2], s[4], 0, s[5]],
+					[d[3], s[6], 0, s[7]],
+					[d[4], s[8], 0, s[9]],
+					[d[5], s[10], 0, s[11]],
+					[d[6], s[12], 0, s[13]]
 				]);
 				var options = {
-					title : '일별 매출 현황('+ d[0] +'년 기준)',
+					title : '일별 매출 현황('+ d[7] +'년 기준)',
 					vAxis : {title: '금액 기준 (천 원)'},
 					hAxis : {title: '일 (작년/올해)'},
 					seriesType: 'bars',
@@ -126,17 +128,17 @@
 				google.charts.setOnLoadCallback(drawVisualization);
 				function drawVisualization(){
 					var data = google.visualization.arrayToDataTable([
-						[list, '작년매출', '작년지출', '작년수익','-------------', '매출', '지출', '수익'],
-						[d[1], s[0], s[1], s[2], 0, s[3], s[4], s[5]],
-						[d[2], s[6], s[7], s[8], 0, s[9], s[10], s[11]],
-						[d[3], s[12], s[13], s[14], 0, s[15], s[16], s[17]],
-						[d[4], s[18], s[19], s[20], 0, s[21], s[22], s[23]],
-						[d[5], s[24], s[25], s[26], 0, s[27], s[28], s[29]],
-						[d[6], s[30], s[31], s[32], 0, s[33], s[34], s[35]],
-						[d[7], s[36], s[37], s[38], 0, s[39], s[40], s[41]]
+						[list, '작년수익','-------------','수익'],
+						[d[0], s[0], 0, s[1]],
+						[d[1], s[2], 0, s[3]],
+						[d[2], s[4], 0, s[5]],
+						[d[3], s[6], 0, s[7]],
+						[d[4], s[8], 0, s[9]],
+						[d[5], s[10], 0, s[11]],
+						[d[6], s[12], 0, s[13]]
 					]);
 					var options = {
-						title : '일별 매출 현황('+ d[0] +'년 기준)',
+						title : '일별 매출 현황('+ d[7] +'년 기준)',
 						vAxis : {title: '금액 기준 (천 원)'},
 						hAxis : {title: '일 (작년/올해)'},
 						seriesType: 'bars',

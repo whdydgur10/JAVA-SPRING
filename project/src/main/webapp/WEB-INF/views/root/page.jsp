@@ -112,6 +112,9 @@
 		<button type="button" class="enrollmentDelete">판매글 내리기</button>
 	</div>
 	<div class="linkBox">
+		<a href="<%=request.getContextPath()%>/root/product/account">계좌이체 관리</a>
+	</div>
+	<div class="linkBox">
 		<a href="<%=request.getContextPath()%>/root/product/refund">상품 취소관리</a>
 	</div>
 	<div class="linkBox">
@@ -122,6 +125,9 @@
 	</div>
 	<div class="linkBox">
 		<a href="<%=request.getContextPath()%>/root/product/sales">매출 현황</a>
+	</div>
+	<div class="linkBox">
+		<a href="<%=request.getContextPath()%>/root/product/expenditure">지출 내역</a>
 	</div>
 </div>
 <div id="myModal" class="modal"> 
