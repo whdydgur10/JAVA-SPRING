@@ -29,6 +29,7 @@ import kr.green.project.utils.UploadFile;
 import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.ContentsizeVo;
+import kr.green.project.vo.ExpenditureVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
@@ -436,7 +437,7 @@ public class RootServiceImp implements RootService {
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy");
 		String to = transFormat.format(today);
 		String last = Integer.toString(Integer.parseInt(to) - 1);
-		String bar;
+		String bar, month;
 		Integer income, expenditure, sales;
 		for(int i = 1; i <= 12; i++) {
 			if(i < 10)
@@ -444,20 +445,29 @@ public class RootServiceImp implements RootService {
 			else
 				bar = "-" + i;
 			
-			for(int j = 0; j < 3; j++) {
-				String month = last + bar;
-				sales = rootDao.getSalesMonth(month);
-				if(sales == null)
-					sales = 0;
-				list.add(sales / 1000);
-			}
-			for(int j = 0; j < 3; j++) {
-				String month = to + bar;
-				sales = rootDao.getSalesMonth(month);
-				if(sales == null)
-					sales = 0;
-				list.add(sales / 1000);
-			}
+			month = last + bar;
+			expenditure = rootDao.getExpenditureMonth(month);
+			sales = rootDao.getSalesMonth(month);
+			if(sales == null)
+				sales = 0;
+			if(expenditure == null)
+				expenditure = 0;
+			income = sales - expenditure;
+			list.add(sales / 1000);
+			list.add(expenditure / 1000);
+			list.add(income / 1000);
+			month = to + bar;
+			expenditure = rootDao.getExpenditureMonth(month);
+			sales = rootDao.getSalesMonth(month);
+			if(sales == null)
+				sales = 0;
+			if(expenditure == null)
+				expenditure = 0;
+			income = sales - expenditure;
+			list.add(sales / 1000);
+			list.add(expenditure / 1000);
+			list.add(income / 1000);
+			
 		}
 		list.add(Integer.parseInt(to));
 		return list;
@@ -549,19 +559,37 @@ public class RootServiceImp implements RootService {
 	                	list.add(currentCell.getStringCellValue());
 //	                	System.out.print(currentCell.getStringCellValue() + "\t");
 	                } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
-	                	list.add((int)currentCell.getNumericCellValue() + "\t");
+	                	list.add((int)currentCell.getNumericCellValue() + "");
 //	                	System.out.print((int)currentCell.getNumericCellValue() + "\t");
 	                }
+	                  
 	          	}
 	            
 //	          	System.out.println(); // Row를 구분해주기 위한 엔터
 	          }
 	    	}
-	        System.out.println(list);
+	        ExpenditureVo expend = new ExpenditureVo();
+	        int size = list.size()-1;
+        	expend.setCost(Integer.parseInt(list.get(size)));
+        	expend.setOperating(Integer.parseInt(list.get(size-1)));
+        	expend.setPr(Integer.parseInt(list.get(size-2)));
+        	expend.setLabor(Integer.parseInt(list.get(size-3)));
+        	expend.setDate(list.get(size-4));
+	        expend.setExpend(expend.getLabor()+expend.getOperating()+expend.getPr()+expend.getCost());
+	        ExpenditureVo checkExpend = rootDao.getExpenditure(expend.getDate());
+	        if(checkExpend == null)
+	        	rootDao.insertExpenditure(expend);
+	        else
+	        	rootDao.updateExpenditure(expend);
 	      } catch (Exception e) {
 	        e.printStackTrace();
 	      }
 		
+	}
+
+	@Override
+	public ArrayList<ExpenditureVo> getExpenditure(RootCri rri) {
+		return rootDao.getExpenditureList(rri);
 	}
 
 } 

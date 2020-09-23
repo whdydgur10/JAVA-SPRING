@@ -602,19 +602,24 @@ public class RootController {
 	}
 	
 	@RequestMapping(value= "/root/product/expenditure", method = RequestMethod.GET)
-	public ModelAndView rootProductExpenditureGet(ModelAndView mv, HttpServletRequest h){
+	public ModelAndView rootProductExpenditureGet(ModelAndView mv, HttpServletRequest h, RootCri rri){
 		UserVo user = (UserVo)h.getSession().getAttribute("user");
 		if(user.getAuth() == 0) 
 			mv.setViewName("redirect:/");
 		else {
+			Date tmp = new Date();
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy");
+			mv.addObject("today", transFormat.format(tmp));
+			mv.addObject("expenditure", roots.getExpenditure(rri));
+			mv.addObject("rri", rri);
 			mv.setViewName("/root/product/expenditure");
 		}
 	    return mv;
 	}
 
-	@RequestMapping("/testFile")
+	@RequestMapping("/insertExpenditure")
 	@ResponseBody
-	public  Map<Object, Object> testFile(MultipartHttpServletRequest request){
+	public  Map<Object, Object> insertExpenditure(MultipartHttpServletRequest request){
 	    Map<Object, Object> map = new HashMap<Object, Object>();
 	    roots.insertExpenditure(request);
 	    return map;

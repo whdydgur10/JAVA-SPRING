@@ -9,6 +9,7 @@ import kr.green.project.pagination.RootCri;
 import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.ContentremarkVo;
 import kr.green.project.vo.ContentsizeVo;
+import kr.green.project.vo.ExpenditureVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
@@ -123,5 +124,15 @@ public interface RootDao {
 	ArrayList<PurchaseVo> getPurchaseAccount(@Param("rri")RootCri rri);
 
 	void updateDeposit(@Param("purchase")PurchaseVo purchase);
+
+	void insertExpenditure(@Param("expend")ExpenditureVo expend);
+
+	ExpenditureVo getExpenditure(@Param("date")String date);
+
+	void updateExpenditure(@Param("expend")ExpenditureVo expend);
+
+	Integer getExpenditureMonth(@Param("month")String month);
+
+	ArrayList<ExpenditureVo> getExpenditureList(@Param("rri")RootCri rri);
 
 }

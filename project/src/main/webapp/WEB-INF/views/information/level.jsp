@@ -42,8 +42,8 @@
 		적립률 <input type="text" value="${level.point * 100}%" readonly><br>
 		누적 사용 금액 <input type="text" value="${purchase}원" readonly><br>
 		다음 레벨까지 필요한 금액 <input type="text" value="${remain}원" readonly><br>
-		현재 적립금 <input type="text" value="${point}point" readonly><br>
-		사용한 적립금 <input type="text" value="${usePoint}point" readonly>
+		현재 포인트 <input type="text" value="${point}point" readonly><br>
+		사용한 포인트 <input type="text" value="${usePoint}point" readonly>
 	</div>
 	<div class="showPoint" style="float:right;width:450px;height:240px;">
 		<c:forEach var="point" items="${pointList}">

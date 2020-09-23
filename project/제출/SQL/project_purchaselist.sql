@@ -1,0 +1,65 @@
+CREATE DATABASE  IF NOT EXISTS `project` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `project`;
+-- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
+--
+-- Host: localhost    Database: project
+-- ------------------------------------------------------
+-- Server version	8.0.20
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `purchaselist`
+--
+
+DROP TABLE IF EXISTS `purchaselist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `purchaselist` (
+  `listNum` int NOT NULL AUTO_INCREMENT,
+  `purchaseNum` int NOT NULL,
+  `enrollNum` int DEFAULT NULL,
+  `purchase` int NOT NULL DEFAULT '0',
+  `isCancel` varchar(1) NOT NULL DEFAULT 'N',
+  `shoppingNum` int DEFAULT NULL,
+  `optionCode` varchar(255) NOT NULL,
+  `reviewNum` int DEFAULT NULL,
+  PRIMARY KEY (`listNum`),
+  KEY `enrollNum_idx` (`enrollNum`),
+  KEY `purchaseNum_idx` (`purchaseNum`),
+  KEY `basketNum_idx` (`shoppingNum`),
+  KEY `optionCode_idx` (`optionCode`),
+  KEY `reviewNum_idx` (`reviewNum`),
+  CONSTRAINT `basketNum` FOREIGN KEY (`shoppingNum`) REFERENCES `shoppingbasket` (`shoppingNum`)
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `purchaselist`
+--
+
+LOCK TABLES `purchaselist` WRITE;
+/*!40000 ALTER TABLE `purchaselist` DISABLE KEYS */;
+INSERT INTO `purchaselist` VALUES (58,42,1,1,'N',NULL,'15754MLB',NULL),(59,43,1,1,'N',44,'15754MMB',NULL),(60,44,8,1,'N',NULL,'DVWQEQ010',NULL),(61,45,1,1,'N',45,'15754MXLB',NULL),(62,46,8,1,'N',NULL,'DVWQEQ010',NULL),(63,47,8,1,'N',46,'DVWQEQ012',NULL),(64,48,1,1,'N',47,'15754MXLB',NULL),(65,49,1,1,'N',NULL,'15754MXLW',NULL),(66,49,1,1,'N',NULL,'15754MMB',NULL),(67,50,1,1,'N',48,'15754MXLB',NULL),(68,51,8,1,'N',NULL,'DVWQEQ010',NULL),(69,52,1,1,'N',NULL,'15754MLW',NULL),(70,53,1,2,'N',49,'15754MMB',NULL),(71,53,1,3,'N',50,'15754MLW',NULL),(72,54,1,3,'Y',52,'15754MXLW',NULL),(73,54,1,2,'Y',51,'15754MLB',NULL),(74,55,8,2,'Y',54,'DVWQEQ011',NULL),(75,55,8,3,'Y',53,'DVWQEQ010',NULL),(76,56,1,2,'Y',55,'15754MMB',NULL),(77,57,1,2,'Y',56,'15754MLB',NULL),(78,58,1,2,'Y',NULL,'15754MMB',NULL),(79,59,1,4,'Y',NULL,'15754MMW',NULL),(80,60,1,1,'Y',NULL,'15754MLB',NULL),(81,60,1,1,'N',NULL,'15754MXLW',NULL),(82,61,1,1,'N',NULL,'15754MLB',NULL),(83,62,1,1,'N',NULL,'15754MMB',NULL),(84,63,8,2,'N',NULL,'DVWQEQ010',NULL),(85,63,8,3,'N',NULL,'DVWQEQ012',NULL),(86,64,1,1,'N',57,'15754MLB',NULL),(87,65,1,1,'N',NULL,'15754MMB',NULL),(88,66,1,1,'N',58,'15754MLW',NULL),(89,67,8,1,'N',NULL,'DVWQEQ010',NULL);
+/*!40000 ALTER TABLE `purchaselist` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-09-23 14:33:11

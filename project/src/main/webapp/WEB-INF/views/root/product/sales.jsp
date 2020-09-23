@@ -55,8 +55,7 @@
 	    }
 	});
 	var today = $('.today').val();
-	var dayList;
-    dayList = (today.split("-"));
+	var dayList = today.split("-");
     var oldDate = new Date(2020,7,01);
 	var date = new Date(dayList[0], dayList[1]-1, dayList[2]);
 	var a = (date - oldDate)/(24 * 60 * 60 * 1000)
@@ -88,7 +87,7 @@
 			google.charts.setOnLoadCallback(drawVisualization);
 			function drawVisualization(){
 				var data = google.visualization.arrayToDataTable([
-					[list, '작년수익','-------------','수익'],
+					[list, '작년매출','-------------','매출'],
 					[d[0], s[0], 0, s[1]],
 					[d[1], s[2], 0, s[3]],
 					[d[2], s[4], 0, s[5]],
@@ -128,7 +127,7 @@
 				google.charts.setOnLoadCallback(drawVisualization);
 				function drawVisualization(){
 					var data = google.visualization.arrayToDataTable([
-						[list, '작년수익','-------------','수익'],
+						[list, '작년매출','-------------','매출'],
 						[d[0], s[0], 0, s[1]],
 						[d[1], s[2], 0, s[3]],
 						[d[2], s[4], 0, s[5]],

@@ -13,6 +13,7 @@ import kr.green.project.pagination.RootCri;
 import kr.green.project.pagination.RootPage;
 import kr.green.project.vo.CategoryVo;
 import kr.green.project.vo.ContentremarkVo;
+import kr.green.project.vo.ExpenditureVo;
 import kr.green.project.vo.OptionVo;
 import kr.green.project.vo.ProductVo;
 import kr.green.project.vo.ProductenrollmentVo;
@@ -133,6 +134,7 @@ public interface RootService {
 	void updateDeposit(PurchaseVo purchase);
 
 	void insertExpenditure(MultipartHttpServletRequest request);
-	
+
+	ArrayList<ExpenditureVo> getExpenditure(RootCri rri);
 
 }

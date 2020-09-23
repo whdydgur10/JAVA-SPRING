@@ -411,4 +411,24 @@
 	<update id="updateDeposit">
 		update purchase set deposit = #{purchase.deposit}, depositDate = #{purchase.depositDate} where num = #{purchase.num}
 	</update>
+	<insert id="insertExpenditure">
+		insert expenditure values(#{expend.date}, #{expend.labor}, #{expend.pr}, #{expend.operating}, #{expend.cost}, #{expend.expend})
+	</insert>
+	<select id="getExpenditure" resultType="kr.green.project.vo.ExpenditureVo">
+		select * from expenditure where date = #{date}
+	</select>
+	<update id="updateExpenditure">
+		update expenditure set labor = #{expend.labor}, pr = #{expend.pr}, operating = #{expend.operating}, cost = #{expend.cost}, expend = #{expend.expend} where date = #{expend.date}
+	</update>
+	<select id="getExpenditureMonth" resultType="Integer">
+		select expend from expenditure where date = #{month}
+	</select>
+	<select id="getExpenditureList" resultType="kr.green.project.vo.ExpenditureVo">
+		select * from expenditure 
+							<if test="rri.search != null">
+								where date like concat (#{rri.search},'%')
+							</if>
+							order by date desc
+							limit 0, 12
+	</select>
   </mapper>
