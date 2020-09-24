@@ -4,22 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.project.dao.ProductDao">
 	<select id="getContentRemark" resultType="kr.green.project.vo.ContentremarkVo">
-		select * from project.contentremark where enrollmentNum = #{num}
+		select * from contentremark where enrollmentNum = #{num}
 	</select>
 	<select id="getContentSize" resultType="kr.green.project.vo.ContentsizeVo">
-		select * from project.contentsize where enrollmentNum = #{num}
+		select * from contentsize where enrollmentNum = #{num}
 	</select>
 	<select id="getContentSizeText" resultType="kr.green.project.vo.ContentsizetextVo">
-		select * from project.contentsizetext where enrollmentNum = #{num}
+		select * from contentsizetext where enrollmentNum = #{num}
 	</select>
 	<select id="getThumbnailImage" resultType="kr.green.project.vo.ThumbnailVo">
-		select * from project.thumbnail where enrollmentNum = #{num}
+		select * from thumbnail where enrollmentNum = #{num}
 	</select>
 	<select id="getContentImage" resultType="kr.green.project.vo.ContentimageVo">
-		select * from project.contentimage where enrollmentNum = #{num}
+		select * from contentimage where enrollmentNum = #{num}
 	</select>
 	<select id="getProductEnrollmentList" resultType="kr.green.project.vo.ProductenrollmentVo">
-		select * from project.productenrollment 
+		select * from productenrollment 
 							join (select categoryNum from category where mainCategory = #{pri.mainCategory}
 																<if test="pri.middleCategory.length != 0">
 																and middleCategory = #{pri.middleCategory}
@@ -37,7 +37,7 @@
 							limit #{pri.pageStart}, #{pri.perPageNum}
 	</select>
 	<select id="countProductEnrollment" resultType="int">
-		select count(*) from project.productenrollment 
+		select count(*) from productenrollment 
 							join (select categoryNum from category where mainCategory = #{pri.mainCategory}
 																<if test="pri.middleCategory.length != 0">
 																and middleCategory = #{pri.middleCategory}
@@ -54,21 +54,21 @@
 							where isDel = 'N'
 	</select>
 	<select id="getEnrollmentThumbnailList" resultType="kr.green.project.dto.EnrollmentThumbnailDto">
-		select * from project.productenrollment 
+		select * from productenrollment 
 							join (select min(thumbnailNum) as thumbnailNum, thumbnailImage from thumbnail where enrollmentNum = #{enroll.num}) as thumb
 							where productenrollment.num = #{enroll.num}
 	</select>
 	<select id="getShoppingBasketList" resultType="kr.green.project.vo.ShoppingbasketVo">
-		select * from project.shoppingbasket where isPurchase = 'N'
+		select * from shoppingbasket where isPurchase = 'N'
 	</select>
 	<insert id="insertShoppingBasket">
-		insert into project.shoppingbasket(userId, enrollNum, purchase, basketDate, optionCode) values(#{userId}, #{enrollNum}, #{purchase}, #{today}, #{optionCode})
+		insert into shoppingbasket(userId, enrollNum, purchase, basketDate, optionCode) values(#{userId}, #{enrollNum}, #{purchase}, #{today}, #{optionCode})
 	</insert>
 	<update id="updateDecOptionPurchase">
-		update project.option set amount = amount - #{purchase}, purchase = purchase + #{purchase} where optionCode = #{optionCode}
+		update `option` set amount = amount - #{purchase}, purchase = purchase + #{purchase} where optionCode = #{optionCode}
 	</update>
 	<update id="updateIncOptionPurchase">
-		update project.option set purchase = purchase - #{purchase}, amount = amount + #{purchase} where optionCode = #{optionCode}
+		update `option` set purchase = purchase - #{purchase}, amount = amount + #{purchase} where optionCode = #{optionCode}
 	</update>
 	<insert id="insertPurchase">
 		insert into purchase(userId, orderDate) values(#{pu.userId}, #{pu.orderDate})
@@ -77,10 +77,10 @@
 		select max(num) from purchase where userId = #{id} and isDel = 'N'
 	</select>
 	<insert id="insertPurchaseListBasket">
-		insert into project.purchaselist(purchaseNum, purchase, shoppingNum, optionCode, enrollNum) values(#{purchaseNum}, #{purchase.purchase}, #{purchase.shoppingNum}, #{purchase.optionCode}, #{purchase.enrollNum})
+		insert into purchaselist(purchaseNum, purchase, shoppingNum, optionCode, enrollNum) values(#{purchaseNum}, #{purchase.purchase}, #{purchase.shoppingNum}, #{purchase.optionCode}, #{purchase.enrollNum})
 	</insert>
 	<insert id="insertPurchaseListOrder">
-		insert into project.purchaseList(purchaseNum, enrollNum, purchase, optionCode) value(#{purchaseNum}, #{purchase.enrollNum}, #{purchase.purchase}, #{purchase.optionCode})
+		insert into purchaseList(purchaseNum, enrollNum, purchase, optionCode) value(#{purchaseNum}, #{purchase.enrollNum}, #{purchase.purchase}, #{purchase.optionCode})
 	</insert>
 	<select id="getPurchaseTonum" resultType="kr.green.project.vo.PurchaseVo">
 		select * from purchase where num = #{num} and isDel = 'N'
@@ -105,7 +105,7 @@
 		update purchase set isDel = 'Y' where num = #{num}
 	</update>
 	<select id="getEnrollNum" resultType="int">
-		select enrollNum from project.shoppingbasket where shoppingNum = #{shoppingNum}
+		select enrollNum from shoppingbasket where shoppingNum = #{shoppingNum}
 	</select>
 	<select id="getPurchaseListConfirm" resultType="kr.green.project.vo.PurchaseVo">
 		select * from purchase where isConfirm = 'N' and confirmDate is not null

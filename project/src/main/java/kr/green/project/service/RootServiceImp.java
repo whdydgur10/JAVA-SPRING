@@ -106,10 +106,8 @@ public class RootServiceImp implements RootService {
 	@Override
 	public void updateAmount(String[] optionCode, int[] amount) {
 		for(int i = 0; i < optionCode.length; i++ ) {
-			if(amount[i] != 0)
 				rootDao.updateAmount(optionCode[i], amount[i]);
 		}
-		
 	}
 	
 	@Override

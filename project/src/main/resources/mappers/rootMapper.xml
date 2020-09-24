@@ -5,7 +5,7 @@
   <mapper namespace="kr.green.project.dao.RootDao">
   	<select id="getProductOptionList" resultType="kr.green.project.dto.ProductOptionDto">
   		select * from product
-				join project.option 
+				join `option` 
 		        where product.code = productCode
   				<if test="productCode != null">
   					and product.code like concat('%',#{productCode},'%')
@@ -49,20 +49,20 @@
   				limit #{rootCri.pageStart} , #{rootCri.perPageNum}
   	</select>
   	<update id="updateAmount">
-  		update project.option set amount = #{amount} where optionCode = #{optionCode}
+  		update `option` set amount = amount + #{amount} where optionCode = #{optionCode}
   	</update>
   	<select id="getProductCode" resultType="kr.green.project.vo.ProductVo">
   		select * from product where code = #{code}		
   	</select>
   	<select id="getOptionSize" resultType="kr.green.project.vo.OptionVo">
-  		select * from project.option where productCode = #{productCode} group by size order by sizeNum
+  		select * from `option` where productCode = #{productCode} group by size order by sizeNum
   	</select>
   	<select id="getOptionColor" resultType="kr.green.project.vo.OptionVo">
-  		select color, sum(amount) as allAmount, productCode  from project.option where productCode = #{productCode} group by color
+  		select color, sum(amount) as allAmount, productCode  from `option` where productCode = #{productCode} group by color
   	</select>
   	<select id="countOption" resultType="int">
   		select count(*) from product
-				join project.option 
+				join `option` 
 		        where product.code = productCode
   				<if test="productCode != null">
   					and product.code like concat('%',#{productCode},'%')
@@ -108,13 +108,13 @@
   		insert into product values(#{product.code}, #{product.name}, #{product.price}, #{product.gender}, #{product.modify})
   	</insert>
   	<insert id="insertOption">
-  		insert into project.option(optionCode, size, color, productCode, sizeNum) values(#{option.optionCode}, #{option.size}, #{option.color}, #{option.productCode}, #{option.sizeNum})
+  		insert into `option`(optionCode, size, color, productCode, sizeNum) values(#{option.optionCode}, #{option.size}, #{option.color}, #{option.productCode}, #{option.sizeNum})
   	</insert>
   	<delete id="deleteSize">
-  		delete from project.option where productCode = #{productCode} and size = #{size}
+  		delete from `option` where productCode = #{productCode} and size = #{size}
   	</delete>
   	<delete id="deleteColor">
-  		delete from project.option where productCode = #{productCode} and color = #{color}
+  		delete from `option` where productCode = #{productCode} and color = #{color}
   	</delete>
   	<update id="updateProductModify">
   		update product set modify = #{modify} where code = #{code}
@@ -123,10 +123,10 @@
   		update product set name = #{product.name}, price = #{product.price}, gender = #{product.gender}, modify = #{product.modify}
   	</update>
   	<select id="getOption" resultType="kr.green.project.vo.OptionVo">
-  		select * from project.option where productCode = #{productCode} and size = #{size} and color = #{color}
+  		select * from `option` where productCode = #{productCode} and size = #{size} and color = #{color}
   	</select>
   	<select id="getEnrollment" resultType="kr.green.project.vo.ProductenrollmentVo">
-  		select * from project.productenrollment where productCode = #{code}
+  		select * from productenrollment where productCode = #{code}
   	</select>
   	<insert id="insertCategory">
   		insert into category(mainCategory, middleCategory, subCategory) values(#{category.mainCategory}, #{category.middleCategory}, #{category.subCategory})
@@ -138,35 +138,35 @@
   		select subCategory from category where mainCategory = #{category.mainCategory} and middleCategory = #{category.middleCategory} group by subCategory
   	</select>
   	<insert id="insertEnrollment">
-  		insert into project.productenrollment(productCode, discount, categoryNum, finalPrice, discountPercent) values(#{enrollment.productCode}, #{enrollment.discount}, #{enrollment.categoryNum}, #{enrollment.finalPrice}, #{enrollment.discountPercent})
+  		insert into productenrollment(productCode, discount, categoryNum, finalPrice, discountPercent) values(#{enrollment.productCode}, #{enrollment.discount}, #{enrollment.categoryNum}, #{enrollment.finalPrice}, #{enrollment.discountPercent})
   	</insert>
   	<select id="getCategoryNum" resultType="int">
   		select categoryNum from category where mainCategory = #{category.mainCategory} and middleCategory = #{category.middleCategory} and subCategory = #{category.subCategory}
   	</select>
   	<select id="getProductenrollment" resultType="kr.green.project.vo.ProductenrollmentVo">
-  		select * from project.productenrollment where num = #{num}
+  		select * from productenrollment where num = #{num}
   	</select>
   	<select id="getEnrollmentString" resultType="kr.green.project.vo.ProductenrollmentVo">
-  		select * from project.productenrollment where productCode = #{productCode}
+  		select * from productenrollment where productCode = #{productCode}
   	</select>
   	<select id="getOptionSizeColor" resultType="kr.green.project.vo.OptionVo">
-  		select size, productCode, sizeNum, amount from project.option where productCode = #{productCode} and color = #{color} order by sizeNum
+  		select size, productCode, sizeNum, amount from `option` where productCode = #{productCode} and color = #{color} order by sizeNum
   	</select>
   	<update id="insertTitle">
-  		update project.productenrollment set mainTitle = #{enrollment.mainTitle}, subTitle = #{enrollment.subTitle}, isDel = 'N' where num = #{enrollmentNum}
+  		update productenrollment set mainTitle = #{enrollment.mainTitle}, subTitle = #{enrollment.subTitle}, isDel = 'N' where num = #{enrollmentNum}
   	</update>
   	<insert id="insertThumnailImage">
-  		insert into project.thumbnail(enrollmentNum, thumbnailImage) values(#{enrollmentNum}, #{fileName})
+  		insert into thumbnail(enrollmentNum, thumbnailImage) values(#{enrollmentNum}, #{fileName})
   	</insert>
   	<insert id="insertContentImage">
-  		insert into project.contentimage(enrollmentNum, contentImage) values(#{enrollmentNum}, #{fileName})
+  		insert into contentimage(enrollmentNum, contentImage) values(#{enrollmentNum}, #{fileName})
   	</insert>
   	<insert id="insertContentremark">
-  		insert into project.contentremark(contentElasticity, contentLining, contentSeethrough, contentThickness, contentWeight, contentDry, contentRemarkText, enrollmentNum) 
+  		insert into contentremark(contentElasticity, contentLining, contentSeethrough, contentThickness, contentWeight, contentDry, contentRemarkText, enrollmentNum) 
   			values(#{remark.contentElasticity}, #{remark.contentLining}, #{remark.contentSeethrough}, #{remark.contentThickness}, #{remark.contentWeight}, #{remark.contentDry}, #{remark.contentRemarkText}, #{enrollmentNum})
   	</insert>
   	<insert id="insertContentsize">
-  		insert into project.contentsize(contentSize, contentLength, contentShoulder, contentChest, contentSleeve, enrollmentNum)
+  		insert into contentsize(contentSize, contentLength, contentShoulder, contentChest, contentSleeve, enrollmentNum)
   			values(#{size.contentSize}, #{size.contentLength}, #{size.contentShoulder}, #{size.contentChest}, #{size.contentSleeve}, #{enrollmentNum})
   	</insert>
   	<insert id="insertContentSizeText">
@@ -227,7 +227,7 @@
   		 contentWeight = #{contentremark.contentWeight}, contentDry = #{contentremark.contentDry}, contentRemarkText = #{contentremark.contentRemarkText} where enrollmentNum = #{enrollmentNum}
   	</update>
   	<select id="getIsEnrollment" resultType="kr.green.project.vo.ProductenrollmentVo">
-  		select * from project.productenrollment where productCode = #{productCode} and isDel = 'N'
+  		select * from productenrollment where productCode = #{productCode} and isDel = 'N'
   	</select>
   	<update id="deleteEnroll">
   		update proejct.productenrollment set isDel = 'Y' where num = #{enrollNum}
@@ -246,6 +246,7 @@
 			  					or phone like concat('%',#{rri.search},'%')
 			  					or birthday like concat('%',#{rri.search},'%')
 			  					or email like concat('%',#{rri.search},'%')
+			  					or comment like concat('%',#{rri.search},'%')
 			  				</if>
 			  				<if test="rri.type == '아이디desc'">
 			  				order by id desc
@@ -395,10 +396,10 @@
 	 	update refund set stat = #{refund.stat}, completeDate = #{refund.completeDate} where refundNum = #{refund.refundNum}
 	 </update>
 	 <select id="getSalesMonth" resultType="Integer">
-		select sum(price) from project.purchase where isConfirm = 'Y' and confirmDate like concat(#{month},'%')
+		select sum(price) from purchase where isConfirm = 'Y' and confirmDate like concat(#{month},'%')
 	</select>
 	<select id="getSalesDay" resultType="Integer">
-		select sum(price) from project.purchase where isConfirm = 'Y' and confirmDate = #{date}
+		select sum(price) from purchase where isConfirm = 'Y' and confirmDate = #{date}
 	</select>
 	<select id="getCountPurchaseAccount" resultType="int">
 		select count(*) from purchase where payment = 'account' and isDel = 'N'

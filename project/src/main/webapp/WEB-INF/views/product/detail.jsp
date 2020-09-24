@@ -529,6 +529,7 @@
 	$(window).scroll(function () {
 		var height = $(document).scrollTop();
 		log(height);
+		console.log(height);
 	});
 	function log(str){
 	    if(str > 150){
@@ -741,6 +742,7 @@
 		if(color != ""){
 			$('#size').removeAttr('disabled');
 			var list = {"productCode":code, "color":color};
+			console.log(list);
 			$.ajax({
 				async:true,
 				type:'POST',
@@ -754,6 +756,8 @@
 					for(var i = 0; i < data['option'].length; i++){
 						$('#size').append(data['option'][i]);
 					}
+			    },error:function(request,status,error){
+			        console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
 			    }
 			});
 		}else

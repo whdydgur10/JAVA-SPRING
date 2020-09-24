@@ -55,11 +55,12 @@
 							<td><input type="text" value="${list.name}" readonly></td>
 							<td><input type="text" value="${list.size}" readonly></td>
 							<td><input type="text" value="${list.color}" readonly></td>
-							<td><input type="text" class="amount1" value="${list.amount}" readonly></td>
+							<td><input type="text" value="${list.amount}" readonly></td>
 							<td><input type="text" value="${list.purchase}" readonly></td>
-							<td><input class="input" type="text"></td>
-							<td><input type="hidden" name="amount" value="0"></td>
-							<td><input type="hidden" name="optionCode" value="${list.optionCode}"></td>
+							<td>
+								<input class="input" type="text" value="0">
+								<input type="hidden" value="${list.optionCode}">
+							</td>
 						</tr>
 					</c:forEach>
 				</c:if>
@@ -89,8 +90,13 @@
             }
         })
 		$('.input').change(function(){
-			var amount = parseInt($(this).parents('tr').find('.amount1').val()) + parseInt($(this).val());
-			$(this).parents('tr').find('input[name=amount]').val(amount);
+			if($(this).val() != 0){
+				$(this).attr('name','amount');
+				$(this).next().attr('name','optionCode');
+			}else{
+				$(this).removeAttr('name');
+				$(this).next().removeAttr('name');
+			}
 		})
 		$('.group').change(function(){
 			var type = $(this).val() + $('.order').val();

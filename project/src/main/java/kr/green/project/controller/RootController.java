@@ -624,4 +624,15 @@ public class RootController {
 	    roots.insertExpenditure(request);
 	    return map;
 	}
+	
+	@RequestMapping(value= "/root/product/imageTest", method = RequestMethod.GET)
+	public ModelAndView rootProductImageTestGet(ModelAndView mv, HttpServletRequest h, RootCri rri){
+		UserVo user = (UserVo)h.getSession().getAttribute("user");
+		if(user.getAuth() == 0) 
+			mv.setViewName("redirect:/");
+		else {
+			mv.setViewName("/root/product/imageTest");
+		}
+	    return mv;
+	}
 }

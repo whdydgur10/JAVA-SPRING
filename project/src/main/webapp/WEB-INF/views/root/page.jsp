@@ -129,6 +129,9 @@
 	<div class="linkBox">
 		<a href="<%=request.getContextPath()%>/root/product/expenditure">지출 내역</a>
 	</div>
+	<div class="linkBox">
+		<a href="<%=request.getContextPath()%>/root/product/imageTest">이미지</a>
+	</div>
 </div>
 <div id="myModal" class="modal"> 
 	<div class="modal-content">

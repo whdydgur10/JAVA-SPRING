@@ -13,7 +13,7 @@
 		select count(*) from purchase where userId = #{id} and isDel = 'N'
 	</select>
 	<select id="getVaginalNum" resultType="int">
-		select count(*) from project.vaginal where userId = #{id}
+		select count(*) from vaginal where userId = #{id}
 	</select>
 	<select id="getShoppingBasketNum" resultType="int">
 		select count(*) from shoppingBasket where userId = #{id} and isPurchase = 'N'
@@ -86,31 +86,31 @@
 		select * from purchase where userId = #{id} and isDel = 'N' order by situation desc, deposit asc, depositDate asc, num desc;
 	</select>
 	<select id="getVaginalList" resultType="kr.green.project.vo.VaginalVo">
-		select * from project.vaginal where userId = #{id} order by num DESC
+		select * from vaginal where userId = #{id} order by num DESC
 	</select>
 	<select id="getShoppingBasketList" resultType="kr.green.project.vo.ShoppingbasketVo">
-		select * from project.shoppingbasket where userId = #{id} and isPurchase = 'N' order by shoppingNum desc
+		select * from shoppingbasket where userId = #{id} and isPurchase = 'N' order by shoppingNum desc
 	</select>
 	<select id="getShopEnrollProOptionThumbDto" resultType="kr.green.project.dto.ShopEnrollProOptionThumbDto">
-		select * from project.productenrollment
+		select * from productenrollment
 				join(select min(thumbnailNum), thumbnailImage from thumbnail where enrollmentNum = ${enrollNum}) as thumb
-                join(select size, color from project.option where optionCode = #{optionCode}) as op
+                join(select size, color from `option` where optionCode = #{optionCode}) as op
                 where productenrollment.num = ${enrollNum};
 	</select>
 	<select id="getCategory" resultType="kr.green.project.vo.CategoryVo">
 		select * from category where categoryNum = #{categoryNum}
 	</select>
 	<select id="getShoppingBasket" resultType="kr.green.project.vo.ShoppingbasketVo">
-		select * from project.shoppingbasket where shoppingNum = #{shoppingNum}
+		select * from shoppingbasket where shoppingNum = #{shoppingNum}
 	</select>
 	<update id="deleteShoppingBasket">
-		update project.shoppingbasket set isPurchase = 'Y' where shoppingNum = #{shoppingNum}
+		update shoppingbasket set isPurchase = 'Y' where shoppingNum = #{shoppingNum}
 	</update>
 	<select id="getPurchaseListTonum" resultType="kr.green.project.vo.PurchaselistVo">
-		select * from project.purchaselist where purchaseNum = #{purchaseNum} and isCancel = 'N'
+		select * from purchaselist where purchaseNum = #{purchaseNum} and isCancel = 'N'
 	</select>
 	<select id="getEnrollmentMainTitle" resultType="String">
-		select mainTitle from project.productenrollment where num = #{enrollNum}
+		select mainTitle from productenrollment where num = #{enrollNum}
 	</select>
 	<select id="getPointPercent" resultType="double">
 		select point from level 
@@ -131,17 +131,17 @@
 		select point from user where id = #{id}
 	</select>
 	<update id="updatePurchaseConfirm">
-		update project.purchase set isConfirm = 'Y', confirmDate = #{date} where num = #{num}
+		update purchase set isConfirm = 'Y', confirmDate = #{date} where num = #{num}
 	</update>
 	<update id="updatePurchaseDelivery">
-		update project.purchase set deliveryPrice = #{deliveryPrice} where num = #{num}
+		update purchase set deliveryPrice = #{deliveryPrice} where num = #{num}
 	</update>
 	<update id="updatePurchaseCancel">
-		update project.purchaselist set isCancel = #{isCancel} where listNum = #{listNum}
+		update purchaselist set isCancel = #{isCancel} where listNum = #{listNum}
 	</update>
 	<select id="getPurchaseForCancel" resultType="kr.green.project.vo.PurchaseVo">
 		select * from purchase
-						join (select * from project.purchaselist where isCancel = 'N' and purchaseNum = #{num}) as list
+						join (select * from purchaselist where isCancel = 'N' and purchaseNum = #{num}) as list
 						on purchase.num = list.purchaseNum
 	</select>
 	<update id="deletePurchase">
@@ -157,6 +157,6 @@
 		insert into refund(listNum, userId, price, reason, refundDate, stat) values(#{refund.listNum}, #{refund.userId}, #{refund.price}, #{refund.reason}, #{refund.refundDate}, #{refund.stat})
 	</insert>
 	<update id="updatePurchaseSitudation">
-		update project.purchase set situation = '상품 준비중', confirmDate = null, purchase.change = '교환건', invoice = null where num = #{num}
+		update purchase set situation = '상품 준비중', confirmDate = null, purchase.change = '교환건', invoice = null where num = #{num}
 	</update>
 </mapper>

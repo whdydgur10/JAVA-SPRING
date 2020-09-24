@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.project.dao.ReviewDao">
 	<select id="getPurchaselistReview" resultType="kr.green.project.dto.PurchaselistEnrollDto">
-		select * from project.purchaselist 
-				join project.productenrollment
+		select * from purchaselist 
+				join productenrollment
                 on purchaselist.enrollNum = productenrollment.num
 				where purchaseNum = #{purchaseNum} and isCancel = 'N' and reviewNum is null
 	</select>
@@ -29,18 +29,18 @@
 	</select>
 	<select id="getReviewOption" resultType="kr.green.project.dto.ReviewPurchaseOptionDto">
 		select * from review
-				join project.purchaselist
+				join purchaselist
 	            on review.num = purchaselist.reviewNum
-	            join (select * from project.option where project.option.optionCode = #{optionCode}) as op
+	            join (select * from `option` where `option`.optionCode = #{optionCode}) as op
 	            on purchaselist.optionCode = op.optionCode
 	            where review.enrollNum = #{num}
 	            order by review.num desc
 				limit #{pri.pageStart}, #{pri.perPageNum}
 	</select>
 	<select id="getOptionCodeTolist" resultType="String">
-		select optionCode from project.purchaselist where reviewNum = #{num}
+		select optionCode from purchaselist where reviewNum = #{num}
 	</select>
 	<select id="getReviewfile" resultType="String">
-		select image from project.reviewfile where reviewNum = #{num}
+		select image from reviewfile where reviewNum = #{num}
 	</select>
 </mapper>

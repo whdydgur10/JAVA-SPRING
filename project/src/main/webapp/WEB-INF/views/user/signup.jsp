@@ -101,7 +101,7 @@
 			<input type="hidden" name="phone" id="phone" class="phone">
 			<div class="certification" style="margin-top:5px;">
 				<input type="text" class="num4" name="num4" disabled="disabled" placeholder="인증번호 입력" style="width: 250px;text-align:center;">
-				<input type="hidden" class="num5" name="num5" >
+				<input type="hidden" class="num5" name="num5" id="num5" >
 				<button class="btn-certification" type="button" style="float:right;width:130px;">인증번호 받기</button>
 			</div>
 		</div>
@@ -133,7 +133,7 @@
 		})
 		
 		$('.btn-certification').click(function(){
-			$(this).prev().removeAttr('disabled');
+			$(this).prev().prev().removeAttr('disabled');
 			var phone = $('.phone').val();
 			$.ajax({
 				async:true,

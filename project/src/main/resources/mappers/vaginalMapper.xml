@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.project.dao.VaginalDao">
 	<select id="getVaginalList" resultType="kr.green.project.dto.UserVaginalDto">
-		select * from project.vaginal
+		select * from vaginal
 					join (select * from user) as user
 					on vaginal.userId = user.id
 					<if test="cri.search.length != 0">
@@ -15,7 +15,7 @@
 					limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getUserVaginal" resultType="kr.green.project.dto.UserVaginalDto">
-		select * from project.vaginal 
+		select * from vaginal 
 						join (select * from user) as user
 						on vaginal.userId = user.id
 						where num = #{num}
@@ -24,25 +24,25 @@
 		select * from answer where vaginalNum = #{num}
 	</select>
 	<update id="increaseView">
-		update project.vaginal set view = view + 1 where num = #{num}
+		update vaginal set view = view + 1 where num = #{num}
 	</update>
 	<insert id="insertVaginal">
-		insert into project.vaginal(num, title, registerDate, isSecret, userId, content, registerNum) values(#{vaginal.num}, #{vaginal.title}, #{vaginal.registerDate}, #{vaginal.isSecret}, #{id}, #{vaginal.content}, #{vaginal.registerNum})
+		insert into vaginal(num, title, registerDate, isSecret, userId, content, registerNum) values(#{vaginal.num}, #{vaginal.title}, #{vaginal.registerDate}, #{vaginal.isSecret}, #{id}, #{vaginal.content}, #{vaginal.registerNum})
 	</insert>
 	<select id="countVaginalAuth" resultType="int">
-		select count(*) from project.vaginal
+		select count(*) from vaginal
 							join (select * from user) as user
 							on vaginal.userId = user.id
 							where user.auth = 0
 	</select>
 	<select id="countVaginalA" resultType="int">
-		select count(*) from project.vaginal
+		select count(*) from vaginal
 							join (select * from user) as user
 							on vaginal.userId = user.id
 							where user.auth = 1
 	</select>
 	<select id="countVaginal" resultType="int">
-		select count(*) from project.vaginal
+		select count(*) from vaginal
 					<if test="cri.search.length != 0">
 						where vaginal.title like concat ('%',#{cri.search},'%')
 						or vaginal.content like concat ('%',#{cri.search},'%')
@@ -52,10 +52,10 @@
 		insert vaginalFile(image, vaginalNum) values(#{fileName}, #{num})
 	</insert>
 	<select id="getLateVaginalNum" resultType="int">
-		select max(num) from project.vaginal where userId = #{id}
+		select max(num) from vaginal where userId = #{id}
 	</select>
 	<select id="getVaginalFile" resultType="kr.green.project.vo.VaginalfileVo">
-		select * from project.vaginalfile where vaginalNum = #{num}
+		select * from vaginalfile where vaginalNum = #{num}
 	</select>
 	<insert id="insertAnswer">
 		insert into answer(userId, vaginalNum, content, answerDate) values(#{answer.userId}, #{answer.vaginalNum}, #{answer.content}, #{answer.answerDate})
@@ -64,15 +64,15 @@
 		select max(num) from answer
 	</select>
 	<select id="getAnswerFile" resultType="kr.green.project.vo.AnswerfileVo">
-		select * from project.answerfile where answerNum = #{num}
+		select * from answerfile where answerNum = #{num}
 	</select>
 	<select id="getAnswerNum" resultType="int">
 		select num from answer where vaginalNum = #{num}
 	</select>
 	<insert id="insertAnswerFile">
-		insert into project.answerfile(image, answerNum) values(#{fileName}, #{num})
+		insert into answerfile(image, answerNum) values(#{fileName}, #{num})
 	</insert>
 	<update id="updateVaginalAnswer">
-		update project.vaginal set isAnswer = 'Y' where num = #{num}
+		update t.vaginal set isAnswer = 'Y' where num = #{num}
 	</update>
 </mapper>
