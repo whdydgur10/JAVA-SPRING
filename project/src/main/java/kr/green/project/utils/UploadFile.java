@@ -17,9 +17,7 @@ public class UploadFile {
 	}
 	
 	private static String calcPath(String uploadPath, String code) {
-		
 		makeDir(uploadPath, code);
-		
 		return code;
  
 	}

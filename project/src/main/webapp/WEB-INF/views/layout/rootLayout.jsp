@@ -11,7 +11,7 @@
 	<div style="width:1400px;height:100px;margin:0 auto;text-align:center;position:relative;">
     	<tiles:insertAttribute name="header"/>
     </div>
-    <div class="body" style="width:1400px;min-height:500px;margin:0 auto;">
+    <div class="body" style="width:1400px;min-height:580px;margin:0 auto;">
     	<tiles:insertAttribute name="body" />
     </div>
 	<tiles:insertAttribute name="footer" />

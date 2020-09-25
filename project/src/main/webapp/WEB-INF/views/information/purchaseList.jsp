@@ -22,7 +22,7 @@
 				<tbody >
 					<c:if test="${purchaseList.size() == 0}">
 						<tr>
-							<td colspan = "6">주문 내역이 없습니다.</td>
+							<td colspan = "7">주문 내역이 없습니다.</td>
 						</tr>
 					</c:if>
 					<c:if test="${purchaseList.size() != 0}">

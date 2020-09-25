@@ -24,8 +24,16 @@ import kr.green.project.vo.VaginalfileVo;
 @Service
 public class VaginalServiceImp implements VaginalService {
 
-	private String uploadPathVaginal = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\vaginal\\";
-	private String uploadPathAnswer = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\answer\\";
+	/*
+	 * private String uploadPathVaginal =
+	 * "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\vaginal\\";
+	 */
+	private String uploadPathVaginal = "/cyongh126/tomcat/webapps/ROOT/resources/img/vaginal/";
+	/*
+	 * private String uploadPathAnswer =
+	 * "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\answer\\";
+	 */
+	private String uploadPathAnswer = "/cyongh126/tomcat/webapps/ROOT/resources/img/answer/";
 	
 	@Autowired
 	VaginalDao vagiDao;

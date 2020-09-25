@@ -48,7 +48,11 @@ public class RootController {
 	RootService roots;
 	@Autowired
 	ProductService pros;
-	private String uploadPath = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\enrollment\\";
+	/*
+	 * private String uploadPath =
+	 * "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\enrollment\\";
+	 */
+	private String uploadPath = "/cyongh126/tomcat/webapps/ROOT/resources/img/enrollment/";
 	
 	@RequestMapping(value= "/root/page", method = RequestMethod.GET)
 	public ModelAndView rootGet(ModelAndView mv, HttpServletRequest h){
@@ -103,7 +107,6 @@ public class RootController {
 			mv.addObject("rootPage", roots.getRootPage(productCode, rootCri));
 			mv.addObject("group", group);
 			mv.addObject("order", order);
-			mv.addObject("productCode", productCode);
 			mv.addObject("productCode", productCode);
 			mv.addObject("productList", roots.getProductOptionList(productCode, rootCri));
 			mv.setViewName("/root/product/amount");

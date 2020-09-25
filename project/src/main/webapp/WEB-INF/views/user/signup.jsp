@@ -151,6 +151,9 @@
 		$('.num4').change(function(){
 			if($('.num5').val() != $(this).val())
 				alert('인증번호가 일치하지 않습니다.');
+			else
+				if($('.phone').val() != '' && $('.email').val() != '' && $('.num5').val() == $('.num4').val() && $('.num4').val() != '')
+					$('.btn-signup').removeAttr('disabled');
 		})
 		
 		$('.btn-signup').hover(function(){
@@ -210,7 +213,8 @@
 		$("form").validate({
 			submitHandler: function(form) {
 				var birthday = $('.year').val() + $('.month').val() + $('.day').val();
-				$('.birthday').val(birthday);
+				if($('.year').val() != '' && $('.month').val() != '' && $('.day').val() != '')
+					$('.birthday').val(birthday);
 			   	$(form).submit();
 			},
 		    rules: {
@@ -279,6 +283,8 @@
 				        $('#id-check').html('<p style="color:green;font-size:12px;">가입 가능한 아이디입니다</p>');
 				        $('button[type=submit]').removeAttr('disabled');
 				        yesId = id;
+				        if($('.phone').val() != '' && $('.email').val() != '' && $('.num5').val() == $('.num4').val() && $('.num4').val() != '')
+							$('.btn-signup').removeAttr('disabled');
 				    }
 			    }
 			});
@@ -286,10 +292,9 @@
 		
 		$('.id').change(function(){
 			id = $('.id').val();
-			if(id == ''){
+			if(id == '')
 				$('#id-check').html('<p style="color:red;font-size:12px;">필수 입력입니다</p>');
-				$('button[type=submit]').attr('disabled','disabled');
-			}else if(yesId != id)
+			else if(yesId != id)
 				$('button[type=submit]').attr('disabled','disabled');
 		})
 	})

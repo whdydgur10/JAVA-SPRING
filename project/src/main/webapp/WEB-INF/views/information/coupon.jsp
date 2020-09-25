@@ -12,7 +12,7 @@
 	<hr>
 	<form method="POST">
 		<input type="text" placeholder="쿠폰번호를 입력하세요." name="code" class="code" style="width:300px;"> 
-		<button type="button" style="display:inline-block;background-color:rgb(33,51,87);color:white;margin-left:10px;">쿠폰 등록하기</button>
+		<button type="button" class="<c:if test="${user.auth == 0}">regist</c:if><c:if test="${user.auth == 1}">make</c:if>" style="display:inline-block;background-color:rgb(33,51,87);color:white;margin-left:10px;">쿠폰 <c:if test="${user.auth == 0}">등록</c:if><c:if test="${user.auth == 1}">생성</c:if>하기</button>
 		<button type="submit" class="btn-coupon" hidden="hidden"></button>
 	</form>
 	
@@ -79,7 +79,7 @@
 </div>
 <script>
 	$(function(){
-		$('button[type=button]').click(function(){
+		$('.regist').click(function(){
 			code = $('.code').val();
 			$.ajax({
 				async:true,

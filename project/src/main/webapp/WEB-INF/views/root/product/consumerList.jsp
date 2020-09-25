@@ -5,6 +5,7 @@
 	th{
 		background-color: rgb(33,51,87) !important;
 		color:white !important;
+		cursor: default;
 	}
 	table input{
 		border: none;

@@ -16,7 +16,7 @@
 		select count(*) from vaginal where userId = #{id}
 	</select>
 	<select id="getShoppingBasketNum" resultType="int">
-		select count(*) from shoppingBasket where userId = #{id} and isPurchase = 'N'
+		select count(*) from shoppingbasket where userId = #{id} and isPurchase = 'N'
 	</select>
 	<select id="getReviewNum" resultType="int">
 		select count(*) from review where userId = #{id}

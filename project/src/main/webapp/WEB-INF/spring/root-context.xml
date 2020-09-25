@@ -19,7 +19,11 @@
 	    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 	    <!-- MySQL 버전이 6인 경우 아래 코드 반영 -->
 	    <!-- <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property> -->
-	  
+	    <!-- <property name="url"
+	              value="jdbc:mysql://localhost:3306/cyongh126?useSSL=false&amp;serverTimezone=Asia/Seoul">
+	    </property>
+	    <property name="username" value="cyongh126"></property>
+	    <property name="password" value="hee007890!@"></property> -->
 	   	<property name="url"
 	              value="jdbc:mysql://localhost:3306/project?useSSL=false&amp;serverTimezone=Asia/Seoul">
 	    </property>

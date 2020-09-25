@@ -15,10 +15,6 @@
 	table input{
 		text-align: center;
 	}
-	textarea{
-		resize: none;
-		overflow-y: hidden;
-	}
 </style>
 <div class="imageContainer">
 	<div class="card card-default pb-5">
@@ -62,7 +58,8 @@
 				row = row + '<tr>' + column + '</tr>';
 			}
 			console.log(str);
-			str = str + row + '<tr><td colspan="' + $('#option').val() + '" style="border:none;"><input type="text" style="border:none;text-align:right;width:100%;" placeholder="ex) 단위 : cm"></td></tr></tbody></table><canvas id="bar2" style="display:none;"></canvas>';
+			str = str + row + '<tr><td colspan="' + $('#option').val() + '" style="border:none;"><input type="text" style="border:none;text-align:right;width:100%;" placeholder="ex) 단위 : cm">'
+			+'</td></tr></tbody></table><canvas id="bar2" style="display:none;"></canvas>';
 			console.log(str);
 			$('#sizeTable').prepend(str);
 			table = $('#sizeTable table').css('width');
@@ -71,8 +68,8 @@
 	})
 	
 	$('.mkRemark').click(function(){
-		$('#sizeTable').append('<input type="text" style="width:' + table + '">');
-		removeBorder($('#sizeTable input'));
+		$('#sizeTable').append('<input type="text" style="width:' + table + ';opacity: 0.7;">');
+		removeInput($('#sizeTable input'));
 	})
 	/* onkeydown="resize(this)" onkeyup="resize(this)
 		function resize(obj) {
@@ -87,6 +84,15 @@
 				$(this).css('border','none');
 			else
 				$(this).css('border','1px solid black');
+		});
+	}
+
+	function removeInput(obj){
+		obj.keyup(function(){
+			if($(this).val() != '')
+				$(this).css('border','none');
+			else
+				$(this).remove();
 		});
 	}
 	function PrintDiv(div){

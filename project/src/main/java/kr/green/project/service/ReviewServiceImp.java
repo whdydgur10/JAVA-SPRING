@@ -24,7 +24,11 @@ public class ReviewServiceImp implements ReviewService {
 	ProductDao proDao;
 	@Autowired
 	ReviewDao revDao;
-	private String uploadPathreview = "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\review\\";
+	/*
+	 * private String uploadPathreview =
+	 * "D:\\조용혁\\JAVA-SPRING\\project\\src\\main\\webapp\\resources\\img\\review\\";
+	 */
+	private String uploadPathreview = "/cyongh126/tomcat/webapps/ROOT/resources/img/review/";
 	
 	public PurchaseVo getPurchaseTonum(int purchaseNum) {
 		return proDao.getPurchaseTonum(purchaseNum);

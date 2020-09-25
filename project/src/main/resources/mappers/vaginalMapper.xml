@@ -49,7 +49,7 @@
 					</if>
 	</select>
 	<insert id="insertVaginalFile">
-		insert vaginalFile(image, vaginalNum) values(#{fileName}, #{num})
+		insert vaginalfile(image, vaginalNum) values(#{fileName}, #{num})
 	</insert>
 	<select id="getLateVaginalNum" resultType="int">
 		select max(num) from vaginal where userId = #{id}
@@ -73,6 +73,6 @@
 		insert into answerfile(image, answerNum) values(#{fileName}, #{num})
 	</insert>
 	<update id="updateVaginalAnswer">
-		update t.vaginal set isAnswer = 'Y' where num = #{num}
+		update vaginal set isAnswer = 'Y' where num = #{num}
 	</update>
 </mapper>
